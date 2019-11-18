@@ -8,7 +8,8 @@ public class User {
   private int userId;
   private String userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
-  User(int userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName, String userPassword) {
+  User(int userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName,
+      String userPassword) {
     this.userId = userId;
     this.userName = userName;
     this.userAddress = userAddress;
@@ -103,7 +104,7 @@ public class User {
 
   public static void register(User user) {
     boolean registered = false;
-    
+
     for (String account : ReadObject.readArray("Account.txt")) {
       String[] details = account.split(",");
       if (details[5].equals(user.getUserLoginName())) {
@@ -111,7 +112,7 @@ public class User {
         break;
       }
     }
-    
+
     if (registered) {
       System.out.println("Username is taken");
     } else {
@@ -135,9 +136,14 @@ public class User {
       }
       i++;
     }
-
+    File oldFile = new File("Account.txt");
+    oldFile.delete();
     tempFile.renameTo(new File("Account.txt"));
     ActionLog.log("Updated user information");
+
+    User.myAccount.setUserName(user.getUserName());
+    User.myAccount.setUserAddress(user.getUserAddress());
+    User.myAccount.setUserEmail(user.getUserEmail());
   }
 
   @Override
