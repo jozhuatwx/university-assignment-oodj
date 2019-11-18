@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class User {
-  static User myAccount;
+  static User myAccount = new User(-1, "", "", "", "", "", "");
   private int userId;
   private String userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
@@ -89,20 +89,13 @@ public class User {
     for (String account : ReadObject.readArray("Account.txt")) {
       String[] details = account.split(",");
       if (details[5].equals(userLoginName) && details[6].equals(userPassword)) {
-        for (String detail : details) {
-          System.out.println(detail);
-        }
-
-        System.out.println(myAccount);
-
-        // ERROR NULL
         myAccount.setUserId(Integer.valueOf(details[0]));
         myAccount.setUserName(details[1]);
         myAccount.setUserAddress(details[2]);
         myAccount.setUserEmail(details[3]);
         myAccount.setUserRole(details[4]);
         myAccount.setUserLoginName(details[5]);
-
+        ActionLog.log("Login");
         break;
       }
     }
@@ -114,7 +107,7 @@ public class User {
     for (String account : ReadObject.readArray("Account.txt")) {
       String[] details = account.split(",");
       if (details[5].equals(user.getUserLoginName())) {
-        // registered = true;
+        registered = true;
         break;
       }
     }
@@ -122,8 +115,8 @@ public class User {
     if (registered) {
       System.out.println("Username is taken");
     } else {
-      // WriteObject.write(user, "Account.txt", true);
-      // ActionLog.log("Registered");
+      WriteObject.write(user, "Account.txt", true);
+      ActionLog.log("Registered new user: " + user);
     }
   }
 
@@ -144,6 +137,7 @@ public class User {
     }
 
     tempFile.renameTo(new File("Account.txt"));
+    ActionLog.log("Updated user information");
   }
 
   @Override
