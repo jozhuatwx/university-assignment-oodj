@@ -2,15 +2,26 @@ package productmanagement;
 
 public class Productmanagement {
   public static void main(String[] args) {
-    User.login("ccw", "password123");
+    
+  }
 
-    int userId = User.generateUserId();
-    String userName = "Chun Wei";
-    String userAddress = "Home";
-    String userEmail = "ccw@gmail.com";
-    String userLoginName = "www";
+  public static void testLogin() {
+    String userLoginName = "ccw";
     String userPassword = "password123";
-    ProductManager pm = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword);
-    User.register(pm);
+    
+    User.login(userLoginName, userPassword);
+  }
+
+  public static void testUserRegistration() {
+    Administrator administrator = new Administrator(User.generateUserId(), "Admin", "AdminHome", "admin@mail.com", "admin", "adminpassword");
+    User.register(administrator);
+
+    ProductManager productManager = new ProductManager(User.generateUserId(), "ProductMan", "ProductManHome", "productman@mail.com", "productman", "productmanpassword", ProductManager.ACTIVE);
+    User.register(productManager);
+  }
+
+  public static void testSupplierRegistration() {
+    Supplier supplier = new Supplier(Supplier.generateSupplierId(), "IKEA", "Cheras", "ikea@gmail.com", "012-3456789", Supplier.ACTIVE);
+    Supplier.register(supplier);
   }
 }
