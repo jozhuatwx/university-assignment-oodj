@@ -21,7 +21,7 @@ public class ReadObject {
         data.add(temp);
         // Read the next line into the temporary variable
         temp = reader.readLine();
-      };
+      }
       // Clears the resources in reader
       reader.close();
     } catch (IOException e) {

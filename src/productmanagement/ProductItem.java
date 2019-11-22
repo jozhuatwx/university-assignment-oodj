@@ -138,10 +138,8 @@ public class ProductItem {
     }
 
     if (!registered) {
-      // Write the new item into the Item database
-      WriteObject.write(item, "Item.txt", true);
-      // Record the action into the log
-      ActionLog.log("Registered new Item (" + item.getItemId() + ")");
+      // Write the new item into the Item database and log action
+      WriteObject.write(item, "Item.txt", true, "Registered new Item (" + item.getItemId() + ")");
     } else {
       // Display the error message
       System.out.println("Product item is registered");
@@ -163,8 +161,8 @@ public class ProductItem {
         String[] details = itemDetails.split(",");
         // Find the item with the matching ID
         if (details[0].equals(item.getItemId())) {
-          // Write the new details into the temporary file
-          WriteObject.write(item, "TempItem.txt", true);
+          // Write the new details into the temporary file and log action
+          WriteObject.write(item, "TempItem.txt", true, "Updated item information (" + item.getItemId() + ")");
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(itemArray.get(i), "TempItem.txt", true);
@@ -175,8 +173,6 @@ public class ProductItem {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File("Item.txt"));
-      // Record the action into the log
-      ActionLog.log("Updated item information (" + item.getItemId() + ")");
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);

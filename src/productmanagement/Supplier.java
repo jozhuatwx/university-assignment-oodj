@@ -97,10 +97,8 @@ public class Supplier {
   }
 
   public static void register(Supplier supplier) {
-    // Write the new supplier into the Supplier database
-    WriteObject.write(supplier, "Supplier.txt", true);
-    // Record the action into the log
-    ActionLog.log("Registered new Supplier (" + supplier.getSupplierId() + ")");
+    // Write the new supplier into the Supplier database and log action
+    WriteObject.write(supplier, "Supplier.txt", true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
   }
 
   public static void update(Supplier supplier) {
@@ -118,8 +116,8 @@ public class Supplier {
         String[] details = supplierDetails.split(",");
         // Find the supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
-          // Write the new details into the temporary file
-          WriteObject.write(supplier, "TempSupplier.txt", true);
+          // Write the new details into the temporary file and log action
+          WriteObject.write(supplier, "TempSupplier.txt", true, "Updated supplier information (" + supplier.getSupplierId() + ")");
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(supplierArray.get(i), "TempSupplier.txt", true);
@@ -130,8 +128,6 @@ public class Supplier {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File("Supplier.txt"));
-      // Record the action into the log
-      ActionLog.log("Updated supplier information (" + supplier.getSupplierId() + ")");
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);

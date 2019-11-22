@@ -117,10 +117,8 @@ public class ProductCatalogue {
   }
 
   public static void register(ProductCatalogue catalogue) {
-    // Write the new catalogue into the Catalogue database
-    WriteObject.write(catalogue, "Catalogue.txt", true);
-    // Record the action into the log
-    ActionLog.log("Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
+    // Write the new catalogue into the Catalogue database and log action
+    WriteObject.write(catalogue, "Catalogue.txt", true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
   }
 
   public static void update(ProductCatalogue catalogue) {
@@ -138,8 +136,8 @@ public class ProductCatalogue {
         String[] details = catalogueDetails.split(",");
         // Find the catalogue with the matching ID
         if (details[0].equals(catalogue.getCatalogueId())) {
-          // Write the new details into the temporary file
-          WriteObject.write(catalogue, "TempCatalogue.txt", true);
+          // Write the new details into the temporary file and log action
+          WriteObject.write(catalogue, "TempCatalogue.txt", true, "Updated catalogue information (" + catalogue.getCatalogueId() + ")");
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(catalogueArray.get(i), "TempCatalogue.txt", true);
@@ -150,8 +148,6 @@ public class ProductCatalogue {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File("Catalogue.txt"));
-      // Record the action into the log
-      ActionLog.log("Updated catalogue information (" + catalogue.getCatalogueId() + ")");
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);

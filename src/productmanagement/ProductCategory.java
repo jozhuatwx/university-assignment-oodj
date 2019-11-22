@@ -68,10 +68,8 @@ public class ProductCategory {
   }
 
   public static void register(ProductCategory category) {
-    // Write the new category into the Category database
-    WriteObject.write(category, "Category.txt", true);
-    // Record the action into the log
-    ActionLog.log("Registered new Category (" + category.getCategoryId() + ")");
+    // Write the new category into the Category database and log action
+    WriteObject.write(category, "Category.txt", true, "Registered new Category (" + category.getCategoryId() + ")");
   }
 
   public static void update(ProductCategory category) {
@@ -89,8 +87,8 @@ public class ProductCategory {
         String[] details = categoryDetails.split(",");
         // Find the category with the matching ID
         if (details[0].equals(category.getCategoryId())) {
-          // Write the new details into the temporary file
-          WriteObject.write(category, "TempCategory.txt", true);
+          // Write the new details into the temporary file and log action
+          WriteObject.write(category, "TempCategory.txt", true, "Updated category information (" + category.getCategoryId() + ")");
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(categoryArray.get(i), "TempCategory.txt", true);
@@ -101,8 +99,6 @@ public class ProductCategory {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File("Category.txt"));
-      // Record the action into the log
-      ActionLog.log("Updated category information (" + category.getCategoryId() + ")");
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
