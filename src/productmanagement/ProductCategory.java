@@ -132,7 +132,7 @@ public class ProductCategory {
     }
   }
 
-  public static ProductCategory search(String categoryName) {
+  public static ProductCategory search(String keyword) {
     ProductCategory category = new ProductCategory("-1", "", "");
 
     try {
@@ -143,7 +143,7 @@ public class ProductCategory {
         // Split the line into an array
         String[] details = categoryDetails.split(",");
         // Find if any existing category name matches the registering category
-        if (details[1].equals(categoryName)) {
+        if (details[1].contains(keyword) || details[2].contains(keyword)) {
           // Get category information
           category = new ProductCategory(details[0], details[1], details[2]);
           // Stop the iteration
