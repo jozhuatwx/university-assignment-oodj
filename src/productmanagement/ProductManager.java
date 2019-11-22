@@ -6,7 +6,7 @@ public class ProductManager extends User {
   private String pmStatus;
 
   // Construct the Product Manager
-  ProductManager(int userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String pmStatus) {
+  ProductManager(String userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String pmStatus) {
     super(userId, userName, userAddress, userEmail, "PM", userLoginName, userPassword);
   }
 
