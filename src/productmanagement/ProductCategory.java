@@ -109,7 +109,7 @@ public class ProductCategory {
     }
   }
 
-  // Overrides the default toString() to display the information of the Supplier class
+  // Overrides the default toString() to display the information of the Product Category class
   @Override
   public String toString() {
     return String.valueOf(getCategoryId()) + "," + getCategoryName() + "," + getCategoryDescription();
