@@ -68,8 +68,35 @@ public class ProductCategory {
   }
 
   public static void register(ProductCategory category) {
-    // Write the new category into the Category database and log action
-    WriteObject.write(category, "Category.txt", true, "Registered new Category (" + category.getCategoryId() + ")");
+    // Set default registered Category as false
+    boolean registered = false;
+    // Create a category array
+    try {
+      ArrayList<String> categoryArray = ReadObject.readArray("Category.txt");
+
+      // Iterate through the category array
+      for (String categoryDetails : categoryArray) {
+        // Split the line into an array
+        String[] details = categoryDetails.split(",");
+        // Find if any existing category name matches the registering category
+        if (details[1].equals(category.getCategoryName())) {
+          // Set the Category as registered
+          registered = true;
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing categorys
+    }
+
+    if (!registered) {
+      // Write the new category into the Category database and log action
+      WriteObject.write(category, "Category.txt", true, "Registered new Category (" + category.getCategoryId() + ")");
+    } else {
+      // Display the error message
+      System.out.println("Product category already exists");
+    }
   }
 
   public static void update(ProductCategory category) {
