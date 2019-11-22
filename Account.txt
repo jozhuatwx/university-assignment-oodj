@@ -1,1 +1,2 @@
-1,Chun Wei,Home,ccw@gmail.com,AD,ccw,password123;
+U00000001,Admin,AdminHome,admin@mail.com,AD,admin,adminpassword
+U00000002,ProductMan,ProductManHome,productman@mail.com,PM,productman,productmanpassword,null

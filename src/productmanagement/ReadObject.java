@@ -1,11 +1,13 @@
 package productmanagement;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ReadObject {
-  public static ArrayList<String> readArray(String filename) {
+  public static ArrayList<String> readArray(String filename) throws FileNotFoundException {
     // Creates an array list
     ArrayList<String> data = new ArrayList<String>();
     
@@ -22,7 +24,7 @@ public class ReadObject {
       };
       // Clears the resources in reader
       reader.close();
-    } catch (Exception e) {
+    } catch (IOException e) {
       // Displays the error message
       System.out.println(e);
     }
