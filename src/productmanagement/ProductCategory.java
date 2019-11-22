@@ -132,6 +132,30 @@ public class ProductCategory {
     }
   }
 
+  public static ProductCategory search(String categoryName) {
+    ProductCategory category = new ProductCategory("-1", "", "");
+
+    try {
+      ArrayList<String> categoryArray = ReadObject.readArray("Category.txt");
+
+      // Iterate through the category array
+      for (String categoryDetails : categoryArray) {
+        // Split the line into an array
+        String[] details = categoryDetails.split(",");
+        // Find if any existing category name matches the registering category
+        if (details[1].equals(categoryName)) {
+          // Get category information
+          category = new ProductCategory(details[0], details[1], details[2]);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing categorys
+    }
+    return category;
+  }
+
   // Overrides the default toString() to display the information of the Product Category class
   @Override
   public String toString() {
