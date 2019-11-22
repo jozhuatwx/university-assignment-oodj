@@ -100,7 +100,7 @@ public class Supplier {
     // Write the new supplier into the Supplier database
     WriteObject.write(supplier, "Supplier.txt", true);
     // Record the action into the log
-    ActionLog.log("Registered new Supplier. Supplier ID: " + supplier.getSupplierId());
+    ActionLog.log("Registered new Supplier (" + supplier.getSupplierId() + ")");
   }
 
   public static void update(Supplier supplier) {
@@ -131,7 +131,7 @@ public class Supplier {
       // Rename the temporary file
       tempFile.renameTo(new File("Supplier.txt"));
       // Record the action into the log
-      ActionLog.log("Updated supplier information");
+      ActionLog.log("Updated supplier information (" + supplier.getSupplierId() + ")");
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
