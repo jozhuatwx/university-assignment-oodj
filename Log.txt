@@ -1,2 +1,0 @@
-2019-11-22 12:54:53 User ID: 1 Role:  Action: Registered new user. User ID: U00000001
-2019-11-22 12:54:53 User ID: 1 Role:  Action: Registered new user. User ID: U00000002
