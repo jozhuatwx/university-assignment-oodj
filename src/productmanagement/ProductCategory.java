@@ -46,11 +46,10 @@ public class ProductCategory {
     String categoryId = "CT00000001";
 
     try {
-      // Create a category array list
       ArrayList<String> categoryArray = ReadObject.readArray("Category.txt");
 
       if (categoryArray.size() > 0) {
-        // Get the last line of the category array list
+        // Get the last line of the Category array list
         String lastLine = categoryArray.get(categoryArray.size() - 1);
         // Split the line into an array
         String[] lastLineDetails = lastLine.split(",");
@@ -62,7 +61,6 @@ public class ProductCategory {
     } catch (FileNotFoundException e) {
       // Ignore as there may be no exsting categorys
     }
-    
     // Return the value of the new Category ID
     return categoryId;
   }
@@ -70,15 +68,14 @@ public class ProductCategory {
   public static void register(ProductCategory category) {
     // Set default registered Category as false
     boolean registered = false;
-    // Create a category array
+
     try {
       ArrayList<String> categoryArray = ReadObject.readArray("Category.txt");
-
-      // Iterate through the category array
+      // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split the line into an array
         String[] details = categoryDetails.split(",");
-        // Find if any existing category name matches the registering category
+        // Find if any existing Category name matches the registering Category
         if (details[1].equals(category.getCategoryName())) {
           // Set the Category as registered
           registered = true;
@@ -106,13 +103,12 @@ public class ProductCategory {
     File tempFile = new File("TempCategory.txt");
 
     try {
-      // Create a category array list
       ArrayList<String> categoryArray = ReadObject.readArray("Category.txt");
-      // Iterate through the category array
+      // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split line into array
         String[] details = categoryDetails.split(",");
-        // Find the category with the matching ID
+        // Find the Category with the matching ID
         if (details[0].equals(category.getCategoryId())) {
           // Write the new details into the temporary file and log action
           WriteObject.write(category, "TempCategory.txt", true, "Updated category information (" + category.getCategoryId() + ")");
@@ -137,21 +133,20 @@ public class ProductCategory {
 
     try {
       ArrayList<String> categoryArray = ReadObject.readArray("Category.txt");
-
-      // Iterate through the category array
+      // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split the line into an array
         String[] details = categoryDetails.split(",");
-        // Find if any existing category name matches the registering category
+        // Find if any existing Category matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword)) {
-          // Get category information
+          // Get Category information
           category = new ProductCategory(details[0], details[1], details[2]);
           // Stop the iteration
           break;
         }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing categorys
+      // Ignore as there may be no existing Categories
     }
     return category;
   }
