@@ -115,10 +115,37 @@ public class ProductItem {
   }
 
   public static void register(ProductItem item) {
-    // Write the new item into the Item database
-    WriteObject.write(item, "Item.txt", true);
-    // Record the action into the log
-    ActionLog.log("Registered new Item (" + item.getItemId() + ")");
+    // Set default registered product item as false
+    boolean registered = false;
+    // Create a product item array
+    try {
+      ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
+
+      // Iterate through the product item array
+      for (String itemDetails : itemArray) {
+        // Split the line into an array
+        String[] details = itemDetails.split(",");
+        // Find if any existing product item name and brand matches the registering product item
+        if (details[1].equals(item.getItemName()) && details[2].equals(item.getItemBrand())) {
+          // Set the product as registered
+          registered = true;
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing product items
+    }
+
+    if (!registered) {
+      // Write the new item into the Item database
+      WriteObject.write(item, "Item.txt", true);
+      // Record the action into the log
+      ActionLog.log("Registered new Item (" + item.getItemId() + ")");
+    } else {
+      // Display the error message
+      System.out.println("Product item is registered");
+    }
   }
 
   public static void update(ProductItem item) {
