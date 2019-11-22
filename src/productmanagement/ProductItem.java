@@ -5,12 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ProductItem {
-  private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId;
+  private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId, itemCategoryId;
   private int itemQuantity;
   private double itemPrice;
 
   // Construct the Product Item
-  ProductItem(String itemId, String itemName, String itemBrand, int itemQuantity, double itemPrice, String itemDescription, String itemImagePath, String itemSupplierId) {
+  ProductItem(String itemId, String itemName, String itemBrand, int itemQuantity, double itemPrice, String itemDescription, String itemImagePath, String itemSupplierId, String itemCategoryId) {
     this.itemId = itemId;
     this.itemName = itemName;
     this.itemBrand = itemBrand;
@@ -19,6 +19,7 @@ public class ProductItem {
     this.itemDescription = itemDescription;
     this.itemImagePath = itemImagePath;
     this.itemSupplierId = itemSupplierId;
+    this.itemCategoryId = itemCategoryId;
   }
 
   // Getters and setters
@@ -86,7 +87,15 @@ public class ProductItem {
     this.itemSupplierId = itemSupplierId;
   }
 
-    // Generate the Product Item ID
+  public String getItemCategoryId() {
+    return itemCategoryId;
+  }
+
+  public void setItemCategoryId(String itemCategoryId) {
+    this.itemCategoryId = itemCategoryId;
+  }
+
+  // Generate the Product Item ID
   public static String generateItemId() {
     // Set default ID to 1
     int intItemId = 1;
@@ -177,7 +186,7 @@ public class ProductItem {
   }
 
   public static ProductItem search(String keyword) {
-    ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "");
+    ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "", "");
 
     try {
       ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
@@ -188,7 +197,7 @@ public class ProductItem {
         // Find if any existing Item matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword) || details[5].contains(keyword)) {
           // Get Item information
-          item = new ProductItem(details[0], details[1], details[2], Integer.valueOf(details[3]), Double.valueOf(details[4]), details[5], details[6], details[7]);
+          item = new ProductItem(details[0], details[1], details[2], Integer.valueOf(details[3]), Double.valueOf(details[4]), details[5], details[6], details[7], details[8]);
           // Stop the iteration
           break;
         }
