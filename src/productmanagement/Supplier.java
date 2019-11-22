@@ -97,8 +97,35 @@ public class Supplier {
   }
 
   public static void register(Supplier supplier) {
-    // Write the new supplier into the Supplier database and log action
-    WriteObject.write(supplier, "Supplier.txt", true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
+    // Set default registered Supplier as false
+    boolean registered = false;
+    // Create a supplier array
+    try {
+      ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
+
+      // Iterate through the supplier array
+      for (String supplierDetails : supplierArray) {
+        // Split the line into an array
+        String[] details = supplierDetails.split(",");
+        // Find if any existing supplier name matches the registering supplier
+        if (details[1].equals(supplier.getSupplierName())) {
+          // Set the Supplier as registered
+          registered = true;
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing suppliers
+    }
+
+    if (!registered) {
+      // Write the new supplier into the Supplier database and log action
+      WriteObject.write(supplier, "Supplier.txt", true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
+    } else {
+      // Display the error message
+      System.out.println("Supplier is registered");
+    }
   }
 
   public static void update(Supplier supplier) {
