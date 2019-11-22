@@ -206,10 +206,12 @@ public class User {
       // Record the action into the log
       ActionLog.log("Updated user information");
 
-      // Update the user's information in the session
-      User.myAccount.setUserName(user.getUserName());
-      User.myAccount.setUserAddress(user.getUserAddress());
-      User.myAccount.setUserEmail(user.getUserEmail());
+      if (user.getUserId().equals(User.myAccount.getUserId())) {
+        // Update the user's information in the session
+        User.myAccount.setUserName(user.getUserName());
+        User.myAccount.setUserAddress(user.getUserAddress());
+        User.myAccount.setUserEmail(user.getUserEmail());
+      }
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
