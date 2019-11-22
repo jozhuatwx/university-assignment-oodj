@@ -134,6 +134,9 @@ public class User {
           }
           // Stop the iteration
           break;
+        } else {
+          // Display the error message
+          System.out.println("Wrong login name");
         }
       }
     } catch (FileNotFoundException e) {
@@ -172,7 +175,7 @@ public class User {
       // Record the new user into the Account database
       WriteObject.write(user, "Account.txt", true);
       // Record the action into the log
-      ActionLog.log("Registered new user. User ID: " + user.getUserId());
+      ActionLog.log("Registered new User (" + user.getUserId() + ")");
     }
   }
 
@@ -204,7 +207,7 @@ public class User {
       // Rename the temporary file
       tempFile.renameTo(new File("Account.txt"));
       // Record the action into the log
-      ActionLog.log("Updated user information");
+      ActionLog.log("Updated user information (" + user.getUserId() + ")");
 
       if (user.getUserId().equals(User.myAccount.getUserId())) {
         // Update the user's information in the session
