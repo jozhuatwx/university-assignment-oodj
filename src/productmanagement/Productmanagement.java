@@ -46,6 +46,6 @@ public class ProductManagement {
   }
 
   public static void testCategorySearch() {
-    System.out.println(ProductCategory.search("UTable"));
+    System.out.println(ProductCategory.search("Table"));
   }
 }
