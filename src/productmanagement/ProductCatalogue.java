@@ -117,8 +117,35 @@ public class ProductCatalogue {
   }
 
   public static void register(ProductCatalogue catalogue) {
-    // Write the new catalogue into the Catalogue database and log action
-    WriteObject.write(catalogue, "Catalogue.txt", true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
+    // Set default registered Catalogue as false
+    boolean registered = false;
+    // Create a catalogue array
+    try {
+      ArrayList<String> catalogueArray = ReadObject.readArray("Catalogue.txt");
+
+      // Iterate through the catalogue array
+      for (String catalogueDetails : catalogueArray) {
+        // Split the line into an array
+        String[] details = catalogueDetails.split(",");
+        // Find if any existing catalogue title matches the registering catalogue
+        if (details[1].equals(catalogue.getCatalogueTitle())) {
+          // Set the Catalogue as registered
+          registered = true;
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing catalogues
+    }
+
+    if (!registered) {
+      // Write the new catalogue into the Catalogue database and log action
+      WriteObject.write(catalogue, "Catalogue.txt", true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
+    } else {
+      // Display the error message
+      System.out.println("Please use a different title");
+    }
   }
 
   public static void update(ProductCatalogue catalogue) {
