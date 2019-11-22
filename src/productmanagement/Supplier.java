@@ -99,6 +99,8 @@ public class Supplier {
   public static void register(Supplier supplier) {
     // Write the new supplier into the Supplier database
     WriteObject.write(supplier, "Supplier.txt", true);
+    // Record the action into the log
+    ActionLog.log("Registered new Supplier. Supplier ID: " + supplier.getSupplierId());
   }
 
   public static void update(Supplier supplier) {
