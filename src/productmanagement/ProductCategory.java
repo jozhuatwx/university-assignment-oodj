@@ -15,44 +15,26 @@ public class ProductCategory {
   }
 
   // Getters and setters
-  /**
-   * @return the categoryId
-   */
   public String getCategoryId() {
     return categoryId;
   }
 
-  /**
-   * @param categoryId the categoryId to set
-   */
   public void setCategoryId(String categoryId) {
     this.categoryId = categoryId;
   }
 
-  /**
-   * @return the categoryName
-   */
   public String getCategoryName() {
     return categoryName;
   }
 
-  /**
-   * @param categoryName the categoryName to set
-   */
   public void setCategoryName(String categoryName) {
     this.categoryName = categoryName;
   }
 
-  /**
-   * @return the categoryDescription
-   */
   public String getCategoryDescription() {
     return categoryDescription;
   }
 
-  /**
-   * @param categoryDescription the categoryDescription to set
-   */
   public void setCategoryDescription(String categoryDescription) {
     this.categoryDescription = categoryDescription;
   }
@@ -61,7 +43,7 @@ public class ProductCategory {
   public static String generateCategoryId() {
     // Set default ID to 1
     int intCategoryId = 1;
-    String categoryId = "S00000001";
+    String categoryId = "CT00000001";
 
     try {
       // Create a category array list
