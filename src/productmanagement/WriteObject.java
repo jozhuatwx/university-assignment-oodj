@@ -2,6 +2,8 @@ package productmanagement;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class WriteObject {
   public static void write(Object obj, String filename, boolean append) {
@@ -17,5 +19,22 @@ public class WriteObject {
       // Displays the error message
       System.out.println(e);
     }
+  }
+
+  public static void log(String action) {
+    // Get the date and time in the format of YYYY-MM-DD HH:mm:ss
+    String dateTime = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-DD HH:mm:ss")));
+    // Creates a log with the date, time, user ID, user role and the action made
+    String log = dateTime + "," + User.myUser.getUserId() + "," + User.myUser.getUserRole() + "," + action;
+    // Writes the log into the file
+    write(log, "Log.txt", true);
+  }
+
+  public static void write(Object obj, String filename, boolean append, String action) {
+    // Writes original file
+    write(obj, filename, append);
+
+    // Writes actions into log
+    log(action);
   }
 }
