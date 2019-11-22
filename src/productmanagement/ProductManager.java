@@ -8,6 +8,7 @@ public class ProductManager extends User {
   // Construct the Product Manager
   ProductManager(String userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String pmStatus) {
     super(userId, userName, userAddress, userEmail, "PM", userLoginName, userPassword);
+    this.pmStatus = pmStatus;
   }
 
   // Getters and Setters
