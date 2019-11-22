@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class User {
-  static User myAccount = new User("-1", "", "", "", "", "", "");
+  static User myUser = new User("-1", "", "", "", "", "", "");
   private String userId, userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
   // Construct the User
@@ -84,13 +84,13 @@ public class User {
     String userId = "U00000001";
 
     try {
-      // Create an account array list
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      // Create an user array list
+      ArrayList<String> userArray = ReadObject.readArray("User.txt");
 
 
-      if (accountArray.size() > 0) {
-        // Get the last line of the account array list
-        String lastLine = accountArray.get(accountArray.size() - 1);
+      if (userArray.size() > 0) {
+        // Get the last line of the user array list
+        String lastLine = userArray.get(userArray.size() - 1);
         // Split the line into an array
         String[] lastLineDetails = lastLine.split(",");
         // Read the ID of the line and add by 1
@@ -99,7 +99,7 @@ public class User {
         userId = "U" + String.format("%08d", intUserId);
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing accounts
+      // Ignore as there may be no existing users
     }
     // Return the value of the new User ID
     return userId;
@@ -108,26 +108,26 @@ public class User {
   // Log in the user
   public static void login(String userLoginName, String userPassword) {
     try {
-      // Create an account array
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      // Create an user array
+      ArrayList<String> userArray = ReadObject.readArray("User.txt");
 
-      // Iterate through the account array
-      for (String account : accountArray) {
+      // Iterate through the user array
+      for (String user : userArray) {
         // Split each line into an array
-        String[] details = account.split(",");
+        String[] details = user.split(",");
         // Find the user login name in the array list
         if (details[5].equals(userLoginName)) {
           // Compare if the password equals the input password
           if (details[6].equals(userPassword)) {
             // Set the user's information into the session
-            myAccount.setUserId(details[0]);
-            myAccount.setUserName(details[1]);
-            myAccount.setUserAddress(details[2]);
-            myAccount.setUserEmail(details[3]);
-            myAccount.setUserRole(details[4]);
-            myAccount.setUserLoginName(details[5]);
+            myUser.setUserId(details[0]);
+            myUser.setUserName(details[1]);
+            myUser.setUserAddress(details[2]);
+            myUser.setUserEmail(details[3]);
+            myUser.setUserRole(details[4]);
+            myUser.setUserLoginName(details[5]);
             // Record the action into the log
-            ActionLog.log("Login");
+            WriteObject.log("Login");
           } else {
             // Display the error message
             System.out.println("Wrong password");
@@ -148,14 +148,14 @@ public class User {
   public static void register(User user) {
     // Set default registered user as false
     boolean registered = false;
-    // Create an account array
+    // Create an user array
     try {
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      ArrayList<String> userArray = ReadObject.readArray("User.txt");
     
-      // Iterate through the account array
-      for (String account : accountArray) {
+      // Iterate through the user array
+      for (String userDetails : userArray) {
         // Split the line into an array
-        String[] details = account.split(",");
+        String[] details = userDetails.split(",");
         // Find if any existing user login name matches the registering user
         if (details[5].equals(user.getUserLoginName())) {
           // Set the user as registered
@@ -165,14 +165,12 @@ public class User {
         }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing accounts
+      // Ignore as there may be no existing users
     }
 
     if (!registered) {
-      // Record the new user into the Account database
-      WriteObject.write(user, "Account.txt", true);
-      // Record the action into the log
-      ActionLog.log("Registered new User (" + user.getUserId() + ")");
+      // Record the new user into the User database and log action
+      WriteObject.write(user, "User.txt", true, "Registered new User (" + user.getUserId() + ")");
     } else {
       // Display the error message
       System.out.println("User login name is taken");
@@ -181,39 +179,37 @@ public class User {
 
   public static void update(User user) {
     int i = 0;
-    File oldFile = new File("Account.txt");
+    File oldFile = new File("User.txt");
     // Create a temporary file
-    File tempFile = new File("TempAccount.txt");
+    File tempFile = new File("TempUser.txt");
     try {
-      // Create an account array
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      // Create an user array
+      ArrayList<String> userArray = ReadObject.readArray("User.txt");
 
-      // Iterate through the account array
-      for (String account : accountArray) {
+      // Iterate through the user array
+      for (String userDetails : userArray) {
         // Split the line into an array
-        String[] details = account.split(",");
+        String[] details = userDetails.split(",");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
-          // Write the new details into the temporary file
-          WriteObject.write(user, "TempAccount.txt", true);
+          // Write the new details into the temporary file and log action
+          WriteObject.write(user, "TempUser.txt", true, "Updated user information (" + user.getUserId() + ")");
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(accountArray.get(i), "TempAccount.txt", true);
+          WriteObject.write(userArray.get(i), "TempUser.txt", true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("Account.txt"));
-      // Record the action into the log
-      ActionLog.log("Updated user information (" + user.getUserId() + ")");
+      tempFile.renameTo(new File("User.txt"));
 
-      if (user.getUserId().equals(User.myAccount.getUserId())) {
+      if (user.getUserId().equals(User.myUser.getUserId())) {
         // Update the user's information in the session
-        User.myAccount.setUserName(user.getUserName());
-        User.myAccount.setUserAddress(user.getUserAddress());
-        User.myAccount.setUserEmail(user.getUserEmail());
+        User.myUser.setUserName(user.getUserName());
+        User.myUser.setUserAddress(user.getUserAddress());
+        User.myUser.setUserEmail(user.getUserEmail());
       }
     } catch (FileNotFoundException e) {
       // Display the error message
