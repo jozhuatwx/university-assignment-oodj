@@ -168,14 +168,14 @@ public class User {
       // Ignore as there may be no existing accounts
     }
 
-    if (registered) {
-      // Display the error message
-      System.out.println("Username is taken");
-    } else {
+    if (!registered) {
       // Record the new user into the Account database
       WriteObject.write(user, "Account.txt", true);
       // Record the action into the log
       ActionLog.log("Registered new User (" + user.getUserId() + ")");
+    } else {
+      // Display the error message
+      System.out.println("User login name is taken");
     }
   }
 
