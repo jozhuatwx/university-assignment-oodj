@@ -1,15 +1,15 @@
 package productmanagement;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class User {
-  static User myAccount = new User(-1, "", "", "", "", "", "");
-  private int userId;
-  private String userName, userAddress, userEmail, userRole, userLoginName, userPassword;
+  static User myAccount = new User("-1", "", "", "", "", "", "");
+  private String userId, userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
   // Construct the User
-  User(int userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName,
+  User(String userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName,
       String userPassword) {
     this.userId = userId;
     this.userName = userName;
@@ -21,11 +21,11 @@ public class User {
   }
 
   // Getters and setters
-  public int getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  public void setUserId(int userId) {
+  public void setUserId(String userId) {
     this.userId = userId;
   }
 
@@ -78,21 +78,28 @@ public class User {
   }
 
   // Generate the User ID
-  public static int generateUserId() {
+  public static String generateUserId() {
     // Set the default ID to 1
-    int userId = 1;
+    int intUserId = 1;
+    String userId = "U00000001";
 
-    // Create an account array list
-    ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+    try {
+      // Create an account array list
+      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
 
 
-    if (accountArray.size() > 0) {
-      // Get the last line of the account array list
-      String lastLine = accountArray.get(accountArray.size() - 1);
-      // Split the line into an array
-      String[] lastLineDetails = lastLine.split(",");
-      // Read the ID of the line and add by 1
-      userId = Integer.valueOf(lastLineDetails[0]) + 1;
+      if (accountArray.size() > 0) {
+        // Get the last line of the account array list
+        String lastLine = accountArray.get(accountArray.size() - 1);
+        // Split the line into an array
+        String[] lastLineDetails = lastLine.split(",");
+        // Read the ID of the line and add by 1
+        intUserId = Integer.valueOf(lastLineDetails[0].substring(1)) + 1;
+        // Add 'U' and leading zeros to the ID
+        userId = "U" + String.format("%08d", intUserId);
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing accounts
     }
     // Return the value of the new User ID
     return userId;
@@ -100,33 +107,38 @@ public class User {
 
   // Log in the user
   public static void login(String userLoginName, String userPassword) {
-    // Create an account array
-    ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+    try {
+      // Create an account array
+      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
 
-    // Iterate through the account array
-    for (String account : accountArray) {
-      // Split each line into an array
-      String[] details = account.split(",");
-      // Find the user login name in the array list
-      if (details[5].equals(userLoginName)) {
-        // Compare if the password equals the input password
-        if (details[6].equals(userPassword)) {
-          // Set the user's information into the session
-          myAccount.setUserId(Integer.valueOf(details[0]));
-          myAccount.setUserName(details[1]);
-          myAccount.setUserAddress(details[2]);
-          myAccount.setUserEmail(details[3]);
-          myAccount.setUserRole(details[4]);
-          myAccount.setUserLoginName(details[5]);
-          // Record the action into the log
-          ActionLog.log("Login");
-        } else {
-          // Display the error message
-          System.out.println("Wrong password");
+      // Iterate through the account array
+      for (String account : accountArray) {
+        // Split each line into an array
+        String[] details = account.split(",");
+        // Find the user login name in the array list
+        if (details[5].equals(userLoginName)) {
+          // Compare if the password equals the input password
+          if (details[6].equals(userPassword)) {
+            // Set the user's information into the session
+            myAccount.setUserId(details[0]);
+            myAccount.setUserName(details[1]);
+            myAccount.setUserAddress(details[2]);
+            myAccount.setUserEmail(details[3]);
+            myAccount.setUserRole(details[4]);
+            myAccount.setUserLoginName(details[5]);
+            // Record the action into the log
+            ActionLog.log("Login");
+          } else {
+            // Display the error message
+            System.out.println("Wrong password");
+          }
+          // Stop the iteration
+          break;
         }
-        // Stop the iteration
-        break;
       }
+    } catch (FileNotFoundException e) {
+      // Display the error message
+      System.out.println(e);
     }
   }
 
@@ -134,19 +146,23 @@ public class User {
     // Set default registered user as false
     boolean registered = false;
     // Create an account array
-    ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+    try {
+      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
     
-    // Iterate through the account array
-    for (String account : accountArray) {
-      // Split the line into an array
-      String[] details = account.split(",");
-      // Find if any existing user login name matches the registering user
-      if (details[5].equals(user.getUserLoginName())) {
-        // Set the user as registered
-        registered = true;
-        // Stop the iteration
-        break;
+      // Iterate through the account array
+      for (String account : accountArray) {
+        // Split the line into an array
+        String[] details = account.split(",");
+        // Find if any existing user login name matches the registering user
+        if (details[5].equals(user.getUserLoginName())) {
+          // Set the user as registered
+          registered = true;
+          // Stop the iteration
+          break;
+        }
       }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing accounts
     }
 
     if (registered) {
@@ -165,34 +181,39 @@ public class User {
     File oldFile = new File("Account.txt");
     // Create a temporary file
     File tempFile = new File("TempAccount.txt");
-    // Create an account array
-    ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+    try {
+      // Create an account array
+      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
 
-    // Iterate through the account array
-    for (String account : accountArray) {
-      // Split the line into an array
-      String[] details = account.split(",");
-      // Find the user with the matching ID
-      if (Integer.valueOf(details[0]).equals(user.getUserId())) {
-        // Write the new details into the temporary file
-        WriteObject.write(user, "TempAccount.txt", true);
-      } else {
-        // Write the old detail into the temporary file
-        WriteObject.write(accountArray.get(i), "TempAccount.txt", true);
+      // Iterate through the account array
+      for (String account : accountArray) {
+        // Split the line into an array
+        String[] details = account.split(",");
+        // Find the user with the matching ID
+        if (details[0].equals(user.getUserId())) {
+          // Write the new details into the temporary file
+          WriteObject.write(user, "TempAccount.txt", true);
+        } else {
+          // Write the old detail into the temporary file
+          WriteObject.write(accountArray.get(i), "TempAccount.txt", true);
+        }
+        i++;
       }
-      i++;
-    }
-    // Delete the old file
-    oldFile.delete();
-    // Rename the temporary file
-    tempFile.renameTo(new File("Account.txt"));
-    // Record the action into the log
-    ActionLog.log("Updated user information");
+      // Delete the old file
+      oldFile.delete();
+      // Rename the temporary file
+      tempFile.renameTo(new File("Account.txt"));
+      // Record the action into the log
+      ActionLog.log("Updated user information");
 
-    // Update the user's information in the session
-    User.myAccount.setUserName(user.getUserName());
-    User.myAccount.setUserAddress(user.getUserAddress());
-    User.myAccount.setUserEmail(user.getUserEmail());
+      // Update the user's information in the session
+      User.myAccount.setUserName(user.getUserName());
+      User.myAccount.setUserAddress(user.getUserAddress());
+      User.myAccount.setUserEmail(user.getUserEmail());
+    } catch (FileNotFoundException e) {
+      // Display the error message
+      System.out.println(e);
+    }
   }
 
   // Overrides the default toString() to display the information of the User class

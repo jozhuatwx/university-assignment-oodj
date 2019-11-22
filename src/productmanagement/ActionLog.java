@@ -9,7 +9,7 @@ public class ActionLog {
     // Get the date and time in the format of YYYY-MM-DD HH:mm:ss
     String dateTime = String.valueOf(LocalDate.now()) + " " + String.valueOf(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
     // Creates a log with the date, time, user ID, user role and the action made
-    String log = dateTime + " User ID: " + String.valueOf(User.myAccount.getUserId()) + " Role: " + User.myAccount.getUserRole() + " Action: " + action;
+    String log = dateTime + " User ID: " + User.myAccount.getUserId() + " Role: " + User.myAccount.getUserRole() + " Action: " + action;
     // Writes the log into the file
     WriteObject.write(log, "Log.txt", true);
   }
