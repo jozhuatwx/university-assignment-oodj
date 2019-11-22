@@ -6,33 +6,27 @@ import java.util.ArrayList;
 
 public class ReadObject {
   public static ArrayList<String> readArray(String filename) {
+    // Creates an array list
     ArrayList<String> data = new ArrayList<String>();
     
+    // Reads the file based on the path
     try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+      // Store the first line into a temporary variable
       String temp = reader.readLine();
-      temp = temp.substring(0, temp.length() - 1);
 
       while (temp != null) {
+        // Add the temporary variable into the array list
         data.add(temp);
-        temp = reader.readLine().substring(0, temp.length() - 1);
+        // Read the next line into the temporary variable
+        temp = reader.readLine();
       };
+      // Clears the resources in reader
       reader.close();
     } catch (Exception e) {
-      
+      // Displays the error message
+      System.out.println(e);
     }
+    // Returns the array list data
     return data;
-  }
-
-  public static int getLineNumber(String filename, int id) {
-    int line = 0;
-
-    for (String account : ReadObject.readArray("Account.txt")) {
-      String[] details = account.split(",");
-      if (Integer.valueOf(details[0]).equals(id)) {
-        return line;
-      }
-      line++;
-    }
-    return -1;
   }
 }

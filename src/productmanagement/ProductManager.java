@@ -1,23 +1,27 @@
 package productmanagement;
 
 public class ProductManager extends User {
-  private String status;
+  final static String ACTIVE = "active";
+  final static String INACTIVE = "inactive";
+  private String pmStatus;
 
-  ProductManager(int userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword) {
+  // Construct the Product Manager
+  ProductManager(int userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String pmStatus) {
     super(userId, userName, userAddress, userEmail, "PM", userLoginName, userPassword);
-    this.status = "active";
   }
 
-  public String getStatus() {
-    return status;
+  // Getters and Setters
+  public String getPmStatus() {
+    return pmStatus;
   }
   
-  public void setStatus(String status) {
-    this.status = status;
+  public void setPmStatus(String status) {
+    this.pmStatus = status;
   }
 
+  // Overrides the default toString() to display the information of the Product Manager class
   @Override
   public String toString() {
-    return String.valueOf(getUserId()) + "," + getUserName() + "," + getUserAddress() + "," + getUserEmail() + "," + getUserRole() + "," + getUserLoginName() + "," + getUserPassword() + "," + getStatus();
+    return String.valueOf(getUserId()) + "," + getUserName() + "," + getUserAddress() + "," + getUserEmail() + "," + getUserRole() + "," + getUserLoginName() + "," + getUserPassword() + "," + getPmStatus();
   }
 }
