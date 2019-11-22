@@ -1,6 +1,6 @@
 package productmanagement;
 
-public class Productmanagement {
+public class ProductManagement {
   public static void main(String[] args) {
 
   }
