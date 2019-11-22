@@ -2,7 +2,7 @@ package productmanagement;
 
 public class ProductManagement {
   public static void main(String[] args) {
-
+    
   }
 
   public static void testLogin() {
@@ -31,7 +31,21 @@ public class ProductManagement {
   }
 
   public static void testSupplierUpdate() {
-    Supplier supplier = new Supplier("S00000002", "UIKEA", "UCheras", "uikea@gmail.com", "012-3456789", Supplier.INACTIVE);
+    Supplier supplier = new Supplier("S00000001", "UIKEA", "UCheras", "uikea@gmail.com", "012-3456789", Supplier.INACTIVE);
     Supplier.update(supplier);
+  }
+
+  public static void testCategoryRegistration() {
+    ProductCategory category = new ProductCategory(ProductCategory.generateCategoryId(), "Table", "A collection of tables");
+    ProductCategory.register(category);
+  }
+
+  public static void testCategoryUpdate() {
+    ProductCategory category = new ProductCategory("CT00000001", "UTable", "A collection of tables");
+    ProductCategory.update(category);
+  }
+
+  public static void testCategorySearch() {
+    System.out.println(ProductCategory.search("UTable"));
   }
 }
