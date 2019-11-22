@@ -75,11 +75,10 @@ public class Supplier {
     String supplierId = "S00000001";
 
     try {
-      // Create a supplier array list
       ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
 
       if (supplierArray.size() > 0) {
-        // Get the last line of the supplier array list
+        // Get the last line of the Supplier array list
         String lastLine = supplierArray.get(supplierArray.size() - 1);
         // Split the line into an array
         String[] lastLineDetails = lastLine.split(",");
@@ -91,7 +90,6 @@ public class Supplier {
     } catch (FileNotFoundException e) {
       // Ignore as there may be no exsting suppliers
     }
-    
     // Return the value of the new Supplier ID
     return supplierId;
   }
@@ -99,15 +97,14 @@ public class Supplier {
   public static void register(Supplier supplier) {
     // Set default registered Supplier as false
     boolean registered = false;
-    // Create a supplier array
+
     try {
       ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
-
-      // Iterate through the supplier array
+      // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split the line into an array
         String[] details = supplierDetails.split(",");
-        // Find if any existing supplier name matches the registering supplier
+        // Find if any existing Supplier name matches the registering Supplier
         if (details[1].equals(supplier.getSupplierName())) {
           // Set the Supplier as registered
           registered = true;
@@ -116,7 +113,7 @@ public class Supplier {
         }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing suppliers
+      // Ignore as there may be no existing Suppliers
     }
 
     if (!registered) {
@@ -135,13 +132,12 @@ public class Supplier {
     File tempFile = new File("TempSupplier.txt");
 
     try {
-      // Create a supplier array list
       ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
-      // Iterate through the supplier array
+      // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split line into array
         String[] details = supplierDetails.split(",");
-        // Find the supplier with the matching ID
+        // Find the Supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
           // Write the new details into the temporary file and log action
           WriteObject.write(supplier, "TempSupplier.txt", true, "Updated supplier information (" + supplier.getSupplierId() + ")");
@@ -159,6 +155,29 @@ public class Supplier {
       // Display the error message
       System.out.println(e);
     }
+  }
+
+  public static Supplier search(String keyword) {
+    Supplier supplier = new Supplier("-1", "", "", "", "", Supplier.ACTIVE);
+
+    try {
+      ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
+      // Iterate through the Supplier array
+      for (String supplierDetails : supplierArray) {
+        // Split the line into an array
+        String[] details = supplierDetails.split(",");
+        // Find if any existing Supplier matches the keyword
+        if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[4].contains(keyword)) {
+          // Get Supplier information
+          supplier = new Supplier(details[0], details[1], details[2], details[3], details[4], details[5]);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing Suppliers
+    }
+    return supplier;
   }
 
   // Overrides the default toString() to display the information of the Supplier class

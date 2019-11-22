@@ -95,11 +95,10 @@ public class ProductCatalogue {
     String catalogueId = "CL00000001";
 
     try {
-      // Create a catalogue array list
       ArrayList<String> catalogueArray = ReadObject.readArray("Catalogue.txt");
 
       if (catalogueArray.size() > 0) {
-        // Get the last line of the catalogue array list
+        // Get the last line of the Catalogue array list
         String lastLine = catalogueArray.get(catalogueArray.size() - 1);
         // Split the line into an array
         String[] lastLineDetails = lastLine.split(",");
@@ -111,7 +110,6 @@ public class ProductCatalogue {
     } catch (FileNotFoundException e) {
       // Ignore as there may be no exsting catalogues
     }
-    
     // Return the value of the new Catalogue ID
     return catalogueId;
   }
@@ -119,15 +117,14 @@ public class ProductCatalogue {
   public static void register(ProductCatalogue catalogue) {
     // Set default registered Catalogue as false
     boolean registered = false;
-    // Create a catalogue array
+
     try {
       ArrayList<String> catalogueArray = ReadObject.readArray("Catalogue.txt");
-
-      // Iterate through the catalogue array
+      // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split the line into an array
         String[] details = catalogueDetails.split(",");
-        // Find if any existing catalogue title matches the registering catalogue
+        // Find if any existing Catalogue title matches the registering Catalogue
         if (details[1].equals(catalogue.getCatalogueTitle())) {
           // Set the Catalogue as registered
           registered = true;
@@ -136,11 +133,11 @@ public class ProductCatalogue {
         }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing catalogues
+      // Ignore as there may be no existing Catalogues
     }
 
     if (!registered) {
-      // Write the new catalogue into the Catalogue database and log action
+      // Write the new Catalogue into the Catalogue database and log action
       WriteObject.write(catalogue, "Catalogue.txt", true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
     } else {
       // Display the error message
@@ -155,13 +152,12 @@ public class ProductCatalogue {
     File tempFile = new File("TempCatalogue.txt");
 
     try {
-      // Create a catalogue array list
       ArrayList<String> catalogueArray = ReadObject.readArray("Catalogue.txt");
-      // Iterate through the catalogue array
+      // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split line into array
         String[] details = catalogueDetails.split(",");
-        // Find the catalogue with the matching ID
+        // Find the Catalogue with the matching ID
         if (details[0].equals(catalogue.getCatalogueId())) {
           // Write the new details into the temporary file and log action
           WriteObject.write(catalogue, "TempCatalogue.txt", true, "Updated catalogue information (" + catalogue.getCatalogueId() + ")");
@@ -179,6 +175,29 @@ public class ProductCatalogue {
       // Display the error message
       System.out.println(e);
     }
+  }
+
+  public static ProductCatalogue search(String keyword) {
+    ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
+
+    try {
+      ArrayList<String> catalogueArray = ReadObject.readArray("Catalogue.txt");
+      // Iterate through the Catalogue array
+      for (String catalogueDetails : catalogueArray) {
+        // Split the line into an array
+        String[] details = catalogueDetails.split(",");
+        // Find if any existing Catalogue matches the keyword
+        if (details[1].contains(keyword) || details[3].contains(keyword)) {
+          // Get Catalogue information
+          catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], LocalDate.parse(details[4]), LocalDate.parse(details[5]), LocalDateTime.parse(details[6]), details[7]);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing Catalogues
+    }
+    return catalogue;
   }
 
   // Overrides the default toString() to display the information of the Product Catalogue class

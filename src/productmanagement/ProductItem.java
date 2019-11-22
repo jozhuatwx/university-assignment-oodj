@@ -93,11 +93,10 @@ public class ProductItem {
     String itemId = "PI00000001";
 
     try {
-      // Create a item array list
       ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
 
       if (itemArray.size() > 0) {
-        // Get the last line of the item array list
+        // Get the last line of the Item array list
         String lastLine = itemArray.get(itemArray.size() - 1);
         // Split the line into an array
         String[] lastLineDetails = lastLine.split(",");
@@ -109,7 +108,6 @@ public class ProductItem {
     } catch (FileNotFoundException e) {
       // Ignore as there may be no exsting items
     }
-    
     // Return the value of the new Item ID
     return itemId;
   }
@@ -117,24 +115,23 @@ public class ProductItem {
   public static void register(ProductItem item) {
     // Set default registered product item as false
     boolean registered = false;
-    // Create a product item array
+
     try {
       ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
-
-      // Iterate through the product item array
+      // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array
         String[] details = itemDetails.split(",");
-        // Find if any existing product item name and brand matches the registering product item
+        // Find if any existing Item name and brand matches the registering Item
         if (details[1].equals(item.getItemName()) && details[2].equals(item.getItemBrand())) {
-          // Set the product as registered
+          // Set the Item as registered
           registered = true;
           // Stop the iteration
           break;
         }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing product items
+      // Ignore as there may be no existing Items
     }
 
     if (!registered) {
@@ -155,11 +152,11 @@ public class ProductItem {
     try {
       // Create a item array list
       ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
-      // Iterate through the item array
+      // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split line into array
         String[] details = itemDetails.split(",");
-        // Find the item with the matching ID
+        // Find the Item with the matching ID
         if (details[0].equals(item.getItemId())) {
           // Write the new details into the temporary file and log action
           WriteObject.write(item, "TempItem.txt", true, "Updated item information (" + item.getItemId() + ")");
@@ -177,6 +174,29 @@ public class ProductItem {
       // Display the error message
       System.out.println(e);
     }
+  }
+
+  public static ProductItem search(String keyword) {
+    ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "");
+
+    try {
+      ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
+      // Iterate through the Item array
+      for (String itemDetails : itemArray) {
+        // Split the line into an array
+        String[] details = itemDetails.split(",");
+        // Find if any existing Item matches the keyword
+        if (details[1].contains(keyword) || details[2].contains(keyword) || details[5].contains(keyword)) {
+          // Get Item information
+          item = new ProductItem(details[0], details[1], details[2], Integer.valueOf(details[3]), Double.valueOf(details[4]), details[5], details[6], details[7]);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing Items
+    }
+    return item;
   }
   
   // Overrides the default toString() to display the information of the Product Item class
