@@ -23,6 +23,15 @@ public class ProductManager extends User {
   public void setPmStatus(String status) {
     this.pmStatus = status;
   }
+  
+  // Check if the user is a Product Manager
+  public static boolean isProductManager() {
+    if (myUser.getUserRole().equals(ROLE)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   public static ProductManager search(String keyword) {
     ProductManager productMan = new ProductManager("-1", "", "", "", "", "", ProductManager.ACTIVE);

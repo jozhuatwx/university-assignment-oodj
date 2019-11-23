@@ -91,24 +91,6 @@ public class User {
     }
   }
 
-  // Check if the user is an Administrator
-  public static boolean isAdministrator() {
-    if (myUser.getUserRole().equals(Administrator.ROLE)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // Check if the user is a Product Manager
-  public static boolean isProductManager() {
-    if (myUser.getUserRole().equals(ProductManager.ROLE)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   // Log in the user
   public static void login(String userLoginName, String userPassword) {
     try {
