@@ -48,4 +48,8 @@ public class ProductManagement {
   public static void testCategorySearch() {
     System.out.println(ProductCategory.search("Table"));
   }
+
+  public static void testCategoryDelete() {
+    ProductCategory.delete("CT00000001");
+  }
 }
