@@ -1,5 +1,9 @@
 package productmanagement;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 public class ProductCataloguePage {
   // Constant variables
   public static final String FILE_NAME = "ProductCataloguePage.txt";
@@ -63,6 +67,52 @@ public class ProductCataloguePage {
   public static void register(ProductCataloguePage page) {
     // Write the new Page into the Page database and log the action
     WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")");
+  }
+
+  public static void modify(ProductCataloguePage page, boolean update) {
+    int i = 0;
+    File oldFile = new File(FILE_NAME);
+    // Create a temporary file
+    File tempFile = new File(TEMP_FILE_NAME);
+
+    try {
+      ArrayList<String> pageArray = ReadObject.readArray(FILE_NAME);
+      // Iterate through the Page array
+      for (String pageDetails : pageArray) {
+        // Split line into array
+        String[] details = pageDetails.split(";");
+        // Find the Page with the matching ID
+        if (details[0].equals(page.getPageId())) {
+          if (update) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted product catalogue page information (" + page.getPageId() + ")");
+          }
+        } else {
+          // Write the old detail into the temporary file
+          WriteObject.write(pageArray.get(i), FILE_NAME, true);
+        }
+        i++;
+      }
+      // Delete the old file
+      oldFile.delete();
+      // Rename the temporary file
+      tempFile.renameTo(new File(FILE_NAME));
+    } catch (FileNotFoundException e) {
+      // Display the error message
+      System.out.println(e);
+    }
+  }
+
+  public static void update(ProductCataloguePage page) {
+    modify(page, true);
+  }
+
+  public static void delete(String pageId) {
+    ProductCataloguePage page = new ProductCataloguePage(pageId, -1, null, "");
+    modify(page, false);
   }
 
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
