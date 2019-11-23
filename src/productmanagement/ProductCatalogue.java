@@ -13,15 +13,17 @@ public class ProductCatalogue {
 
   // Product Catalogue fields
   private String catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueUserId;
+  private int cataloguePages;
   private LocalDate catalogueStartDate, catalogueEndDate;
   private LocalDateTime catalogueGeneratedDateTime;
 
   // Construct the Product Catalogue
-  ProductCatalogue(String catalogueId, String catalogueTitle, String catalogueBannerPath, String catalogueDescription, LocalDate catalogueStartDate, LocalDate catalogueEndDate, LocalDateTime catalogueGeneratedDateTime, String catalogueUserId) {
+  ProductCatalogue(String catalogueId, String catalogueTitle, String catalogueBannerPath, String catalogueDescription, int cataloguePages, LocalDate catalogueStartDate, LocalDate catalogueEndDate, LocalDateTime catalogueGeneratedDateTime, String catalogueUserId) {
     this.catalogueId = catalogueId;
     this.catalogueTitle = catalogueTitle;
     this.catalogueBannerPath = catalogueBannerPath;
     this.catalogueDescription = catalogueDescription;
+    this.cataloguePages = cataloguePages;
     this.catalogueStartDate = catalogueStartDate;
     this.catalogueEndDate = catalogueEndDate;
     this.catalogueGeneratedDateTime = catalogueGeneratedDateTime;
@@ -61,6 +63,14 @@ public class ProductCatalogue {
     this.catalogueDescription = catalogueDescription;
   }
 
+  public int getCataloguePages() {
+    return cataloguePages;
+  }
+
+  public void setCataloguePages(int cataloguePages) {
+    this.cataloguePages = cataloguePages;
+  }
+
   public LocalDate getCatalogueStartDate() {
     return catalogueStartDate;
   }
@@ -81,7 +91,7 @@ public class ProductCatalogue {
     return catalogueGeneratedDateTime;
   }
 
-  public void setCatalogueGeneratedDate(LocalDateTime catalogueGeneratedDateTime) {
+  public void setCatalogueGeneratedDateTime(LocalDateTime catalogueGeneratedDateTime) {
     this.catalogueGeneratedDateTime = catalogueGeneratedDateTime;
   }
 
@@ -171,12 +181,12 @@ public class ProductCatalogue {
   }
 
   public static void delete(String catalogueId) {
-    ProductCatalogue catalogue = new ProductCatalogue(catalogueId, "", "", "", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
+    ProductCatalogue catalogue = new ProductCatalogue(catalogueId, "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
     modify(catalogue, false);
   }
 
   public static ProductCatalogue search(String keyword) {
-    ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
+    ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
 
     try {
       ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
@@ -187,7 +197,7 @@ public class ProductCatalogue {
         // Find if any existing Catalogue matches the keyword
         if (details[1].contains(keyword) || details[3].contains(keyword)) {
           // Get Catalogue information
-          catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], LocalDate.parse(details[4]), LocalDate.parse(details[5]), LocalDateTime.parse(details[6]), details[7]);
+          catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], Integer.valueOf(details[4]), LocalDate.parse(details[5]), LocalDate.parse(details[6]), LocalDateTime.parse(details[7]), details[8]);
           // Stop the iteration
           break;
         }
