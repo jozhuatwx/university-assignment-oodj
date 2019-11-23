@@ -87,7 +87,7 @@ public class Supplier {
       // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split the line into an array
-        String[] details = supplierDetails.split(",");
+        String[] details = supplierDetails.split(";");
         // Find if any existing Supplier name matches the registering Supplier
         if (details[1].equals(supplier.getSupplierName())) {
           // Set the Supplier as registered
@@ -120,7 +120,7 @@ public class Supplier {
       // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split line into array
-        String[] details = supplierDetails.split(",");
+        String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
           // Write the new details into the temporary file and log action
@@ -149,7 +149,7 @@ public class Supplier {
       // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split the line into an array
-        String[] details = supplierDetails.split(",");
+        String[] details = supplierDetails.split(";");
         // Find if any existing Supplier matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[4].contains(keyword)) {
           // Get Supplier information
@@ -167,6 +167,6 @@ public class Supplier {
   // Overrides the default toString() to display the information of the Supplier class
   @Override
   public String toString() {
-    return String.valueOf(getSupplierId()) + "," + getSupplierName() + "," + getSupplierAddress() + "," + getSupplierEmail() + "," + getSupplierContact() + "," + getSupplierStatus();
+    return String.valueOf(getSupplierId()) + ";" + getSupplierName() + ";" + getSupplierAddress() + ";" + getSupplierEmail() + ";" + getSupplierContact() + ";" + getSupplierStatus();
   }
 }

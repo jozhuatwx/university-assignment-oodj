@@ -117,7 +117,7 @@ public class ProductCatalogue {
       // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split the line into an array
-        String[] details = catalogueDetails.split(",");
+        String[] details = catalogueDetails.split(";");
         // Find if any existing Catalogue title matches the registering Catalogue
         if (details[1].equals(catalogue.getCatalogueTitle())) {
           // Set the Catalogue as registered
@@ -150,7 +150,7 @@ public class ProductCatalogue {
       // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split line into array
-        String[] details = catalogueDetails.split(",");
+        String[] details = catalogueDetails.split(";");
         // Find the Catalogue with the matching ID
         if (details[0].equals(catalogue.getCatalogueId())) {
           if (update) {
@@ -193,7 +193,7 @@ public class ProductCatalogue {
       // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split the line into an array
-        String[] details = catalogueDetails.split(",");
+        String[] details = catalogueDetails.split(";");
         // Find if any existing Catalogue matches the keyword
         if (details[1].contains(keyword) || details[3].contains(keyword)) {
           // Get Catalogue information
@@ -211,6 +211,6 @@ public class ProductCatalogue {
   // Overrides the default toString() to display the information of the Product Catalogue class
   @Override
   public String toString() {
-    return String.valueOf(getCatalogueId()) + "," + getCatalogueTitle() + "," + getCatalogueBannerPath() + "," + getCatalogueDescription() + "," + getCatalogueStartDate() + "," + getCatalogueEndDate() + "," + getCatalogueGeneratedDateTime() + "," + getCatalogueUserId();
+    return String.valueOf(getCatalogueId()) + ";" + getCatalogueTitle() + ";" + getCatalogueBannerPath() + ";" + getCatalogueDescription() + ";" + getCatalogueStartDate() + ";" + getCatalogueEndDate() + ";" + getCatalogueGeneratedDateTime() + ";" + getCatalogueUserId();
   }
 }

@@ -114,7 +114,7 @@ public class ProductItem {
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array
-        String[] details = itemDetails.split(",");
+        String[] details = itemDetails.split(";");
         // Find if any existing Item name and brand matches the registering Item
         if (details[1].equals(item.getItemName()) && details[2].equals(item.getItemBrand())) {
           // Set the Item as registered
@@ -148,7 +148,7 @@ public class ProductItem {
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split line into array
-        String[] details = itemDetails.split(",");
+        String[] details = itemDetails.split(";");
         // Find the Item with the matching ID
         if (details[0].equals(item.getItemId())) {
           if (update) {
@@ -191,7 +191,7 @@ public class ProductItem {
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array
-        String[] details = itemDetails.split(",");
+        String[] details = itemDetails.split(";");
         // Find if any existing Item matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword) || details[5].contains(keyword)) {
           // Get Item information
@@ -209,6 +209,6 @@ public class ProductItem {
   // Overrides the default toString() to display the information of the Product Item class
   @Override
   public String toString() {
-    return String.valueOf(getItemId()) + "," + getItemName() + "," + getItemBrand() + "," + String.valueOf(getItemQuantity()) + "," + String.valueOf(getItemPrice()) + "," + getItemDescription() + "," + getItemImagePath() + "," + getItemSupplierId();
+    return String.valueOf(getItemId()) + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemQuantity()) + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId();
   }
 }

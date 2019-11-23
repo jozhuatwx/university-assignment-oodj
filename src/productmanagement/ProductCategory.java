@@ -58,7 +58,7 @@ public class ProductCategory {
       // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split the line into an array
-        String[] details = categoryDetails.split(",");
+        String[] details = categoryDetails.split(";");
         // Find if any existing Category name matches the registering Category
         if (details[1].equals(category.getCategoryName())) {
           // Set the Category as registered
@@ -91,7 +91,7 @@ public class ProductCategory {
       // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split line into array
-        String[] details = categoryDetails.split(",");
+        String[] details = categoryDetails.split(";");
         // Find the Category with the matching ID
         if (details[0].equals(category.getCategoryId())) {
           if (update) {
@@ -134,7 +134,7 @@ public class ProductCategory {
       // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split the line into an array
-        String[] details = categoryDetails.split(",");
+        String[] details = categoryDetails.split(";");
         // Find if any existing Category matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword)) {
           // Get Category information
@@ -152,6 +152,6 @@ public class ProductCategory {
   // Overrides the default toString() to display the information of the Product Category class
   @Override
   public String toString() {
-    return String.valueOf(getCategoryId()) + "," + getCategoryName() + "," + getCategoryDescription();
+    return String.valueOf(getCategoryId()) + ";" + getCategoryName() + ";" + getCategoryDescription();
   }
 }

@@ -25,7 +25,7 @@ public class WriteObject {
     // Get the date and time in the format of YYYY-MM-dd HH:mm:ss
     String dateTime = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
     // Creates a log with the date, time, user ID, user role and the action made
-    String log = dateTime + "," + User.myUser.getUserId() + "," + User.myUser.getUserRole() + "," + action;
+    String log = dateTime + ";" + User.myUser.getUserId() + ";" + User.myUser.getUserRole() + ";" + action;
     // Writes the log into the file
     write(log, "Log.txt", true);
   }

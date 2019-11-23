@@ -44,7 +44,7 @@ public class ProductManager extends User {
       // Iterate through the Product Manager array
       for (String productManDetails : productManArray) {
         // Split the line into an array
-        String[] details = productManDetails.split(",");
+        String[] details = productManDetails.split(";");
         // Find if any existing Product Manager matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[4].contains(keyword)) {
           // Get Product Manager information
@@ -62,6 +62,6 @@ public class ProductManager extends User {
   // Overrides the default toString() to display the information of the Product Manager class
   @Override
   public String toString() {
-    return String.valueOf(getUserId()) + "," + getUserName() + "," + getUserAddress() + "," + getUserEmail() + "," + getUserRole() + "," + getUserLoginName() + "," + getUserPassword() + "," + getPmStatus();
+    return String.valueOf(getUserId()) + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword() + ";" + getPmStatus();
   }
 }

@@ -19,7 +19,7 @@ public class ReadObject {
         // Get the last line of the array list
         String lastLine = array.get(array.size() - 1);
         // Split the line into an array
-        String[] lastLineDetails = lastLine.split(",");
+        String[] lastLineDetails = lastLine.split(";");
         // Read the ID of the line and add by 1
         intId = Integer.valueOf(lastLineDetails[0].substring(prefix.length())) + 1;
         // Add prefix and leading zeroes to the ID

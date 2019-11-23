@@ -98,7 +98,7 @@ public class User {
       // Iterate through the User array
       for (String user : userArray) {
         // Split each line into an array
-        String[] details = user.split(",");
+        String[] details = user.split(";");
         // Find the user login name in the array list
         if (details[5].equals(userLoginName)) {
           // Set the User as found
@@ -136,7 +136,7 @@ public class User {
       // Iterate through the user array
       for (String user : userArray) {
         // Split each line into an array
-        String[] details = user.split(",");
+        String[] details = user.split(";");
         // Find the user login name in the array list
         if (details[5].equals(userLoginName)) {
           // Compare if the password equals the input password
@@ -177,7 +177,7 @@ public class User {
       // Iterate through the user array
       for (String userDetails : userArray) {
         // Split the line into an array
-        String[] details = userDetails.split(",");
+        String[] details = userDetails.split(";");
         // Find if any existing user login name matches the registering user
         if (details[5].equals(user.getUserLoginName())) {
           // Set the user as registered
@@ -211,7 +211,7 @@ public class User {
       // Iterate through the user array
       for (String userDetails : userArray) {
         // Split the line into an array
-        String[] details = userDetails.split(",");
+        String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
           // Write the new details into the temporary file and log action
@@ -254,6 +254,6 @@ public class User {
   // Overrides the default toString() to display the information of the User class
   @Override
   public String toString() {
-    return String.valueOf(getUserId()) + "," + getUserName() + "," + getUserAddress() + "," + getUserEmail() + "," + getUserRole() + "," + getUserLoginName() + "," + getUserPassword();
+    return String.valueOf(getUserId()) + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword();
   }
 }
