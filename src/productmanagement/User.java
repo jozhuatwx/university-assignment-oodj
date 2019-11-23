@@ -129,7 +129,7 @@ public class User {
   }
 
   // Log in the user
-  public static void login(String userLoginName, char[] userPassword) {
+  public static boolean login(String userLoginName, char[] userPassword) {
     try {
       ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
@@ -150,21 +150,23 @@ public class User {
             myUser.setUserLoginName(details[5]);
             // Record the action into the log
             WriteObject.log("Login");
+            return true;
           } else {
             // Display the error message
             System.out.println("Wrong password");
+            return false;
           }
-          // Stop the iteration
-          break;
         } else {
           // Display the error message
           System.out.println("Wrong login name");
+          return false;
         }
       }
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
     }
+    return false;
   }
 
   public static void register(User user) {
