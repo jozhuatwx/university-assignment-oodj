@@ -118,7 +118,7 @@ public class ProductCataloguePage {
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
   @Override
   public String toString() {
-    String string = getPageId() + ";";
+    String string = getPageId() + ";" + String.valueOf(getPageNumber()) + ";";
     
     // Set default first as true
     boolean first = true;
