@@ -4,13 +4,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ProductManager extends User {
+  final static String ROLE = "PM";
   final static String ACTIVE = "active";
   final static String INACTIVE = "inactive";
   private String pmStatus;
 
   // Construct the Product Manager
   ProductManager(String userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String pmStatus) {
-    super(userId, userName, userAddress, userEmail, "PM", userLoginName, userPassword);
+    super(userId, userName, userAddress, userEmail, ROLE, userLoginName, userPassword);
     this.pmStatus = pmStatus;
   }
 
