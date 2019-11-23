@@ -97,28 +97,7 @@ public class ProductItem {
 
   // Generate the Product Item ID
   public static String generateItemId() {
-    // Set default ID to 1
-    int intItemId = 1;
-    String itemId = "PI00000001";
-
-    try {
-      ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
-
-      if (itemArray.size() > 0) {
-        // Get the last line of the Item array list
-        String lastLine = itemArray.get(itemArray.size() - 1);
-        // Split the line into an array
-        String[] lastLineDetails = lastLine.split(",");
-        // Read the ID of the line and add by 1
-        intItemId = Integer.valueOf(lastLineDetails[0].substring(2)) + 1;
-        // Add 'PI' and leading zeros to the ID
-        itemId = "PI" + String.format("%08d", intItemId);
-      }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no exsting items
-    }
-    // Return the value of the new Item ID
-    return itemId;
+    return ReadObject.generateId("PI", "ProductItem.txt");
   }
 
   public static void register(ProductItem item) {
@@ -126,7 +105,7 @@ public class ProductItem {
     boolean registered = false;
 
     try {
-      ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
+      ArrayList<String> itemArray = ReadObject.readArray("ProductItem.txt");
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array
@@ -145,7 +124,7 @@ public class ProductItem {
 
     if (!registered) {
       // Write the new item into the Item database and log action
-      WriteObject.write(item, "Item.txt", true, "Registered new Item (" + item.getItemId() + ")");
+      WriteObject.write(item, "ProductItem.txt", true, "Registered new Item (" + item.getItemId() + ")");
     } else {
       // Display the error message
       System.out.println("Product item is registered");
@@ -154,13 +133,13 @@ public class ProductItem {
 
   public static void modify(ProductItem item, boolean update) {
     int i = 0;
-    File oldFile = new File("Item.txt");
+    File oldFile = new File("ProductItem.txt");
     // Create a temporary file
-    File tempFile = new File("TempItem.txt");
+    File tempFile = new File("TempProductItem.txt");
 
     try {
       // Create a item array list
-      ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
+      ArrayList<String> itemArray = ReadObject.readArray("ProductItem.txt");
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split line into array
@@ -169,21 +148,21 @@ public class ProductItem {
         if (details[0].equals(item.getItemId())) {
           if (update) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(item, "TempItem.txt", true, "Updated item product information (" + item.getItemId() + ")");
+            WriteObject.write(item, "TempProductItem.txt", true, "Updated item product information (" + item.getItemId() + ")");
           } else {
             // Ignore the details and log the action
             WriteObject.log("Deleted product item information (" + item.getItemId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(itemArray.get(i), "TempItem.txt", true);
+          WriteObject.write(itemArray.get(i), "TempProductItem.txt", true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("Item.txt"));
+      tempFile.renameTo(new File("ProductItem.txt"));
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
@@ -203,7 +182,7 @@ public class ProductItem {
     ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "", "");
 
     try {
-      ArrayList<String> itemArray = ReadObject.readArray("Item.txt");
+      ArrayList<String> itemArray = ReadObject.readArray("ProductItem.txt");
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array

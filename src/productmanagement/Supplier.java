@@ -70,28 +70,7 @@ public class Supplier {
 
   // Generate the Supplier ID
   public static String generateSupplierId() {
-    // Set default ID to 1
-    int intSupplierId = 1;
-    String supplierId = "S00000001";
-
-    try {
-      ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
-
-      if (supplierArray.size() > 0) {
-        // Get the last line of the Supplier array list
-        String lastLine = supplierArray.get(supplierArray.size() - 1);
-        // Split the line into an array
-        String[] lastLineDetails = lastLine.split(",");
-        // Read the ID of the line and add by 1
-        intSupplierId = Integer.valueOf(lastLineDetails[0].substring(1)) + 1;
-        // Add 'S' and leading zeros to the ID
-        supplierId = "S" + String.format("%08d", intSupplierId);
-      }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no exsting suppliers
-    }
-    // Return the value of the new Supplier ID
-    return supplierId;
+    return ReadObject.generateId("S", "Supplier.txt");
   }
 
   public static void register(Supplier supplier) {

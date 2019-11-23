@@ -79,30 +79,7 @@ public class User {
 
   // Generate the User ID
   public static String generateUserId() {
-    // Set the default ID to 1
-    int intUserId = 1;
-    String userId = "U00000001";
-
-    try {
-      // Create an user array list
-      ArrayList<String> userArray = ReadObject.readArray("User.txt");
-
-
-      if (userArray.size() > 0) {
-        // Get the last line of the user array list
-        String lastLine = userArray.get(userArray.size() - 1);
-        // Split the line into an array
-        String[] lastLineDetails = lastLine.split(",");
-        // Read the ID of the line and add by 1
-        intUserId = Integer.valueOf(lastLineDetails[0].substring(1)) + 1;
-        // Add 'U' and leading zeros to the ID
-        userId = "U" + String.format("%08d", intUserId);
-      }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing users
-    }
-    // Return the value of the new User ID
-    return userId;
+    return ReadObject.generateId("U", "User.txt");
   }
 
   // Log in the user
