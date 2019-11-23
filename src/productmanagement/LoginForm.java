@@ -2,6 +2,7 @@ package productmanagement;
 
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
     int xMouse, yMouse;
@@ -27,8 +28,10 @@ public class LoginForm extends javax.swing.JFrame {
         lblLogin = new javax.swing.JLabel();
         lblLoginName = new javax.swing.JLabel();
         txtLoginName = new javax.swing.JTextField();
+        lblLoginNameError = new javax.swing.JLabel();
         lblPassword = new javax.swing.JLabel();
-        txtLoginPassword = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
+        lblPasswordError = new javax.swing.JLabel();
         btnLogin = new javax.swing.JButton();
         lblSystemName2 = new javax.swing.JLabel();
         lblSystemName = new javax.swing.JLabel();
@@ -92,13 +95,42 @@ public class LoginForm extends javax.swing.JFrame {
         txtLoginName.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(204, 204, 204)));
         txtLoginName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtLoginName.setName("txtLoginName"); // NOI18N
+        txtLoginName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLoginNameFocusLost(evt);
+            }
+        });
+        txtLoginName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLoginNameKeyReleased(evt);
+            }
+        });
+
+        lblLoginNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblLoginNameError.setForeground(new java.awt.Color(255, 0, 0));
+        lblLoginNameError.setText(" ");
+        lblLoginNameError.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         lblPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblPassword.setText("Password :");
         lblPassword.setName(""); // NOI18N
 
-        txtLoginPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtLoginPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(204, 204, 204)));
+        txtPassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtPassword.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(204, 204, 204)));
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyReleased(evt);
+            }
+        });
+
+        lblPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblPasswordError.setText(" ");
 
         btnLogin.setBackground(new java.awt.Color(0, 0, 51));
         btnLogin.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
@@ -126,8 +158,10 @@ public class LoginForm extends javax.swing.JFrame {
                             .addGroup(WhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblLoginNameError)
+                                .addComponent(lblPasswordError)))
                         .addGroup(WhitePanelLayout.createSequentialGroup()
                             .addGap(87, 87, 87)
                             .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -142,11 +176,15 @@ public class LoginForm extends javax.swing.JFrame {
                     .addComponent(lblLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
+                    .addGap(2, 2, 2)
+                    .addComponent(lblLoginNameError)
+                    .addGap(2, 2, 2)
                     .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(txtLoginPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(lblPasswordError)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                     .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(28, 28, 28))
             );
@@ -327,7 +365,11 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        if (User.login(txtLoginName.getText(), txtLoginPassword.getPassword())) {
+        String userLoginName = txtLoginName.getText();
+        char[] userPassword = txtPassword.getPassword();
+
+        if (userLoginName.trim().length() > 0 && userPassword.length > 0) {
+            if (User.login(userLoginName, userPassword)) {
             // Display form based on role
             switch (User.myUser.getUserRole()) {
                 case ProductManager.ROLE:
@@ -340,8 +382,55 @@ public class LoginForm extends javax.swing.JFrame {
             }
 
             // Close the login form
+            this.dispose();
+            }
+        } else if (userLoginName.trim().length() == 0 && userPassword.length == 0) {
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), "Login Name and password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
+        } else if (userLoginName.trim().length() == 0) {
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), "Login Name cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
+        } else if (userPassword.length == 0) {
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginMouseClicked
+
+    private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
+        String userLoginName = txtLoginName.getText();
+        if (userLoginName.trim().length() == 0) {
+            lblLoginNameError.setText("Login Name cannot be empty");
+        } else {
+            lblLoginNameError.setText(" ");
+        }
+    }//GEN-LAST:event_txtLoginNameFocusLost
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        char[] userPassword = txtPassword.getPassword();
+        if (userPassword.length == 0) {
+            lblPasswordError.setText("Password cannot be empty");
+        } else {
+            lblPasswordError.setText(" ");
+        }
+    }//GEN-LAST:event_txtPasswordFocusLost
+
+    private void txtLoginNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyReleased
+        String userLoginName = txtLoginName.getText();
+        if (userLoginName.trim().length() == 0) {
+            lblLoginNameError.setText("Login Name cannot be empty");
+        } else {
+            lblLoginNameError.setText(" ");
+        }
+    }//GEN-LAST:event_txtLoginNameKeyReleased
+
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+        char[] userPassword = txtPassword.getPassword();
+        if (userPassword.length == 0) {
+            lblPasswordError.setText("Password cannot be empty");
+        } else {
+            lblPasswordError.setText(" ");
+        }
+    }//GEN-LAST:event_txtPasswordKeyReleased
 
     /**
      * @param args the command line arguments
@@ -392,11 +481,13 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblLoginLogo;
     private javax.swing.JLabel lblLoginName;
+    private javax.swing.JLabel lblLoginNameError;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPasswordError;
     private javax.swing.JLabel lblSystemName;
     private javax.swing.JLabel lblSystemName2;
     private javax.swing.JTextField txtLoginName;
-    private javax.swing.JPasswordField txtLoginPassword;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }
