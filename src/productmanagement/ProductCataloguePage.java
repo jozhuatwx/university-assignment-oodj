@@ -7,11 +7,13 @@ public class ProductCataloguePage {
 
   // Product Catalogue Page fields
   private String pageId, pageCatalogueId;
+  private int pageNumber;
   private String[] pageItemIds;
 
   // Construct the Product Catalogue Page
-  ProductCataloguePage(String pageId, String[] pageItemIds, String pageCatalogueId) {
+  ProductCataloguePage(String pageId, int pageNumber, String[] pageItemIds, String pageCatalogueId) {
     this.pageId = pageId;
+    this.pageNumber = pageNumber;
     this.pageItemIds = pageItemIds;
     this.pageCatalogueId = pageCatalogueId;
   }
@@ -23,6 +25,14 @@ public class ProductCataloguePage {
 
   public void setPageId(String pageId) {
     this.pageId = pageId;
+  }
+
+  public int getPageNumber() {
+    return pageNumber;
+  }
+
+  public void setPageNumber(int pageNumber) {
+    this.pageNumber = pageNumber;
   }
 
   public String[] getPageItemIds() {
@@ -48,6 +58,11 @@ public class ProductCataloguePage {
   // Generate the Product Catalogue Page ID
   public static String generatePageId() {
     return ReadObject.generateId("PG", FILE_NAME);
+  }
+
+  public static void register(ProductCataloguePage page) {
+    // Write the new Page into the Page database and log the action
+    WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")");
   }
 
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
