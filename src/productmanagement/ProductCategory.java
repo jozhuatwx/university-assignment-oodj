@@ -96,7 +96,7 @@ public class ProductCategory {
     }
   }
 
-  public static void update(ProductCategory category) {
+  public static void modify(ProductCategory category, boolean update) {
     int i = 0;
     File oldFile = new File("Category.txt");
     // Create a temporary file
@@ -110,8 +110,13 @@ public class ProductCategory {
         String[] details = categoryDetails.split(",");
         // Find the Category with the matching ID
         if (details[0].equals(category.getCategoryId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(category, "TempCategory.txt", true, "Updated category information (" + category.getCategoryId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(category, "TempCategory.txt", true, "Updated category information (" + category.getCategoryId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted category information (" + category.getCategoryId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(categoryArray.get(i), "TempCategory.txt", true);
@@ -126,6 +131,15 @@ public class ProductCategory {
       // Display the error message
       System.out.println(e);
     }
+  }
+
+  public static void update(ProductCategory category) {
+    modify(category, true);
+  }
+
+  public static void delete(String categoryId) {
+    ProductCategory category = new ProductCategory(categoryId, "", "");
+    modify(category, false);
   }
 
   public static ProductCategory search(String keyword) {
