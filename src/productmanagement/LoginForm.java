@@ -342,7 +342,20 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        User.login(txtLoginName.getText(), txtLoginPassword.getPassword());
+        if (User.login(txtLoginName.getText(), txtLoginPassword.getPassword())) {
+            // Display form based on role
+            switch (User.myUser.getUserRole()) {
+                case ProductManager.ROLE:
+                    
+                    break;
+            
+                case Administrator.ROLE:
+
+                    break;
+            }
+
+            // Close the login form
+        }
     }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
