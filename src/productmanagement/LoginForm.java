@@ -346,7 +346,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         // Close the form
-        this.dispose();
+        System.exit(0);
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void formMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseDragged
