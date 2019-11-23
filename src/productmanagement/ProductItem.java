@@ -152,7 +152,7 @@ public class ProductItem {
     }
   }
 
-  public static void update(ProductItem item) {
+  public static void modify(ProductItem item, boolean update) {
     int i = 0;
     File oldFile = new File("Item.txt");
     // Create a temporary file
@@ -167,8 +167,13 @@ public class ProductItem {
         String[] details = itemDetails.split(",");
         // Find the Item with the matching ID
         if (details[0].equals(item.getItemId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(item, "TempItem.txt", true, "Updated item information (" + item.getItemId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(item, "TempItem.txt", true, "Updated item product information (" + item.getItemId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted product item information (" + item.getItemId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(itemArray.get(i), "TempItem.txt", true);
@@ -183,6 +188,15 @@ public class ProductItem {
       // Display the error message
       System.out.println(e);
     }
+  }
+
+  public static void update(ProductItem item) {
+    modify(item, true);
+  }
+
+  public static void delete(String itemId) {
+    ProductItem item = new ProductItem(itemId, "", "", 0, 0.0, "", "", "", "");
+    modify(item, false);
   }
 
   public static ProductItem search(String keyword) {

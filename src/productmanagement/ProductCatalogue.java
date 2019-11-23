@@ -145,7 +145,7 @@ public class ProductCatalogue {
     }
   }
 
-  public static void update(ProductCatalogue catalogue) {
+  public static void modify(ProductCatalogue catalogue, boolean update) {
     int i = 0;
     File oldFile = new File("Catalogue.txt");
     // Create a temporary file
@@ -159,8 +159,13 @@ public class ProductCatalogue {
         String[] details = catalogueDetails.split(",");
         // Find the Catalogue with the matching ID
         if (details[0].equals(catalogue.getCatalogueId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(catalogue, "TempCatalogue.txt", true, "Updated catalogue information (" + catalogue.getCatalogueId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(catalogue, "TempCatalogue.txt", true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted product catalogue information (" + catalogue.getCatalogueId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(catalogueArray.get(i), "TempCatalogue.txt", true);
@@ -175,6 +180,15 @@ public class ProductCatalogue {
       // Display the error message
       System.out.println(e);
     }
+  }
+
+  public static void update(ProductCatalogue catalogue) {
+    modify(catalogue, true);
+  }
+
+  public static void delete(String catalogueId) {
+    ProductCatalogue catalogue = new ProductCatalogue(catalogueId, "", "", "", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
+    modify(catalogue, false);
   }
 
   public static ProductCatalogue search(String keyword) {
