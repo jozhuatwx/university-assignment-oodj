@@ -23,6 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
     
     public LoginForm() {
         initComponents();
+        this.getRootPane().setDefaultButton(btnLogin);
     }
 
     /**
@@ -120,6 +121,11 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.setText("Login");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setName("btnLogin\\"); // NOI18N
+            btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    btnLoginMouseClicked(evt);
+                }
+            });
 
             javax.swing.GroupLayout WhitePanelLayout = new javax.swing.GroupLayout(WhitePanel);
             WhitePanel.setLayout(WhitePanelLayout);
@@ -171,7 +177,6 @@ public class LoginForm extends javax.swing.JFrame {
             lblSystemName.setName("lblSystemName"); // NOI18N
 
             lblLoginLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-            lblLoginLogo.setIcon(new javax.swing.ImageIcon("C:\\Users\\User\\Desktop\\user.png")); // NOI18N
             lblLoginLogo.setName("lblLoginLogo"); // NOI18N
 
             javax.swing.GroupLayout BackgroundPanelLayout = new javax.swing.GroupLayout(BackgroundPanel);
@@ -335,6 +340,10 @@ public class LoginForm extends javax.swing.JFrame {
         xMouse = evt.getX();
         yMouse = evt.getY();
     }//GEN-LAST:event_formMousePressed
+
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        User.login(txtLoginName.getText(), txtLoginPassword.getPassword());
+    }//GEN-LAST:event_btnLoginMouseClicked
 
     /**
      * @param args the command line arguments
