@@ -5,8 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Supplier {
-  final static String ACTIVE = "active";
-  final static String INACTIVE = "inactive";
+  public static final String ACTIVE = "active";
+  public static final String INACTIVE = "inactive";
   private String supplierId, supplierName, supplierAddress, supplierEmail, supplierContact, supplierStatus;
 
   // Construct the Supplier
