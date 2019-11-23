@@ -217,6 +217,18 @@ public class User {
     }
   }
 
+  public static void logout() {
+    // Record action into log
+    WriteObject.log("Logout");
+    // Clear the user's information from the session
+    myUser.setUserId("-1");
+    myUser.setUserName("");
+    myUser.setUserAddress("");
+    myUser.setUserEmail("");
+    myUser.setUserRole("");
+    myUser.setUserLoginName("");
+  }
+
   // Overrides the default toString() to display the information of the User class
   @Override
   public String toString() {
