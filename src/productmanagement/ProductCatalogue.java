@@ -103,7 +103,7 @@ public class ProductCatalogue {
         // Split the line into an array
         String[] lastLineDetails = lastLine.split(",");
         // Read the ID of the line and add by 1
-        intCatalogueId = Integer.valueOf(lastLineDetails[0].substring(1)) + 1;
+        intCatalogueId = Integer.valueOf(lastLineDetails[0].substring(2)) + 1;
         // Add 'CT' and leading zeros to the ID
         catalogueId = "CL" + String.format("%08d", intCatalogueId);
       }
