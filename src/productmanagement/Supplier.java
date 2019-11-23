@@ -5,8 +5,13 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Supplier {
+  // Constant variables
+  public static final String FILE_NAME = "Supplier.txt";
+  public static final String TEMP_FILE_NAME = "TempSupplier.txt";
   public static final String ACTIVE = "active";
   public static final String INACTIVE = "inactive";
+
+  // Supplier fields
   private String supplierId, supplierName, supplierAddress, supplierEmail, supplierContact, supplierStatus;
 
   // Construct the Supplier
@@ -70,7 +75,7 @@ public class Supplier {
 
   // Generate the Supplier ID
   public static String generateSupplierId() {
-    return ReadObject.generateId("S", "Supplier.txt");
+    return ReadObject.generateId("S", FILE_NAME);
   }
 
   public static void register(Supplier supplier) {
@@ -78,7 +83,7 @@ public class Supplier {
     boolean registered = false;
 
     try {
-      ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
+      ArrayList<String> supplierArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split the line into an array
@@ -97,7 +102,7 @@ public class Supplier {
 
     if (!registered) {
       // Write the new supplier into the Supplier database and log action
-      WriteObject.write(supplier, "Supplier.txt", true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
+      WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
     } else {
       // Display the error message
       System.out.println("Supplier is registered");
@@ -106,12 +111,12 @@ public class Supplier {
 
   public static void update(Supplier supplier) {
     int i = 0;
-    File oldFile = new File("Supplier.txt");
+    File oldFile = new File(FILE_NAME);
     // Create a temporary file
-    File tempFile = new File("TempSupplier.txt");
+    File tempFile = new File(TEMP_FILE_NAME);
 
     try {
-      ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
+      ArrayList<String> supplierArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split line into array
@@ -119,17 +124,17 @@ public class Supplier {
         // Find the Supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
           // Write the new details into the temporary file and log action
-          WriteObject.write(supplier, "TempSupplier.txt", true, "Updated supplier information (" + supplier.getSupplierId() + ")");
+          WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")");
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(supplierArray.get(i), "TempSupplier.txt", true);
+          WriteObject.write(supplierArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("Supplier.txt"));
+      tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
@@ -140,7 +145,7 @@ public class Supplier {
     Supplier supplier = new Supplier("-1", "", "", "", "", Supplier.ACTIVE);
 
     try {
-      ArrayList<String> supplierArray = ReadObject.readArray("Supplier.txt");
+      ArrayList<String> supplierArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Supplier array
       for (String supplierDetails : supplierArray) {
         // Split the line into an array

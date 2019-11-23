@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ProductItem {
+  // Constant variables
+  public static final String FILE_NAME = "ProductItem.txt";
+  public static final String TEMP_FILE_NAME = "TempProductItem.txt";
+
+  // Product Item fields
   private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId, itemCategoryId;
   private int itemQuantity;
   private double itemPrice;
@@ -97,7 +102,7 @@ public class ProductItem {
 
   // Generate the Product Item ID
   public static String generateItemId() {
-    return ReadObject.generateId("PI", "ProductItem.txt");
+    return ReadObject.generateId("PI", FILE_NAME);
   }
 
   public static void register(ProductItem item) {
@@ -105,7 +110,7 @@ public class ProductItem {
     boolean registered = false;
 
     try {
-      ArrayList<String> itemArray = ReadObject.readArray("ProductItem.txt");
+      ArrayList<String> itemArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array
@@ -124,7 +129,7 @@ public class ProductItem {
 
     if (!registered) {
       // Write the new item into the Item database and log action
-      WriteObject.write(item, "ProductItem.txt", true, "Registered new Item (" + item.getItemId() + ")");
+      WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")");
     } else {
       // Display the error message
       System.out.println("Product item is registered");
@@ -133,13 +138,13 @@ public class ProductItem {
 
   public static void modify(ProductItem item, boolean update) {
     int i = 0;
-    File oldFile = new File("ProductItem.txt");
+    File oldFile = new File(FILE_NAME);
     // Create a temporary file
-    File tempFile = new File("TempProductItem.txt");
+    File tempFile = new File(TEMP_FILE_NAME);
 
     try {
       // Create a item array list
-      ArrayList<String> itemArray = ReadObject.readArray("ProductItem.txt");
+      ArrayList<String> itemArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split line into array
@@ -148,21 +153,21 @@ public class ProductItem {
         if (details[0].equals(item.getItemId())) {
           if (update) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(item, "TempProductItem.txt", true, "Updated item product information (" + item.getItemId() + ")");
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")");
           } else {
             // Ignore the details and log the action
             WriteObject.log("Deleted product item information (" + item.getItemId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(itemArray.get(i), "TempProductItem.txt", true);
+          WriteObject.write(itemArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("ProductItem.txt"));
+      tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
@@ -182,7 +187,7 @@ public class ProductItem {
     ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "", "");
 
     try {
-      ArrayList<String> itemArray = ReadObject.readArray("ProductItem.txt");
+      ArrayList<String> itemArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Item array
       for (String itemDetails : itemArray) {
         // Split the line into an array

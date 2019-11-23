@@ -5,6 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ProductCategory {
+  // Constant variables
+  public static final String FILE_NAME = "ProductCategory.txt";
+  public static final String TEMP_FILE_NAME = "TempProductCategory.txt";
+
+  // Product Category fields
   private String categoryId, categoryName, categoryDescription;
 
   // Construct the Product Category
@@ -41,7 +46,7 @@ public class ProductCategory {
 
   // Generate the Product Category ID
   public static String generateCategoryId() {
-    return ReadObject.generateId("CT", "ProductCategory.txt");
+    return ReadObject.generateId("CT", FILE_NAME);
   }
 
   public static void register(ProductCategory category) {
@@ -49,7 +54,7 @@ public class ProductCategory {
     boolean registered = false;
 
     try {
-      ArrayList<String> categoryArray = ReadObject.readArray("ProductCategory.txt");
+      ArrayList<String> categoryArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split the line into an array
@@ -68,7 +73,7 @@ public class ProductCategory {
 
     if (!registered) {
       // Write the new category into the Category database and log action
-      WriteObject.write(category, "ProductCategory.txt", true, "Registered new Category (" + category.getCategoryId() + ")");
+      WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")");
     } else {
       // Display the error message
       System.out.println("Product category already exists");
@@ -77,12 +82,12 @@ public class ProductCategory {
 
   public static void modify(ProductCategory category, boolean update) {
     int i = 0;
-    File oldFile = new File("ProductCategory.txt");
+    File oldFile = new File(FILE_NAME);
     // Create a temporary file
-    File tempFile = new File("TempProductCategory.txt");
+    File tempFile = new File(TEMP_FILE_NAME);
 
     try {
-      ArrayList<String> categoryArray = ReadObject.readArray("ProductCategory.txt");
+      ArrayList<String> categoryArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split line into array
@@ -91,21 +96,21 @@ public class ProductCategory {
         if (details[0].equals(category.getCategoryId())) {
           if (update) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(category, "TempProductCategory.txt", true, "Updated product category information (" + category.getCategoryId() + ")");
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")");
           } else {
             // Ignore the details and log the action
             WriteObject.log("Deleted product category information (" + category.getCategoryId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(categoryArray.get(i), "TempProductCategory.txt", true);
+          WriteObject.write(categoryArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("ProductCategory.txt"));
+      tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
@@ -125,7 +130,7 @@ public class ProductCategory {
     ProductCategory category = new ProductCategory("-1", "", "");
 
     try {
-      ArrayList<String> categoryArray = ReadObject.readArray("ProductCategory.txt");
+      ArrayList<String> categoryArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Category array
       for (String categoryDetails : categoryArray) {
         // Split the line into an array

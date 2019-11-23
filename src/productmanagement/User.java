@@ -5,7 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class User {
+  // Constant variables
+  public static final String FILE_NAME = "User.txt";
+  public static final String TEMP_FILE_NAME = "TempUser.txt";
+
+  // Session information
   static User myUser = new User("-1", "", "", "", "", "", "");
+
+  // User fields
   private String userId, userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
   // Construct the User
@@ -79,14 +86,14 @@ public class User {
 
   // Generate the User ID
   public static String generateUserId() {
-    return ReadObject.generateId("U", "User.txt");
+    return ReadObject.generateId("U", FILE_NAME);
   }
 
   public static void forgotPassword(String userLoginName) {
     boolean found = false;
     // Check if the User login name exists
     try {
-      ArrayList<String> userArray = ReadObject.readArray("User.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
       // Iterate through the User array
       for (String user : userArray) {
@@ -97,7 +104,7 @@ public class User {
           // Set the User as found
           found = true;
           // Log the User ID
-          WriteObject.write(details[0] + ",FORGOT PASSWORD", "User.txt", true);
+          WriteObject.write(details[0] + ",FORGOT PASSWORD", FILE_NAME, true);
           // Stop the iteration
           break;
         }
@@ -124,7 +131,7 @@ public class User {
   // Log in the user
   public static void login(String userLoginName, String userPassword) {
     try {
-      ArrayList<String> userArray = ReadObject.readArray("User.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
       // Iterate through the user array
       for (String user : userArray) {
@@ -165,7 +172,7 @@ public class User {
     boolean registered = false;
     // Create an user array
     try {
-      ArrayList<String> userArray = ReadObject.readArray("User.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
     
       // Iterate through the user array
       for (String userDetails : userArray) {
@@ -185,7 +192,7 @@ public class User {
 
     if (!registered) {
       // Record the new user into the User database and log action
-      WriteObject.write(user, "User.txt", true, "Registered new User (" + user.getUserId() + ")");
+      WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
     } else {
       // Display the error message
       System.out.println("User login name is taken");
@@ -194,12 +201,12 @@ public class User {
 
   public static void update(User user) {
     int i = 0;
-    File oldFile = new File("User.txt");
+    File oldFile = new File(FILE_NAME);
     // Create a temporary file
-    File tempFile = new File("TempUser.txt");
+    File tempFile = new File(TEMP_FILE_NAME);
     try {
       // Create an user array
-      ArrayList<String> userArray = ReadObject.readArray("User.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
       // Iterate through the user array
       for (String userDetails : userArray) {
@@ -208,17 +215,17 @@ public class User {
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
           // Write the new details into the temporary file and log action
-          WriteObject.write(user, "TempUser.txt", true, "Updated user information (" + user.getUserId() + ")");
+          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(userArray.get(i), "TempUser.txt", true);
+          WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("User.txt"));
+      tempFile.renameTo(new File(FILE_NAME));
 
       if (user.getUserId().equals(User.myUser.getUserId())) {
         // Update the user's information in the session

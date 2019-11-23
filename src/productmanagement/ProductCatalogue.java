@@ -7,6 +7,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class ProductCatalogue {
+  // Constant variables
+  public static final String FILE_NAME = "ProductCatalogue.txt";
+  public static final String TEMP_FILE_NAME = "TempProductCatalogue.txt";
+
+  // Product Catalogue fields
   private String catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueUserId;
   private LocalDate catalogueStartDate, catalogueEndDate;
   private LocalDateTime catalogueGeneratedDateTime;
@@ -90,7 +95,7 @@ public class ProductCatalogue {
 
   // Generate the Product Catalogue ID
   public static String generateCatalogueId() {
-    return ReadObject.generateId("CL", "ProductCatalogue.txt");
+    return ReadObject.generateId("CL", FILE_NAME);
   }
 
   public static void register(ProductCatalogue catalogue) {
@@ -98,7 +103,7 @@ public class ProductCatalogue {
     boolean registered = false;
 
     try {
-      ArrayList<String> catalogueArray = ReadObject.readArray("ProductCatalogue.txt");
+      ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split the line into an array
@@ -117,7 +122,7 @@ public class ProductCatalogue {
 
     if (!registered) {
       // Write the new Catalogue into the Catalogue database and log action
-      WriteObject.write(catalogue, "ProductCatalogue.txt", true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
+      WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
     } else {
       // Display the error message
       System.out.println("Please use a different title");
@@ -126,12 +131,12 @@ public class ProductCatalogue {
 
   public static void modify(ProductCatalogue catalogue, boolean update) {
     int i = 0;
-    File oldFile = new File("ProductCatalogue.txt");
+    File oldFile = new File(FILE_NAME);
     // Create a temporary file
-    File tempFile = new File("TempProductCatalogue.txt");
+    File tempFile = new File(TEMP_FILE_NAME);
 
     try {
-      ArrayList<String> catalogueArray = ReadObject.readArray("ProductCatalogue.txt");
+      ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split line into array
@@ -140,21 +145,21 @@ public class ProductCatalogue {
         if (details[0].equals(catalogue.getCatalogueId())) {
           if (update) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(catalogue, "TempProductCatalogue.txt", true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")");
+            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")");
           } else {
             // Ignore the details and log the action
             WriteObject.log("Deleted product catalogue information (" + catalogue.getCatalogueId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(catalogueArray.get(i), "TempProductCatalogue.txt", true);
+          WriteObject.write(catalogueArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("ProductCatalogue.txt"));
+      tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
       System.out.println(e);
@@ -174,7 +179,7 @@ public class ProductCatalogue {
     ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
 
     try {
-      ArrayList<String> catalogueArray = ReadObject.readArray("ProductCatalogue.txt");
+      ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Catalogue array
       for (String catalogueDetails : catalogueArray) {
         // Split the line into an array
