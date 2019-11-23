@@ -72,7 +72,7 @@ public class ProductCategory {
     }
 
     if (!registered) {
-      // Write the new category into the Category database and log action
+      // Write the new Category into the Category database and log the action
       WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")");
     } else {
       // Display the error message
