@@ -129,7 +129,7 @@ public class User {
   }
 
   // Log in the user
-  public static void login(String userLoginName, String userPassword) {
+  public static void login(String userLoginName, char[] userPassword) {
     try {
       ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
@@ -140,7 +140,7 @@ public class User {
         // Find the user login name in the array list
         if (details[5].equals(userLoginName)) {
           // Compare if the password equals the input password
-          if (details[6].equals(userPassword)) {
+          if (Encryption.validatePassword(userPassword, details[6])) {
             // Set the user's information into the session
             myUser.setUserId(details[0]);
             myUser.setUserName(details[1]);
