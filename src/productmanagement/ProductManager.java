@@ -4,9 +4,12 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ProductManager extends User {
+  // Constant variables
   public static final String ROLE = "PM";
   public static final String ACTIVE = "active";
   public static final String INACTIVE = "inactive";
+
+  // Product Manager fields
   private String pmStatus;
 
   // Construct the Product Manager
