@@ -5,7 +5,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class User {
-  static User myAccount = new User("-1", "", "", "", "", "", "");
+  // Constant variables
+  public static final String FILE_NAME = "User.txt";
+  public static final String TEMP_FILE_NAME = "TempUser.txt";
+
+  // Session information
+  static User myUser = new User("-1", "", "", "", "", "", "");
+
+  // User fields
   private String userId, userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
   // Construct the User
@@ -79,55 +86,70 @@ public class User {
 
   // Generate the User ID
   public static String generateUserId() {
-    // Set the default ID to 1
-    int intUserId = 1;
-    String userId = "U00000001";
+    return ReadObject.generateId("U", FILE_NAME);
+  }
 
+  public static void forgotPassword(String userLoginName) {
+    boolean found = false;
+    // Check if the User login name exists
     try {
-      // Create an account array list
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
-
-      if (accountArray.size() > 0) {
-        // Get the last line of the account array list
-        String lastLine = accountArray.get(accountArray.size() - 1);
-        // Split the line into an array
-        String[] lastLineDetails = lastLine.split(",");
-        // Read the ID of the line and add by 1
-        intUserId = Integer.valueOf(lastLineDetails[0].substring(1)) + 1;
-        // Add 'U' and leading zeros to the ID
-        userId = "U" + String.format("%08d", intUserId);
+      // Iterate through the User array
+      for (String user : userArray) {
+        // Split each line into an array
+        String[] details = user.split(";");
+        // Find the user login name in the array list
+        if (details[5].equals(userLoginName)) {
+          // Set the User as found
+          found = true;
+          // Log the User ID
+          WriteObject.write(details[0] + ",FORGOT PASSWORD", FILE_NAME, true);
+          // Stop the iteration
+          break;
+        }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing accounts
+      // Ignore as there may be no existing users
     }
-    // Return the value of the new User ID
-    return userId;
+
+    if (!found) {
+      // Display the error message
+      System.out.println("User not found");
+    }
+  }
+
+  // Check if the user is logged in
+  public static boolean isLoggedIn() {
+    if (!myUser.getUserId().equals("-1")) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Log in the user
-  public static void login(String userLoginName, String userPassword) {
+  public static void login(String userLoginName, char[] userPassword) {
     try {
-      // Create an account array
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
-      // Iterate through the account array
-      for (String account : accountArray) {
+      // Iterate through the user array
+      for (String user : userArray) {
         // Split each line into an array
-        String[] details = account.split(",");
+        String[] details = user.split(";");
         // Find the user login name in the array list
         if (details[5].equals(userLoginName)) {
           // Compare if the password equals the input password
-          if (details[6].equals(userPassword)) {
+          if (Encryption.validatePassword(userPassword, details[6])) {
             // Set the user's information into the session
-            myAccount.setUserId(details[0]);
-            myAccount.setUserName(details[1]);
-            myAccount.setUserAddress(details[2]);
-            myAccount.setUserEmail(details[3]);
-            myAccount.setUserRole(details[4]);
-            myAccount.setUserLoginName(details[5]);
+            myUser.setUserId(details[0]);
+            myUser.setUserName(details[1]);
+            myUser.setUserAddress(details[2]);
+            myUser.setUserEmail(details[3]);
+            myUser.setUserRole(details[4]);
+            myUser.setUserLoginName(details[5]);
             // Record the action into the log
-            ActionLog.log("Login");
+            WriteObject.log("Login");
           } else {
             // Display the error message
             System.out.println("Wrong password");
@@ -148,14 +170,14 @@ public class User {
   public static void register(User user) {
     // Set default registered user as false
     boolean registered = false;
-    // Create an account array
+    // Create an user array
     try {
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
     
-      // Iterate through the account array
-      for (String account : accountArray) {
+      // Iterate through the user array
+      for (String userDetails : userArray) {
         // Split the line into an array
-        String[] details = account.split(",");
+        String[] details = userDetails.split(";");
         // Find if any existing user login name matches the registering user
         if (details[5].equals(user.getUserLoginName())) {
           // Set the user as registered
@@ -165,55 +187,51 @@ public class User {
         }
       }
     } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing accounts
+      // Ignore as there may be no existing users
     }
 
-    if (registered) {
-      // Display the error message
-      System.out.println("Username is taken");
+    if (!registered) {
+      // Record the new user into the User database and log action
+      WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
     } else {
-      // Record the new user into the Account database
-      WriteObject.write(user, "Account.txt", true);
-      // Record the action into the log
-      ActionLog.log("Registered new User (" + user.getUserId() + ")");
+      // Display the error message
+      System.out.println("User login name is taken");
     }
   }
 
   public static void update(User user) {
     int i = 0;
-    File oldFile = new File("Account.txt");
+    File oldFile = new File(FILE_NAME);
     // Create a temporary file
-    File tempFile = new File("TempAccount.txt");
+    File tempFile = new File(TEMP_FILE_NAME);
     try {
-      // Create an account array
-      ArrayList<String> accountArray = ReadObject.readArray("Account.txt");
+      // Create an user array
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
 
-      // Iterate through the account array
-      for (String account : accountArray) {
+      // Iterate through the user array
+      for (String userDetails : userArray) {
         // Split the line into an array
-        String[] details = account.split(",");
+        String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
-          // Write the new details into the temporary file
-          WriteObject.write(user, "TempAccount.txt", true);
+          // Write the new details into the temporary file and log action
+          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(accountArray.get(i), "TempAccount.txt", true);
+          WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File("Account.txt"));
-      // Record the action into the log
-      ActionLog.log("Updated user information (" + user.getUserId() + ")");
+      tempFile.renameTo(new File(FILE_NAME));
 
-      if (user.getUserId().equals(User.myAccount.getUserId())) {
+      if (user.getUserId().equals(User.myUser.getUserId())) {
         // Update the user's information in the session
-        User.myAccount.setUserName(user.getUserName());
-        User.myAccount.setUserAddress(user.getUserAddress());
-        User.myAccount.setUserEmail(user.getUserEmail());
+        User.myUser.setUserName(user.getUserName());
+        User.myUser.setUserAddress(user.getUserAddress());
+        User.myUser.setUserEmail(user.getUserEmail());
       }
     } catch (FileNotFoundException e) {
       // Display the error message
@@ -221,9 +239,21 @@ public class User {
     }
   }
 
+  public static void logout() {
+    // Record action into log
+    WriteObject.log("Logout");
+    // Clear the user's information from the session
+    myUser.setUserId("-1");
+    myUser.setUserName("");
+    myUser.setUserAddress("");
+    myUser.setUserEmail("");
+    myUser.setUserRole("");
+    myUser.setUserLoginName("");
+  }
+
   // Overrides the default toString() to display the information of the User class
   @Override
   public String toString() {
-    return String.valueOf(getUserId()) + "," + getUserName() + "," + getUserAddress() + "," + getUserEmail() + "," + getUserRole() + "," + getUserLoginName() + "," + getUserPassword();
+    return String.valueOf(getUserId()) + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword();
   }
 }
