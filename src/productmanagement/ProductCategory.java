@@ -112,10 +112,10 @@ public class ProductCategory {
         if (details[0].equals(category.getCategoryId())) {
           if (update) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(category, "TempCategory.txt", true, "Updated category information (" + category.getCategoryId() + ")");
+            WriteObject.write(category, "TempCategory.txt", true, "Updated product category information (" + category.getCategoryId() + ")");
           } else {
             // Ignore the details and log the action
-            WriteObject.log("Deleted category information (" + category.getCategoryId() + ")");
+            WriteObject.log("Deleted product category information (" + category.getCategoryId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
