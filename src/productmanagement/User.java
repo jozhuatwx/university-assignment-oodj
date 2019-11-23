@@ -82,6 +82,36 @@ public class User {
     return ReadObject.generateId("U", "User.txt");
   }
 
+  public static void forgotPassword(String userLoginName) {
+    boolean found = false;
+    // Check if the User login name exists
+    try {
+      ArrayList<String> userArray = ReadObject.readArray("User.txt");
+
+      // Iterate through the User array
+      for (String user : userArray) {
+        // Split each line into an array
+        String[] details = user.split(",");
+        // Find the user login name in the array list
+        if (details[5].equals(userLoginName)) {
+          // Set the User as found
+          found = true;
+          // Log the User ID
+          WriteObject.write(details[0] + ",FORGOT PASSWORD", "User.txt", true);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing users
+    }
+
+    if (!found) {
+      // Display the error message
+      System.out.println("User not found");
+    }
+  }
+
   // Check if the user is logged in
   public static boolean isLoggedIn() {
     if (!myUser.getUserId().equals("-1")) {
@@ -94,7 +124,6 @@ public class User {
   // Log in the user
   public static void login(String userLoginName, String userPassword) {
     try {
-      // Create an user array
       ArrayList<String> userArray = ReadObject.readArray("User.txt");
 
       // Iterate through the user array
