@@ -6,6 +6,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class ReadObject {
   // Generate the latest ID
   public static String generateId(String prefix, String filename) {
@@ -51,7 +54,7 @@ public class ReadObject {
       reader.close();
     } catch (IOException e) {
       // Displays the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
     // Returns the array list data
     return data;

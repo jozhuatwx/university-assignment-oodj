@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class WriteObject {
   public static void write(Object obj, String filename, boolean append) {
     // Writes onto the file based on the path and whether to append or overwrite it
@@ -17,7 +20,7 @@ public class WriteObject {
       writer.close();
     } catch (Exception e) {
       // Displays the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 

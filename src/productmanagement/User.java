@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class User {
   // Constant variables
   public static final String FILE_NAME = "User.txt";
@@ -115,7 +118,7 @@ public class User {
 
     if (!found) {
       // Display the error message
-      System.out.println("User not found");
+      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -153,18 +156,18 @@ public class User {
             return true;
           } else {
             // Display the error message
-            System.out.println("Wrong password");
+            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Alert", JOptionPane.WARNING_MESSAGE);
             return false;
           }
         } else {
           // Display the error message
-          System.out.println("Wrong login name");
+          JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Alert", JOptionPane.WARNING_MESSAGE);
           return false;
         }
       }
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
     return false;
   }
@@ -197,7 +200,7 @@ public class User {
       WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
     } else {
       // Display the error message
-      System.out.println("User login name is taken");
+      JOptionPane.showMessageDialog(new JFrame(), "Login name is taken, please try another login name", "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -237,7 +240,7 @@ public class User {
       }
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 

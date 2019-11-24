@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Supplier {
   // Constant variables
   public static final String FILE_NAME = "Supplier.txt";
@@ -105,7 +108,7 @@ public class Supplier {
       WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
     } else {
       // Display the error message
-      System.out.println("Supplier is registered");
+      JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -137,7 +140,7 @@ public class Supplier {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 

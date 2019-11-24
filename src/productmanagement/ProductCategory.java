@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class ProductCategory {
   // Constant variables
   public static final String FILE_NAME = "ProductCategory.txt";
@@ -76,7 +79,7 @@ public class ProductCategory {
       WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")");
     } else {
       // Display the error message
-      System.out.println("Product category already exists");
+      JOptionPane.showMessageDialog(new JFrame(), "Product category already exists", "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -113,7 +116,7 @@ public class ProductCategory {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class ProductCataloguePage {
   // Constant variables
   public static final String FILE_NAME = "ProductCataloguePage.txt";
@@ -102,7 +105,7 @@ public class ProductCataloguePage {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 

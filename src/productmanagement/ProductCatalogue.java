@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class ProductCatalogue {
   // Constant variables
   public static final String FILE_NAME = "ProductCatalogue.txt";
@@ -135,7 +138,7 @@ public class ProductCatalogue {
       WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
     } else {
       // Display the error message
-      System.out.println("Please use a different title");
+      JOptionPane.showMessageDialog(new JFrame(), "Catalogue title is taken, please try another title", "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -172,7 +175,7 @@ public class ProductCatalogue {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
