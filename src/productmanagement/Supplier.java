@@ -112,7 +112,7 @@ public class Supplier {
     }
   }
 
-  public static void update(Supplier supplier) {
+  public static void modify(Supplier supplier, boolean update) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -126,8 +126,13 @@ public class Supplier {
         String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log action
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted supplier information (" + supplier.getSupplierId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(supplierArray.get(i), TEMP_FILE_NAME, true);
@@ -142,6 +147,15 @@ public class Supplier {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
+  }
+
+  public static void update(Supplier supplier) {
+    modify(supplier, true);
+  }
+
+  public static void delete(String supplierId) {
+    Supplier supplier = new Supplier(supplierId, "", "", "", "", Supplier.INACTIVE);
+    modify(supplier, false);
   }
 
   public static Supplier search(String keyword) {

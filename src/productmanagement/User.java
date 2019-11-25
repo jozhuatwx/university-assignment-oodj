@@ -204,7 +204,7 @@ public class User {
     return false;
   }
 
-  public static boolean update(User user) {
+  public static boolean modify(User user, boolean update) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -219,8 +219,13 @@ public class User {
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted user information (" + user.getUserId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
@@ -244,6 +249,15 @@ public class User {
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
     return false;
+  }
+
+  public static boolean update(User user) {
+    return modify(user, true);
+  }
+
+  public static boolean delete(String userId) {
+    User user = new User(userId, "", "", "", "", "", "");
+    return modify(user, false);
   }
 
   public static void logout() {
