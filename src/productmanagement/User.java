@@ -159,16 +159,14 @@ public class User {
             JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Alert", JOptionPane.WARNING_MESSAGE);
             return false;
           }
-        } else {
-          // Display the error message
-          JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Alert", JOptionPane.WARNING_MESSAGE);
-          return false;
         }
       }
     } catch (FileNotFoundException e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
+    // Display the error message
+    JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Alert", JOptionPane.WARNING_MESSAGE);
     return false;
   }
 
@@ -197,9 +195,15 @@ public class User {
     }
 
     if (!registered) {
-      // Record the new user into the User database and log action
-      WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
-      return true;
+      try {
+        user.setUserPassword(Encryption.encryptPassword(user.getUserPassword().toCharArray()));
+        // Record the new user into the User database and log action
+        WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
+        return true;
+      } catch (Exception e) {
+        // Display the error message
+        JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      }
     }
     return false;
   }
