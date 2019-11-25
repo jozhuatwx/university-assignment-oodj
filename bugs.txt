@@ -1,3 +1,0 @@
-LoginForm
-1. Hitting enter at either login name or password fields doesn't call login function
-2. Hitting enter after failed login will call login function again
