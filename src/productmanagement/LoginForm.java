@@ -138,9 +138,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         txtLoginName.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtLoginNameKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtLoginNameKeyReleased(evt);
             }
@@ -163,9 +160,6 @@ public class LoginForm extends javax.swing.JFrame {
             }
         });
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtPasswordKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyReleased(evt);
             }
@@ -181,14 +175,9 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.setText("Login");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setName("btnLogin\\"); // NOI18N
-            btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    btnLoginMouseClicked(evt);
-                }
-            });
-            btnLogin.addKeyListener(new java.awt.event.KeyAdapter() {
-                public void keyPressed(java.awt.event.KeyEvent evt) {
-                    btnLoginKeyPressed(evt);
+            btnLogin.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnLoginActionPerformed(evt);
                 }
             });
 
@@ -430,28 +419,6 @@ public class LoginForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtPasswordFocusLost
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        login();
-    }//GEN-LAST:event_btnLoginMouseClicked
-
-    private void txtLoginNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            login();
-        }
-    }//GEN-LAST:event_txtLoginNameKeyPressed
-
-    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            login();
-        }
-    }//GEN-LAST:event_txtPasswordKeyPressed
-
-    private void btnLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnLoginKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            login();
-        }
-    }//GEN-LAST:event_btnLoginKeyPressed
-
     private void txtLoginNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyReleased
         String userLoginName = txtLoginName.getText();
         if (userLoginName.trim().length() == 0) {
@@ -469,6 +436,10 @@ public class LoginForm extends javax.swing.JFrame {
             lblPasswordError.setText(" ");
         }
     }//GEN-LAST:event_txtPasswordKeyReleased
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        login();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
