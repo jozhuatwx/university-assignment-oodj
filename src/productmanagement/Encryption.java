@@ -7,6 +7,8 @@ import java.security.spec.InvalidKeySpecException;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Encryption {
   // Validate a password
@@ -35,7 +37,7 @@ public class Encryption {
       return diff == 0;
     } catch (Exception e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
     // Default return false
     return false;

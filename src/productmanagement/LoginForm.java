@@ -12,6 +12,42 @@ public class LoginForm extends javax.swing.JFrame {
         this.getRootPane().setDefaultButton(btnLogin);
     }
 
+    private void login() {
+        String userLoginName = txtLoginName.getText();
+        char[] userPassword = txtPassword.getPassword();
+
+        if (userLoginName.trim().length() > 0 && userPassword.length > 0) {
+            if (User.login(userLoginName, userPassword)) {
+            // Display form based on role
+            switch (User.myUser.getUserRole()) {
+                case ProductManager.ROLE:
+                    
+                    break;
+            
+                case Administrator.ROLE:
+
+                    break;
+            }
+
+            // Close the login form
+            this.dispose();
+            }
+        } else if (userLoginName.trim().length() == 0 && userPassword.length == 0) {
+            lblLoginNameError.setText("Login name cannot be empty");
+            lblPasswordError.setText("Password cannot be empty");
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), "Login name and password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
+        } else if (userLoginName.trim().length() == 0) {
+            lblLoginNameError.setText("Login name cannot be empty");
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), "Login name cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
+        } else if (userPassword.length == 0) {
+            lblPasswordError.setText("Password cannot be empty");
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,9 +174,9 @@ public class LoginForm extends javax.swing.JFrame {
         btnLogin.setText("Login");
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.setName("btnLogin\\"); // NOI18N
-            btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    btnLoginMouseClicked(evt);
+            btnLogin.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    btnLoginActionPerformed(evt);
                 }
             });
 
@@ -364,42 +400,10 @@ public class LoginForm extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_formMousePressed
 
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        String userLoginName = txtLoginName.getText();
-        char[] userPassword = txtPassword.getPassword();
-
-        if (userLoginName.trim().length() > 0 && userPassword.length > 0) {
-            if (User.login(userLoginName, userPassword)) {
-            // Display form based on role
-            switch (User.myUser.getUserRole()) {
-                case ProductManager.ROLE:
-                    
-                    break;
-            
-                case Administrator.ROLE:
-
-                    break;
-            }
-
-            // Close the login form
-            this.dispose();
-            }
-        } else if (userLoginName.trim().length() == 0 && userPassword.length == 0) {
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Login Name and password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
-        } else if (userLoginName.trim().length() == 0) {
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Login Name cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
-        } else if (userPassword.length == 0) {
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnLoginMouseClicked
-
     private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
         String userLoginName = txtLoginName.getText();
         if (userLoginName.trim().length() == 0) {
-            lblLoginNameError.setText("Login Name cannot be empty");
+            lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");
         }
@@ -417,7 +421,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void txtLoginNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyReleased
         String userLoginName = txtLoginName.getText();
         if (userLoginName.trim().length() == 0) {
-            lblLoginNameError.setText("Login Name cannot be empty");
+            lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");
         }
@@ -431,6 +435,10 @@ public class LoginForm extends javax.swing.JFrame {
             lblPasswordError.setText(" ");
         }
     }//GEN-LAST:event_txtPasswordKeyReleased
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        login();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments

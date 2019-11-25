@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class User {
   // Constant variables
   public static final String FILE_NAME = "User.txt";
@@ -89,7 +92,7 @@ public class User {
     return ReadObject.generateId("U", FILE_NAME);
   }
 
-  public static void forgotPassword(String userLoginName) {
+  public static boolean forgotPassword(String userLoginName) {
     boolean found = false;
     // Check if the User login name exists
     try {
@@ -105,8 +108,7 @@ public class User {
           found = true;
           // Log the User ID
           WriteObject.write(details[0] + ",FORGOT PASSWORD", FILE_NAME, true);
-          // Stop the iteration
-          break;
+          return true;
         }
       }
     } catch (FileNotFoundException e) {
@@ -115,8 +117,9 @@ public class User {
 
     if (!found) {
       // Display the error message
-      System.out.println("User not found");
+      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Alert", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
   // Check if the user is logged in
@@ -153,23 +156,23 @@ public class User {
             return true;
           } else {
             // Display the error message
-            System.out.println("Wrong password");
+            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Alert", JOptionPane.WARNING_MESSAGE);
             return false;
           }
         } else {
           // Display the error message
-          System.out.println("Wrong login name");
+          JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Alert", JOptionPane.WARNING_MESSAGE);
           return false;
         }
       }
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
     return false;
   }
 
-  public static void register(User user) {
+  public static boolean register(User user) {
     // Set default registered user as false
     boolean registered = false;
     // Create an user array
@@ -184,8 +187,9 @@ public class User {
         if (details[5].equals(user.getUserLoginName())) {
           // Set the user as registered
           registered = true;
-          // Stop the iteration
-          break;
+          // Display the error message
+          JOptionPane.showMessageDialog(new JFrame(), "Login name is taken, please try another login name", "Alert", JOptionPane.WARNING_MESSAGE);
+          return false;
         }
       }
     } catch (FileNotFoundException e) {
@@ -195,13 +199,12 @@ public class User {
     if (!registered) {
       // Record the new user into the User database and log action
       WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
-    } else {
-      // Display the error message
-      System.out.println("User login name is taken");
+      return true;
     }
+    return false;
   }
 
-  public static void update(User user) {
+  public static boolean modify(User user, boolean update) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -216,8 +219,13 @@ public class User {
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted user information (" + user.getUserId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
@@ -235,10 +243,21 @@ public class User {
         User.myUser.setUserAddress(user.getUserAddress());
         User.myUser.setUserEmail(user.getUserEmail());
       }
+      return true;
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
+  }
+
+  public static boolean update(User user) {
+    return modify(user, true);
+  }
+
+  public static boolean delete(String userId) {
+    User user = new User(userId, "", "", "", "", "", "");
+    return modify(user, false);
   }
 
   public static void logout() {

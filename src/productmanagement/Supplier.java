@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 public class Supplier {
   // Constant variables
   public static final String FILE_NAME = "Supplier.txt";
@@ -105,11 +108,11 @@ public class Supplier {
       WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
     } else {
       // Display the error message
-      System.out.println("Supplier is registered");
+      JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Alert", JOptionPane.WARNING_MESSAGE);
     }
   }
 
-  public static void update(Supplier supplier) {
+  public static void modify(Supplier supplier, boolean update) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -123,8 +126,13 @@ public class Supplier {
         String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
-          // Write the new details into the temporary file and log action
-          WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")");
+          if (update) {
+            // Write the new details into the temporary file and log action
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")");
+          } else {
+            // Ignore the details and log the action
+            WriteObject.log("Deleted supplier information (" + supplier.getSupplierId() + ")");
+          }
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(supplierArray.get(i), TEMP_FILE_NAME, true);
@@ -137,8 +145,17 @@ public class Supplier {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      System.out.println(e);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
+  }
+
+  public static void update(Supplier supplier) {
+    modify(supplier, true);
+  }
+
+  public static void delete(String supplierId) {
+    Supplier supplier = new Supplier(supplierId, "", "", "", "", Supplier.INACTIVE);
+    modify(supplier, false);
   }
 
   public static Supplier search(String keyword) {
