@@ -21,7 +21,7 @@ public class LoginForm extends javax.swing.JFrame {
             // Display form based on role
             switch (User.myUser.getUserRole()) {
                 case ProductManager.ROLE:
-                    ProductManHomePage pmhp = new ProductManHomePage();
+                    ProductManagerDashboardForm pmhp = new ProductManagerDashboardForm();
                     pmhp.setVisible(true);
                     break;
             
