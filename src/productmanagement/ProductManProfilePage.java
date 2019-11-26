@@ -30,9 +30,6 @@ public class ProductManProfilePage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TopFrameBar = new javax.swing.JPanel();
-        lblClose = new javax.swing.JLabel();
-        lblMinimize = new javax.swing.JLabel();
         WhiteBackgroundPanel = new javax.swing.JPanel();
         lblName = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
@@ -45,58 +42,19 @@ public class ProductManProfilePage extends javax.swing.JFrame {
         txtLoginName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
-        lblDashboard = new javax.swing.JLabel();
-        lblManageProduct = new javax.swing.JLabel();
-        lblManageCatalogue = new javax.swing.JLabel();
+        TopFrameBar = new javax.swing.JPanel();
+        lblClose = new javax.swing.JLabel();
+        lblMinimize = new javax.swing.JLabel();
         lblProfile = new javax.swing.JLabel();
+        lblManageCatalogue = new javax.swing.JLabel();
+        lblManageProduct = new javax.swing.JLabel();
+        lblDashboard = new javax.swing.JLabel();
+        lblManageCatalogue1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("ProductManProfilePage"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(600, 420));
-
-        TopFrameBar.setBackground(new java.awt.Color(0, 0, 51));
-
-        lblClose.setBackground(new java.awt.Color(0, 0, 51));
-        lblClose.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
-        lblClose.setForeground(new java.awt.Color(255, 255, 255));
-        lblClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblClose.setText("X");
-        lblClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblClose.setName("lblClose"); // NOI18N
-        lblClose.setOpaque(true);
-        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCloseMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblCloseMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblCloseMouseExited(evt);
-            }
-        });
-
-        lblMinimize.setBackground(new java.awt.Color(0, 0, 51));
-        lblMinimize.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
-        lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
-        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblMinimize.setText("-");
-        lblMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblMinimize.setName("lblMinimize"); // NOI18N
-        lblMinimize.setOpaque(true);
-        lblMinimize.setPreferredSize(new java.awt.Dimension(11, 21));
-        lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblMinimizeMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblMinimizeMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblMinimizeMouseExited(evt);
-            }
-        });
+        setPreferredSize(new java.awt.Dimension(660, 420));
 
         WhiteBackgroundPanel.setBackground(new java.awt.Color(255, 255, 255));
         WhiteBackgroundPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -205,21 +163,69 @@ public class ProductManProfilePage extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblDashboard.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblDashboard.setForeground(new java.awt.Color(153, 153, 153));
-        lblDashboard.setText("Dashboard");
+        TopFrameBar.setBackground(new java.awt.Color(0, 0, 51));
+        TopFrameBar.setPreferredSize(new java.awt.Dimension(686, 65));
 
-        lblManageProduct.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblManageProduct.setForeground(new java.awt.Color(153, 153, 153));
-        lblManageProduct.setText("Product");
+        lblClose.setBackground(new java.awt.Color(0, 0, 51));
+        lblClose.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        lblClose.setForeground(new java.awt.Color(255, 255, 255));
+        lblClose.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblClose.setText("X");
+        lblClose.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblClose.setName("lblClose"); // NOI18N
+        lblClose.setOpaque(true);
+        lblClose.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCloseMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblCloseMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblCloseMouseExited(evt);
+            }
+        });
+
+        lblMinimize.setBackground(new java.awt.Color(0, 0, 51));
+        lblMinimize.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        lblMinimize.setForeground(new java.awt.Color(255, 255, 255));
+        lblMinimize.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMinimize.setText("-");
+        lblMinimize.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblMinimize.setName("lblMinimize"); // NOI18N
+        lblMinimize.setOpaque(true);
+        lblMinimize.setPreferredSize(new java.awt.Dimension(11, 21));
+        lblMinimize.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblMinimizeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblMinimizeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblMinimizeMouseExited(evt);
+            }
+        });
+
+        lblProfile.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblProfile.setText("Profile");
 
         lblManageCatalogue.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblManageCatalogue.setForeground(new java.awt.Color(153, 153, 153));
         lblManageCatalogue.setText("Catalogue");
 
-        lblProfile.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblProfile.setForeground(new java.awt.Color(255, 255, 255));
-        lblProfile.setText("Profile");
+        lblManageProduct.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblManageProduct.setForeground(new java.awt.Color(153, 153, 153));
+        lblManageProduct.setText("Product");
+
+        lblDashboard.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblDashboard.setForeground(new java.awt.Color(153, 153, 153));
+        lblDashboard.setText("Dashboard");
+
+        lblManageCatalogue1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblManageCatalogue1.setForeground(new java.awt.Color(153, 153, 153));
+        lblManageCatalogue1.setText("Catalogue");
 
         javax.swing.GroupLayout TopFrameBarLayout = new javax.swing.GroupLayout(TopFrameBar);
         TopFrameBar.setLayout(TopFrameBarLayout);
@@ -241,11 +247,9 @@ public class ProductManProfilePage extends javax.swing.JFrame {
                         .addComponent(lblManageProduct)
                         .addGap(55, 55, 55)
                         .addComponent(lblManageCatalogue)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TopFrameBarLayout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(WhiteBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                        .addGap(18, 18, 18)
+                        .addComponent(lblManageCatalogue1)
+                        .addGap(0, 45, Short.MAX_VALUE))))
         );
         TopFrameBarLayout.setVerticalGroup(
             TopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,26 +262,30 @@ public class ProductManProfilePage extends javax.swing.JFrame {
                     .addComponent(lblDashboard)
                     .addComponent(lblManageProduct)
                     .addComponent(lblManageCatalogue)
-                    .addComponent(lblProfile))
-                .addGap(18, 18, 18)
-                .addComponent(WhiteBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(lblProfile)
+                    .addComponent(lblManageCatalogue1))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(TopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(TopFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(WhiteBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(TopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(TopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(WhiteBackgroundPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(600, 419));
+        setSize(new java.awt.Dimension(660, 419));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -356,6 +364,7 @@ public class ProductManProfilePage extends javax.swing.JFrame {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblLoginName;
     private javax.swing.JLabel lblManageCatalogue;
+    private javax.swing.JLabel lblManageCatalogue1;
     private javax.swing.JLabel lblManageProduct;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblName;

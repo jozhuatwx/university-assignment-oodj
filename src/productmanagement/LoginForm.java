@@ -73,6 +73,7 @@ public class LoginForm extends javax.swing.JFrame {
         lblSystemName2 = new javax.swing.JLabel();
         lblSystemName = new javax.swing.JLabel();
         lblLoginLogo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         TopFrameBar = new javax.swing.JPanel();
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
@@ -239,6 +240,9 @@ public class LoginForm extends javax.swing.JFrame {
             lblLoginLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
             lblLoginLogo.setName("lblLoginLogo"); // NOI18N
 
+            jLabel2.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/user.png"))); // NOI18N
+            jLabel2.setEnabled(false);
+
             javax.swing.GroupLayout BackgroundPanelLayout = new javax.swing.GroupLayout(BackgroundPanel);
             BackgroundPanel.setLayout(BackgroundPanelLayout);
             BackgroundPanelLayout.setHorizontalGroup(
@@ -246,17 +250,22 @@ public class LoginForm extends javax.swing.JFrame {
                 .addGroup(BackgroundPanelLayout.createSequentialGroup()
                     .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(BackgroundPanelLayout.createSequentialGroup()
-                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblLoginLogo)
-                            .addGap(86, 86, 86))
-                        .addGroup(BackgroundPanelLayout.createSequentialGroup()
-                            .addGap(44, 44, 44)
+                            .addGap(42, 42, 42)
                             .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(BackgroundPanelLayout.createSequentialGroup()
                                     .addGap(9, 9, 9)
                                     .addComponent(lblSystemName))
                                 .addComponent(lblSystemName2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
+                                    .addComponent(lblLoginLogo)
+                                    .addGap(86, 86, 86))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundPanelLayout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(76, 76, 76)))))
                     .addComponent(WhitePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(18, 18, 18))
             );
@@ -264,6 +273,8 @@ public class LoginForm extends javax.swing.JFrame {
                 BackgroundPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(BackgroundPanelLayout.createSequentialGroup()
                     .addGap(81, 81, 81)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(lblLoginLogo)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(lblSystemName)
@@ -484,6 +495,7 @@ public class LoginForm extends javax.swing.JFrame {
     private javax.swing.JPanel TopFrameBar;
     private javax.swing.JPanel WhitePanel;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JLabel lblClose;
