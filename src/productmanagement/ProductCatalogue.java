@@ -202,6 +202,19 @@ public class ProductCatalogue {
     return catalogue;
   }
 
+  public static String[] latestCatalogue() {
+    String[] latestCatalogue = {};
+    try {
+      ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
+      latestCatalogue = catalogueArray.get(catalogueArray.size() - 1).split(";");
+
+    } catch (FileNotFoundException e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    return latestCatalogue;
+  }
+
   // Overrides the default toString() to display the information of the Product Catalogue class
   @Override
   public String toString() {
