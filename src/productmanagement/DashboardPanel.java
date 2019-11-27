@@ -1,5 +1,7 @@
 package productmanagement;
 
+import java.text.DecimalFormat;
+
 import javax.swing.JLabel;
 
 public class DashboardPanel extends javax.swing.JPanel {
@@ -7,13 +9,19 @@ public class DashboardPanel extends javax.swing.JPanel {
     public DashboardPanel() {
         initComponents();
 
+        // Set the String format to add commas
+        DecimalFormat dFormat = new DecimalFormat("#,###");
+
+        // Get the top products
         String[][] topProducts = InventoryTransaction.topProductItems();
+
+        // Set the labels to display the top products
         lblTopItem.setText(topProducts[0][1]);
-        lblTopItemUnit.setText(topProducts[0][3] + " units");
+        lblTopItemUnit.setText(dFormat.format(Integer.valueOf(topProducts[0][3])) + " units");
         lblSecondItem.setText(topProducts[1][1]);
-        lblSecondItemUnit.setText(topProducts[1][3] + " units");
+        lblSecondItemUnit.setText(dFormat.format(Integer.valueOf(topProducts[1][3])) + " units");
         lblThirdItem.setText(topProducts[2][1]);
-        lblThirdItemUnit.setText(topProducts[2][3] + " units");
+        lblThirdItemUnit.setText(dFormat.format(Integer.valueOf(topProducts[2][3])) + " units");
     }
 
     /**
