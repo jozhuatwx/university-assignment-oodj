@@ -109,7 +109,7 @@ public class ProductItem {
     return ReadObject.generateId("PI", FILE_NAME);
   }
 
-  public static void register(ProductItem item) {
+  public static void register(ProductItem item, int itemQuantity) {
     // Set default registered product item as false
     boolean registered = false;
 
@@ -134,6 +134,8 @@ public class ProductItem {
     if (!registered) {
       // Write the new item into the Item database and log action
       WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")");
+      InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
+      InventoryTransaction.register(transaction);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Warning", JOptionPane.WARNING_MESSAGE);
