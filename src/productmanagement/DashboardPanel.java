@@ -1,6 +1,8 @@
 package productmanagement;
 
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JLabel;
 
@@ -26,8 +28,15 @@ public class DashboardPanel extends javax.swing.JPanel {
         // Set the String format to add commas and zeros
         DecimalFormat revenueFormat = new DecimalFormat("#,###.00");
 
-        // Get the total revenue
+        // Get the total revenue and set the label to display it
         lblRevenue.setText("RM " + revenueFormat.format(InventoryTransaction.totalRevenue()));
+
+        // Get the latest catalogue name and date
+        String[] catalogueDetails = ProductCatalogue.latestCatalogue();
+
+        // Set the labels to display the catalogue name and date
+        lblCatalogueTitle.setText(catalogueDetails[1]);
+        lblCatalogueDate.setText(LocalDate.parse(catalogueDetails[4]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY")) + " - " + LocalDate.parse(catalogueDetails[5]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY")));
     }
 
     /**
@@ -58,8 +67,8 @@ public class DashboardPanel extends javax.swing.JPanel {
         lblRevenue = new javax.swing.JLabel();
         pnlLatestCatalogue = new javax.swing.JPanel();
         lblLatestCatalogue = new javax.swing.JLabel();
-        lblCatalogueName = new javax.swing.JLabel();
-        lblDate = new javax.swing.JLabel();
+        lblCatalogueTitle = new javax.swing.JLabel();
+        lblCatalogueDate = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(18, 22, 31));
         setMinimumSize(new java.awt.Dimension(670, 450));
@@ -296,13 +305,15 @@ public class DashboardPanel extends javax.swing.JPanel {
         lblLatestCatalogue.setForeground(new java.awt.Color(255, 255, 255));
         lblLatestCatalogue.setText("Latest Catalogue");
 
-        lblCatalogueName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
-        lblCatalogueName.setForeground(new java.awt.Color(255, 255, 255));
-        lblCatalogueName.setText("Catalogue Name");
+        lblCatalogueTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 16)); // NOI18N
+        lblCatalogueTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblCatalogueTitle.setText("Catalogue Title");
+        lblCatalogueTitle.setHorizontalAlignment(JLabel.CENTER);
 
-        lblDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblDate.setForeground(new java.awt.Color(255, 255, 255));
-        lblDate.setText("10/10/1010 - 10/10/1010");
+        lblCatalogueDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblCatalogueDate.setForeground(new java.awt.Color(255, 255, 255));
+        lblCatalogueDate.setText("10/10/1010 - 10/10/1010");
+        lblCatalogueDate.setHorizontalAlignment(JLabel.CENTER);
 
         javax.swing.GroupLayout pnlLatestCatalogueLayout = new javax.swing.GroupLayout(pnlLatestCatalogue);
         pnlLatestCatalogue.setLayout(pnlLatestCatalogueLayout);
@@ -311,13 +322,13 @@ public class DashboardPanel extends javax.swing.JPanel {
             .addGroup(pnlLatestCatalogueLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(lblLatestCatalogue)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLatestCatalogueLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlLatestCatalogueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCatalogueName)
-                    .addComponent(lblDate))
-                .addGap(35, 35, 35))
+                    .addComponent(lblCatalogueTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCatalogueDate, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlLatestCatalogueLayout.setVerticalGroup(
             pnlLatestCatalogueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,10 +336,10 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addGap(22, 22, 22)
                 .addComponent(lblLatestCatalogue)
                 .addGap(39, 39, 39)
-                .addComponent(lblCatalogueName)
+                .addComponent(lblCatalogueTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblDate)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addComponent(lblCatalogueDate)
+                .addGap(67, 67, 67))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -360,8 +371,8 @@ public class DashboardPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblCatalogueName;
-    private javax.swing.JLabel lblDate;
+    private javax.swing.JLabel lblCatalogueDate;
+    private javax.swing.JLabel lblCatalogueTitle;
     private javax.swing.JLabel lblLatestCatalogue;
     private javax.swing.JLabel lblRevenue;
     private javax.swing.JLabel lblRevenueTitle;
