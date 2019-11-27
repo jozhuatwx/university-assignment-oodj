@@ -19,8 +19,7 @@ public class User {
   private String userId, userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
   // Construct the User
-  User(String userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName,
-      String userPassword) {
+  User(String userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName, String userPassword) {
     this.userId = userId;
     this.userName = userName;
     this.userAddress = userAddress;
@@ -248,6 +247,29 @@ public class User {
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return false;
+  }
+
+  public static User search(String keyword) {
+    User user = new User("-1", "", "", "", "", "", "");
+
+    try {
+      ArrayList<String> userArray = ReadObject.readArray("ProductManager.txt");
+      // Iterate through the User array
+      for (String userDetails : userArray) {
+        // Split the line into an array
+        String[] details = userDetails.split(";");
+        // Find if any existing User matches the keyword
+        if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[5].contains(keyword)) {
+          // Get User information
+          user = new User(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Ignore as there may be no existing Users
+    }
+    return user;
   }
 
   public static void logout() {
