@@ -52,7 +52,8 @@ public class InventoryTransaction {
     WriteObject.write(transaction, FILE_NAME, true, "Added transaction (" + transaction.getTransactionId() + ")");
   }
 
-  public static void topProductItems() {
+  public static String[][] topProductItems() {
+    String[][] topProductItems = new String[3][4];
     try {
       // Get the Items
       ArrayList<String> itemArrayList = ReadObject.readArray(ProductItem.FILE_NAME);
@@ -84,7 +85,7 @@ public class InventoryTransaction {
         }
       }
 
-      // Sort the Transactions
+      // Sort the Transactions descending order
       Arrays.sort(itemArray, new Comparator<String[]>() {
         @Override
         public int compare(String[] o1, String[] o2) {
@@ -94,16 +95,17 @@ public class InventoryTransaction {
         }
       });
 
-      System.out.println("Item id\t\tQuantity");
-      for (int i = 0; i < itemArray.length; i++) {
-        String[] itemRecord = itemArray[i];
-        System.out.println(itemRecord[0] + "\t\t" + itemRecord[1] + "\t\t" + itemRecord[2] + "\t\t" + itemRecord[3]);
+      // Get the top three
+      for (int i = 0; i < topProductItems.length; i++) {
+        for (int x = 0; x < 4; x++) {
+          topProductItems[i][x] = itemArray[i][x];
+        }
       }
     } catch (FileNotFoundException e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    // return topItems;
+    return topProductItems;
   }
 
   // Override the default toString() to display the information of the Inventory Transaction class
