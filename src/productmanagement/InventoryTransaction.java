@@ -59,14 +59,16 @@ public class InventoryTransaction {
       ArrayList<String> itemArrayList = ReadObject.readArray(ProductItem.FILE_NAME);
       String[][] itemArray = new String[itemArrayList.size()][4];
 
+      // Iterate through the Item array list
       for (int i = 0; i < itemArrayList.size(); i++) {
+        // Split line into array
         String[] details = itemArrayList.get(i).split(";");
         // Item ID
         itemArray[i][0] = details[0];
         // Item Name
         itemArray[i][1] = details[1];
         // Item Brand
-        itemArray[i][2] = details[3];
+        itemArray[i][2] = details[2];
         // Item Total Transaction
         itemArray[i][3] = "0";
       }
@@ -106,6 +108,33 @@ public class InventoryTransaction {
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return topProductItems;
+  }
+
+  public static double totalRevenue() {
+    double totalRevenue = 0.0;
+    try {
+      ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+
+      ArrayList<String> transactionArray = ReadObject.readArray(FILE_NAME);
+      // Iterate through the Transaction array
+      for (String transactionDetails : transactionArray) {
+        // Split line into array
+        String[] details = transactionDetails.split(";");
+        // Only count the outgoing transactions
+        if (Double.valueOf(details[3]) < 0) {
+          int index = Integer.valueOf(details[2].substring(2)) - 1;
+          String[] item = itemArray.get(index).split(";");
+          double price = Double.valueOf(item[3]);
+          // Multiply the price and negate the negative value of the number of units
+          totalRevenue -= price * Double.valueOf(details[3]);
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    return totalRevenue;
   }
 
   // Override the default toString() to display the information of the Inventory Transaction class

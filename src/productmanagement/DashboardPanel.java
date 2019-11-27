@@ -10,18 +10,24 @@ public class DashboardPanel extends javax.swing.JPanel {
         initComponents();
 
         // Set the String format to add commas
-        DecimalFormat dFormat = new DecimalFormat("#,###");
+        DecimalFormat unitFormat = new DecimalFormat("#,###");
 
         // Get the top products
         String[][] topProducts = InventoryTransaction.topProductItems();
 
         // Set the labels to display the top products
         lblTopItem.setText(topProducts[0][1]);
-        lblTopItemUnit.setText(dFormat.format(Integer.valueOf(topProducts[0][3])) + " units");
+        lblTopItemUnit.setText(unitFormat.format(Integer.valueOf(topProducts[0][3])) + " units");
         lblSecondItem.setText(topProducts[1][1]);
-        lblSecondItemUnit.setText(dFormat.format(Integer.valueOf(topProducts[1][3])) + " units");
+        lblSecondItemUnit.setText(unitFormat.format(Integer.valueOf(topProducts[1][3])) + " units");
         lblThirdItem.setText(topProducts[2][1]);
-        lblThirdItemUnit.setText(dFormat.format(Integer.valueOf(topProducts[2][3])) + " units");
+        lblThirdItemUnit.setText(unitFormat.format(Integer.valueOf(topProducts[2][3])) + " units");
+
+        // Set the String format to add commas and zeros
+        DecimalFormat revenueFormat = new DecimalFormat("#,###.00");
+
+        // Get the total revenue
+        lblRevenue.setText("RM " + revenueFormat.format(InventoryTransaction.totalRevenue()));
     }
 
     /**
@@ -208,6 +214,7 @@ public class DashboardPanel extends javax.swing.JPanel {
         lblRevenue.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblRevenue.setForeground(new java.awt.Color(255, 255, 255));
         lblRevenue.setText("RM 1,000,000.00");
+        lblRevenue.setHorizontalAlignment(JLabel.CENTER);
 
         javax.swing.GroupLayout pnlRevenueLayout = new javax.swing.GroupLayout(pnlRevenue);
         pnlRevenue.setLayout(pnlRevenueLayout);
@@ -218,9 +225,9 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addComponent(lblRevenueTitle)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlRevenueLayout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addContainerGap(28, Short.MAX_VALUE)
                 .addComponent(lblRevenue)
-                .addGap(25, 25, 25))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         pnlRevenueLayout.setVerticalGroup(
             pnlRevenueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +236,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addComponent(lblRevenueTitle)
                 .addGap(52, 52, 52)
                 .addComponent(lblRevenue)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addGap(78, 78, 78))
         );
 
         pnlLatestCatalogue.setBackground(new java.awt.Color(46, 52, 66));
