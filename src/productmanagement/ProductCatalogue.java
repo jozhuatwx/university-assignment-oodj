@@ -13,15 +13,17 @@ public class ProductCatalogue {
   // Constant variables
   public static final String FILE_NAME = "ProductCatalogue.txt";
   public static final String TEMP_FILE_NAME = "TempProductCatalogue.txt";
+  public static final String ACTIVE = "active";
+  public static final String INACTIVE = "inactive";
 
   // Product Catalogue fields
-  private String catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueUserId;
+  private String catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueUserId, catalogueStatus;
   private int cataloguePages;
   private LocalDate catalogueStartDate, catalogueEndDate;
   private LocalDateTime catalogueGeneratedDateTime;
 
   // Construct the Product Catalogue
-  ProductCatalogue(String catalogueId, String catalogueTitle, String catalogueBannerPath, String catalogueDescription, int cataloguePages, LocalDate catalogueStartDate, LocalDate catalogueEndDate, LocalDateTime catalogueGeneratedDateTime, String catalogueUserId) {
+  ProductCatalogue(String catalogueId, String catalogueTitle, String catalogueBannerPath, String catalogueDescription, int cataloguePages, LocalDate catalogueStartDate, LocalDate catalogueEndDate, LocalDateTime catalogueGeneratedDateTime, String catalogueUserId, String catalogueStatus) {
     this.catalogueId = catalogueId;
     this.catalogueTitle = catalogueTitle;
     this.catalogueBannerPath = catalogueBannerPath;
@@ -31,6 +33,7 @@ public class ProductCatalogue {
     this.catalogueEndDate = catalogueEndDate;
     this.catalogueGeneratedDateTime = catalogueGeneratedDateTime;
     this.catalogueUserId = catalogueUserId;
+    this.catalogueStatus = catalogueStatus;
   }
 
   // Getters and setters
@@ -104,6 +107,14 @@ public class ProductCatalogue {
 
   public void setCatalogueUserId(String catalogueUserId) {
     this.catalogueUserId = catalogueUserId;
+  }
+
+  public String getCatalogueStatus() {
+    return catalogueStatus;
+  }
+
+  public void setCatalogueStatus(String catalogueStatus) {
+    this.catalogueStatus = catalogueStatus;
   }
 
   // Generate the Product Catalogue ID
@@ -184,12 +195,12 @@ public class ProductCatalogue {
   }
 
   public static void delete(String catalogueId) {
-    ProductCatalogue catalogue = new ProductCatalogue(catalogueId, "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
+    ProductCatalogue catalogue = new ProductCatalogue(catalogueId, "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "", INACTIVE);
     modify(catalogue, false);
   }
 
   public static ProductCatalogue search(String keyword) {
-    ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "");
+    ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "", ACTIVE);
 
     try {
       ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
@@ -200,7 +211,7 @@ public class ProductCatalogue {
         // Find if any existing Catalogue matches the keyword
         if (details[1].contains(keyword) || details[3].contains(keyword)) {
           // Get Catalogue information
-          catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], Integer.valueOf(details[4]), LocalDate.parse(details[5]), LocalDate.parse(details[6]), LocalDateTime.parse(details[7]), details[8]);
+          catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], Integer.valueOf(details[4]), LocalDate.parse(details[5]), LocalDate.parse(details[6]), LocalDateTime.parse(details[7]), details[8], details[9]);
           // Stop the iteration
           break;
         }
@@ -214,6 +225,6 @@ public class ProductCatalogue {
   // Overrides the default toString() to display the information of the Product Catalogue class
   @Override
   public String toString() {
-    return String.valueOf(getCatalogueId()) + ";" + getCatalogueTitle() + ";" + getCatalogueBannerPath() + ";" + getCatalogueDescription() + ";" + getCatalogueStartDate() + ";" + getCatalogueEndDate() + ";" + getCatalogueGeneratedDateTime() + ";" + getCatalogueUserId();
+    return String.valueOf(getCatalogueId()) + ";" + getCatalogueTitle() + ";" + getCatalogueBannerPath() + ";" + getCatalogueDescription() + ";" + getCatalogueStartDate() + ";" + getCatalogueEndDate() + ";" + getCatalogueGeneratedDateTime() + ";" + getCatalogueUserId() + ";" + getCatalogueStatus();
   }
 }

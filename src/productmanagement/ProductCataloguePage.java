@@ -11,18 +11,21 @@ public class ProductCataloguePage {
   // Constant variables
   public static final String FILE_NAME = "ProductCataloguePage.txt";
   public static final String TEMP_FILE_NAME = "TempProductCataloguePage.txt";
+  public static final String ACTIVE = "active";
+  public static final String INACTIVE = "inactive";
 
   // Product Catalogue Page fields
-  private String pageId, pageCatalogueId;
+  private String pageId, pageCatalogueId, pageStatus;
   private int pageNumber;
   private String[] pageItemIds;
 
   // Construct the Product Catalogue Page
-  ProductCataloguePage(String pageId, int pageNumber, String[] pageItemIds, String pageCatalogueId) {
+  ProductCataloguePage(String pageId, int pageNumber, String[] pageItemIds, String pageCatalogueId, String pageStatus) {
     this.pageId = pageId;
     this.pageNumber = pageNumber;
     this.pageItemIds = pageItemIds;
     this.pageCatalogueId = pageCatalogueId;
+    this.pageStatus = pageStatus;
   }
 
   // Getters and setters
@@ -60,6 +63,14 @@ public class ProductCataloguePage {
 
   public void setPageCatalogueId(String pageCatalogueId) {
     this.pageCatalogueId = pageCatalogueId;
+  }
+
+  public String getPageStatus() {
+    return pageStatus;
+  }
+  
+  public void setPageStatus(String pageStatus) {
+    this.pageStatus = pageStatus;
   }
 
   // Generate the Product Catalogue Page ID
@@ -114,7 +125,7 @@ public class ProductCataloguePage {
   }
 
   public static void delete(String pageId) {
-    ProductCataloguePage page = new ProductCataloguePage(pageId, -1, null, "");
+    ProductCataloguePage page = new ProductCataloguePage(pageId, -1, null, "", INACTIVE);
     modify(page, false);
   }
 
@@ -134,7 +145,7 @@ public class ProductCataloguePage {
       }
     }
 
-    string += ";" + getPageCatalogueId();
+    string += ";" + getPageCatalogueId() + ";" + getPageStatus();
     return string;
   }
 }

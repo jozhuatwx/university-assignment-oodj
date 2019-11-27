@@ -10,21 +10,21 @@ public class ProductManager extends User {
   public static final String INACTIVE = "inactive";
 
   // Product Manager fields
-  private String pmStatus;
+  private String productManagerStatus;
 
   // Construct the Product Manager
-  ProductManager(String userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String pmStatus) {
+  ProductManager(String userId, String userName, String userAddress, String userEmail, String userLoginName, String userPassword, String productManagerStatus) {
     super(userId, userName, userAddress, userEmail, ROLE, userLoginName, userPassword);
-    this.pmStatus = pmStatus;
+    this.productManagerStatus = productManagerStatus;
   }
 
   // Getters and Setters
-  public String getPmStatus() {
-    return pmStatus;
+  public String getProductManagerStatus() {
+    return productManagerStatus;
   }
   
-  public void setPmStatus(String status) {
-    this.pmStatus = status;
+  public void setProductManagerStatus(String status) {
+    this.productManagerStatus = status;
   }
   
   // Check if the user is a Product Manager
@@ -62,6 +62,6 @@ public class ProductManager extends User {
   // Overrides the default toString() to display the information of the Product Manager class
   @Override
   public String toString() {
-    return String.valueOf(getUserId()) + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword() + ";" + getPmStatus();
+    return String.valueOf(getUserId()) + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword() + ";" + getProductManagerStatus();
   }
 }

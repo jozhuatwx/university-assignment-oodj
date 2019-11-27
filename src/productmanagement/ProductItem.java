@@ -11,23 +11,24 @@ public class ProductItem {
   // Constant variables
   public static final String FILE_NAME = "ProductItem.txt";
   public static final String TEMP_FILE_NAME = "TempProductItem.txt";
+  public static final String ACTIVE = "active";
+  public static final String INACTIVE = "inactive";
 
   // Product Item fields
-  private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId, itemCategoryId;
-  private int itemQuantity;
+  private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, itemStatus;
   private double itemPrice;
 
   // Construct the Product Item
-  ProductItem(String itemId, String itemName, String itemBrand, int itemQuantity, double itemPrice, String itemDescription, String itemImagePath, String itemSupplierId, String itemCategoryId) {
+  ProductItem(String itemId, String itemName, String itemBrand, double itemPrice, String itemDescription, String itemImagePath, String itemSupplierId, String itemCategoryId, String itemStatus) {
     this.itemId = itemId;
     this.itemName = itemName;
     this.itemBrand = itemBrand;
-    this.itemQuantity = itemQuantity;
     this.itemPrice = itemPrice;
     this.itemDescription = itemDescription;
     this.itemImagePath = itemImagePath;
     this.itemSupplierId = itemSupplierId;
     this.itemCategoryId = itemCategoryId;
+    this.itemStatus = itemStatus;
   }
 
   // Getters and setters
@@ -53,14 +54,6 @@ public class ProductItem {
 
   public void setItemBrand(String itemBrand) {
     this.itemBrand = itemBrand;
-  }
-
-  public int getItemQuantity() {
-    return itemQuantity;
-  }
-
-  public void setItemQuantity(int itemQuantity) {
-    this.itemQuantity = itemQuantity;
   }
 
   public double getItemPrice() {
@@ -101,6 +94,14 @@ public class ProductItem {
 
   public void setItemCategoryId(String itemCategoryId) {
     this.itemCategoryId = itemCategoryId;
+  }
+
+  public String getItemStatus() {
+    return itemStatus;
+  }
+
+  public void setItemStatus(String itemStatus) {
+    this.itemStatus = itemStatus;
   }
 
   // Generate the Product Item ID
@@ -182,12 +183,12 @@ public class ProductItem {
   }
 
   public static void delete(String itemId) {
-    ProductItem item = new ProductItem(itemId, "", "", 0, 0.0, "", "", "", "");
+    ProductItem item = new ProductItem(itemId, "", "", 0.0, "", "", "", "", INACTIVE);
     modify(item, false);
   }
 
   public static ProductItem search(String keyword) {
-    ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "", "");
+    ProductItem item = new ProductItem("-1", "", "", 0.0, "", "", "", "", ACTIVE);
 
     try {
       ArrayList<String> itemArray = ReadObject.readArray(FILE_NAME);
@@ -198,7 +199,7 @@ public class ProductItem {
         // Find if any existing Item matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword) || details[5].contains(keyword)) {
           // Get Item information
-          item = new ProductItem(details[0], details[1], details[2], Integer.valueOf(details[3]), Double.valueOf(details[4]), details[5], details[6], details[7], details[8]);
+          item = new ProductItem(details[0], details[1], details[2], Double.valueOf(details[3]), details[4], details[5], details[6], details[7], details[8]);
           // Stop the iteration
           break;
         }
@@ -212,6 +213,6 @@ public class ProductItem {
   // Overrides the default toString() to display the information of the Product Item class
   @Override
   public String toString() {
-    return String.valueOf(getItemId()) + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemQuantity()) + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId();
+    return getItemId() + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId() + ";" + getItemStatus();
   }
 }
