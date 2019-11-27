@@ -149,7 +149,7 @@ public class ProductCatalogue {
       WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
     } else {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "Catalogue title is taken, please try another title", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "Catalogue title is taken, please try another title", "Warning", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -185,7 +185,7 @@ public class ProductCatalogue {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 

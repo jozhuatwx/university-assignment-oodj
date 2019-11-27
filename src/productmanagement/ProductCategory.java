@@ -90,7 +90,7 @@ public class ProductCategory {
       WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")");
     } else {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "Product category already exists", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "Product category already exists", "Warning", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -126,7 +126,7 @@ public class ProductCategory {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 

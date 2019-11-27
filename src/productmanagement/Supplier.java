@@ -108,7 +108,7 @@ public class Supplier {
       WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
     } else {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -145,7 +145,7 @@ public class Supplier {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 

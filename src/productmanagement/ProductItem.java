@@ -136,7 +136,7 @@ public class ProductItem {
       WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")");
     } else {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
   }
 
@@ -173,7 +173,7 @@ public class ProductItem {
       tempFile.renameTo(new File(FILE_NAME));
     } catch (FileNotFoundException e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 

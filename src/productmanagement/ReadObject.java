@@ -54,7 +54,7 @@ public class ReadObject {
       reader.close();
     } catch (IOException e) {
       // Displays the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     // Returns the array list data
     return data;

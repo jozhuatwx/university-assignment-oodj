@@ -117,7 +117,7 @@ public class User {
 
     if (!found) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Warning", JOptionPane.WARNING_MESSAGE);
     }
     return false;
   }
@@ -156,17 +156,17 @@ public class User {
             return true;
           } else {
             // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Alert", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Warning", JOptionPane.WARNING_MESSAGE);
             return false;
           }
         }
       }
     } catch (FileNotFoundException e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     // Display the error message
-    JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Alert", JOptionPane.WARNING_MESSAGE);
+    JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Warning", JOptionPane.WARNING_MESSAGE);
     return false;
   }
 
@@ -186,7 +186,7 @@ public class User {
           // Set the user as registered
           registered = true;
           // Display the error message
-          JOptionPane.showMessageDialog(new JFrame(), "Login name is taken, please try another login name", "Alert", JOptionPane.WARNING_MESSAGE);
+          JOptionPane.showMessageDialog(new JFrame(), "Login name is taken, please try another login name", "Warning", JOptionPane.WARNING_MESSAGE);
           return false;
         }
       }
@@ -245,7 +245,7 @@ public class User {
       return true;
     } catch (FileNotFoundException e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return false;
   }
