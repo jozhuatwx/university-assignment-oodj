@@ -116,9 +116,7 @@ public class MainForm extends javax.swing.JFrame {
         );
         pnlFrameBarLayout.setVerticalGroup(
             pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFrameBarLayout.createSequentialGroup()
-                .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameBarLayout.createSequentialGroup()
                 .addComponent(lblClose, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -149,10 +147,20 @@ public class MainForm extends javax.swing.JFrame {
         lblCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblCategory.setForeground(new java.awt.Color(153, 153, 153));
         lblCategory.setText("Category");
+        lblCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCategoryMouseClicked(evt);
+            }
+        });
 
         lblItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblItem.setForeground(new java.awt.Color(153, 153, 153));
         lblItem.setText("Item");
+        lblItem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblItemMouseClicked(evt);
+            }
+        });
 
         lblSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblSupplier.setForeground(new java.awt.Color(153, 153, 153));
@@ -314,6 +322,25 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.revalidate();
         pnlContent.repaint();
     }//GEN-LAST:event_lblDashboardMouseClicked
+
+    private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
+        pnlContent.removeAll();
+        CategoryPanel cp = new CategoryPanel();
+        cp.setSize(670,450);
+        pnlContent.add(cp);
+        pnlContent.revalidate();
+        pnlContent.repaint();
+    }//GEN-LAST:event_lblCategoryMouseClicked
+
+    private void lblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblItemMouseClicked
+        // TODO add your handling code here:
+        pnlContent.removeAll();
+        ItemPanel ip = new ItemPanel();
+        ip.setSize(670,450);
+        pnlContent.add(ip);
+        pnlContent.revalidate();
+        pnlContent.repaint();
+    }//GEN-LAST:event_lblItemMouseClicked
 
     /**
      * @param args the command line arguments

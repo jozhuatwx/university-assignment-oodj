@@ -102,7 +102,6 @@ public class LoginForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login Form");
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(670, 515));
         setResizable(false);
         setSize(new java.awt.Dimension(600, 0));
         addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -306,7 +305,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addGap(20, 20, 20))
             );
 
-            lblLoginLogo.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/user.png"))); // NOI18N
+            lblLoginLogo.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Login.png"))); // NOI18N
             lblLoginLogo.setEnabled(false);
 
             lblSystemName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 20)); // NOI18N
@@ -324,17 +323,19 @@ public class LoginForm extends javax.swing.JFrame {
             pnlLoginLayout.setHorizontalGroup(
                 pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                    .addGap(56, 56, 56)
                     .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addGap(9, 9, 9)
-                            .addComponent(lblSystemName))
-                        .addComponent(lblSystemName2)
+                            .addGap(56, 56, 56)
+                            .addGroup(pnlLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlLoginLayout.createSequentialGroup()
+                                    .addGap(9, 9, 9)
+                                    .addComponent(lblSystemName))
+                                .addComponent(lblSystemName2))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlLoginLayout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblLoginLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(16, 16, 16)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                            .addGap(81, 81, 81)))
                     .addComponent(WhitePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(25, 25, 25))
             );
@@ -346,13 +347,13 @@ public class LoginForm extends javax.swing.JFrame {
                             .addGap(25, 25, 25)
                             .addComponent(WhitePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(pnlLoginLayout.createSequentialGroup()
-                            .addGap(144, 144, 144)
+                            .addGap(146, 146, 146)
                             .addComponent(lblLoginLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(12, 12, 12)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(lblSystemName)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(lblSystemName2)))
-                    .addContainerGap(30, Short.MAX_VALUE))
+                    .addContainerGap(31, Short.MAX_VALUE))
             );
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
