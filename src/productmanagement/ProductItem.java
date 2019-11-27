@@ -140,7 +140,7 @@ public class ProductItem {
     }
   }
 
-  public static void modify(ProductItem item, boolean update) {
+  public static void modify(ProductItem item) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -155,12 +155,11 @@ public class ProductItem {
         String[] details = itemDetails.split(";");
         // Find the Item with the matching ID
         if (details[0].equals(item.getItemId())) {
-          if (update) {
+          if (item.getItemStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")");
           } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted product item information (" + item.getItemId() + ")");
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Deactivated item product information (" + item.getItemId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
@@ -176,15 +175,6 @@ public class ProductItem {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
-  }
-
-  public static void update(ProductItem item) {
-    modify(item, true);
-  }
-
-  public static void delete(String itemId) {
-    ProductItem item = new ProductItem(itemId, "", "", 0.0, "", "", "", "", INACTIVE);
-    modify(item, false);
   }
 
   public static ProductItem search(String keyword) {

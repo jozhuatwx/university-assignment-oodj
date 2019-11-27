@@ -94,7 +94,7 @@ public class ProductCategory {
     }
   }
 
-  public static void modify(ProductCategory category, boolean update) {
+  public static void modify(ProductCategory category) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -108,12 +108,11 @@ public class ProductCategory {
         String[] details = categoryDetails.split(";");
         // Find the Category with the matching ID
         if (details[0].equals(category.getCategoryId())) {
-          if (update) {
+          if (category.getCategoryStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")");
           } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted product category information (" + category.getCategoryId() + ")");
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Deactivated product category information (" + category.getCategoryId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
@@ -129,15 +128,6 @@ public class ProductCategory {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
-  }
-
-  public static void update(ProductCategory category) {
-    modify(category, true);
-  }
-
-  public static void delete(String categoryId) {
-    ProductCategory category = new ProductCategory(categoryId, "", "", INACTIVE);
-    modify(category, false);
   }
 
   public static ProductCategory search(String keyword) {

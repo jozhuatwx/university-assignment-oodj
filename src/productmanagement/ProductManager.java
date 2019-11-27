@@ -1,7 +1,11 @@
 package productmanagement;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ProductManager extends User {
   // Constant variables
@@ -34,6 +38,53 @@ public class ProductManager extends User {
     } else {
       return false;
     }
+  }
+
+  // Override User's function to account for deactivation
+  public static boolean modify(ProductManager user) {
+    int i = 0;
+    File oldFile = new File(FILE_NAME);
+    // Create a temporary file
+    File tempFile = new File(TEMP_FILE_NAME);
+    try {
+      // Create an user array
+      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
+
+      // Iterate through the user array
+      for (String userDetails : userArray) {
+        // Split the line into an array
+        String[] details = userDetails.split(";");
+        // Find the user with the matching ID
+        if (details[0].equals(user.getUserId())) {
+          if (user.getProductManagerStatus().equals(ACTIVE)) {
+            // Write the new details into the temporary file and log the action
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+          } else {
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Deactivated user information (" + user.getUserId() + ")");
+          }
+        } else {
+          // Write the old detail into the temporary file
+          WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
+        }
+        i++;
+      }
+      // Delete the old file
+      oldFile.delete();
+      // Rename the temporary file
+      tempFile.renameTo(new File(FILE_NAME));
+
+      if (user.getUserId().equals(User.myUser.getUserId())) {
+        // Update the user's information in the session
+        User.myUser.setUserName(user.getUserName());
+        User.myUser.setUserAddress(user.getUserAddress());
+        User.myUser.setUserEmail(user.getUserEmail());
+      }
+      return true;
+    } catch (FileNotFoundException e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+    }
+    return false;
   }
 
   public static ProductManager search(String keyword) {

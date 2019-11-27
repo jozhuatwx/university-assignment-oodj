@@ -83,7 +83,7 @@ public class ProductCataloguePage {
     WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")");
   }
 
-  public static void modify(ProductCataloguePage page, boolean update) {
+  public static void modify(ProductCataloguePage page) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -97,12 +97,11 @@ public class ProductCataloguePage {
         String[] details = pageDetails.split(";");
         // Find the Page with the matching ID
         if (details[0].equals(page.getPageId())) {
-          if (update) {
+          if (page.getPageStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")");
           } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted product catalogue page information (" + page.getPageId() + ")");
+            WriteObject.write(page, TEMP_FILE_NAME, true, "Deactived product catalogue page information (" + page.getPageId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
@@ -118,15 +117,6 @@ public class ProductCataloguePage {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
-  }
-
-  public static void update(ProductCataloguePage page) {
-    modify(page, true);
-  }
-
-  public static void delete(String pageId) {
-    ProductCataloguePage page = new ProductCataloguePage(pageId, -1, null, "", INACTIVE);
-    modify(page, false);
   }
 
   // Overrides the default toString() method to display the information of the Product Catalogue Page class

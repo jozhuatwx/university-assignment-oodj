@@ -153,7 +153,7 @@ public class ProductCatalogue {
     }
   }
 
-  public static void modify(ProductCatalogue catalogue, boolean update) {
+  public static void modify(ProductCatalogue catalogue) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -167,12 +167,11 @@ public class ProductCatalogue {
         String[] details = catalogueDetails.split(";");
         // Find the Catalogue with the matching ID
         if (details[0].equals(catalogue.getCatalogueId())) {
-          if (update) {
+          if (catalogue.getCatalogueStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")");
           } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted product catalogue information (" + catalogue.getCatalogueId() + ")");
+            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Deactivated product catalogue (" + catalogue.getCatalogueId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
@@ -188,15 +187,6 @@ public class ProductCatalogue {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
     }
-  }
-
-  public static void update(ProductCatalogue catalogue) {
-    modify(catalogue, true);
-  }
-
-  public static void delete(String catalogueId) {
-    ProductCatalogue catalogue = new ProductCatalogue(catalogueId, "", "", "", 0, LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "", INACTIVE);
-    modify(catalogue, false);
   }
 
   public static ProductCatalogue search(String keyword) {
