@@ -112,7 +112,7 @@ public class Supplier {
     }
   }
 
-  public static void modify(Supplier supplier, boolean update) {
+  public static void modify(Supplier supplier) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -126,12 +126,11 @@ public class Supplier {
         String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
         if (details[0].equals(supplier.getSupplierId())) {
-          if (update) {
+          if (supplier.getSupplierStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log action
             WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")", true);
           } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted supplier information (" + supplier.getSupplierId() + ")");
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Deactivated supplier information (" + supplier.getSupplierId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file
@@ -147,15 +146,6 @@ public class Supplier {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-  }
-
-  public static void update(Supplier supplier) {
-    modify(supplier, true);
-  }
-
-  public static void delete(String supplierId) {
-    Supplier supplier = new Supplier(supplierId, "", "", "", "", Supplier.INACTIVE);
-    modify(supplier, false);
   }
 
   public static Supplier search(String keyword) {
