@@ -40,7 +40,7 @@ public class ProductManager extends User {
   }
 
   // Override User's function to account for deactivation
-  public static boolean modify(ProductManager user) {
+  public static boolean modify(ProductManager user, boolean updatePassword) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -55,11 +55,20 @@ public class ProductManager extends User {
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
+          if (!updatePassword) {
+            user.setUserPassword(details[6]);
+          }
           if (user.getProductManagerStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+            String action = "Updated user information (" + user.getUserId() + ")";
+            WriteObject.write(user, TEMP_FILE_NAME, true, action);
+            // Display the success message
+            JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
           } else {
-            WriteObject.write(user, TEMP_FILE_NAME, true, "Deactivated user information (" + user.getUserId() + ")");
+            String action = "Deactivated user information (" + user.getUserId() + ")";
+            WriteObject.write(user, TEMP_FILE_NAME, true, action);
+            // Display the success message
+            JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
           }
         } else {
           // Write the old detail into the temporary file

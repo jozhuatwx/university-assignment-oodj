@@ -197,8 +197,11 @@ public class User {
     if (!registered) {
       try {
         user.setUserPassword(Encryption.encryptPassword(user.getUserPassword().toCharArray()));
+        String action = "Registered new User (" + user.getUserId() + ")";
         // Record the new user into the User database and log action
-        WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")");
+        WriteObject.write(user, FILE_NAME, true, action);
+        // Display the success message
+        JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
         return true;
       } catch (Exception e) {
         // Display the error message
@@ -208,7 +211,7 @@ public class User {
     return false;
   }
 
-  public static boolean modify(User user) {
+  public static boolean modify(User user, boolean updatePassword) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -223,8 +226,14 @@ public class User {
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
+          if (!updatePassword) {
+            user.setUserPassword(details[6]);
+          }
           // Write the new details into the temporary file and log the action
-          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
+          String action = "Updated user information (" + user.getUserId() + ")";
+          WriteObject.write(user, TEMP_FILE_NAME, true, action);
+          // Display the success message
+          JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
@@ -238,9 +247,9 @@ public class User {
 
       if (user.getUserId().equals(User.myUser.getUserId())) {
         // Update the user's information in the session
-        User.myUser.setUserName(user.getUserName());
-        User.myUser.setUserAddress(user.getUserAddress());
-        User.myUser.setUserEmail(user.getUserEmail());
+        myUser.setUserName(user.getUserName());
+        myUser.setUserAddress(user.getUserAddress());
+        myUser.setUserEmail(user.getUserEmail());
       }
       return true;
     } catch (Exception e) {
