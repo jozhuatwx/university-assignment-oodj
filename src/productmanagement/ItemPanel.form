@@ -47,7 +47,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="srcpnlCategoryList" max="32767" attributes="0"/>
+                      <Component id="srcpnlItemList" max="32767" attributes="0"/>
                       <Component id="pnlTopFrameBar" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -60,7 +60,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="pnlTopFrameBar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="srcpnlCategoryList" pref="326" max="32767" attributes="0"/>
+                  <Component id="srcpnlItemList" pref="326" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -603,7 +603,7 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JScrollPane" name="srcpnlCategoryList">
+        <Container class="javax.swing.JScrollPane" name="srcpnlItemList">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="42" green="34" red="2e" type="rgb"/>
@@ -614,7 +614,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Container class="javax.swing.JPanel" name="pnlCategoryList">
+            <Container class="javax.swing.JPanel" name="pnlItemList">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="42" green="34" red="2e" type="rgb"/>
@@ -712,7 +712,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Arial Rounded MT Bold" size="14" style="1"/>
                         </Property>
-                        <Property name="text" type="java.lang.String" value="Product category Name"/>
+                        <Property name="text" type="java.lang.String" value="Product item Name"/>
                       </Properties>
                       <Events>
                         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblProductCategoryMouseClicked"/>

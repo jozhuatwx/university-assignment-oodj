@@ -9,14 +9,14 @@ import java.awt.Dimension;
 
 /**
  *
- * @author Jozhua Ten
+ * @author User
  */
-public class SupplierPanel extends javax.swing.JPanel {
+public class ProductManagerPanel extends javax.swing.JPanel {
 
     /**
-     * Creates new form SupplierPanel
+     * Creates new form ProductManagerPanel
      */
-    public SupplierPanel() {
+    public ProductManagerPanel() {
         initComponents();
         
         //Set the TopFrameBar to close(Resize it smaller to hide all the labels, textfield, buttons and textarea. )
@@ -32,21 +32,10 @@ public class SupplierPanel extends javax.swing.JPanel {
         isClose = true;
         
         //To create title with underlined title in the AddItemForm
-        String underlinedTitle = "<html><u>Add Supplier</u></html>";
+        String underlinedTitle = "<html><u>Add Product Manager</u></html>";
         lblTitle.setText(underlinedTitle);
-        
-        
-        /*
-        // Check if it is admin or profuct manager
-        //If the user is Product Manager, then hide the Add and Modify button
-        if(Administrator.isAdministrator()){
-        
-        }else if(ProductManaget.isProductManager()){
-        btnAdd.setVisible(false);
-        }
-        */
     }
-    
+        
         //Create a variable to check the panel is closed or opened
         boolean isClose;
     /**
@@ -61,29 +50,35 @@ public class SupplierPanel extends javax.swing.JPanel {
         pblBackground = new javax.swing.JPanel();
         pnlTopFrameBar = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
-        pnlAddSupplierForm = new javax.swing.JPanel();
+        btnAdd = new javax.swing.JButton();
+        pnlAddProductManagerForm = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblNameError = new javax.swing.JLabel();
-        lblContact = new javax.swing.JLabel();
-        txtContact = new javax.swing.JTextField();
-        lblContactError = new javax.swing.JLabel();
-        lblEmail = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
-        lblEmailError = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         lblAddressError = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblEmailError = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         cmbStatus = new javax.swing.JComboBox<>();
         lblStatusError = new javax.swing.JLabel();
+        lblLoginName = new javax.swing.JLabel();
+        txtLoginName = new javax.swing.JTextField();
+        lblLoginNameError = new javax.swing.JLabel();
+        lblPasswordError = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JTextField();
+        lblPassword = new javax.swing.JLabel();
+        lblConfirmPassword = new javax.swing.JLabel();
+        txtConfirmPassword = new javax.swing.JTextField();
+        lblConfirmPasswordError = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        srcpnlSupplierList = new javax.swing.JScrollPane();
-        pnlSupplierList = new javax.swing.JPanel();
+        srcpnlProductManagerList = new javax.swing.JScrollPane();
+        pnlProductManagerList = new javax.swing.JPanel();
         pnltemporary = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lblProductCategory = new javax.swing.JLabel();
@@ -99,6 +94,12 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtSearch.setForeground(new java.awt.Color(255, 255, 255));
         txtSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        btnSearch.setBackground(new java.awt.Color(46, 52, 66));
+        btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
+        btnSearch.setText("Search");
+
         btnAdd.setBackground(new java.awt.Color(46, 52, 66));
         btnAdd.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -110,18 +111,12 @@ public class SupplierPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSearch.setBackground(new java.awt.Color(46, 52, 66));
-        btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
-        btnSearch.setText("Search");
-
-        pnlAddSupplierForm.setBackground(new java.awt.Color(18, 22, 31));
+        pnlAddProductManagerForm.setBackground(new java.awt.Color(18, 22, 31));
 
         lblTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Add Supplier");
+        lblTitle.setText("Add Product Manager");
 
         lblName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
@@ -131,13 +126,13 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblNameError.setText("ERROR");
 
-        lblContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblContact.setForeground(new java.awt.Color(255, 255, 255));
-        lblContact.setText("Contact :");
+        lblAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblAddress.setForeground(new java.awt.Color(255, 255, 255));
+        lblAddress.setText("Address :");
 
-        lblContactError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblContactError.setForeground(new java.awt.Color(255, 0, 0));
-        lblContactError.setText("ERROR");
+        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
+        lblAddressError.setText("ERROR");
 
         lblEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblEmail.setForeground(new java.awt.Color(255, 255, 255));
@@ -146,14 +141,6 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
         lblEmailError.setText("ERROR");
-
-        lblAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblAddress.setForeground(new java.awt.Color(255, 255, 255));
-        lblAddress.setText("Address :");
-
-        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
-        lblAddressError.setText("ERROR");
 
         lblStatus.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblStatus.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,6 +151,30 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblStatusError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblStatusError.setForeground(new java.awt.Color(255, 0, 0));
         lblStatusError.setText("ERROR");
+
+        lblLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblLoginName.setForeground(new java.awt.Color(255, 255, 255));
+        lblLoginName.setText("Login Name :");
+
+        lblLoginNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblLoginNameError.setForeground(new java.awt.Color(255, 0, 0));
+        lblLoginNameError.setText("ERROR");
+
+        lblPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblPasswordError.setText("ERROR");
+
+        lblPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblPassword.setText("Password :");
+
+        lblConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblConfirmPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblConfirmPassword.setText("Confirm Password :");
+
+        lblConfirmPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblConfirmPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblConfirmPasswordError.setText("ERROR");
 
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
         btnSubmit.setText("Add");
@@ -178,92 +189,119 @@ public class SupplierPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout pnlAddSupplierFormLayout = new javax.swing.GroupLayout(pnlAddSupplierForm);
-        pnlAddSupplierForm.setLayout(pnlAddSupplierFormLayout);
-        pnlAddSupplierFormLayout.setHorizontalGroup(
-            pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlAddProductManagerFormLayout = new javax.swing.GroupLayout(pnlAddProductManagerForm);
+        pnlAddProductManagerForm.setLayout(pnlAddProductManagerFormLayout);
+        pnlAddProductManagerFormLayout.setHorizontalGroup(
+            pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblEmail)
-                        .addComponent(txtEmail)
-                        .addComponent(lblEmailError, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblContact)
-                        .addComponent(lblContactError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtContact, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblNameError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAddress)
-                    .addComponent(lblAddress)
-                    .addComponent(lblStatus)
-                    .addComponent(cmbStatus, 0, 228, Short.MAX_VALUE)
-                    .addComponent(lblStatusError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblAddressError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(83, 83, 83))
-            .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
+            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
                 .addGap(146, 146, 146)
                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(147, 147, 147))
-        );
-        pnlAddSupplierFormLayout.setVerticalGroup(
-            pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
-                        .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblName))
+            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                .addGap(87, 87, 87)
+                .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                        .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblStatus, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbStatus, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblStatusError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                        .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblName, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblNameError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                            .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblEmail)
+                                .addComponent(txtEmail)
+                                .addComponent(lblEmailError, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lblAddress)
+                                .addComponent(lblAddressError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNameError)
+                        .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPassword)
+                            .addComponent(lblPasswordError)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLoginName)
+                            .addComponent(lblLoginNameError)
+                            .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblConfirmPassword)
+                            .addComponent(lblConfirmPasswordError)
+                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        pnlAddProductManagerFormLayout.setVerticalGroup(
+            pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                        .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                                .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblName))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNameError))
+                            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                                .addComponent(lblLoginName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblLoginNameError)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblContact)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblContactError)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                                .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblAddress))
+                                .addGap(5, 5, 5)
+                                .addComponent(lblAddressError))
+                            .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                                .addComponent(lblPassword)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblPasswordError)))
+                        .addGap(7, 7, 7)
                         .addComponent(lblEmail)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-                        .addComponent(lblEmailError)
-                        .addGap(33, 33, 33))
-                    .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
-                        .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlAddSupplierFormLayout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblAddress))
-                        .addGap(5, 5, 5)
-                        .addComponent(lblAddressError)
+                        .addComponent(lblEmailError))
+                    .addGroup(pnlAddProductManagerFormLayout.createSequentialGroup()
+                        .addComponent(lblConfirmPassword)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatus)
+                        .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatusError)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblConfirmPasswordError)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStatusError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(pnlAddProductManagerFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(40, 40, 40))
         );
 
         javax.swing.GroupLayout pnlTopFrameBarLayout = new javax.swing.GroupLayout(pnlTopFrameBar);
@@ -273,7 +311,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopFrameBarLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlAddSupplierForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlAddProductManagerForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlTopFrameBarLayout.createSequentialGroup()
                         .addComponent(txtSearch)
                         .addGap(18, 18, 18)
@@ -292,17 +330,17 @@ public class SupplierPanel extends javax.swing.JPanel {
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addComponent(pnlAddSupplierForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlAddProductManagerForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
         );
 
-        srcpnlSupplierList.setBackground(new java.awt.Color(46, 52, 66));
-        srcpnlSupplierList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        srcpnlSupplierList.setToolTipText("");
+        srcpnlProductManagerList.setBackground(new java.awt.Color(46, 52, 66));
+        srcpnlProductManagerList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        srcpnlProductManagerList.setToolTipText("");
 
-        pnlSupplierList.setBackground(new java.awt.Color(46, 52, 66));
-        pnlSupplierList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlSupplierList.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnlProductManagerList.setBackground(new java.awt.Color(46, 52, 66));
+        pnlProductManagerList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlProductManagerList.setPreferredSize(new java.awt.Dimension(400, 400));
 
         pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -311,12 +349,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         jLabel5.setText("1.");
 
         lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Supplier Name");
-        lblProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProductCategoryMouseClicked(evt);
-            }
-        });
+        lblProductCategory.setText("Product Manager Name");
 
         lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
@@ -326,11 +359,6 @@ public class SupplierPanel extends javax.swing.JPanel {
 
         lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblCategory1.setText("Product category Name");
-        lblCategory1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCategory1MouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnltemporaryLayout = new javax.swing.GroupLayout(pnltemporary);
         pnltemporary.setLayout(pnltemporaryLayout);
@@ -349,7 +377,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             .addGroup(pnltemporaryLayout.createSequentialGroup()
                 .addGap(204, 204, 204)
                 .addComponent(lblCategory1)
-                .addContainerGap(348, Short.MAX_VALUE))
+                .addContainerGap(368, Short.MAX_VALUE))
         );
         pnltemporaryLayout.setVerticalGroup(
             pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -366,24 +394,24 @@ public class SupplierPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout pnlSupplierListLayout = new javax.swing.GroupLayout(pnlSupplierList);
-        pnlSupplierList.setLayout(pnlSupplierListLayout);
-        pnlSupplierListLayout.setHorizontalGroup(
-            pnlSupplierListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSupplierListLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlProductManagerListLayout = new javax.swing.GroupLayout(pnlProductManagerList);
+        pnlProductManagerList.setLayout(pnlProductManagerListLayout);
+        pnlProductManagerListLayout.setHorizontalGroup(
+            pnlProductManagerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProductManagerListLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnlSupplierListLayout.setVerticalGroup(
-            pnlSupplierListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSupplierListLayout.createSequentialGroup()
+        pnlProductManagerListLayout.setVerticalGroup(
+            pnlProductManagerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlProductManagerListLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(337, Short.MAX_VALUE))
         );
 
-        srcpnlSupplierList.setViewportView(pnlSupplierList);
+        srcpnlProductManagerList.setViewportView(pnlProductManagerList);
 
         javax.swing.GroupLayout pblBackgroundLayout = new javax.swing.GroupLayout(pblBackground);
         pblBackground.setLayout(pblBackgroundLayout);
@@ -392,7 +420,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pblBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(srcpnlSupplierList)
+                    .addComponent(srcpnlProductManagerList)
                     .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -402,7 +430,7 @@ public class SupplierPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srcpnlSupplierList, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(srcpnlProductManagerList, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -422,11 +450,11 @@ public class SupplierPanel extends javax.swing.JPanel {
         if(isClose){
             //If the panel is closed,then execute codes below:
             //Set the TopFrameBar to open(Resize it larger to show all the labels, textfield, buttons and textarea. )
-            pnlTopFrameBar.setPreferredSize(new Dimension(617,494));
+            pnlTopFrameBar.setPreferredSize(new Dimension(617,591));
             pnlTopFrameBar.revalidate();
             pnlTopFrameBar.repaint();
 
-            pblBackground.setPreferredSize(new Dimension(619, 846));
+            pblBackground.setPreferredSize(new Dimension(619, 936));
             pblBackground.revalidate();
             pblBackground.repaint();
 
@@ -452,16 +480,6 @@ public class SupplierPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void lblProductCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductCategoryMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_lblProductCategoryMouseClicked
-
-    private void lblCategory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategory1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCategory1MouseClicked
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
@@ -472,28 +490,34 @@ public class SupplierPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddressError;
     private javax.swing.JLabel lblCategory1;
-    private javax.swing.JLabel lblContact;
-    private javax.swing.JLabel lblContactError;
+    private javax.swing.JLabel lblConfirmPassword;
+    private javax.swing.JLabel lblConfirmPasswordError;
     private javax.swing.JLabel lblEdit;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailError;
+    private javax.swing.JLabel lblLoginName;
+    private javax.swing.JLabel lblLoginNameError;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNameError;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblPasswordError;
     private javax.swing.JLabel lblProductCategory;
     private javax.swing.JLabel lblRemove;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblStatusError;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pblBackground;
-    private javax.swing.JPanel pnlAddSupplierForm;
-    private javax.swing.JPanel pnlSupplierList;
+    private javax.swing.JPanel pnlAddProductManagerForm;
+    private javax.swing.JPanel pnlProductManagerList;
     private javax.swing.JPanel pnlTopFrameBar;
     private javax.swing.JPanel pnltemporary;
-    private javax.swing.JScrollPane srcpnlSupplierList;
+    private javax.swing.JScrollPane srcpnlProductManagerList;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtContact;
+    private javax.swing.JTextField txtConfirmPassword;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtLoginName;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

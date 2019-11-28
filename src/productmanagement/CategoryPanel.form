@@ -84,7 +84,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="28" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="pnlAddItemForm" max="32767" attributes="0"/>
+                          <Component id="pnlAddCategoryForm" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="txtSearch" min="-2" pref="407" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -107,7 +107,7 @@
                           <Component id="btnAdd" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="pnlAddItemForm" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlAddCategoryForm" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -169,7 +169,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
               </Events>
             </Component>
-            <Container class="javax.swing.JPanel" name="pnlAddItemForm">
+            <Container class="javax.swing.JPanel" name="pnlAddCategoryForm">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="1f" green="16" red="12" type="rgb"/>

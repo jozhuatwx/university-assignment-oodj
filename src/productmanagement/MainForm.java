@@ -8,7 +8,8 @@ public class MainForm extends javax.swing.JFrame {
 
     public MainForm() {
         initComponents();
-        
+               
+        //Open DashboardPanel automatically
         DashboardPanel dp = new DashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
@@ -127,6 +128,7 @@ public class MainForm extends javax.swing.JFrame {
         lblDashboard.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblDashboard.setForeground(new java.awt.Color(255, 255, 255));
         lblDashboard.setText("Dashboard");
+        lblDashboard.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblDashboard.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblDashboardMouseClicked(evt);
@@ -136,6 +138,7 @@ public class MainForm extends javax.swing.JFrame {
         lblProfile.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblProfile.setForeground(new java.awt.Color(153, 153, 153));
         lblProfile.setText("Profile");
+        lblProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblProfileMouseClicked(evt);
@@ -145,6 +148,7 @@ public class MainForm extends javax.swing.JFrame {
         lblCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblCategory.setForeground(new java.awt.Color(153, 153, 153));
         lblCategory.setText("Category");
+        lblCategory.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCategory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblCategoryMouseClicked(evt);
@@ -154,6 +158,7 @@ public class MainForm extends javax.swing.JFrame {
         lblItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblItem.setForeground(new java.awt.Color(153, 153, 153));
         lblItem.setText("Item");
+        lblItem.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblItem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblItemMouseClicked(evt);
@@ -163,10 +168,17 @@ public class MainForm extends javax.swing.JFrame {
         lblSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblSupplier.setForeground(new java.awt.Color(153, 153, 153));
         lblSupplier.setText("Supplier");
+        lblSupplier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblSupplier.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSupplierMouseClicked(evt);
+            }
+        });
 
         lblCatalogue.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblCatalogue.setForeground(new java.awt.Color(153, 153, 153));
         lblCatalogue.setText("Catalogue");
+        lblCatalogue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         pnlUnderline.setBackground(new java.awt.Color(255, 255, 255));
         pnlUnderline.setPreferredSize(new java.awt.Dimension(100, 3));
@@ -198,9 +210,9 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(lblCategory)
                         .addGap(35, 35, 35)
                         .addComponent(lblItem)
-                        .addGap(18, 18, 18)
+                        .addGap(35, 35, 35)
                         .addComponent(lblSupplier)
-                        .addGap(30, 30, 30)
+                        .addGap(35, 35, 35)
                         .addComponent(lblCatalogue)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -323,6 +335,13 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.add(ip);
         pnlContent.revalidate();
     }//GEN-LAST:event_lblItemMouseClicked
+
+    private void lblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSupplierMouseClicked
+        pnlContent.removeAll();
+        SupplierPanel sp = new SupplierPanel();
+        pnlContent.add(sp);
+        pnlContent.revalidate();
+    }//GEN-LAST:event_lblSupplierMouseClicked
 
     /**
      * @param args the command line arguments
