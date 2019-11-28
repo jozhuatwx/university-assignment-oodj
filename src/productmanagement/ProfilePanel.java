@@ -431,7 +431,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 // Split each line into an array
                 String[] details = user.split(";");
                 // Find the User id in the array list
-                if (details[0].equals(userId)) {
+                if (details[0].equalsIgnoreCase(userId)) {
                     String userPassword = details[6];
                     // Check if it is admin or product manager
                     if (Administrator.isAdministrator()) {
@@ -479,7 +479,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 // Split each line into an array
                 String[] details = user.split(";");
                 // Find the user login name in the array list
-                if (details[0].equals(userId)) {
+                if (details[0].equalsIgnoreCase(userId)) {
                     // Compare if the password equals the input password
                     if (Encryption.validatePassword(oldPassword, details[6])) {
                         // Encrypt the new password

@@ -119,7 +119,7 @@ public class ProductItem {
         // Split the line into an array
         String[] details = itemDetails.split(";");
         // Find if any existing Item name and brand matches the registering Item
-        if (details[1].equals(item.getItemName()) && details[2].equals(item.getItemBrand())) {
+        if (details[1].equalsIgnoreCase(item.getItemName()) && details[2].equalsIgnoreCase(item.getItemBrand())) {
           // Set the Item as registered
           registered = true;
           // Stop the iteration
@@ -156,8 +156,8 @@ public class ProductItem {
         // Split line into array
         String[] details = itemDetails.split(";");
         // Find the Item with the matching ID
-        if (details[0].equals(item.getItemId())) {
-          if (item.getItemStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(item.getItemId())) {
+          if (item.getItemStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")", true);
           } else {

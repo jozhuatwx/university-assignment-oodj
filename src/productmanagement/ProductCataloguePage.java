@@ -95,8 +95,8 @@ public class ProductCataloguePage {
         // Split line into array
         String[] details = pageDetails.split(";");
         // Find the Page with the matching ID
-        if (details[0].equals(page.getPageId())) {
-          if (page.getPageStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(page.getPageId())) {
+          if (page.getPageStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")", true);
           } else {

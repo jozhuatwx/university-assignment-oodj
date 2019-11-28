@@ -91,7 +91,7 @@ public class Supplier {
         // Split the line into an array
         String[] details = supplierDetails.split(";");
         // Find if any existing Supplier name matches the registering Supplier
-        if (details[1].equals(supplier.getSupplierName())) {
+        if (details[1].equalsIgnoreCase(supplier.getSupplierName())) {
           // Set the Supplier as registered
           registered = true;
           // Stop the iteration
@@ -125,8 +125,8 @@ public class Supplier {
         // Split line into array
         String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
-        if (details[0].equals(supplier.getSupplierId())) {
-          if (supplier.getSupplierStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(supplier.getSupplierId())) {
+          if (supplier.getSupplierStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log action
             WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")", true);
           } else {

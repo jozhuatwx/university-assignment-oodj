@@ -32,7 +32,7 @@ public class ProductManager extends User {
   
   // Check if the user is a Product Manager
   public static boolean isProductManager() {
-    if (myUser.getUserRole().equals(ROLE)) {
+    if (myUser.getUserRole().equalsIgnoreCase(ROLE)) {
       return true;
     } else {
       return false;
@@ -54,11 +54,11 @@ public class ProductManager extends User {
         // Split the line into an array
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
-        if (details[0].equals(user.getUserId())) {
+        if (details[0].equalsIgnoreCase(user.getUserId())) {
           if (!updatePassword) {
             user.setUserPassword(details[6]);
           }
-          if (user.getProductManagerStatus().equals(ACTIVE)) {
+          if (user.getProductManagerStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")", true);
           } else {
@@ -75,7 +75,7 @@ public class ProductManager extends User {
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
 
-      if (user.getUserId().equals(User.myUser.getUserId())) {
+      if (user.getUserId().equalsIgnoreCase(User.myUser.getUserId())) {
         // Update the user's information in the session
         User.myUser.setUserName(user.getUserName());
         User.myUser.setUserAddress(user.getUserAddress());

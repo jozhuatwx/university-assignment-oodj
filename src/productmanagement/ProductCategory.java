@@ -73,7 +73,7 @@ public class ProductCategory {
         // Split the line into an array
         String[] details = categoryDetails.split(";");
         // Find if any existing Category name matches the registering Category
-        if (details[1].equals(category.getCategoryName())) {
+        if (details[1].equalsIgnoreCase(category.getCategoryName())) {
           // Set the Category as registered
           registered = true;
           // Stop the iteration
@@ -107,8 +107,8 @@ public class ProductCategory {
         // Split line into array
         String[] details = categoryDetails.split(";");
         // Find the Category with the matching ID
-        if (details[0].equals(category.getCategoryId())) {
-          if (category.getCategoryStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(category.getCategoryId())) {
+          if (category.getCategoryStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")", true);
           } else {

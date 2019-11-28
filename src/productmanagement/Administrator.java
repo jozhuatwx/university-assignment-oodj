@@ -11,7 +11,7 @@ public class Administrator extends User {
   
   // Check if the user is an Administrator
   public static boolean isAdministrator() {
-    if (myUser.getUserRole().equals(ROLE)) {
+    if (myUser.getUserRole().equalsIgnoreCase(ROLE)) {
       return true;
     } else {
       return false;
