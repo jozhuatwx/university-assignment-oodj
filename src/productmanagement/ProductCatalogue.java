@@ -1,7 +1,6 @@
 package productmanagement;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -131,8 +130,9 @@ public class ProductCatalogue {
           break;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing Catalogues
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     if (!registered) {
@@ -174,7 +174,7 @@ public class ProductCatalogue {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -197,8 +197,9 @@ public class ProductCatalogue {
           break;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing Catalogues
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return catalogue;
   }
@@ -214,7 +215,7 @@ public class ProductCatalogue {
         latestCatalogue[5] = LocalDate.parse(latestCatalogue[5]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
       }
 
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }

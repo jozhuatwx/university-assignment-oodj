@@ -1,7 +1,6 @@
 package productmanagement;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -81,8 +80,9 @@ public class ProductCategory {
           break;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing categorys
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     if (!registered) {
@@ -124,7 +124,7 @@ public class ProductCategory {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -147,8 +147,9 @@ public class ProductCategory {
           break;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing Categories
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return category;
   }

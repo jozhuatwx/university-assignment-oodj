@@ -1,7 +1,6 @@
 package productmanagement;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -113,7 +112,7 @@ public class ProductCataloguePage {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }

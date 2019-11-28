@@ -1,6 +1,5 @@
 package productmanagement;
 
-import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -103,7 +102,7 @@ public class InventoryTransaction {
           topProductItems[i][x] = itemArray[i][x];
         }
       }
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -129,11 +128,10 @@ public class InventoryTransaction {
           totalRevenue -= price * Double.valueOf(details[3]);
         }
       }
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
     return totalRevenue;
   }
 

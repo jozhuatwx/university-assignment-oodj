@@ -1,7 +1,6 @@
 package productmanagement;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -80,7 +79,7 @@ public class ProductManager extends User {
         User.myUser.setUserEmail(user.getUserEmail());
       }
       return true;
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
