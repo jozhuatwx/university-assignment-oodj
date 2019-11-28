@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ProfilePanel extends javax.swing.JPanel {
-    //Create a variable to check the panel is closed or opened
+    // Created a variable to check the panel is closed or opened
     boolean isClosed = true;
     
     public ProfilePanel() {
