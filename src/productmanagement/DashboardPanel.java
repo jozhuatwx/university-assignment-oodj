@@ -1,8 +1,6 @@
 package productmanagement;
 
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.swing.JLabel;
 
@@ -36,7 +34,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         // Set the labels to display the catalogue name and date
         lblCatalogueTitle.setText(catalogueDetails[1]);
-        lblCatalogueDate.setText(LocalDate.parse(catalogueDetails[4]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY")) + " - " + LocalDate.parse(catalogueDetails[5]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY")));
+        lblCatalogueDate.setText(catalogueDetails[4] + " - " + catalogueDetails[5]);
     }
 
     /**

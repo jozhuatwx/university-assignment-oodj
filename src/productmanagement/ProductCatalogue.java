@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -203,10 +204,15 @@ public class ProductCatalogue {
   }
 
   public static String[] latestCatalogue() {
-    String[] latestCatalogue = {};
+    String[] latestCatalogue = {"", "No Catalogue", "", "", "", "", "", "", ""};
     try {
       ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
-      latestCatalogue = catalogueArray.get(catalogueArray.size() - 1).split(";");
+      if (catalogueArray.size() > 0) {
+        latestCatalogue = catalogueArray.get(catalogueArray.size() - 1).split(";");
+        // Format the date to dd-MM-YYYY
+        latestCatalogue[4] = LocalDate.parse(latestCatalogue[4]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+        latestCatalogue[5] = LocalDate.parse(latestCatalogue[5]).format(DateTimeFormatter.ofPattern("dd-MM-YYYY"));
+      }
 
     } catch (FileNotFoundException e) {
       // Display the error message
