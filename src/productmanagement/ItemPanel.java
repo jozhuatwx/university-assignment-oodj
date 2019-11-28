@@ -119,8 +119,8 @@ public class ItemPanel extends javax.swing.JPanel {
         lblSupplierError = new javax.swing.JLabel();
         lblSellingPriceError = new javax.swing.JLabel();
         lblImageError = new javax.swing.JLabel();
-        srcpnlCategoryList = new javax.swing.JScrollPane();
-        pnlCategoryList = new javax.swing.JPanel();
+        srcpnlItemList = new javax.swing.JScrollPane();
+        pnlItemList = new javax.swing.JPanel();
         pnltemporary = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         lblProductCategory = new javax.swing.JLabel();
@@ -407,13 +407,13 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addGap(24, 24, 24))
         );
 
-        srcpnlCategoryList.setBackground(new java.awt.Color(46, 52, 66));
-        srcpnlCategoryList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        srcpnlCategoryList.setToolTipText("");
+        srcpnlItemList.setBackground(new java.awt.Color(46, 52, 66));
+        srcpnlItemList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        srcpnlItemList.setToolTipText("");
 
-        pnlCategoryList.setBackground(new java.awt.Color(46, 52, 66));
-        pnlCategoryList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlCategoryList.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnlItemList.setBackground(new java.awt.Color(46, 52, 66));
+        pnlItemList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlItemList.setPreferredSize(new java.awt.Dimension(400, 400));
 
         pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -422,7 +422,7 @@ public class ItemPanel extends javax.swing.JPanel {
         jLabel5.setText("1.");
 
         lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Product category Name");
+        lblProductCategory.setText("Product item Name");
         lblProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblProductCategoryMouseClicked(evt);
@@ -477,24 +477,24 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout pnlCategoryListLayout = new javax.swing.GroupLayout(pnlCategoryList);
-        pnlCategoryList.setLayout(pnlCategoryListLayout);
-        pnlCategoryListLayout.setHorizontalGroup(
-            pnlCategoryListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCategoryListLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlItemListLayout = new javax.swing.GroupLayout(pnlItemList);
+        pnlItemList.setLayout(pnlItemListLayout);
+        pnlItemListLayout.setHorizontalGroup(
+            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlItemListLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        pnlCategoryListLayout.setVerticalGroup(
-            pnlCategoryListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCategoryListLayout.createSequentialGroup()
+        pnlItemListLayout.setVerticalGroup(
+            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlItemListLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(337, Short.MAX_VALUE))
         );
 
-        srcpnlCategoryList.setViewportView(pnlCategoryList);
+        srcpnlItemList.setViewportView(pnlItemList);
 
         javax.swing.GroupLayout pblBackgroundLayout = new javax.swing.GroupLayout(pblBackground);
         pblBackground.setLayout(pblBackgroundLayout);
@@ -503,7 +503,7 @@ public class ItemPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pblBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(srcpnlCategoryList)
+                    .addComponent(srcpnlItemList)
                     .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -513,7 +513,7 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srcpnlCategoryList, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addComponent(srcpnlItemList, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -629,11 +629,11 @@ public class ItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JPanel pblBackground;
     private javax.swing.JPanel pnlAddItemForm;
-    private javax.swing.JPanel pnlCategoryList;
+    private javax.swing.JPanel pnlItemList;
     private javax.swing.JPanel pnlTopFrameBar;
     private javax.swing.JPanel pnltemporary;
     private javax.swing.JScrollPane scrpnlDescription;
-    private javax.swing.JScrollPane srcpnlCategoryList;
+    private javax.swing.JScrollPane srcpnlItemList;
     private javax.swing.JTextArea txaDescription;
     private javax.swing.JTextField txtBrand;
     private javax.swing.JTextField txtName;

@@ -18,7 +18,7 @@ public class AddProductManagerPanel extends javax.swing.JPanel {
         initComponents();
         
         //Set the title with underlined 
-        String underlinedTitle = "<html><u> Add Supplier</u></html>";
+        String underlinedTitle = "<html><u> Add Product Manager</u></html>";
         lblTitle.setText(underlinedTitle);
     }
 
