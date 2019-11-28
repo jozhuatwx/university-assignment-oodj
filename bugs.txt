@@ -1,1 +1,0 @@
-Dashboard information does not handle no records
