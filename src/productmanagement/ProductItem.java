@@ -108,7 +108,7 @@ public class ProductItem {
     return ReadObject.generateId("PI", FILE_NAME);
   }
 
-  public static void register(ProductItem item, int itemQuantity) {
+  public static boolean register(ProductItem item, int itemQuantity) {
     // Set default registered product item as false
     boolean registered = false;
 
@@ -135,14 +135,15 @@ public class ProductItem {
       // Write the new item into the Item database and log action
       WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")", true);
       InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
-      InventoryTransaction.register(transaction);
+      return InventoryTransaction.register(transaction);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
-  public static void modify(ProductItem item) {
+  public static boolean modify(ProductItem item) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -173,10 +174,12 @@ public class ProductItem {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
+      return true;
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   public static ProductItem search(String keyword) {

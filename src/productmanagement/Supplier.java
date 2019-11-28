@@ -80,7 +80,7 @@ public class Supplier {
     return ReadObject.generateId("S", FILE_NAME);
   }
 
-  public static void register(Supplier supplier) {
+  public static boolean register(Supplier supplier) {
     // Set default registered Supplier as false
     boolean registered = false;
 
@@ -106,13 +106,15 @@ public class Supplier {
     if (!registered) {
       // Write the new supplier into the Supplier database and log action
       WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")", true);
+      return true;
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
-  public static void modify(Supplier supplier) {
+  public static boolean modify(Supplier supplier) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -142,10 +144,12 @@ public class Supplier {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
+      return true;
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   public static Supplier search(String keyword) {

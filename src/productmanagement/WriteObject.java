@@ -35,21 +35,26 @@ public class WriteObject {
     return write(log, "Log.txt", true);
   }
 
-  public static void write(Object obj, String fileName, boolean append, String action) {
+  public static boolean write(Object obj, String fileName, boolean append, String action) {
     // Default to not show message
-    write(obj, fileName, append, action, false);
+    return write(obj, fileName, append, action, false);
   }
 
-  public static void write(Object obj, String fileName, boolean append, String action, boolean displayMessage) {
+  public static boolean write(Object obj, String fileName, boolean append, String action, boolean displayMessage) {
     // Writes original file
-    write(obj, fileName, append);
+    boolean write = write(obj, fileName, append);
 
     // Writes actions into log
-    log(action);
+    boolean log = log(action);
 
     if (displayMessage) {
       // Display the success message
       JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
+
+    if (write && log) {
+      return true;
+    }
+    return false;
   }
 }

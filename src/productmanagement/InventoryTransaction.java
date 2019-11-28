@@ -46,9 +46,9 @@ public class InventoryTransaction {
     return ReadObject.generateId("IT", FILE_NAME);
   }
 
-  public static void register(InventoryTransaction transaction) {
+  public static boolean register(InventoryTransaction transaction) {
     // Write the new item into the Item database and log action
-    WriteObject.write(transaction, FILE_NAME, true, "Added transaction (" + transaction.getTransactionId() + ")");
+    return WriteObject.write(transaction, FILE_NAME, true, "Added transaction (" + transaction.getTransactionId() + ")");
   }
 
   public static String[][] topProductItems() {
