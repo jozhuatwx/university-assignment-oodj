@@ -48,7 +48,7 @@ public class Print {
         // Call the print method
         printerJob.print();
       } catch (PrinterException e) {
-        JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
       }
     }
   }

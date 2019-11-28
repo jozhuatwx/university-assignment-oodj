@@ -1,9 +1,8 @@
 package productmanagement;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -16,31 +15,32 @@ public class ReadObject {
     int intId = 1;
     String id = prefix + "00000001";
 
-    try {
-      ArrayList<String> array = readArray(filename);
-      if (array.size() > 0) {
-        // Get the last line of the array list
-        String lastLine = array.get(array.size() - 1);
-        // Split the line into an array
-        String[] lastLineDetails = lastLine.split(";");
-        // Read the ID of the line and add by 1
-        intId = Integer.valueOf(lastLineDetails[0].substring(prefix.length())) + 1;
-        // Add prefix and leading zeroes to the ID
-        id = prefix + String.format("%08d", intId);
-      }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing file
+    ArrayList<String> array = readArray(filename);
+    if (array.size() > 0) {
+      // Get the last line of the array list
+      String lastLine = array.get(array.size() - 1);
+      // Split the line into an array
+      String[] lastLineDetails = lastLine.split(";");
+      // Read the ID of the line and add by 1
+      intId = Integer.valueOf(lastLineDetails[0].substring(prefix.length())) + 1;
+      // Add prefix and leading zeroes to the ID
+      id = prefix + String.format("%08d", intId);
     }
     // Return the value of the new ID
     return id;
   }
 
-  public static ArrayList<String> readArray(String filename) throws FileNotFoundException {
+  public static ArrayList<String> readArray(String filename) {
+    File file = new File(filename);
     // Creates an array list
     ArrayList<String> data = new ArrayList<String>();
     
     // Reads the file based on the path
-    try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+    try {
+      // Create an empty file is it does not exist
+      file.createNewFile();
+
+      BufferedReader reader = new BufferedReader(new FileReader(filename));
       // Store the first line into a temporary variable
       String temp = reader.readLine();
 
@@ -52,9 +52,9 @@ public class ReadObject {
       }
       // Clears the resources in reader
       reader.close();
-    } catch (IOException e) {
+    } catch (Exception e) {
       // Displays the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     // Returns the array list data
     return data;

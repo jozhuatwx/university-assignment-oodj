@@ -1,7 +1,6 @@
 package productmanagement;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -19,8 +18,7 @@ public class User {
   private String userId, userName, userAddress, userEmail, userRole, userLoginName, userPassword;
 
   // Construct the User
-  User(String userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName,
-      String userPassword) {
+  User(String userId, String userName, String userAddress, String userEmail, String userRole, String userLoginName, String userPassword) {
     this.userId = userId;
     this.userName = userName;
     this.userAddress = userAddress;
@@ -111,13 +109,14 @@ public class User {
           return true;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing users
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     if (!found) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Warning", JOptionPane.WARNING_MESSAGE);
     }
     return false;
   }
@@ -156,17 +155,17 @@ public class User {
             return true;
           } else {
             // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Alert", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Warning", JOptionPane.WARNING_MESSAGE);
             return false;
           }
         }
       }
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     // Display the error message
-    JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Alert", JOptionPane.WARNING_MESSAGE);
+    JOptionPane.showMessageDialog(new JFrame(), "Wrong login name", "Warning", JOptionPane.WARNING_MESSAGE);
     return false;
   }
 
@@ -186,12 +185,13 @@ public class User {
           // Set the user as registered
           registered = true;
           // Display the error message
-          JOptionPane.showMessageDialog(new JFrame(), "Login name is taken, please try another login name", "Alert", JOptionPane.WARNING_MESSAGE);
+          JOptionPane.showMessageDialog(new JFrame(), "Login name is taken, please try another login name", "Warning", JOptionPane.WARNING_MESSAGE);
           return false;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing users
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     if (!registered) {
@@ -208,7 +208,7 @@ public class User {
     return false;
   }
 
-  public static boolean modify(User user, boolean update) {
+  public static boolean modify(User user) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -223,13 +223,8 @@ public class User {
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equals(user.getUserId())) {
-          if (update) {
-            // Write the new details into the temporary file and log the action
-            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
-          } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted user information (" + user.getUserId() + ")");
-          }
+          // Write the new details into the temporary file and log the action
+          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")");
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);
@@ -248,20 +243,35 @@ public class User {
         User.myUser.setUserEmail(user.getUserEmail());
       }
       return true;
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return false;
   }
 
-  public static boolean update(User user) {
-    return modify(user, true);
-  }
+  public static User search(String keyword) {
+    User user = new User("-1", "", "", "", "", "", "");
 
-  public static boolean delete(String userId) {
-    User user = new User(userId, "", "", "", "", "", "");
-    return modify(user, false);
+    try {
+      ArrayList<String> userArray = ReadObject.readArray("ProductManager.txt");
+      // Iterate through the User array
+      for (String userDetails : userArray) {
+        // Split the line into an array
+        String[] details = userDetails.split(";");
+        // Find if any existing User matches the keyword
+        if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[5].contains(keyword)) {
+          // Get User information
+          user = new User(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
+          // Stop the iteration
+          break;
+        }
+      }
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    return user;
   }
 
   public static void logout() {

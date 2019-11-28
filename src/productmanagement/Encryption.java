@@ -37,7 +37,7 @@ public class Encryption {
       return diff == 0;
     } catch (Exception e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     // Default return false
     return false;

@@ -1,7 +1,6 @@
 package productmanagement;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -11,23 +10,24 @@ public class ProductItem {
   // Constant variables
   public static final String FILE_NAME = "ProductItem.txt";
   public static final String TEMP_FILE_NAME = "TempProductItem.txt";
+  public static final String ACTIVE = "active";
+  public static final String INACTIVE = "inactive";
 
   // Product Item fields
-  private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId, itemCategoryId;
-  private int itemQuantity;
+  private String itemId, itemName, itemBrand, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, itemStatus;
   private double itemPrice;
 
   // Construct the Product Item
-  ProductItem(String itemId, String itemName, String itemBrand, int itemQuantity, double itemPrice, String itemDescription, String itemImagePath, String itemSupplierId, String itemCategoryId) {
+  ProductItem(String itemId, String itemName, String itemBrand, double itemPrice, String itemDescription, String itemImagePath, String itemSupplierId, String itemCategoryId, String itemStatus) {
     this.itemId = itemId;
     this.itemName = itemName;
     this.itemBrand = itemBrand;
-    this.itemQuantity = itemQuantity;
     this.itemPrice = itemPrice;
     this.itemDescription = itemDescription;
     this.itemImagePath = itemImagePath;
     this.itemSupplierId = itemSupplierId;
     this.itemCategoryId = itemCategoryId;
+    this.itemStatus = itemStatus;
   }
 
   // Getters and setters
@@ -53,14 +53,6 @@ public class ProductItem {
 
   public void setItemBrand(String itemBrand) {
     this.itemBrand = itemBrand;
-  }
-
-  public int getItemQuantity() {
-    return itemQuantity;
-  }
-
-  public void setItemQuantity(int itemQuantity) {
-    this.itemQuantity = itemQuantity;
   }
 
   public double getItemPrice() {
@@ -103,12 +95,20 @@ public class ProductItem {
     this.itemCategoryId = itemCategoryId;
   }
 
+  public String getItemStatus() {
+    return itemStatus;
+  }
+
+  public void setItemStatus(String itemStatus) {
+    this.itemStatus = itemStatus;
+  }
+
   // Generate the Product Item ID
   public static String generateItemId() {
     return ReadObject.generateId("PI", FILE_NAME);
   }
 
-  public static void register(ProductItem item) {
+  public static void register(ProductItem item, int itemQuantity) {
     // Set default registered product item as false
     boolean registered = false;
 
@@ -126,20 +126,23 @@ public class ProductItem {
           break;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing Items
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     if (!registered) {
       // Write the new item into the Item database and log action
       WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")");
+      InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
+      InventoryTransaction.register(transaction);
     } else {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
   }
 
-  public static void modify(ProductItem item, boolean update) {
+  public static void modify(ProductItem item) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -154,12 +157,11 @@ public class ProductItem {
         String[] details = itemDetails.split(";");
         // Find the Item with the matching ID
         if (details[0].equals(item.getItemId())) {
-          if (update) {
+          if (item.getItemStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")");
           } else {
-            // Ignore the details and log the action
-            WriteObject.log("Deleted product item information (" + item.getItemId() + ")");
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Deactivated item product information (" + item.getItemId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
@@ -171,23 +173,14 @@ public class ProductItem {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
-    } catch (FileNotFoundException e) {
+    } catch (Exception e) {
       // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 
-  public static void update(ProductItem item) {
-    modify(item, true);
-  }
-
-  public static void delete(String itemId) {
-    ProductItem item = new ProductItem(itemId, "", "", 0, 0.0, "", "", "", "");
-    modify(item, false);
-  }
-
   public static ProductItem search(String keyword) {
-    ProductItem item = new ProductItem("-1", "", "", 0, 0.0, "", "", "", "");
+    ProductItem item = new ProductItem("-1", "", "", 0.0, "", "", "", "", ACTIVE);
 
     try {
       ArrayList<String> itemArray = ReadObject.readArray(FILE_NAME);
@@ -198,13 +191,14 @@ public class ProductItem {
         // Find if any existing Item matches the keyword
         if (details[1].contains(keyword) || details[2].contains(keyword) || details[5].contains(keyword)) {
           // Get Item information
-          item = new ProductItem(details[0], details[1], details[2], Integer.valueOf(details[3]), Double.valueOf(details[4]), details[5], details[6], details[7], details[8]);
+          item = new ProductItem(details[0], details[1], details[2], Double.valueOf(details[3]), details[4], details[5], details[6], details[7], details[8]);
           // Stop the iteration
           break;
         }
       }
-    } catch (FileNotFoundException e) {
-      // Ignore as there may be no existing Items
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return item;
   }
@@ -212,6 +206,6 @@ public class ProductItem {
   // Overrides the default toString() to display the information of the Product Item class
   @Override
   public String toString() {
-    return String.valueOf(getItemId()) + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemQuantity()) + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId();
+    return getItemId() + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId() + ";" + getItemStatus();
   }
 }

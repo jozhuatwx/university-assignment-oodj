@@ -20,13 +20,13 @@ public class WriteObject {
       writer.close();
     } catch (Exception e) {
       // Displays the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Alert", JOptionPane.WARNING_MESSAGE);
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
 
   public static void log(String action) {
     // Get the date and time in the format of YYYY-MM-dd HH:mm:ss
-    String dateTime = String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")));
+    String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
     // Creates a log with the date, time, user ID, user role and the action made
     String log = dateTime + ";" + User.myUser.getUserId() + ";" + User.myUser.getUserRole() + ";" + action;
     // Writes the log into the file
