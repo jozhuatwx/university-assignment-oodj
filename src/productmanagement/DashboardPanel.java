@@ -1,5 +1,6 @@
 package productmanagement;
 
+import java.awt.Dimension;
 import java.text.DecimalFormat;
 
 import javax.swing.JLabel;
@@ -14,17 +15,37 @@ public class DashboardPanel extends javax.swing.JPanel {
 
         // Get the top products
         String[][] topProducts = InventoryTransaction.topProductItems();
+        int firstUnits = Integer.valueOf(topProducts[0][3]);
+        int secondUnits = Integer.valueOf(topProducts[1][3]);
+        int thirdUnits = Integer.valueOf(topProducts[2][3]);
 
-        // Set the labels to display the top products
-        lblTopItem.setText(topProducts[0][1]);
-        lblTopItemUnit.setText(unitFormat.format(Integer.valueOf(topProducts[0][3])) + " units");
-        lblSecondItem.setText(topProducts[1][1]);
-        lblSecondItemUnit.setText(unitFormat.format(Integer.valueOf(topProducts[1][3])) + " units");
-        lblThirdItem.setText(topProducts[2][1]);
-        lblThirdItemUnit.setText(unitFormat.format(Integer.valueOf(topProducts[2][3])) + " units");
+        // Set the labels to display the top products only if it has more than 1 unit
+        if (firstUnits > 0) {
+            lblFirstdItem.setText(topProducts[0][1]);
+            lblFirstItemUnit.setText(unitFormat.format(firstUnits) + " units");
+
+            if (secondUnits > 0) {
+                lblSecondItem.setText(topProducts[1][1]);
+                lblSecondItemUnit.setText(unitFormat.format(secondUnits)+ " units");
+
+                if (thirdUnits > 0) {
+                    lblThirdItem.setText(topProducts[2][1]);
+                    lblThirdItemUnit.setText(unitFormat.format(thirdUnits) + " units");
+                }
+            }
+
+            // Set the bar chart height
+            int firstHeight = 280;
+            int secondHeight = (int) Math.round((double) secondUnits / (double) firstUnits * 280);
+            int thirdHeight = (int) Math.round((double) thirdUnits / (double) firstUnits * 280);
+
+            pnlFirst.setPreferredSize(new Dimension(85, firstHeight));
+            pnlSecond.setPreferredSize(new Dimension(85, secondHeight));
+            pnlThird.setPreferredSize(new Dimension(85, thirdHeight));
+        }
 
         // Set the String format to add commas and zeros
-        DecimalFormat revenueFormat = new DecimalFormat("#,###.00");
+        DecimalFormat revenueFormat = new DecimalFormat("#,##0.00");
 
         // Get the total revenue and set the label to display it
         lblRevenue.setText("RM " + revenueFormat.format(InventoryTransaction.totalRevenue()));
@@ -49,17 +70,17 @@ public class DashboardPanel extends javax.swing.JPanel {
         pnlTopProducts = new javax.swing.JPanel();
         lblTopProducts = new javax.swing.JLabel();
         pnlTopProductColLeft = new javax.swing.JPanel();
+        lblThirdItem = new javax.swing.JLabel();
+        lblThirdItemUnit = new javax.swing.JLabel();
+        pnlThird = new javax.swing.JPanel();
+        pnlTopProductColCenter = new javax.swing.JPanel();
         lblSecondItem = new javax.swing.JLabel();
         lblSecondItemUnit = new javax.swing.JLabel();
         pnlSecond = new javax.swing.JPanel();
-        pnlTopProductColCenter = new javax.swing.JPanel();
-        pnlTop = new javax.swing.JPanel();
-        lblTopItem = new javax.swing.JLabel();
-        lblTopItemUnit = new javax.swing.JLabel();
         pnlTopProductColRight = new javax.swing.JPanel();
-        pnlThird = new javax.swing.JPanel();
-        lblThirdItem = new javax.swing.JLabel();
-        lblThirdItemUnit = new javax.swing.JLabel();
+        lblFirstdItem = new javax.swing.JLabel();
+        lblFirstItemUnit = new javax.swing.JLabel();
+        pnlFirst = new javax.swing.JPanel();
         pnlRevenue = new javax.swing.JPanel();
         lblRevenueTitle = new javax.swing.JLabel();
         lblRevenue = new javax.swing.JLabel();
@@ -82,109 +103,18 @@ public class DashboardPanel extends javax.swing.JPanel {
         pnlTopProductColLeft.setBackground(new java.awt.Color(46, 52, 66));
         pnlTopProductColLeft.setPreferredSize(new java.awt.Dimension(133, 338));
 
-        lblSecondItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblSecondItem.setForeground(new java.awt.Color(255, 255, 255));
-        lblSecondItem.setText("Item Name");
-        lblSecondItem.setHorizontalAlignment(JLabel.CENTER);
+        lblThirdItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblThirdItem.setForeground(new java.awt.Color(255, 255, 255));
+        lblThirdItem.setText(" ");
+        lblThirdItem.setHorizontalAlignment(JLabel.CENTER);
 
-        lblSecondItemUnit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblSecondItemUnit.setForeground(new java.awt.Color(255, 255, 255));
-        lblSecondItemUnit.setText("1,000,000 units");
-        lblSecondItemUnit.setHorizontalAlignment(JLabel.CENTER);
+        lblThirdItemUnit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblThirdItemUnit.setForeground(new java.awt.Color(255, 255, 255));
+        lblThirdItemUnit.setText(" ");
+        lblThirdItemUnit.setHorizontalAlignment(JLabel.CENTER);
 
-        pnlSecond.setBackground(new java.awt.Color(82, 82, 247));
-        pnlSecond.setPreferredSize(new java.awt.Dimension(85, 203));
-
-        javax.swing.GroupLayout pnlSecondLayout = new javax.swing.GroupLayout(pnlSecond);
-        pnlSecond.setLayout(pnlSecondLayout);
-        pnlSecondLayout.setHorizontalGroup(
-            pnlSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-        pnlSecondLayout.setVerticalGroup(
-            pnlSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 203, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout pnlTopProductColLeftLayout = new javax.swing.GroupLayout(pnlTopProductColLeft);
-        pnlTopProductColLeft.setLayout(pnlTopProductColLeftLayout);
-        pnlTopProductColLeftLayout.setHorizontalGroup(
-            pnlTopProductColLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopProductColLeftLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(pnlTopProductColLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSecondItem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSecondItemUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        pnlTopProductColLeftLayout.setVerticalGroup(
-            pnlTopProductColLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopProductColLeftLayout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
-                .addComponent(lblSecondItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblSecondItemUnit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        pnlTopProductColCenter.setBackground(new java.awt.Color(46, 52, 66));
-        pnlTopProductColCenter.setPreferredSize(new java.awt.Dimension(134, 338));
-
-        pnlTop.setBackground(new java.awt.Color(247, 185, 36));
-        pnlTop.setPreferredSize(new java.awt.Dimension(85, 283));
-
-        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
-        pnlTop.setLayout(pnlTopLayout);
-        pnlTopLayout.setHorizontalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 85, Short.MAX_VALUE)
-        );
-        pnlTopLayout.setVerticalGroup(
-            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
-        );
-
-        lblTopItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblTopItem.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem.setText("Item Name");
-        lblTopItem.setHorizontalAlignment(JLabel.CENTER);
-
-        lblTopItemUnit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblTopItemUnit.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItemUnit.setText("1,000,000 units");
-        lblTopItemUnit.setHorizontalAlignment(JLabel.CENTER);
-
-        javax.swing.GroupLayout pnlTopProductColCenterLayout = new javax.swing.GroupLayout(pnlTopProductColCenter);
-        pnlTopProductColCenter.setLayout(pnlTopProductColCenterLayout);
-        pnlTopProductColCenterLayout.setHorizontalGroup(
-            pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopProductColCenterLayout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblTopItem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblTopItemUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
-        pnlTopProductColCenterLayout.setVerticalGroup(
-            pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopProductColCenterLayout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
-                .addComponent(lblTopItem)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTopItemUnit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        pnlTopProductColRight.setBackground(new java.awt.Color(46, 52, 66));
-        pnlTopProductColRight.setPreferredSize(new java.awt.Dimension(133, 338));
-
-        pnlThird.setBackground(new java.awt.Color(0, 205, 154));
-        pnlThird.setPreferredSize(new java.awt.Dimension(85, 105));
+        pnlThird.setBackground(new java.awt.Color(82, 82, 247));
+        pnlThird.setPreferredSize(new java.awt.Dimension(85, 0));
 
         javax.swing.GroupLayout pnlThirdLayout = new javax.swing.GroupLayout(pnlThird);
         pnlThird.setLayout(pnlThirdLayout);
@@ -194,18 +124,109 @@ public class DashboardPanel extends javax.swing.JPanel {
         );
         pnlThirdLayout.setVerticalGroup(
             pnlThirdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 105, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        lblThirdItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblThirdItem.setForeground(new java.awt.Color(255, 255, 255));
-        lblThirdItem.setText("Item Name");
-        lblThirdItem.setHorizontalAlignment(JLabel.CENTER);
+        javax.swing.GroupLayout pnlTopProductColLeftLayout = new javax.swing.GroupLayout(pnlTopProductColLeft);
+        pnlTopProductColLeft.setLayout(pnlTopProductColLeftLayout);
+        pnlTopProductColLeftLayout.setHorizontalGroup(
+            pnlTopProductColLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopProductColLeftLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(pnlTopProductColLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblThirdItem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblThirdItemUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlThird, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        pnlTopProductColLeftLayout.setVerticalGroup(
+            pnlTopProductColLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopProductColLeftLayout.createSequentialGroup()
+                .addContainerGap(298, Short.MAX_VALUE)
+                .addComponent(lblThirdItem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblThirdItemUnit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlThird, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        lblThirdItemUnit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblThirdItemUnit.setForeground(new java.awt.Color(255, 255, 255));
-        lblThirdItemUnit.setText("1,000,000 units");
-        lblThirdItemUnit.setHorizontalAlignment(JLabel.CENTER);
+        pnlTopProductColCenter.setBackground(new java.awt.Color(46, 52, 66));
+        pnlTopProductColCenter.setPreferredSize(new java.awt.Dimension(134, 338));
+
+        lblSecondItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblSecondItem.setForeground(new java.awt.Color(255, 255, 255));
+        lblSecondItem.setText(" ");
+        lblSecondItem.setHorizontalAlignment(JLabel.CENTER);
+
+        lblSecondItemUnit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblSecondItemUnit.setForeground(new java.awt.Color(255, 255, 255));
+        lblSecondItemUnit.setText(" ");
+        lblSecondItemUnit.setHorizontalAlignment(JLabel.CENTER);
+
+        pnlSecond.setBackground(new java.awt.Color(247, 185, 36));
+        pnlSecond.setPreferredSize(new java.awt.Dimension(85, 0));
+
+        javax.swing.GroupLayout pnlSecondLayout = new javax.swing.GroupLayout(pnlSecond);
+        pnlSecond.setLayout(pnlSecondLayout);
+        pnlSecondLayout.setHorizontalGroup(
+            pnlSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 85, Short.MAX_VALUE)
+        );
+        pnlSecondLayout.setVerticalGroup(
+            pnlSecondLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout pnlTopProductColCenterLayout = new javax.swing.GroupLayout(pnlTopProductColCenter);
+        pnlTopProductColCenter.setLayout(pnlTopProductColCenterLayout);
+        pnlTopProductColCenterLayout.setHorizontalGroup(
+            pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopProductColCenterLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblSecondItem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSecondItemUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        pnlTopProductColCenterLayout.setVerticalGroup(
+            pnlTopProductColCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopProductColCenterLayout.createSequentialGroup()
+                .addContainerGap(298, Short.MAX_VALUE)
+                .addComponent(lblSecondItem)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSecondItemUnit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlSecond, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pnlTopProductColRight.setBackground(new java.awt.Color(46, 52, 66));
+        pnlTopProductColRight.setPreferredSize(new java.awt.Dimension(133, 338));
+
+        lblFirstdItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblFirstdItem.setForeground(new java.awt.Color(255, 255, 255));
+        lblFirstdItem.setText(" ");
+        lblFirstdItem.setHorizontalAlignment(JLabel.CENTER);
+
+        lblFirstItemUnit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblFirstItemUnit.setForeground(new java.awt.Color(255, 255, 255));
+        lblFirstItemUnit.setText(" ");
+        lblFirstItemUnit.setHorizontalAlignment(JLabel.CENTER);
+
+        pnlFirst.setBackground(new java.awt.Color(0, 205, 154));
+        pnlFirst.setPreferredSize(new java.awt.Dimension(85, 0));
+
+        javax.swing.GroupLayout pnlFirstLayout = new javax.swing.GroupLayout(pnlFirst);
+        pnlFirst.setLayout(pnlFirstLayout);
+        pnlFirstLayout.setHorizontalGroup(
+            pnlFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 85, Short.MAX_VALUE)
+        );
+        pnlFirstLayout.setVerticalGroup(
+            pnlFirstLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout pnlTopProductColRightLayout = new javax.swing.GroupLayout(pnlTopProductColRight);
         pnlTopProductColRight.setLayout(pnlTopProductColRightLayout);
@@ -214,20 +235,20 @@ public class DashboardPanel extends javax.swing.JPanel {
             .addGroup(pnlTopProductColRightLayout.createSequentialGroup()
                 .addContainerGap(24, Short.MAX_VALUE)
                 .addGroup(pnlTopProductColRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblThirdItemUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblThirdItem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlThird, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFirstItemUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFirstdItem, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlFirst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         pnlTopProductColRightLayout.setVerticalGroup(
             pnlTopProductColRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopProductColRightLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblThirdItem)
+                .addComponent(lblFirstdItem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblThirdItemUnit)
+                .addComponent(lblFirstItemUnit)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlThird, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlFirst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout pnlTopProductsLayout = new javax.swing.GroupLayout(pnlTopProducts);
@@ -371,6 +392,8 @@ public class DashboardPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblCatalogueDate;
     private javax.swing.JLabel lblCatalogueTitle;
+    private javax.swing.JLabel lblFirstItemUnit;
+    private javax.swing.JLabel lblFirstdItem;
     private javax.swing.JLabel lblLatestCatalogue;
     private javax.swing.JLabel lblRevenue;
     private javax.swing.JLabel lblRevenueTitle;
@@ -378,14 +401,12 @@ public class DashboardPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblSecondItemUnit;
     private javax.swing.JLabel lblThirdItem;
     private javax.swing.JLabel lblThirdItemUnit;
-    private javax.swing.JLabel lblTopItem;
-    private javax.swing.JLabel lblTopItemUnit;
     private javax.swing.JLabel lblTopProducts;
+    private javax.swing.JPanel pnlFirst;
     private javax.swing.JPanel pnlLatestCatalogue;
     private javax.swing.JPanel pnlRevenue;
     private javax.swing.JPanel pnlSecond;
     private javax.swing.JPanel pnlThird;
-    private javax.swing.JPanel pnlTop;
     private javax.swing.JPanel pnlTopProductColCenter;
     private javax.swing.JPanel pnlTopProductColLeft;
     private javax.swing.JPanel pnlTopProductColRight;
