@@ -38,7 +38,11 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtName.setText(User.myUser.getUserName());
         txtAddress.setText(User.myUser.getUserAddress());
         txtEmail.setText(User.myUser.getUserEmail());
-        txtLoginName.setText(User.myUser.getUserLoginName());
+        lblUserLoginName.setText(User.myUser.getUserLoginName());
+
+        txtOldPassword.setText("");
+        txtNewPassword.setText("");
+        txtRetypeNewPassword.setText("");
     }
     
     /** This method is called from within the constructor to
@@ -50,114 +54,184 @@ public class ProfilePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlTopProducts = new javax.swing.JPanel();
+        pnlUpdateProfile = new javax.swing.JPanel();
+        lblUpdateProfile = new javax.swing.JLabel();
+        lblLoginName = new javax.swing.JLabel();
+        lblUserLoginName = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        lblLoginName = new javax.swing.JLabel();
-        txtLoginName = new javax.swing.JTextField();
-        lblEmail = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
+        lblNameError = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
+        lblAddressError = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblEmailError = new javax.swing.JLabel();
         btnUpdate = new javax.swing.JButton();
         pnlUpdatePassword = new javax.swing.JPanel();
         lblUpdatePassword = new javax.swing.JLabel();
         lblArrow = new javax.swing.JLabel();
         lblOldPassword = new javax.swing.JLabel();
         txtOldPassword = new javax.swing.JPasswordField();
+        lblOldPasswordError = new javax.swing.JLabel();
         lblNewPassword = new javax.swing.JLabel();
+        lblNewPasswordError = new javax.swing.JLabel();
         txtNewPassword = new javax.swing.JPasswordField();
         lblRetypeNewPassword = new javax.swing.JLabel();
         txtRetypeNewPassword = new javax.swing.JPasswordField();
+        lblRetypePasswordError = new javax.swing.JLabel();
         btnUpdatePassword = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(18, 22, 31));
         setMinimumSize(new java.awt.Dimension(780, 485));
         setPreferredSize(new java.awt.Dimension(780, 485));
 
-        pnlTopProducts.setBackground(new java.awt.Color(46, 52, 66));
-        pnlTopProducts.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlUpdateProfile.setBackground(new java.awt.Color(46, 52, 66));
+        pnlUpdateProfile.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
 
-        lblName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblName.setForeground(new java.awt.Color(255, 255, 255));
-        lblName.setText("Name :");
-
-        txtName.setMinimumSize(new java.awt.Dimension(7, 30));
-        txtName.setPreferredSize(new java.awt.Dimension(7, 30));
+        lblUpdateProfile.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblUpdateProfile.setForeground(new java.awt.Color(255, 255, 255));
+        lblUpdateProfile.setText("Update Profile");
+        lblUpdateProfile.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblUpdateProfile.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblUpdateProfile.setPreferredSize(new java.awt.Dimension(200, 20));
 
         lblLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblLoginName.setForeground(new java.awt.Color(255, 255, 255));
         lblLoginName.setText("Login Name :");
+        lblLoginName.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblLoginName.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblLoginName.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtLoginName.setMinimumSize(new java.awt.Dimension(7, 30));
-        txtLoginName.setPreferredSize(new java.awt.Dimension(7, 30));
+        lblUserLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblUserLoginName.setForeground(new java.awt.Color(255, 255, 255));
+        lblUserLoginName.setText("User Login Name");
+        lblUserLoginName.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblUserLoginName.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblUserLoginName.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        lblEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
-        lblEmail.setText("Email :");
+        lblName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setText("Name :");
+        lblName.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblName.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblName.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtEmail.setMinimumSize(new java.awt.Dimension(7, 30));
-        txtEmail.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setBorder(null);
+        txtName.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtName.setPreferredSize(new java.awt.Dimension(7, 30));
+
+        lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblNameError.setForeground(new java.awt.Color(255, 0, 0));
+        lblNameError.setText(" ");
 
         lblAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblAddress.setForeground(new java.awt.Color(255, 255, 255));
         lblAddress.setText("Address :");
+        lblAddress.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblAddress.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblAddress.setPreferredSize(new java.awt.Dimension(200, 20));
 
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setBorder(null);
         txtAddress.setMinimumSize(new java.awt.Dimension(7, 30));
         txtAddress.setPreferredSize(new java.awt.Dimension(7, 30));
 
+        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
+        lblAddressError.setText(" ");
+
+        lblEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmail.setText("Email :");
+        lblEmail.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblEmail.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblEmail.setPreferredSize(new java.awt.Dimension(200, 20));
+
+        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtEmail.setBorder(null);
+        txtEmail.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtEmail.setPreferredSize(new java.awt.Dimension(7, 30));
+
+        lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
+        lblEmailError.setText(" ");
+
         btnUpdate.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnUpdate.setText("Update");
+        btnUpdate.setBorder(null);
+        btnUpdate.setMaximumSize(new java.awt.Dimension(200, 40));
+        btnUpdate.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnUpdate.setPreferredSize(new java.awt.Dimension(200, 40));
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlTopProductsLayout = new javax.swing.GroupLayout(pnlTopProducts);
-        pnlTopProducts.setLayout(pnlTopProductsLayout);
-        pnlTopProductsLayout.setHorizontalGroup(
-            pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopProductsLayout.createSequentialGroup()
-                .addGroup(pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTopProductsLayout.createSequentialGroup()
-                        .addGap(146, 146, 146)
-                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTopProductsLayout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addGroup(pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblName)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblLoginName)
-                            .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEmail)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAddress))))
-                .addContainerGap(149, Short.MAX_VALUE))
+        javax.swing.GroupLayout pnlUpdateProfileLayout = new javax.swing.GroupLayout(pnlUpdateProfile);
+        pnlUpdateProfile.setLayout(pnlUpdateProfileLayout);
+        pnlUpdateProfileLayout.setHorizontalGroup(
+            pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUpdateProfileLayout.createSequentialGroup()
+                .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlUpdateProfileLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlUpdateProfileLayout.createSequentialGroup()
+                        .addContainerGap(51, Short.MAX_VALUE)
+                        .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblAddressError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lblLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblNameError, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lblUserLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblEmailError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(51, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdateProfileLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        pnlTopProductsLayout.setVerticalGroup(
-            pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopProductsLayout.createSequentialGroup()
+        pnlUpdateProfileLayout.setVerticalGroup(
+            pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUpdateProfileLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblUserLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblLoginName)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblEmail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblAddress)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNameError)
+                .addGap(18, 18, 18)
+                .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblAddressError)
+                .addGap(18, 18, 18)
+                .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEmailError)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pnlUpdatePassword.setBackground(new java.awt.Color(46, 52, 66));
@@ -169,6 +243,9 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblUpdatePassword.setForeground(new java.awt.Color(255, 255, 255));
         lblUpdatePassword.setText("Update Password");
         lblUpdatePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUpdatePassword.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblUpdatePassword.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblUpdatePassword.setPreferredSize(new java.awt.Dimension(200, 20));
         lblUpdatePassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUpdatePasswordMouseClicked(evt);
@@ -177,6 +254,10 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         lblArrow.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblArrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png"))); // NOI18N
+        lblArrow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblArrow.setMaximumSize(new java.awt.Dimension(20, 20));
+        lblArrow.setMinimumSize(new java.awt.Dimension(20, 20));
+        lblArrow.setPreferredSize(new java.awt.Dimension(20, 20));
         lblArrow.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblArrowMouseClicked(evt);
@@ -186,26 +267,55 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblOldPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblOldPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblOldPassword.setText("Old Password :");
+        lblOldPassword.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblOldPassword.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblOldPassword.setPreferredSize(new java.awt.Dimension(200, 20));
 
+        txtOldPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtOldPassword.setBorder(null);
         txtOldPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtOldPassword.setPreferredSize(new java.awt.Dimension(7, 30));
+
+        lblOldPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblOldPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblOldPasswordError.setText(" ");
 
         lblNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblNewPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblNewPassword.setText("New Password :");
+        lblNewPassword.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblNewPassword.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblNewPassword.setPreferredSize(new java.awt.Dimension(200, 20));
 
+        lblNewPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblNewPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblNewPasswordError.setText(" ");
+
+        txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtNewPassword.setBorder(null);
         txtNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
 
         lblRetypeNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblRetypeNewPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblRetypeNewPassword.setText("Retype New Password :");
+        lblRetypeNewPassword.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblRetypeNewPassword.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblRetypeNewPassword.setPreferredSize(new java.awt.Dimension(200, 20));
 
+        txtRetypeNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtRetypeNewPassword.setBorder(null);
         txtRetypeNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtRetypeNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
 
+        lblRetypePasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblRetypePasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblRetypePasswordError.setText(" ");
+
         btnUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnUpdatePassword.setText("Update Password");
+        btnUpdatePassword.setMinimumSize(new java.awt.Dimension(200, 40));
+        btnUpdatePassword.setPreferredSize(new java.awt.Dimension(200, 40));
         btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdatePasswordActionPerformed(evt);
@@ -220,52 +330,63 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(lblUpdatePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblUpdatePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
                         .addGap(21, 21, 21)
-                        .addComponent(lblArrow))
+                        .addComponent(lblArrow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(txtOldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
-                                .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblOldPassword)
-                                    .addComponent(lblNewPassword)
-                                    .addComponent(lblRetypeNewPassword))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addComponent(lblOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
-                .addGap(0, 48, Short.MAX_VALUE)
-                .addComponent(btnUpdatePassword)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39))
+            .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblOldPasswordError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNewPasswordError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
+                        .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblRetypePasswordError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlUpdatePasswordLayout.setVerticalGroup(
             pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblArrow)
-                    .addComponent(lblUpdatePassword))
-                .addGap(22, 22, 22)
-                .addComponent(lblOldPassword)
+                    .addComponent(lblArrow, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(lblOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblOldPasswordError)
                 .addGap(18, 18, 18)
-                .addComponent(lblNewPassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(lblRetypeNewPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNewPasswordError)
+                .addGap(18, 18, 18)
+                .addComponent(lblRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRetypePasswordError)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -275,9 +396,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlTopProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -286,11 +407,11 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlTopProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -317,12 +438,16 @@ public class ProfilePanel extends javax.swing.JPanel {
                         // Create a Adminstrator object
                         Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
                         // Update the Administrator
-                        Administrator.modify(userDetail, false);
+                        if (Administrator.modify(userDetail, false)) {
+                            resetFields();
+                        }
                     } else if (ProductManager.isProductManager()) {
                         // Create a Product Manager object
                         ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                         // Update the Product Manager
-                        ProductManager.modify(userDetail, false);
+                        if (ProductManager.modify(userDetail, false)) {
+                            resetFields();
+                        }
                     }
                 }
             }
@@ -364,12 +489,16 @@ public class ProfilePanel extends javax.swing.JPanel {
                             // Create a Adminstrator object
                             Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
                             // Update the Administrator
-                            Administrator.modify(userDetail, false);
+                            if (Administrator.modify(userDetail, false)) {
+                                resetFields();
+                            }
                         } else if (ProductManager.isProductManager()) {
                             // Create a Product Manager object
                             ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                             // Update the Product Manager
-                            ProductManager.modify(userDetail, false);
+                            if (ProductManager.modify(userDetail, true)) {
+                                resetFields();
+                            }
                         }
                     } else {
                         // Display the error message
@@ -396,19 +525,26 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JButton btnUpdate;
     private javax.swing.JButton btnUpdatePassword;
     private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblAddressError;
     private javax.swing.JLabel lblArrow;
     private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblEmailError;
     private javax.swing.JLabel lblLoginName;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblNewPassword;
+    private javax.swing.JLabel lblNewPasswordError;
     private javax.swing.JLabel lblOldPassword;
+    private javax.swing.JLabel lblOldPasswordError;
     private javax.swing.JLabel lblRetypeNewPassword;
+    private javax.swing.JLabel lblRetypePasswordError;
     private javax.swing.JLabel lblUpdatePassword;
-    private javax.swing.JPanel pnlTopProducts;
+    private javax.swing.JLabel lblUpdateProfile;
+    private javax.swing.JLabel lblUserLoginName;
     private javax.swing.JPanel pnlUpdatePassword;
+    private javax.swing.JPanel pnlUpdateProfile;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtLoginName;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtNewPassword;
     private javax.swing.JPasswordField txtOldPassword;
