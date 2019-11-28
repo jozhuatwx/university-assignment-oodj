@@ -629,6 +629,7 @@ public class ItemPanel extends javax.swing.JPanel {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         hideAddPanel();
+        resetFields();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
