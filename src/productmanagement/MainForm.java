@@ -10,7 +10,6 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         
         DashboardPanel dp = new DashboardPanel();
-        dp.setSize(780,485);
         pnlContent.add(dp);
         pnlContent.revalidate();
     }
@@ -222,24 +221,12 @@ public class MainForm extends javax.swing.JFrame {
 
         scrPanel.setBackground(new java.awt.Color(18, 22, 31));
         scrPanel.setBorder(null);
+        scrPanel.getVerticalScrollBar().setUnitIncrement(16);
 
         pnlContent.setBackground(new java.awt.Color(18, 22, 31));
         pnlContent.setForeground(new java.awt.Color(255, 255, 255));
-        pnlContent.setMinimumSize(new java.awt.Dimension(780, 485));
         pnlContent.setName(""); // NOI18N
-        pnlContent.setPreferredSize(new java.awt.Dimension(780, 485));
-
-        javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
-        pnlContent.setLayout(pnlContentLayout);
-        pnlContentLayout.setHorizontalGroup(
-            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnlContentLayout.setVerticalGroup(
-            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        pnlContent.setLayout(new java.awt.BorderLayout());
         scrPanel.setViewportView(pnlContent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -312,37 +299,29 @@ public class MainForm extends javax.swing.JFrame {
     private void lblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseClicked
         pnlContent.removeAll();
         ProfilePanel pp = new ProfilePanel();
-        pp.setSize(780, 485);
         pnlContent.add(pp);
         pnlContent.revalidate();
-        pnlContent.repaint();
     }//GEN-LAST:event_lblProfileMouseClicked
 
     private void lblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashboardMouseClicked
         pnlContent.removeAll();
         DashboardPanel dp = new DashboardPanel();
-        dp.setSize(780, 485);
         pnlContent.add(dp);
         pnlContent.revalidate();
-        pnlContent.repaint();
     }//GEN-LAST:event_lblDashboardMouseClicked
 
     private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
         pnlContent.removeAll();
         CategoryPanel cp = new CategoryPanel();
-        cp.setSize(670,450);
         pnlContent.add(cp);
         pnlContent.revalidate();
-        pnlContent.repaint();
     }//GEN-LAST:event_lblCategoryMouseClicked
 
     private void lblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblItemMouseClicked
         // TODO add your handling code here:
         pnlContent.removeAll();
         ItemPanel ip = new ItemPanel();
-        ip.setSize(670,450);
         pnlContent.add(ip);
-        pnlContent.revalidate();
         pnlContent.repaint();
     }//GEN-LAST:event_lblItemMouseClicked
 
@@ -405,10 +384,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblSupplier;
-    public javax.swing.JPanel pnlContent;
+    private javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlFrameBar;
     private javax.swing.JPanel pnlTabs;
     private javax.swing.JPanel pnlUnderline;
-    private javax.swing.JScrollPane scrPanel;
+    public javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
 }

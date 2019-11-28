@@ -1,29 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package productmanagement;
 
+import java.awt.Dimension;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Jozhua Ten
- */
 public class ProfilePanel extends javax.swing.JPanel {
-
-    /** Creates new form ProfilePanel */
+    //Create a variable to check the panel is closed or opened
+    boolean isClosed = true;
+    
     public ProfilePanel() {
         initComponents();
-        
-        //Hide the arrow up icon
-        lblArrowUp.setVisible(false);
     }
     
-    //Create a variable to check the panel is closed or opened
-    boolean isClose = true;
+    private void updatePasswordPanel() {
+        // If the panel is closed, then open the panel and set the boolean variable to false.
+        if (isClosed){
+            pnlUpdatePassword.setPreferredSize(new Dimension(250, 462));
+            pnlUpdatePassword.revalidate();
+            isClosed = false;
+            // Change the icon from arrow-down to arrow-up
+            lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-up.png")));
+        } else {
+        // The panel is opened, then close the panel and set the boolean variable to true.
+            pnlUpdatePassword.setPreferredSize(new Dimension(250, 40));
+            pnlUpdatePassword.revalidate();
+            isClosed = true;
+            // Change the icon from arrow-up to arrow-down
+            lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png")));
+        }
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -35,80 +39,66 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlTopProducts = new javax.swing.JPanel();
-        lblTopItem5 = new javax.swing.JLabel();
-        lblTopItem3 = new javax.swing.JLabel();
-        lblTopItem1 = new javax.swing.JLabel();
-        lblTopItem4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        pnlChangePassword = new javax.swing.JPanel();
-        lblChangePassword = new javax.swing.JLabel();
-        lblArrowUp = new javax.swing.JLabel();
-        lblArrowDown = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jPasswordField3 = new javax.swing.JPasswordField();
-        lblTopItem7 = new javax.swing.JLabel();
-        lblTopItem8 = new javax.swing.JLabel();
-        lblTopItem9 = new javax.swing.JLabel();
-        lblTopItem10 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblLoginName = new javax.swing.JLabel();
+        txtLoginName = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        lblAddress = new javax.swing.JLabel();
+        txtAddress = new javax.swing.JTextField();
+        btnUpdate = new javax.swing.JButton();
+        pnlUpdatePassword = new javax.swing.JPanel();
+        lblUpdatePassword = new javax.swing.JLabel();
+        lblArrow = new javax.swing.JLabel();
+        lblOldPassword = new javax.swing.JLabel();
+        txtOldPassword = new javax.swing.JPasswordField();
+        lblNewPassword = new javax.swing.JLabel();
+        txtNewPassword = new javax.swing.JPasswordField();
+        lblRetypeNewPassword = new javax.swing.JLabel();
+        txtRetypeNewPassword = new javax.swing.JPasswordField();
+        btnUpdatePassword = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(18, 22, 31));
-        setMinimumSize(new java.awt.Dimension(670, 450));
+        setMinimumSize(new java.awt.Dimension(780, 485));
+        setPreferredSize(new java.awt.Dimension(780, 485));
 
         pnlTopProducts.setBackground(new java.awt.Color(46, 52, 66));
         pnlTopProducts.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlTopProducts.setPreferredSize(new java.awt.Dimension(400, 400));
 
-        lblTopItem5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem5.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem5.setText("Name :");
+        lblName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setText("Name :");
 
-        lblTopItem3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem3.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem3.setText("Address :");
+        txtName.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtName.setPreferredSize(new java.awt.Dimension(7, 30));
 
-        lblTopItem1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem1.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem1.setText("Login Name :");
+        lblLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblLoginName.setForeground(new java.awt.Color(255, 255, 255));
+        lblLoginName.setText("Login Name :");
 
-        lblTopItem4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem4.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem4.setText("Email :");
+        txtLoginName.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtLoginName.setPreferredSize(new java.awt.Dimension(7, 30));
 
-        jButton1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jButton1.setText("Edit");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        lblEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(255, 255, 255));
+        lblEmail.setText("Email :");
+
+        txtEmail.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtEmail.setPreferredSize(new java.awt.Dimension(7, 30));
+
+        lblAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblAddress.setForeground(new java.awt.Color(255, 255, 255));
+        lblAddress.setText("Address :");
+
+        txtAddress.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtAddress.setPreferredSize(new java.awt.Dimension(7, 30));
+
+        btnUpdate.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btnUpdate.setText("Update");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                btnUpdateActionPerformed(evt);
             }
         });
 
@@ -120,157 +110,151 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addGroup(pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTopProductsLayout.createSequentialGroup()
                         .addGap(146, 146, 146)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTopProductsLayout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addGroup(pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTopItem5)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTopItem1)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTopItem4)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTopItem3)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                            .addComponent(lblName)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblLoginName)
+                            .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblEmail)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblAddress))))
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         pnlTopProductsLayout.setVerticalGroup(
             pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTopProductsLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(lblTopItem5)
+                .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(lblTopItem1)
+                .addComponent(lblLoginName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(lblTopItem4)
+                .addComponent(lblEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(lblTopItem3)
+                .addComponent(lblAddress)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
-        pnlChangePassword.setBackground(new java.awt.Color(46, 52, 66));
-        pnlChangePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlChangePassword.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnlUpdatePassword.setBackground(new java.awt.Color(46, 52, 66));
+        pnlUpdatePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        pnlUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlUpdatePassword.setPreferredSize(new java.awt.Dimension(250, 40));
 
-        lblChangePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblChangePassword.setForeground(new java.awt.Color(255, 255, 255));
-        lblChangePassword.setText("Change Password");
-        lblChangePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblChangePassword.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblUpdatePassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblUpdatePassword.setText("Update Password");
+        lblUpdatePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUpdatePassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblChangePasswordMouseClicked(evt);
+                lblUpdatePasswordMouseClicked(evt);
             }
         });
 
-        lblArrowUp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblArrowUp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-up.png"))); // NOI18N
-        lblArrowUp.setAlignmentY(0.0F);
+        lblArrow.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblArrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png"))); // NOI18N
+        lblArrow.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblArrowMouseClicked(evt);
+            }
+        });
 
-        lblArrowDown.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblArrowDown.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png"))); // NOI18N
+        lblOldPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblOldPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblOldPassword.setText("Old Password :");
 
-        lblTopItem7.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem7.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem7.setText("Old Password :");
+        txtOldPassword.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtOldPassword.setPreferredSize(new java.awt.Dimension(7, 30));
 
-        lblTopItem8.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem8.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem8.setText("New Password :");
+        lblNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblNewPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblNewPassword.setText("New Password :");
 
-        lblTopItem9.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem9.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem9.setText("Confirm");
+        txtNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
 
-        lblTopItem10.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblTopItem10.setForeground(new java.awt.Color(255, 255, 255));
-        lblTopItem10.setText("Password :");
+        lblRetypeNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblRetypeNewPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblRetypeNewPassword.setText("Retype New Password :");
 
-        jButton2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        jButton2.setText("Change");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        txtRetypeNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtRetypeNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
+
+        btnUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        btnUpdatePassword.setText("Update Password");
+        btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnUpdatePasswordActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlChangePasswordLayout = new javax.swing.GroupLayout(pnlChangePassword);
-        pnlChangePassword.setLayout(pnlChangePasswordLayout);
-        pnlChangePasswordLayout.setHorizontalGroup(
-            pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlChangePasswordLayout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
-                            .addComponent(jPasswordField2)
-                            .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlChangePasswordLayout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addGroup(pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblTopItem10)
-                                    .addGroup(pnlChangePasswordLayout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(lblTopItem9)))))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChangePasswordLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlUpdatePasswordLayout = new javax.swing.GroupLayout(pnlUpdatePassword);
+        pnlUpdatePassword.setLayout(pnlUpdatePasswordLayout);
+        pnlUpdatePasswordLayout.setHorizontalGroup(
+            pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
+                .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChangePasswordLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(lblTopItem7)
-                                .addGap(53, 53, 53))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChangePasswordLayout.createSequentialGroup()
-                                .addComponent(lblChangePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(0, 0, 0)
-                                .addComponent(lblArrowUp)
-                                .addGap(5, 5, 5)
-                                .addComponent(lblArrowDown)
-                                .addContainerGap()))))
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChangePasswordLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(lblTopItem8)
-                    .addGap(48, 48, 48)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlChangePasswordLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                        .addComponent(lblUpdatePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 21, 21)
+                        .addComponent(lblArrow))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtOldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
+                                .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblOldPassword)
+                                    .addComponent(lblNewPassword)
+                                    .addComponent(lblRetypeNewPassword))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdatePasswordLayout.createSequentialGroup()
+                .addGap(0, 48, Short.MAX_VALUE)
+                .addComponent(btnUpdatePassword)
+                .addGap(39, 39, 39))
         );
-        pnlChangePasswordLayout.setVerticalGroup(
-            pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlChangePasswordLayout.createSequentialGroup()
+        pnlUpdatePasswordLayout.setVerticalGroup(
+            pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(pnlChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblArrowDown)
-                    .addComponent(lblChangePassword)
-                    .addComponent(lblArrowUp))
+                .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblArrow)
+                    .addComponent(lblUpdatePassword))
                 .addGap(22, 22, 22)
-                .addComponent(lblTopItem7)
+                .addComponent(lblOldPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(lblTopItem8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(lblTopItem9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTopItem10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblNewPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(lblRetypeNewPassword)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -278,88 +262,64 @@ public class ProfilePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(pnlTopProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(pnlChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(pnlTopProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlTopProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlTopProducts, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void lblChangePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChangePasswordMouseClicked
-        // If the panel is closed, then open the panel and set the boolean variable to false.
-        if(isClose == true){
-            pnlChangePassword.setSize(212,300);
-            isClose = false;
-            // Change the icon from arrow-down to arrow-up
-            lblArrowDown.setVisible(false);
-            lblArrowUp.setVisible(true);
-        }else{
-        //The panel is opened, then close the panel and set the boolean variable to true.
-            pnlChangePassword.setSize(212,40);
-            isClose = true;
-            // Change the icon from arrow-up to arrow-down
-            lblArrowDown.setVisible(true);
-            lblArrowUp.setVisible(false);
-        }
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         
-    }//GEN-LAST:event_lblChangePasswordMouseClicked
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
+        
+    }//GEN-LAST:event_btnUpdatePasswordActionPerformed
+
+    private void lblUpdatePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdatePasswordMouseClicked
+        updatePasswordPanel();
+    }//GEN-LAST:event_lblUpdatePasswordMouseClicked
+
+    private void lblArrowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArrowMouseClicked
+        updatePasswordPanel();
+    }//GEN-LAST:event_lblArrowMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JPasswordField jPasswordField3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JLabel lblArrowDown;
-    private javax.swing.JLabel lblArrowUp;
-    private javax.swing.JLabel lblChangePassword;
-    private javax.swing.JLabel lblTopItem1;
-    private javax.swing.JLabel lblTopItem10;
-    private javax.swing.JLabel lblTopItem3;
-    private javax.swing.JLabel lblTopItem4;
-    private javax.swing.JLabel lblTopItem5;
-    private javax.swing.JLabel lblTopItem7;
-    private javax.swing.JLabel lblTopItem8;
-    private javax.swing.JLabel lblTopItem9;
-    private javax.swing.JPanel pnlChangePassword;
+    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnUpdatePassword;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblArrow;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblLoginName;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNewPassword;
+    private javax.swing.JLabel lblOldPassword;
+    private javax.swing.JLabel lblRetypeNewPassword;
+    private javax.swing.JLabel lblUpdatePassword;
     private javax.swing.JPanel pnlTopProducts;
+    private javax.swing.JPanel pnlUpdatePassword;
+    private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtLoginName;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JPasswordField txtOldPassword;
+    private javax.swing.JPasswordField txtRetypeNewPassword;
     // End of variables declaration//GEN-END:variables
 
 }
