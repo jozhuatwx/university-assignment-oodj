@@ -197,11 +197,8 @@ public class User {
     if (!registered) {
       try {
         user.setUserPassword(Encryption.encryptPassword(user.getUserPassword().toCharArray()));
-        String action = "Registered new User (" + user.getUserId() + ")";
         // Record the new user into the User database and log action
-        WriteObject.write(user, FILE_NAME, true, action);
-        // Display the success message
-        JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
+        WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")", true);
         return true;
       } catch (Exception e) {
         // Display the error message
@@ -230,10 +227,7 @@ public class User {
             user.setUserPassword(details[6]);
           }
           // Write the new details into the temporary file and log the action
-          String action = "Updated user information (" + user.getUserId() + ")";
-          WriteObject.write(user, TEMP_FILE_NAME, true, action);
-          // Display the success message
-          JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
+          WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")", true);
         } else {
           // Write the old detail into the temporary file
           WriteObject.write(userArray.get(i), TEMP_FILE_NAME, true);

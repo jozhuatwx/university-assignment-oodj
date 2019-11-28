@@ -60,15 +60,9 @@ public class ProductManager extends User {
           }
           if (user.getProductManagerStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            String action = "Updated user information (" + user.getUserId() + ")";
-            WriteObject.write(user, TEMP_FILE_NAME, true, action);
-            // Display the success message
-            JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")", true);
           } else {
-            String action = "Deactivated user information (" + user.getUserId() + ")";
-            WriteObject.write(user, TEMP_FILE_NAME, true, action);
-            // Display the success message
-            JOptionPane.showMessageDialog(new JFrame(), action, "Success", JOptionPane.INFORMATION_MESSAGE);
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Deactivated user information (" + user.getUserId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file

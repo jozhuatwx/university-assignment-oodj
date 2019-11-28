@@ -137,7 +137,7 @@ public class ProductCatalogue {
 
     if (!registered) {
       // Write the new Catalogue into the Catalogue database and log action
-      WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")");
+      WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")", true);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Catalogue title is taken, please try another title", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -160,9 +160,9 @@ public class ProductCatalogue {
         if (details[0].equals(catalogue.getCatalogueId())) {
           if (catalogue.getCatalogueStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")");
+            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")", true);
           } else {
-            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Deactivated product catalogue (" + catalogue.getCatalogueId() + ")");
+            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Deactivated product catalogue (" + catalogue.getCatalogueId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file

@@ -105,7 +105,7 @@ public class Supplier {
 
     if (!registered) {
       // Write the new supplier into the Supplier database and log action
-      WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")");
+      WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")", true);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -128,7 +128,7 @@ public class Supplier {
         if (details[0].equals(supplier.getSupplierId())) {
           if (update) {
             // Write the new details into the temporary file and log action
-            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")");
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")", true);
           } else {
             // Ignore the details and log the action
             WriteObject.log("Deleted supplier information (" + supplier.getSupplierId() + ")");

@@ -79,7 +79,7 @@ public class ProductCataloguePage {
 
   public static void register(ProductCataloguePage page) {
     // Write the new Page into the Page database and log the action
-    WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")");
+    WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")", true);
   }
 
   public static void modify(ProductCataloguePage page) {
@@ -98,9 +98,9 @@ public class ProductCataloguePage {
         if (details[0].equals(page.getPageId())) {
           if (page.getPageStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")");
+            WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")", true);
           } else {
-            WriteObject.write(page, TEMP_FILE_NAME, true, "Deactived product catalogue page information (" + page.getPageId() + ")");
+            WriteObject.write(page, TEMP_FILE_NAME, true, "Deactived product catalogue page information (" + page.getPageId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file

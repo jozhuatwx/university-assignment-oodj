@@ -133,7 +133,7 @@ public class ProductItem {
 
     if (!registered) {
       // Write the new item into the Item database and log action
-      WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")");
+      WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")", true);
       InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
       InventoryTransaction.register(transaction);
     } else {
@@ -159,9 +159,9 @@ public class ProductItem {
         if (details[0].equals(item.getItemId())) {
           if (item.getItemStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")");
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")", true);
           } else {
-            WriteObject.write(item, TEMP_FILE_NAME, true, "Deactivated item product information (" + item.getItemId() + ")");
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Deactivated item product information (" + item.getItemId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file

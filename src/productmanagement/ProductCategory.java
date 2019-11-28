@@ -87,7 +87,7 @@ public class ProductCategory {
 
     if (!registered) {
       // Write the new Category into the Category database and log the action
-      WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")");
+      WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")", true);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Product category already exists", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -110,9 +110,9 @@ public class ProductCategory {
         if (details[0].equals(category.getCategoryId())) {
           if (category.getCategoryStatus().equals(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")");
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")", true);
           } else {
-            WriteObject.write(category, TEMP_FILE_NAME, true, "Deactivated product category information (" + category.getCategoryId() + ")");
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Deactivated product category information (" + category.getCategoryId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file
