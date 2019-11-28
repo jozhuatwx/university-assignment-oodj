@@ -10,7 +10,7 @@ public class MainForm extends javax.swing.JFrame {
         initComponents();
         
         DashboardPanel dp = new DashboardPanel();
-        dp.setSize(670,450);
+        dp.setSize(780,485);
         pnlContent.add(dp);
         pnlContent.revalidate();
     }
@@ -35,14 +35,13 @@ public class MainForm extends javax.swing.JFrame {
         lblSupplier = new javax.swing.JLabel();
         lblCatalogue = new javax.swing.JLabel();
         pnlUnderline = new javax.swing.JPanel();
+        scrPanel = new javax.swing.JScrollPane();
         pnlContent = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashboard");
-        setMinimumSize(new java.awt.Dimension(670, 515));
         setName("ProductManagerDashboardForm"); // NOI18N
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(670, 515));
 
         pnlFrameBar.setBackground(new java.awt.Color(0, 0, 51));
         pnlFrameBar.setPreferredSize(new java.awt.Dimension(670, 65));
@@ -116,9 +115,7 @@ public class MainForm extends javax.swing.JFrame {
         );
         pnlFrameBarLayout.setVerticalGroup(
             pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlFrameBarLayout.createSequentialGroup()
-                .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+            .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameBarLayout.createSequentialGroup()
                 .addComponent(lblClose, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -183,9 +180,7 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(pnlTabsLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlTabsLayout.createSequentialGroup()
-                        .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlTabsLayout.createSequentialGroup()
                         .addComponent(lblDashboard)
                         .addGap(35, 35, 35)
@@ -194,11 +189,11 @@ public class MainForm extends javax.swing.JFrame {
                         .addComponent(lblCategory)
                         .addGap(35, 35, 35)
                         .addComponent(lblItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblSupplier)
                         .addGap(30, 30, 30)
-                        .addComponent(lblCatalogue)
-                        .addGap(24, 24, 24))))
+                        .addComponent(lblCatalogue)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlTabsLayout.setVerticalGroup(
             pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,27 +210,35 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        scrPanel.setBackground(new java.awt.Color(18, 22, 31));
+        scrPanel.setBorder(null);
+
         pnlContent.setBackground(new java.awt.Color(18, 22, 31));
-        pnlContent.setPreferredSize(new java.awt.Dimension(670, 450));
+        pnlContent.setForeground(new java.awt.Color(255, 255, 255));
+        pnlContent.setMinimumSize(new java.awt.Dimension(780, 485));
+        pnlContent.setName(""); // NOI18N
+        pnlContent.setPreferredSize(new java.awt.Dimension(780, 485));
 
         javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
         pnlContent.setLayout(pnlContentLayout);
         pnlContentLayout.setHorizontalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 670, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         pnlContentLayout.setVerticalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        scrPanel.setViewportView(pnlContent);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTabs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(scrPanel)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,11 +247,10 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(pnlTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(pnlContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(scrPanel))
         );
 
-        setSize(new java.awt.Dimension(670, 515));
+        setSize(new java.awt.Dimension(800, 550));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -300,7 +302,7 @@ public class MainForm extends javax.swing.JFrame {
     private void lblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseClicked
         pnlContent.removeAll();
         ProfilePanel pp = new ProfilePanel();
-        pp.setSize(670,450);
+        pp.setSize(780, 485);
         pnlContent.add(pp);
         pnlContent.revalidate();
         pnlContent.repaint();
@@ -309,7 +311,7 @@ public class MainForm extends javax.swing.JFrame {
     private void lblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashboardMouseClicked
         pnlContent.removeAll();
         DashboardPanel dp = new DashboardPanel();
-        dp.setSize(670,450);
+        dp.setSize(780, 485);
         pnlContent.add(dp);
         pnlContent.revalidate();
         pnlContent.repaint();
@@ -378,5 +380,6 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFrameBar;
     private javax.swing.JPanel pnlTabs;
     private javax.swing.JPanel pnlUnderline;
+    private javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
 }
