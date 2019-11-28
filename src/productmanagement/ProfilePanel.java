@@ -1,7 +1,11 @@
 package productmanagement;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ProfilePanel extends javax.swing.JPanel {
     //Create a variable to check the panel is closed or opened
@@ -9,6 +13,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     
     public ProfilePanel() {
         initComponents();
+        resetFields();
     }
     
     private void updatePasswordPanel() {
@@ -27,6 +32,13 @@ public class ProfilePanel extends javax.swing.JPanel {
             // Change the icon from arrow-up to arrow-down
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png")));
         }
+    }
+
+    private void resetFields() {
+        txtName.setText(User.myUser.getUserName());
+        txtAddress.setText(User.myUser.getUserAddress());
+        txtEmail.setText(User.myUser.getUserEmail());
+        txtLoginName.setText(User.myUser.getUserLoginName());
     }
     
     /** This method is called from within the constructor to
@@ -283,11 +295,92 @@ public class ProfilePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        
+        String userId = User.myUser.getUserId();
+        String userName = txtName.getText();
+        String userAddress = txtAddress.getText();
+        String userEmail = txtEmail.getText();
+        String userLoginName = User.myUser.getUserLoginName();
+
+        try {
+            // Get the password
+            ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
+            
+            // Iterate through the User array
+            for (String user : userArray) {
+                // Split each line into an array
+                String[] details = user.split(";");
+                // Find the User id in the array list
+                if (details[0].equals(userId)) {
+                    String userPassword = details[6];
+                    // Check if it is admin or product manager
+                    if (Administrator.isAdministrator()) {
+                        // Create a Adminstrator object
+                        Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
+                        // Update the Administrator
+                        Administrator.modify(userDetail, false);
+                    } else if (ProductManager.isProductManager()) {
+                        // Create a Product Manager object
+                        ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
+                        // Update the Product Manager
+                        ProductManager.modify(userDetail, false);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }        
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
-        
+        String userId = User.myUser.getUserId();
+        String userName = User.myUser.getUserName();
+        String userAddress = User.myUser.getUserAddress();
+        String userEmail = User.myUser.getUserEmail();
+        String userLoginName = User.myUser.getUserLoginName();
+
+        char[] oldPassword = txtOldPassword.getPassword();
+        char[] newPassword = txtNewPassword.getPassword();
+        char[] retypeNewPassword = txtRetypeNewPassword.getPassword();
+
+        try {
+            // Validation
+
+            // Check if the password is correct
+            ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
+            
+            // Iterate through the User array
+            for (String user : userArray) {
+                // Split each line into an array
+                String[] details = user.split(";");
+                // Find the user login name in the array list
+                if (details[0].equals(userId)) {
+                    // Compare if the password equals the input password
+                    if (Encryption.validatePassword(oldPassword, details[6])) {
+                        // Encrypt the new password
+                        String userPassword = Encryption.encryptPassword(newPassword);
+                        // Check if it is admin or product manager
+                        if (Administrator.isAdministrator()) {
+                            // Create a Adminstrator object
+                            Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
+                            // Update the Administrator
+                            Administrator.modify(userDetail, false);
+                        } else if (ProductManager.isProductManager()) {
+                            // Create a Product Manager object
+                            ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
+                            // Update the Product Manager
+                            ProductManager.modify(userDetail, false);
+                        }
+                    } else {
+                        // Display the error message
+                        JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnUpdatePasswordActionPerformed
 
     private void lblUpdatePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdatePasswordMouseClicked
