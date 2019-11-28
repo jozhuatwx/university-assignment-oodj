@@ -17,6 +17,8 @@ public class ProfilePanel extends javax.swing.JPanel {
     /** Creates new form ProfilePanel */
     public ProfilePanel() {
         initComponents();
+        
+        //Hide the arrow up icon
         lblArrowUp.setVisible(false);
     }
     
@@ -57,7 +59,6 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(18, 22, 31));
         setMinimumSize(new java.awt.Dimension(670, 450));
-        setLayout(null);
 
         pnlTopProducts.setBackground(new java.awt.Color(46, 52, 66));
         pnlTopProducts.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
@@ -156,9 +157,6 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
-
-        add(pnlTopProducts);
-        pnlTopProducts.setBounds(25, 31, 392, 394);
 
         pnlChangePassword.setBackground(new java.awt.Color(46, 52, 66));
         pnlChangePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
@@ -275,8 +273,24 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        add(pnlChangePassword);
-        pnlChangePassword.setBounds(435, 31, 212, 40);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(pnlTopProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(pnlChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlTopProducts, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -304,7 +318,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void lblChangePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChangePasswordMouseClicked
-        // If the panel is closed, then open the panel and set the boolean variable to false
+        // If the panel is closed, then open the panel and set the boolean variable to false.
         if(isClose == true){
             pnlChangePassword.setSize(212,300);
             isClose = false;

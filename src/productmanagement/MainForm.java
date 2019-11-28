@@ -401,7 +401,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblSupplier;
-    private javax.swing.JPanel pnlContent;
+    public javax.swing.JPanel pnlContent;
     private javax.swing.JPanel pnlFrameBar;
     private javax.swing.JPanel pnlTabs;
     private javax.swing.JPanel pnlUnderline;
