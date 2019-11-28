@@ -2,7 +2,6 @@ package productmanagement;
 
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
     int xMouse, yMouse;
@@ -13,22 +12,23 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     private void login() {
-        String userLoginName = txtLoginName.getText();
+        String userLoginName = txtLoginName.getText().trim();
         char[] userPassword = txtPassword.getPassword();
 
-        if (userLoginName.trim().length() > 0 && userPassword.length > 0) {
+        if (userLoginName.length() > 0 && userPassword.length > 0) {
             if (User.login(userLoginName, userPassword)) {
                 MainForm main = new MainForm();
                 main.setVisible(true);
                 // Close the login form
                 this.dispose();
             }
-        } else if (userLoginName.trim().length() == 0 && userPassword.length == 0) {
+        }
+        
+        if (userLoginName.length() == 0) {
             lblLoginNameError.setText("Login name cannot be empty");
-            lblPasswordError.setText("Password cannot be empty");
-        } else if (userLoginName.trim().length() == 0) {
-            lblLoginNameError.setText("Login name cannot be empty");
-        } else if (userPassword.length == 0) {
+        }
+        
+        if (userPassword.length == 0) {
             lblPasswordError.setText("Password cannot be empty");
         }
     }
@@ -419,8 +419,8 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFrameBarMousePressed
 
     private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
-        String userLoginName = txtLoginName.getText();
-        if (userLoginName.trim().length() == 0) {
+        String userLoginName = txtLoginName.getText().trim();
+        if (userLoginName.length() == 0) {
             lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");
@@ -428,8 +428,8 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginNameFocusLost
 
     private void txtLoginNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyReleased
-        String userLoginName = txtLoginName.getText();
-        if (userLoginName.trim().length() == 0) {
+        String userLoginName = txtLoginName.getText().trim();
+        if (userLoginName.length() == 0) {
             lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");
