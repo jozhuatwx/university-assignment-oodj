@@ -233,6 +233,7 @@ public class MainForm extends javax.swing.JFrame {
 
         scrPanel.setBackground(new java.awt.Color(18, 22, 31));
         scrPanel.setBorder(null);
+        scrPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrPanel.getVerticalScrollBar().setUnitIncrement(16);
 
         pnlContent.setBackground(new java.awt.Color(18, 22, 31));
