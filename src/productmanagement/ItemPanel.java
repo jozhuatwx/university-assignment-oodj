@@ -25,16 +25,14 @@ public class ItemPanel extends javax.swing.JPanel {
         initComponents();
         
         //Set the TopFrameBar to close(Resize it smaller to hide all the labels, textfield, buttons and textarea. )
-        pnlTopFrameBar.setPreferredSize(new Dimension(617,72));
+        pnlTopFrameBar.setPreferredSize(new Dimension(751,72));
         pnlTopFrameBar.revalidate();
         pnlTopFrameBar.repaint();
         
-        pblBackground.setPreferredSize(new Dimension(619, 450));
+        pblBackground.setPreferredSize(new Dimension(619, 485));
         pblBackground.revalidate();
         pblBackground.repaint();
         
-        scrpnlBackground.revalidate();
-        scrpnlBackground.repaint();
         
         //When the panel is closed, set the boolean variable to true.
         isClose = true;
@@ -88,7 +86,6 @@ public class ItemPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrpnlBackground = new javax.swing.JScrollPane();
         pblBackground = new javax.swing.JPanel();
         pnlTopFrameBar = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
@@ -133,11 +130,7 @@ public class ItemPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(18, 22, 31));
 
-        scrpnlBackground.setBorder(null);
-        scrpnlBackground.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
         pblBackground.setBackground(new java.awt.Color(18, 22, 31));
-        pblBackground.setPreferredSize(new java.awt.Dimension(670, 980));
 
         pnlTopFrameBar.setBackground(new java.awt.Color(46, 52, 66));
 
@@ -270,12 +263,13 @@ public class ItemPanel extends javax.swing.JPanel {
         pnlAddItemFormLayout.setHorizontalGroup(
             pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
                 .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(87, 87, 87)
                         .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblBrand)
                             .addComponent(lblDescription)
@@ -284,35 +278,37 @@ public class ItemPanel extends javax.swing.JPanel {
                                 .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtName)
                                     .addComponent(lblCategory)
-                                    .addComponent(cmbCategory, 0, 228, Short.MAX_VALUE)
+                                    .addComponent(cmbCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblName)
                                     .addComponent(lblCategoryError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblNameError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(scrpnlDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBrand)
-                            .addComponent(lblBrandError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblBrandError, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                         .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-                            .addComponent(txtSellingPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                            .addComponent(txtQuantity)
+                            .addComponent(txtSellingPrice)
                             .addComponent(lblQuantity)
                             .addComponent(lblSellingPrice)
                             .addComponent(lblSupplier)
-                            .addComponent(cmbSupplier, 0, 228, Short.MAX_VALUE)
+                            .addComponent(cmbSupplier, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblImage)
-                            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                                .addGap(66, 66, 66)
-                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblInsertImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblQuantityError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblSupplierError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblSellingPriceError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblImageError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(lblImageError, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(83, 83, 83))
+                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlAddItemFormLayout.setVerticalGroup(
             pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,60 +320,61 @@ public class ItemPanel extends javax.swing.JPanel {
                     .addGroup(pnlAddItemFormLayout.createSequentialGroup()
                         .addComponent(lblCategory)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                        .addComponent(lblSupplier)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblSupplierError)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblQuantity)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(lblCategoryError)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblName)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                        .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(lblCategoryError)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addComponent(lblNameError)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBrand)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSellingPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
-                        .addComponent(lblQuantityError)
+                        .addComponent(txtBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(5, 5, 5)
+                        .addComponent(lblBrandError)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSellingPrice)))
-                .addGap(5, 5, 5)
-                .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBrandError)
-                    .addComponent(lblSellingPriceError))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescription)
-                    .addComponent(lblImage))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scrpnlDescription)
-                    .addComponent(lblInsertImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblDescription)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(scrpnlDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                        .addComponent(lblSupplier)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbSupplier, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSupplierError)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblQuantity)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addComponent(txtSellingPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlAddItemFormLayout.createSequentialGroup()
+                                .addComponent(lblQuantityError)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSellingPrice)))
+                        .addGap(5, 5, 5)
+                        .addComponent(lblSellingPriceError)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblImage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblInsertImage, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblImageError)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout pnlTopFrameBarLayout = new javax.swing.GroupLayout(pnlTopFrameBar);
@@ -389,8 +386,8 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(pnlAddItemForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlTopFrameBarLayout.createSequentialGroup()
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(txtSearch)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -399,11 +396,12 @@ public class ItemPanel extends javax.swing.JPanel {
         pnlTopFrameBarLayout.setVerticalGroup(
             pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopFrameBarLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(24, 24, 24)
+                .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(pnlAddItemForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(24, 24, 24))
@@ -462,7 +460,7 @@ public class ItemPanel extends javax.swing.JPanel {
             .addGroup(pnltemporaryLayout.createSequentialGroup()
                 .addGap(204, 204, 204)
                 .addComponent(lblCategory1)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         pnltemporaryLayout.setVerticalGroup(
             pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -502,34 +500,34 @@ public class ItemPanel extends javax.swing.JPanel {
         pblBackground.setLayout(pblBackgroundLayout);
         pblBackgroundLayout.setHorizontalGroup(
             pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pblBackgroundLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pblBackgroundLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(srcpnlCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(srcpnlCategoryList)
+                    .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pblBackgroundLayout.setVerticalGroup(
             pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pblBackgroundLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(srcpnlCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(srcpnlCategoryList, javax.swing.GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        scrpnlBackground.setViewportView(pblBackground);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrpnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
+            .addComponent(pblBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrpnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pblBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -573,13 +571,10 @@ public class ItemPanel extends javax.swing.JPanel {
             pnlTopFrameBar.revalidate();
             pnlTopFrameBar.repaint();
         
-            pblBackground.setPreferredSize(new Dimension(619, 1030));
+            pblBackground.setPreferredSize(new Dimension(619, 1000));
             pblBackground.revalidate();
             pblBackground.repaint();
-        
-            scrpnlBackground.revalidate();
-            scrpnlBackground.repaint();
-            
+                 
             //When the panel is opened, set the boolean variable to false.
             isClose = false;
         }
@@ -596,9 +591,6 @@ public class ItemPanel extends javax.swing.JPanel {
             pblBackground.setPreferredSize(new Dimension(619, 450));
             pblBackground.revalidate();
             pblBackground.repaint();
-
-            scrpnlBackground.revalidate();
-            scrpnlBackground.repaint();
 
             //When the panel is closed, set the boolean variable to true.
             isClose = true;
@@ -640,7 +632,6 @@ public class ItemPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCategoryList;
     private javax.swing.JPanel pnlTopFrameBar;
     private javax.swing.JPanel pnltemporary;
-    private javax.swing.JScrollPane scrpnlBackground;
     private javax.swing.JScrollPane scrpnlDescription;
     private javax.swing.JScrollPane srcpnlCategoryList;
     private javax.swing.JTextArea txaDescription;

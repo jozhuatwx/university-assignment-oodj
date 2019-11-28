@@ -318,11 +318,10 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCategoryMouseClicked
 
     private void lblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblItemMouseClicked
-        // TODO add your handling code here:
         pnlContent.removeAll();
         ItemPanel ip = new ItemPanel();
         pnlContent.add(ip);
-        pnlContent.repaint();
+        pnlContent.revalidate();
     }//GEN-LAST:event_lblItemMouseClicked
 
     /**
