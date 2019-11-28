@@ -18,34 +18,18 @@ public class LoginForm extends javax.swing.JFrame {
 
         if (userLoginName.trim().length() > 0 && userPassword.length > 0) {
             if (User.login(userLoginName, userPassword)) {
-            // Display form based on role
-            switch (User.myUser.getUserRole()) {
-                case ProductManager.ROLE:
-                    MainForm main = new MainForm();
-                    main.setVisible(true);
-                    break;
-            
-                case Administrator.ROLE:
-
-                    break;
-            }
-
-            // Close the login form
-            this.dispose();
+                MainForm main = new MainForm();
+                main.setVisible(true);
+                // Close the login form
+                this.dispose();
             }
         } else if (userLoginName.trim().length() == 0 && userPassword.length == 0) {
             lblLoginNameError.setText("Login name cannot be empty");
             lblPasswordError.setText("Password cannot be empty");
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Login name and password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
         } else if (userLoginName.trim().length() == 0) {
             lblLoginNameError.setText("Login name cannot be empty");
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Login name cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
         } else if (userPassword.length == 0) {
             lblPasswordError.setText("Password cannot be empty");
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
         }
     }
 
