@@ -306,7 +306,7 @@ public class LoginForm extends javax.swing.JFrame {
                     .addGap(25, 25, 25))
             );
 
-            lblLoginLogo.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/user.png"))); // NOI18N
+            lblLoginLogo.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Login.png"))); // NOI18N
             lblLoginLogo.setEnabled(false);
 
             lblSystemName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 20)); // NOI18N
