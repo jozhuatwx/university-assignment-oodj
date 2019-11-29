@@ -1,21 +1,20 @@
 package productmanagement;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+
+import javax.swing.Box;
 
 public class SupplierPanel extends javax.swing.JPanel {
 
     public SupplierPanel() {
         initComponents();
         hideAddPanel();
-        /*
-        // Check if it is admin or profuct manager
-        //If the user is Product Manager, then hide the Add and Modify button
-        if(Administrator.isAdministrator()){
-        
-        }else if(ProductManaget.isProductManager()){
-        btnAdd.setVisible(false);
+        // If the user is Product Manager, then hide the Add and Modify button
+        if (ProductManager.isProductManager()){
+            btnAdd.setVisible(false);
         }
-        */
+        resetFields();
     }
     
     private void showAddPanel() {
@@ -37,6 +36,22 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtAddress.setText("");
         txtContact.setText("");
         txtEmail.setText("");
+
+        pnlSupplierList.removeAll();
+        
+        int i = 0;
+        ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
+        for (; i < supplierArray.size(); i++) {
+            String[] details = supplierArray.get(i).split(";");
+            Supplier supplier = new Supplier(details[0], details[1], details[2], details[3], details[4], details[5]);
+            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplier, i + 1);
+            sup.setPreferredSize(new Dimension(755, 72));
+            pnlSupplierList.add(sup);
+        }
+        if (i * 72 < 385) {
+            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (75 * i))));
+        }
+        pnlSupplierList.revalidate();
     }
 
     // Validation
@@ -127,12 +142,6 @@ public class SupplierPanel extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         scrSupplierList = new javax.swing.JScrollPane();
         pnlSupplierList = new javax.swing.JPanel();
-        pnltemporary = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        lblProductCategory = new javax.swing.JLabel();
-        lblRemove = new javax.swing.JLabel();
-        lblEdit = new javax.swing.JLabel();
-        lblCategory1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(18, 22, 31));
 
@@ -403,87 +412,7 @@ public class SupplierPanel extends javax.swing.JPanel {
 
         pnlSupplierList.setBackground(new java.awt.Color(46, 52, 66));
         pnlSupplierList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlSupplierList.setPreferredSize(new java.awt.Dimension(740, 385));
-
-        pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jLabel5.setText("1.");
-
-        lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Supplier Name");
-        lblProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProductCategoryMouseClicked(evt);
-            }
-        });
-
-        lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
-
-        lblEdit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
-
-        lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblCategory1.setText("Product category Name");
-        lblCategory1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCategory1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnltemporaryLayout = new javax.swing.GroupLayout(pnltemporary);
-        pnltemporary.setLayout(pnltemporaryLayout);
-        pnltemporaryLayout.setHorizontalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(40, 40, 40)
-                .addComponent(lblProductCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRemove)
-                .addContainerGap())
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(lblCategory1)
-                .addContainerGap(357, Short.MAX_VALUE))
-        );
-        pnltemporaryLayout.setVerticalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEdit)
-                    .addComponent(lblRemove)
-                    .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblProductCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlSupplierListLayout = new javax.swing.GroupLayout(pnlSupplierList);
-        pnlSupplierList.setLayout(pnlSupplierListLayout);
-        pnlSupplierListLayout.setHorizontalGroup(
-            pnlSupplierListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSupplierListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlSupplierListLayout.setVerticalGroup(
-            pnlSupplierListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlSupplierListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
-        );
-
+        pnlSupplierList.setLayout(new javax.swing.BoxLayout(pnlSupplierList, javax.swing.BoxLayout.Y_AXIS));
         scrSupplierList.setViewportView(pnlSupplierList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -507,15 +436,6 @@ public class SupplierPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblProductCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductCategoryMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_lblProductCategoryMouseClicked
-
-    private void lblCategory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategory1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCategory1MouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
@@ -608,24 +528,18 @@ public class SupplierPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblAddSupplier;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddressError;
-    private javax.swing.JLabel lblCategory1;
     private javax.swing.JLabel lblContact;
     private javax.swing.JLabel lblContactError;
-    private javax.swing.JLabel lblEdit;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailError;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNameError;
-    private javax.swing.JLabel lblProductCategory;
-    private javax.swing.JLabel lblRemove;
     private javax.swing.JPanel pnlAddSupplier;
     private javax.swing.JPanel pnlAddSupplierForm;
     private javax.swing.JPanel pnlSupplierList;
-    private javax.swing.JPanel pnltemporary;
     private javax.swing.JScrollPane scrSupplierList;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContact;
