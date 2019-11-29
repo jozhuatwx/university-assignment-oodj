@@ -75,8 +75,8 @@ public class SupplierPanel extends javax.swing.JPanel {
         if (supplierAddress.length() <= 0) {
             lblAddressError.setText("Supplier Address cannot be empty");
             validated = false;
-        } else if (!supplierAddress.contains(";")) {
-            lblAddressError.setText("Item Brand cannot contain semi-colons");
+        } else if (supplierAddress.contains(";")) {
+            lblAddressError.setText("Supplier Address cannot contain semi-colons");
             validated = false;
         }
 
@@ -475,7 +475,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             validated = false;
         }
 
-        if (!validated) {
+        if (validated) {
             Supplier supplier = new Supplier(Supplier.generateSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, Supplier.ACTIVE);
             if (Supplier.register(supplier)) {
                 resetFields();

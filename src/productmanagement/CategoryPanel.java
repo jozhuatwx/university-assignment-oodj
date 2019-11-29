@@ -453,7 +453,7 @@ public class CategoryPanel extends javax.swing.JPanel {
             validated = false;
         }
 
-        if (!validated) {
+        if (validated) {
             ProductCategory category = new ProductCategory(ProductCategory.generateCategoryId(), categoryName, categoryDescription, ProductCategory.ACTIVE);
             if (ProductCategory.register(category)) {
                 resetFields();
