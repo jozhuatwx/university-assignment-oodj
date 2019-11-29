@@ -134,8 +134,9 @@ public class ProductCategory {
     return false;
   }
 
-  public static ProductCategory search(String keyword) {
-    ProductCategory category = new ProductCategory("-1", "", "", ACTIVE);
+  public static ArrayList<ProductCategory> search(String keyword) {
+    keyword = keyword.toLowerCase();
+    ArrayList<ProductCategory> categoryArrayList = new ArrayList<>();
 
     try {
       ArrayList<String> categoryArray = ReadObject.readArray(FILE_NAME);
@@ -144,18 +145,17 @@ public class ProductCategory {
         // Split the line into an array
         String[] details = categoryDetails.split(";");
         // Find if any existing Category matches the keyword
-        if (details[1].contains(keyword) || details[2].contains(keyword)) {
+        if (details[1].toLowerCase().contains(keyword) || details[2].toLowerCase().contains(keyword)) {
           // Get Category information
-          category = new ProductCategory(details[0], details[1], details[2], details[3]);
-          // Stop the iteration
-          break;
+          ProductCategory category = new ProductCategory(details[0], details[1], details[2], details[3]);
+          categoryArrayList.add(category);
         }
       }
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    return category;
+    return categoryArrayList;
   }
 
   // Overrides the default toString() to display the information of the Product Category class

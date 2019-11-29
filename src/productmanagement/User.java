@@ -253,8 +253,9 @@ public class User {
     return false;
   }
 
-  public static User search(String keyword) {
-    User user = new User("-1", "", "", "", "", "", "");
+  public static ArrayList<User> search(String keyword) {
+    keyword = keyword.toLowerCase();
+    ArrayList<User> userArrayList = new ArrayList<>();
 
     try {
       ArrayList<String> userArray = ReadObject.readArray("ProductManager.txt");
@@ -263,18 +264,17 @@ public class User {
         // Split the line into an array
         String[] details = userDetails.split(";");
         // Find if any existing User matches the keyword
-        if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[5].contains(keyword)) {
+        if (details[1].toLowerCase().contains(keyword) || details[2].toLowerCase().contains(keyword) || details[3].toLowerCase().contains(keyword) || details[5].toLowerCase().contains(keyword)) {
           // Get User information
-          user = new User(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
-          // Stop the iteration
-          break;
+          User user = new User(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
+          userArrayList.add(user);
         }
       }
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    return user;
+    return userArrayList;
   }
 
   public static void logout() {

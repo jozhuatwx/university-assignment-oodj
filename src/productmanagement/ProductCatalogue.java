@@ -180,8 +180,9 @@ public class ProductCatalogue {
     }
   }
 
-  public static ProductCatalogue search(String keyword) {
-    ProductCatalogue catalogue = new ProductCatalogue("-1", "", "", "", LocalDate.now(), LocalDate.now(), LocalDateTime.now(), "", ACTIVE);
+  public static ArrayList<ProductCatalogue> search(String keyword) {
+    keyword = keyword.toLowerCase();
+    ArrayList<ProductCatalogue> catalogueArrayList = new ArrayList<>();
 
     try {
       ArrayList<String> catalogueArray = ReadObject.readArray(FILE_NAME);
@@ -190,18 +191,17 @@ public class ProductCatalogue {
         // Split the line into an array
         String[] details = catalogueDetails.split(";");
         // Find if any existing Catalogue matches the keyword
-        if (details[1].contains(keyword) || details[3].contains(keyword)) {
+        if (details[1].toLowerCase().contains(keyword) || details[3].toLowerCase().contains(keyword)) {
           // Get Catalogue information
-          catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], LocalDate.parse(details[4]), LocalDate.parse(details[5]), LocalDateTime.parse(details[6]), details[7], details[8]);
-          // Stop the iteration
-          break;
+          ProductCatalogue catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], LocalDate.parse(details[4]), LocalDate.parse(details[5]), LocalDateTime.parse(details[6]), details[7], details[8]);
+          catalogueArrayList.add(catalogue);
         }
       }
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    return catalogue;
+    return catalogueArrayList;
   }
 
   public static String[] latestCatalogue() {
