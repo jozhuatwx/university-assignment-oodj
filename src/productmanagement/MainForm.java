@@ -341,7 +341,7 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.removeAll();
         //SupplierPanel sp = new SupplierPanel();
         //pnlContent.add(sp);
-        ItemUniversalPanel cup = new ItemUniversalPanel();
+        LogPanel cup = new LogPanel();
         pnlContent.add(cup);
         pnlContent.revalidate();
     }//GEN-LAST:event_lblSupplierMouseClicked
