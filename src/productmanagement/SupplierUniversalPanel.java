@@ -82,6 +82,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNameError.setText(" ");
+        }
         return validated;
     }
 
@@ -96,6 +99,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblAddressError.setText(" ");
+        }
         return validated;
     }
 
@@ -110,6 +116,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblEmailError.setText(" ");
+        }
         return validated;
     }
 
@@ -124,6 +133,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblContactError.setText(" ");
+        }
         return validated;
     }
     
@@ -396,19 +408,19 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             String supplierContact = txtContact.getText().trim();
             
             // Validation
-            if (validateName(supplierName)) {
+            if (!validateName(supplierName)) {
                 validated = false;
             }
 
-            if (validateAddress(supplierAddress)) {
+            if (!validateAddress(supplierAddress)) {
                 validated = false;
             }
 
-            if (validateEmail(supplierEmail)) {
+            if (!validateEmail(supplierEmail)) {
                 validated = false;
             }
 
-            if (validateContact(supplierContact)) {
+            if (!validateContact(supplierContact)) {
                 validated = false;
             }
 

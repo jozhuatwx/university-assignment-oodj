@@ -119,6 +119,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNameError.setText(" ");
+        }
         return validated;
     }
 
@@ -132,7 +135,10 @@ public class ItemPanel extends javax.swing.JPanel {
             lblBrandError.setText("Item Brand cannot contain semi-colons");
             validated = false;
         }
-
+        
+        if (validated) {
+            lblBrandError.setText(" ");
+        }
         return validated;
     }
 
@@ -151,6 +157,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblSellingPriceError.setText(" ");
+        }
         return validated;
     }
 
@@ -169,6 +178,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblQuantityError.setText(" ");
+        }
         return validated;
     }
 
@@ -180,6 +192,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblDescriptionError.setText(" ");
+        }
         return validated;
     }
 
@@ -191,6 +206,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblImageError.setText(" ");
+        }
         return validated;
     }
 
@@ -202,6 +220,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblSupplierError.setText(" ");
+        }
         return validated;
     }
 
@@ -213,6 +234,9 @@ public class ItemPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblCategoryError.setText(" ");
+        }
         return validated;
     }
 

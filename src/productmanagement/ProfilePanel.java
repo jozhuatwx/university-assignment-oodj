@@ -60,6 +60,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNameError.setText(" ");
+        }
         return validated;
     }
 
@@ -74,6 +77,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblAddressError.setText(" ");
+        }
         return validated;
     }
 
@@ -88,6 +94,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblEmailError.setText(" ");
+        }
         return validated;
     }
 
@@ -99,6 +108,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblOldPasswordError.setText(" ");
+        }
         return validated;
     }
 
@@ -118,6 +130,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNewPasswordError.setText(" ");
+        }
         return validated;
     }
 
@@ -129,6 +144,9 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblConfirmPasswordError.setText(" ");
+        }
         return validated;
     }
     
