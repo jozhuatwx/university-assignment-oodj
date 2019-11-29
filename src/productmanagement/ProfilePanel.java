@@ -45,7 +45,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         txtOldPassword.setText("");
         txtNewPassword.setText("");
-        txtRetypeNewPassword.setText("");
+        txtConfirmNewPassword.setText("");
     }
 
     // Validation
@@ -121,11 +121,11 @@ public class ProfilePanel extends javax.swing.JPanel {
         return validated;
     }
 
-    private boolean validateRetypeNewPassword(char[] userPassword, char[] retypePassword) {
+    private boolean validateConfirmNewPassword(char[] userPassword, char[] confirmPassword) {
         boolean validated = true;
 
-        if (userPassword.equals(retypePassword)) {
-            lblRetypePasswordError.setText("Retype New Password does not match");
+        if (userPassword.equals(confirmPassword)) {
+            lblConfirmPasswordError.setText("Retype New Password does not match");
             validated = false;
         }
 
@@ -164,9 +164,9 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblNewPassword = new javax.swing.JLabel();
         lblNewPasswordError = new javax.swing.JLabel();
         txtNewPassword = new javax.swing.JPasswordField();
-        lblRetypeNewPassword = new javax.swing.JLabel();
-        txtRetypeNewPassword = new javax.swing.JPasswordField();
-        lblRetypePasswordError = new javax.swing.JLabel();
+        lblConfirmNewPassword = new javax.swing.JLabel();
+        txtConfirmNewPassword = new javax.swing.JPasswordField();
+        lblConfirmPasswordError = new javax.swing.JLabel();
         btnUpdatePassword = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(18, 22, 31));
@@ -433,31 +433,31 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        lblRetypeNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblRetypeNewPassword.setForeground(new java.awt.Color(255, 255, 255));
-        lblRetypeNewPassword.setText("Retype New Password :");
-        lblRetypeNewPassword.setMaximumSize(new java.awt.Dimension(200, 20));
-        lblRetypeNewPassword.setMinimumSize(new java.awt.Dimension(200, 20));
-        lblRetypeNewPassword.setPreferredSize(new java.awt.Dimension(200, 20));
+        lblConfirmNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblConfirmNewPassword.setForeground(new java.awt.Color(255, 255, 255));
+        lblConfirmNewPassword.setText("Confirm New Password :");
+        lblConfirmNewPassword.setMaximumSize(new java.awt.Dimension(200, 20));
+        lblConfirmNewPassword.setMinimumSize(new java.awt.Dimension(200, 20));
+        lblConfirmNewPassword.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtRetypeNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        txtRetypeNewPassword.setBorder(null);
-        txtRetypeNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
-        txtRetypeNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
-        txtRetypeNewPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtConfirmNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtConfirmNewPassword.setBorder(null);
+        txtConfirmNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
+        txtConfirmNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtConfirmNewPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtRetypeNewPasswordFocusLost(evt);
+                txtConfirmNewPasswordFocusLost(evt);
             }
         });
-        txtRetypeNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtConfirmNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtRetypeNewPasswordKeyReleased(evt);
+                txtConfirmNewPasswordKeyReleased(evt);
             }
         });
 
-        lblRetypePasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblRetypePasswordError.setForeground(new java.awt.Color(255, 0, 0));
-        lblRetypePasswordError.setText(" ");
+        lblConfirmPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblConfirmPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblConfirmPasswordError.setText(" ");
 
         btnUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnUpdatePassword.setText("Update Password");
@@ -501,10 +501,10 @@ public class ProfilePanel extends javax.swing.JPanel {
                     .addGroup(pnlUpdatePasswordLayout.createSequentialGroup()
                         .addGroup(pnlUpdatePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblRetypePasswordError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblConfirmPasswordError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlUpdatePasswordLayout.setVerticalGroup(
@@ -527,11 +527,11 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNewPasswordError)
                 .addGap(18, 18, 18)
-                .addComponent(lblRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtRetypeNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRetypePasswordError)
+                .addComponent(lblConfirmPasswordError)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -627,7 +627,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         char[] oldPassword = txtOldPassword.getPassword();
         char[] newPassword = txtNewPassword.getPassword();
-        char[] retypeNewPassword = txtRetypeNewPassword.getPassword();
+        char[] retypeNewPassword = txtConfirmNewPassword.getPassword();
 
         // Validation
         if (!validateOldPassword(oldPassword)) {
@@ -638,7 +638,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             validated = false;
         }
 
-        if (!validateRetypeNewPassword(newPassword, retypeNewPassword)) {
+        if (!validateConfirmNewPassword(newPassword, retypeNewPassword)) {
             validated = false;
         }
 
@@ -744,17 +744,17 @@ public class ProfilePanel extends javax.swing.JPanel {
         validateNewPassword(userPassword);
     }//GEN-LAST:event_txtNewPasswordFocusLost
 
-    private void txtRetypeNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRetypeNewPasswordKeyReleased
+    private void txtConfirmNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmNewPasswordKeyReleased
         char[] userPassword = txtNewPassword.getPassword();
-        char[] retypePassword = txtRetypeNewPassword.getPassword();
-        validateRetypeNewPassword(userPassword, retypePassword);
-    }//GEN-LAST:event_txtRetypeNewPasswordKeyReleased
+        char[] retypePassword = txtConfirmNewPassword.getPassword();
+        validateConfirmNewPassword(userPassword, retypePassword);
+    }//GEN-LAST:event_txtConfirmNewPasswordKeyReleased
 
-    private void txtRetypeNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRetypeNewPasswordFocusLost
+    private void txtConfirmNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmNewPasswordFocusLost
         char[] userPassword = txtNewPassword.getPassword();
-        char[] retypePassword = txtRetypeNewPassword.getPassword();
-        validateRetypeNewPassword(userPassword, retypePassword);
-    }//GEN-LAST:event_txtRetypeNewPasswordFocusLost
+        char[] retypePassword = txtConfirmNewPassword.getPassword();
+        validateConfirmNewPassword(userPassword, retypePassword);
+    }//GEN-LAST:event_txtConfirmNewPasswordFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -763,6 +763,8 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddressError;
     private javax.swing.JLabel lblArrow;
+    private javax.swing.JLabel lblConfirmNewPassword;
+    private javax.swing.JLabel lblConfirmPasswordError;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailError;
     private javax.swing.JLabel lblLoginName;
@@ -772,19 +774,17 @@ public class ProfilePanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblNewPasswordError;
     private javax.swing.JLabel lblOldPassword;
     private javax.swing.JLabel lblOldPasswordError;
-    private javax.swing.JLabel lblRetypeNewPassword;
-    private javax.swing.JLabel lblRetypePasswordError;
     private javax.swing.JLabel lblUpdatePassword;
     private javax.swing.JLabel lblUpdateProfile;
     private javax.swing.JLabel lblUserLoginName;
     private javax.swing.JPanel pnlUpdatePassword;
     private javax.swing.JPanel pnlUpdateProfile;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JPasswordField txtConfirmNewPassword;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtNewPassword;
     private javax.swing.JPasswordField txtOldPassword;
-    private javax.swing.JPasswordField txtRetypeNewPassword;
     // End of variables declaration//GEN-END:variables
 
 }

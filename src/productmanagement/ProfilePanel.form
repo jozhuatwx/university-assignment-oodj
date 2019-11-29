@@ -432,12 +432,12 @@
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblNewPassword" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblRetypeNewPassword" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblConfirmNewPassword" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="txtRetypeNewPassword" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblRetypePasswordError" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtConfirmNewPassword" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblConfirmPasswordError" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -464,11 +464,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblNewPasswordError" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lblRetypeNewPassword" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblConfirmNewPassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtRetypeNewPassword" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtConfirmNewPassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblRetypePasswordError" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblConfirmPasswordError" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnUpdatePassword" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -628,7 +628,7 @@
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNewPasswordKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblRetypeNewPassword">
+        <Component class="javax.swing.JLabel" name="lblConfirmNewPassword">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="14" style="0"/>
@@ -636,7 +636,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Retype New Password :"/>
+            <Property name="text" type="java.lang.String" value="Confirm New Password :"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[200, 20]"/>
             </Property>
@@ -648,7 +648,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="txtRetypeNewPassword">
+        <Component class="javax.swing.JPasswordField" name="txtConfirmNewPassword">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="14" style="0"/>
@@ -664,11 +664,11 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtRetypeNewPasswordFocusLost"/>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRetypeNewPasswordKeyReleased"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtConfirmNewPasswordFocusLost"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtConfirmNewPasswordKeyReleased"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblRetypePasswordError">
+        <Component class="javax.swing.JLabel" name="lblConfirmPasswordError">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="11" style="0"/>
