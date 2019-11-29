@@ -152,8 +152,9 @@ public class Supplier {
     return false;
   }
 
-  public static Supplier search(String keyword) {
-    Supplier supplier = new Supplier("-1", "", "", "", "", Supplier.ACTIVE);
+  public static ArrayList<Supplier> search(String keyword) {
+    keyword = keyword.toLowerCase();
+    ArrayList<Supplier> supplierArrayList = new ArrayList<>();
 
     try {
       ArrayList<String> supplierArray = ReadObject.readArray(FILE_NAME);
@@ -162,18 +163,17 @@ public class Supplier {
         // Split the line into an array
         String[] details = supplierDetails.split(";");
         // Find if any existing Supplier matches the keyword
-        if (details[1].contains(keyword) || details[2].contains(keyword) || details[3].contains(keyword) || details[4].contains(keyword)) {
+        if (details[1].toLowerCase().contains(keyword) || details[2].toLowerCase().contains(keyword) || details[3].toLowerCase().contains(keyword) || details[4].toLowerCase().contains(keyword)) {
           // Get Supplier information
-          supplier = new Supplier(details[0], details[1], details[2], details[3], details[4], details[5]);
-          // Stop the iteration
-          break;
+          Supplier supplier = new Supplier(details[0], details[1], details[2], details[3], details[4], details[5]);
+          supplierArrayList.add(supplier);
         }
       }
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    return supplier;
+    return supplierArrayList;
   }
 
   // Overrides the default toString() to display the information of the Supplier class
