@@ -101,7 +101,7 @@ public class User {
         // Split each line into an array
         String[] details = user.split(";");
         // Find the user login name in the array list
-        if (details[5].equals(userLoginName)) {
+        if (details[5].equalsIgnoreCase(userLoginName)) {
           // Set the User as found
           found = true;
           // Log the User ID
@@ -123,7 +123,7 @@ public class User {
 
   // Check if the user is logged in
   public static boolean isLoggedIn() {
-    if (!myUser.getUserId().equals("-1")) {
+    if (!myUser.getUserId().equalsIgnoreCase("-1")) {
       return true;
     } else {
       return false;
@@ -140,7 +140,7 @@ public class User {
         // Split each line into an array
         String[] details = user.split(";");
         // Find the user login name in the array list
-        if (details[5].equals(userLoginName)) {
+        if (details[5].equalsIgnoreCase(userLoginName)) {
           // Compare if the password equals the input password
           if (Encryption.validatePassword(userPassword, details[6])) {
             // Set the user's information into the session
@@ -181,7 +181,7 @@ public class User {
         // Split the line into an array
         String[] details = userDetails.split(";");
         // Find if any existing user login name matches the registering user
-        if (details[5].equals(user.getUserLoginName())) {
+        if (details[5].equalsIgnoreCase(user.getUserLoginName())) {
           // Set the user as registered
           registered = true;
           // Display the error message
@@ -222,7 +222,7 @@ public class User {
         // Split the line into an array
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
-        if (details[0].equals(user.getUserId())) {
+        if (details[0].equalsIgnoreCase(user.getUserId())) {
           if (!updatePassword) {
             user.setUserPassword(details[6]);
           }
@@ -239,7 +239,7 @@ public class User {
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
 
-      if (user.getUserId().equals(User.myUser.getUserId())) {
+      if (user.getUserId().equalsIgnoreCase(User.myUser.getUserId())) {
         // Update the user's information in the session
         myUser.setUserName(user.getUserName());
         myUser.setUserAddress(user.getUserAddress());

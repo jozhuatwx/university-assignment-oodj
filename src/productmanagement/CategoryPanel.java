@@ -1,46 +1,59 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
 import java.awt.Dimension;
 
-/**
- *
- * @author Jozhua Ten
- */
 public class CategoryPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CategoryPanel
-     */
     public CategoryPanel() {
         initComponents();
-        
-        //Set the TopFrameBar to close(Resize it smaller to hide all the labels, textfield, buttons and textarea. )
-        pnlTopFrameBar.setPreferredSize(new Dimension(617,72));
-        pnlTopFrameBar.revalidate();
-        pnlTopFrameBar.repaint();
-        
-        pnlBackground.setPreferredSize(new Dimension(619, 485));
-        pnlBackground.revalidate();
-        pnlBackground.repaint();
-        
-        
-        //When the panel is closed, set the boolean variable to true.
-        isClose = true;
-        
-        
-        //To create title with underlined title in the AddItemForm
-        String underlinedTitle = "<html><u>Add Category</u></html>";
-        lblTitle.setText(underlinedTitle);
-        
+        hideAddPanel();
     }
-        
-        //Create a variable to check the panel is closed or opened
-        boolean isClose;
+    
+    private void showAddPanel() {
+        // Resize the Panel and show the components inside
+        pnlAddCategory.setPreferredSize(new Dimension(755, 359));
+        pnlAddCategory.revalidate();
+        pnlAddCategory.repaint();
+    }
+
+    private void hideAddPanel() {
+        // Resize the Panel and hide the components inside
+        pnlAddCategory.setPreferredSize(new Dimension(755, 61));
+        pnlAddCategory.revalidate();
+        pnlAddCategory.repaint();
+    }
+    
+    private void resetFields() {
+        txtName.setText("");
+        txaDescription.setText("");
+    }
+
+    // Validation
+    private boolean validateCategoryName(String categoryName) {
+        boolean validated = true;
+
+        if (categoryName.length() <= 0) {
+            lblNameError.setText("Category Name cannot be empty");
+            validated = false;
+        } else if (!categoryName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+            lblNameError.setText("Please enter a valid name");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateCategoryDescription(String categoryDescription) {
+        boolean validated = true;
+
+        if (categoryDescription.contains(";")) {
+            lblDescriptionError.setText("Category Description cannot contain semi-colons");
+            validated = false;
+        }
+
+        return validated;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,41 +63,47 @@ public class CategoryPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlBackground = new javax.swing.JPanel();
-        pnlTopFrameBar = new javax.swing.JPanel();
+        pnlAddCategory = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         pnlAddCategoryForm = new javax.swing.JPanel();
-        lblTitle = new javax.swing.JLabel();
+        lblAddCategory = new javax.swing.JLabel();
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblNameError = new javax.swing.JLabel();
         lblDescription = new javax.swing.JLabel();
-        scrpnlDescription = new javax.swing.JScrollPane();
+        scrDescription = new javax.swing.JScrollPane();
         txaDescription = new javax.swing.JTextArea();
+        lblDescriptionError = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        srcpnlCategoryList = new javax.swing.JScrollPane();
+        scrCategoryList = new javax.swing.JScrollPane();
         pnlCategoryList = new javax.swing.JPanel();
+        pnlCategory = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        lblCategory = new javax.swing.JLabel();
+        lblRemove = new javax.swing.JLabel();
+        lblEdit = new javax.swing.JLabel();
+        lblCategory1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(18, 22, 31));
+        setMinimumSize(new java.awt.Dimension(775, 485));
         setName("CategoryPanel"); // NOI18N
 
-        pnlBackground.setBackground(new java.awt.Color(18, 22, 31));
+        pnlAddCategory.setBackground(new java.awt.Color(46, 52, 66));
+        pnlAddCategory.setPreferredSize(new java.awt.Dimension(755, 359));
 
-        pnlTopFrameBar.setBackground(new java.awt.Color(46, 52, 66));
-        pnlTopFrameBar.setPreferredSize(new java.awt.Dimension(783, 524));
-
-        txtSearch.setBackground(new java.awt.Color(46, 52, 66));
-        txtSearch.setForeground(new java.awt.Color(255, 255, 255));
-        txtSearch.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setBorder(null);
+        txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
 
         btnSearch.setBackground(new java.awt.Color(46, 52, 66));
         btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -96,6 +115,7 @@ public class CategoryPanel extends javax.swing.JPanel {
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/add.png"))); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.setPreferredSize(new java.awt.Dimension(150, 40));
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -103,41 +123,77 @@ public class CategoryPanel extends javax.swing.JPanel {
         });
 
         pnlAddCategoryForm.setBackground(new java.awt.Color(18, 22, 31));
+        pnlAddCategoryForm.setPreferredSize(new java.awt.Dimension(735, 292));
 
-        lblTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 24)); // NOI18N
-        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
-        lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitle.setText("Add Category");
+        lblAddCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblAddCategory.setForeground(new java.awt.Color(255, 255, 255));
+        lblAddCategory.setText("Add Category");
+        lblAddCategory.setPreferredSize(new java.awt.Dimension(110, 20));
 
-        lblName.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name :");
 
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setBorder(null);
+        txtName.setPreferredSize(new java.awt.Dimension(350, 30));
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNameFocusLost(evt);
+            }
+        });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
+
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
-        lblNameError.setText("ERROR");
+        lblNameError.setText(" ");
 
-        lblDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblDescription.setForeground(new java.awt.Color(255, 255, 255));
         lblDescription.setText("Description :");
 
-        scrpnlDescription.setToolTipText("");
+        scrDescription.setToolTipText("");
 
         txaDescription.setColumns(20);
-        txaDescription.setRows(5);
-        txaDescription.setPreferredSize(new java.awt.Dimension(170, 48));
-        scrpnlDescription.setViewportView(txaDescription);
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txaDescription.setRows(4);
+        txaDescription.setBorder(null);
+        txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusLost(evt);
+            }
+        });
+        txaDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txaDescriptionKeyReleased(evt);
+            }
+        });
+        scrDescription.setViewportView(txaDescription);
+
+        lblDescriptionError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblDescriptionError.setForeground(new java.awt.Color(255, 0, 0));
+        lblDescriptionError.setText(" ");
 
         btnSubmit.setBackground(new java.awt.Color(46, 52, 66));
-        btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Add");
-        btnSubmit.setPreferredSize(new java.awt.Dimension(95, 30));
+        btnSubmit.setPreferredSize(new java.awt.Dimension(150, 40));
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         btnCancel.setBackground(new java.awt.Color(46, 52, 66));
-        btnCancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
+        btnCancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
+        btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -150,124 +206,194 @@ public class CategoryPanel extends javax.swing.JPanel {
             pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlAddCategoryFormLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(pnlAddCategoryFormLayout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAddCategoryFormLayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnCancel))
-                    .addComponent(lblDescription)
-                    .addComponent(lblName)
-                    .addComponent(lblNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName)
-                    .addComponent(scrpnlDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblNameError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblDescription))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlAddCategoryFormLayout.createSequentialGroup()
+                        .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrDescription)
+                            .addGroup(pnlAddCategoryFormLayout.createSequentialGroup()
+                                .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblName))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddCategoryFormLayout.createSequentialGroup()
+                                .addComponent(lblDescriptionError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(59, 59, 59)
+                                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         pnlAddCategoryFormLayout.setVerticalGroup(
             pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddCategoryFormLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddCategoryFormLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addComponent(lblAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblName)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNameError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(lblDescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrpnlDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlAddCategoryFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDescriptionError))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlTopFrameBarLayout = new javax.swing.GroupLayout(pnlTopFrameBar);
-        pnlTopFrameBar.setLayout(pnlTopFrameBarLayout);
-        pnlTopFrameBarLayout.setHorizontalGroup(
-            pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTopFrameBarLayout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+        javax.swing.GroupLayout pnlAddCategoryLayout = new javax.swing.GroupLayout(pnlAddCategory);
+        pnlAddCategory.setLayout(pnlAddCategoryLayout);
+        pnlAddCategoryLayout.setHorizontalGroup(
+            pnlAddCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddCategoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAddCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlAddCategoryForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlTopFrameBarLayout.createSequentialGroup()
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(pnlAddCategoryLayout.createSequentialGroup()
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
-        pnlTopFrameBarLayout.setVerticalGroup(
-            pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTopFrameBarLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(pnlTopFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+        pnlAddCategoryLayout.setVerticalGroup(
+            pnlAddCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddCategoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlAddCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlAddCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlAddCategoryForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
 
-        srcpnlCategoryList.setBackground(new java.awt.Color(46, 52, 66));
-        srcpnlCategoryList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        srcpnlCategoryList.setToolTipText("");
+        scrCategoryList.setBackground(new java.awt.Color(46, 52, 66));
+        scrCategoryList.setBorder(null);
+        scrCategoryList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrCategoryList.setMinimumSize(new java.awt.Dimension(755, 385));
+        scrCategoryList.setPreferredSize(new java.awt.Dimension(755, 385));
 
         pnlCategoryList.setBackground(new java.awt.Color(46, 52, 66));
         pnlCategoryList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlCategoryList.setPreferredSize(new java.awt.Dimension(740, 385));
+
+        pnlCategory.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        jLabel5.setText("1.");
+
+        lblCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblCategory.setText("Product category Name");
+        lblCategory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCategoryMouseClicked(evt);
+            }
+        });
+
+        lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
+
+        lblEdit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
+
+        lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblCategory1.setText("Product category Name");
+        lblCategory1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCategory1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlCategoryLayout = new javax.swing.GroupLayout(pnlCategory);
+        pnlCategory.setLayout(pnlCategoryLayout);
+        pnlCategoryLayout.setHorizontalGroup(
+            pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCategoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel5)
+                .addGap(40, 40, 40)
+                .addComponent(lblCategory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblRemove)
+                .addContainerGap())
+            .addGroup(pnlCategoryLayout.createSequentialGroup()
+                .addGap(204, 204, 204)
+                .addComponent(lblCategory1)
+                .addContainerGap(355, Short.MAX_VALUE))
+        );
+        pnlCategoryLayout.setVerticalGroup(
+            pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCategoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEdit)
+                    .addComponent(lblRemove)
+                    .addGroup(pnlCategoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(lblCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout pnlCategoryListLayout = new javax.swing.GroupLayout(pnlCategoryList);
         pnlCategoryList.setLayout(pnlCategoryListLayout);
         pnlCategoryListLayout.setHorizontalGroup(
             pnlCategoryListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 761, Short.MAX_VALUE)
+            .addGroup(pnlCategoryListLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         pnlCategoryListLayout.setVerticalGroup(
             pnlCategoryListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(pnlCategoryListLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
 
-        srcpnlCategoryList.setViewportView(pnlCategoryList);
-
-        javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
-        pnlBackground.setLayout(pnlBackgroundLayout);
-        pnlBackgroundLayout.setHorizontalGroup(
-            pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(srcpnlCategoryList)
-                    .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlBackgroundLayout.setVerticalGroup(
-            pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(srcpnlCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        scrCategoryList.setViewportView(pnlCategoryList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrCategoryList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlAddCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlAddCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrCategoryList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getAccessibleContext().setAccessibleName("CategoryPanel");
@@ -278,42 +404,82 @@ public class CategoryPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
-        if(isClose == true){
-            //If the panel is closed,then execute codes below:
-            //Set the TopFrameBar to open(Resize it larger to show all the labels, textfield, buttons and textarea. )
-            pnlTopFrameBar.setPreferredSize(new Dimension(617,510));
-            pnlTopFrameBar.revalidate();
-            pnlTopFrameBar.repaint();
-        
-            pnlBackground.setPreferredSize(new Dimension(619, 930));
-            pnlBackground.revalidate();
-            pnlBackground.repaint();
-        
-            
-            //When the panel is opened, set the boolean variable to false.
-            isClose = false;
-           }
-        
+        showAddPanel();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-            
-        if(isClose == false){
-            //If the panel is opened,then execute codes below:
-            //Set the TopFrameBar Closed(Resize it smaller to hide the all the labels, textfield, buttons and textarea. )
-            pnlTopFrameBar.setPreferredSize(new Dimension(617,72));
-            pnlTopFrameBar.revalidate();
-            pnlTopFrameBar.repaint();
-
-            pnlBackground.setPreferredSize(new Dimension(619, 485));
-            pnlBackground.revalidate();
-            pnlBackground.repaint();
-
-            //When the panel is closed, set the boolean variable to true.
-            isClose = true;
-        }
+        hideAddPanel();
+        resetFields();
     }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
+        // TODO add your handling code here:
+        System.out.println("START HERE");
+        lblCategory.setPreferredSize(new Dimension(580,102));
+        /*lblCategory.revalidate();
+        lblCategory.repaint();
+        
+        srcpnlCategoryList.revalidate();
+        srcpnlCategoryList.repaint();
+        
+        pnlBackground.revalidate();
+        pnlBackground.repaint();
+        
+        /*jPanel1.revalidate();
+        jPanel1.repaint();
+
+        scrpnlBackground.revalidate();
+        scrpnlBackground.repaint();*/
+            
+        System.out.println("End Here");
+    }//GEN-LAST:event_lblCategoryMouseClicked
+
+    private void lblCategory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategory1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblCategory1MouseClicked
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        boolean validated = true;
+
+        String categoryName = txtName.getText().trim();
+        String categoryDescription = txaDescription.getText().trim();
+        
+        // Validate
+        if (!validateCategoryName(categoryName)) {
+            validated = false;
+        }
+
+        if (!validateCategoryDescription(categoryDescription)) {
+            validated = false;
+        }
+
+        if (!validated) {
+            ProductCategory category = new ProductCategory(ProductCategory.generateCategoryId(), categoryName, categoryDescription, ProductCategory.ACTIVE);
+            if (ProductCategory.register(category)) {
+                resetFields();
+            }
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        String categoryName = txtName.getText().trim();
+        validateCategoryName(categoryName);
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        String categoryName = txtName.getText().trim();
+        validateCategoryName(categoryName);
+    }//GEN-LAST:event_txtNameFocusLost
+
+    private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
+        String categoryDescription = txaDescription.getText().trim();
+        validateCategoryDescription(categoryDescription);
+    }//GEN-LAST:event_txaDescriptionKeyReleased
+
+    private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
+        String categoryDescription = txaDescription.getText().trim();
+        validateCategoryDescription(categoryDescription);
+    }//GEN-LAST:event_txaDescriptionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -321,16 +487,22 @@ public class CategoryPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblAddCategory;
+    private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblCategory1;
     private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblDescriptionError;
+    private javax.swing.JLabel lblEdit;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNameError;
-    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblRemove;
+    private javax.swing.JPanel pnlAddCategory;
     private javax.swing.JPanel pnlAddCategoryForm;
-    private javax.swing.JPanel pnlBackground;
+    private javax.swing.JPanel pnlCategory;
     private javax.swing.JPanel pnlCategoryList;
-    private javax.swing.JPanel pnlTopFrameBar;
-    private javax.swing.JScrollPane scrpnlDescription;
-    private javax.swing.JScrollPane srcpnlCategoryList;
+    private javax.swing.JScrollPane scrCategoryList;
+    private javax.swing.JScrollPane scrDescription;
     private javax.swing.JTextArea txaDescription;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtSearch;

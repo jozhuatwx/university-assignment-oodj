@@ -62,7 +62,7 @@ public class ProductCategory {
     return ReadObject.generateId("CT", FILE_NAME);
   }
 
-  public static void register(ProductCategory category) {
+  public static boolean register(ProductCategory category) {
     // Set default registered Category as false
     boolean registered = false;
 
@@ -73,7 +73,7 @@ public class ProductCategory {
         // Split the line into an array
         String[] details = categoryDetails.split(";");
         // Find if any existing Category name matches the registering Category
-        if (details[1].equals(category.getCategoryName())) {
+        if (details[1].equalsIgnoreCase(category.getCategoryName())) {
           // Set the Category as registered
           registered = true;
           // Stop the iteration
@@ -88,13 +88,15 @@ public class ProductCategory {
     if (!registered) {
       // Write the new Category into the Category database and log the action
       WriteObject.write(category, FILE_NAME, true, "Registered new Category (" + category.getCategoryId() + ")", true);
+      return true;
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Product category already exists", "Warning", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
-  public static void modify(ProductCategory category) {
+  public static boolean modify(ProductCategory category) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -107,8 +109,8 @@ public class ProductCategory {
         // Split line into array
         String[] details = categoryDetails.split(";");
         // Find the Category with the matching ID
-        if (details[0].equals(category.getCategoryId())) {
-          if (category.getCategoryStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(category.getCategoryId())) {
+          if (category.getCategoryStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")", true);
           } else {
@@ -124,10 +126,12 @@ public class ProductCategory {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
+      return true;
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   public static ProductCategory search(String keyword) {

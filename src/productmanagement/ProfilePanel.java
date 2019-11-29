@@ -9,25 +9,28 @@ import javax.swing.JOptionPane;
 
 public class ProfilePanel extends javax.swing.JPanel {
     // Created a variable to check the panel is closed or opened
-    boolean isClosed = true;
+    boolean isClosed = false;
     
     public ProfilePanel() {
         initComponents();
         resetFields();
+        updatePasswordPanel();
     }
     
     private void updatePasswordPanel() {
-        // If the panel is closed, then open the panel and set the boolean variable to false.
-        if (isClosed){
-            pnlUpdatePassword.setPreferredSize(new Dimension(250, 462));
+        if (isClosed) {
+            // If the panel is closed, then open the panel and set the boolean variable to false.
+            pnlUpdatePassword.setPreferredSize(new Dimension(290, 369));
             pnlUpdatePassword.revalidate();
+            pnlUpdatePassword.repaint();
             isClosed = false;
             // Change the icon from arrow-down to arrow-up
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-up.png")));
         } else {
         // The panel is opened, then close the panel and set the boolean variable to true.
-            pnlUpdatePassword.setPreferredSize(new Dimension(250, 40));
+            pnlUpdatePassword.setPreferredSize(new Dimension(290, 40));
             pnlUpdatePassword.revalidate();
+            pnlUpdatePassword.repaint();
             isClosed = true;
             // Change the icon from arrow-up to arrow-down
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png")));
@@ -43,6 +46,90 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtOldPassword.setText("");
         txtNewPassword.setText("");
         txtRetypeNewPassword.setText("");
+    }
+
+    // Validation
+    private boolean validateName(String userName) {
+        boolean validated = true;
+
+        if (userName.length() <= 0) {
+            lblNameError.setText("User Name cannot be empty");
+            validated = false;
+        } else if (!userName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+            lblNameError.setText("Please enter a valid name");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateAddress(String userAddress) {
+        boolean validated = true;
+
+        if (userAddress.length() <= 0) {
+            lblAddressError.setText("User Address cannot be empty");
+            validated = false;
+        } else if (!userAddress.contains(";")) {
+            lblAddressError.setText("Item Brand cannot contain semi-colons");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateEmail(String userEmail) {
+        boolean validated = true;
+
+        if (userEmail.length() <= 0) {
+            lblEmailError.setText("User Email cannot be empty");
+            validated = false;
+        } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+            lblEmailError.setText("Please enter a valid email");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateOldPassword(char[] userPassword) {
+        boolean validated = true;
+
+        if (userPassword.length <= 0) {
+            lblOldPasswordError.setText("Old Password cannot be empty");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateNewPassword(char[] userPassword) {
+        boolean validated = true;
+
+        String passwordString = new String(userPassword);
+
+        if (userPassword.length <= 8) {
+            lblNewPasswordError.setText("New Password cannot be less than 8 characters");
+            validated = false;
+        } else if (userPassword.length > 16) {
+            lblNewPasswordError.setText("New Password cannot be more than 16 characters");
+            validated = false;
+        } else if (passwordString.matches(";")) {
+            lblNewPasswordError.setText("New Password cannot contain semi-colons");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateRetypeNewPassword(char[] userPassword, char[] retypePassword) {
+        boolean validated = true;
+
+        if (userPassword.equals(retypePassword)) {
+            lblRetypePasswordError.setText("Retype New Password does not match");
+            validated = false;
+        }
+
+        return validated;
     }
     
     /** This method is called from within the constructor to
@@ -83,8 +170,8 @@ public class ProfilePanel extends javax.swing.JPanel {
         btnUpdatePassword = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(18, 22, 31));
-        setMinimumSize(new java.awt.Dimension(780, 485));
-        setPreferredSize(new java.awt.Dimension(780, 485));
+        setMinimumSize(new java.awt.Dimension(775, 485));
+        setPreferredSize(new java.awt.Dimension(775, 485));
 
         pnlUpdateProfile.setBackground(new java.awt.Color(46, 52, 66));
         pnlUpdateProfile.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
@@ -121,6 +208,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtName.setBorder(null);
         txtName.setMinimumSize(new java.awt.Dimension(7, 30));
         txtName.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNameFocusLost(evt);
+            }
+        });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
@@ -137,6 +234,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtAddress.setBorder(null);
         txtAddress.setMinimumSize(new java.awt.Dimension(7, 30));
         txtAddress.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAddressFocusLost(evt);
+            }
+        });
+        txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAddressKeyReleased(evt);
+            }
+        });
 
         lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
@@ -153,6 +260,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtEmail.setBorder(null);
         txtEmail.setMinimumSize(new java.awt.Dimension(7, 30));
         txtEmail.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
 
         lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
@@ -180,7 +297,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addComponent(lblUpdateProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlUpdateProfileLayout.createSequentialGroup()
-                        .addContainerGap(51, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(lblAddressError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlUpdateProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +313,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                                     .addComponent(lblEmailError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlUpdateProfileLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,7 +354,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         pnlUpdatePassword.setBackground(new java.awt.Color(46, 52, 66));
         pnlUpdatePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         pnlUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlUpdatePassword.setPreferredSize(new java.awt.Dimension(250, 40));
+        pnlUpdatePassword.setPreferredSize(new java.awt.Dimension(290, 369));
 
         lblUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblUpdatePassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -252,8 +369,8 @@ public class ProfilePanel extends javax.swing.JPanel {
             }
         });
 
-        lblArrow.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblArrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png"))); // NOI18N
+        lblArrow.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblArrow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-up.png"))); // NOI18N
         lblArrow.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblArrow.setMaximumSize(new java.awt.Dimension(20, 20));
         lblArrow.setMinimumSize(new java.awt.Dimension(20, 20));
@@ -275,6 +392,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtOldPassword.setBorder(null);
         txtOldPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtOldPassword.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtOldPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtOldPasswordFocusLost(evt);
+            }
+        });
+        txtOldPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtOldPasswordKeyReleased(evt);
+            }
+        });
 
         lblOldPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblOldPasswordError.setForeground(new java.awt.Color(255, 0, 0));
@@ -295,6 +422,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtNewPassword.setBorder(null);
         txtNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtNewPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNewPasswordFocusLost(evt);
+            }
+        });
+        txtNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNewPasswordKeyReleased(evt);
+            }
+        });
 
         lblRetypeNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblRetypeNewPassword.setForeground(new java.awt.Color(255, 255, 255));
@@ -307,6 +444,16 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtRetypeNewPassword.setBorder(null);
         txtRetypeNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtRetypeNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
+        txtRetypeNewPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRetypeNewPasswordFocusLost(evt);
+            }
+        });
+        txtRetypeNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRetypeNewPasswordKeyReleased(evt);
+            }
+        });
 
         lblRetypePasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblRetypePasswordError.setForeground(new java.awt.Color(255, 0, 0));
@@ -398,31 +545,46 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(pnlUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(12, 12, 12))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(pnlUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlUpdateProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(12, 12, 12))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        boolean validated = true;
+
         String userId = User.myUser.getUserId();
-        String userName = txtName.getText();
-        String userAddress = txtAddress.getText();
-        String userEmail = txtEmail.getText();
+        String userName = txtName.getText().trim();
+        String userAddress = txtAddress.getText().trim();
+        String userEmail = txtEmail.getText().trim();
         String userLoginName = User.myUser.getUserLoginName();
 
-        try {
+        // Validation
+        if (!validateName(userName)) {
+            validated = false;
+        }
+
+        if (!validateAddress(userAddress)) {
+            validated = false;
+        }
+
+        if (!validateEmail(userEmail)) {
+            validated = false;
+        }
+
+        if (validated) {
             // Get the password
             ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
             
@@ -431,7 +593,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 // Split each line into an array
                 String[] details = user.split(";");
                 // Find the User id in the array list
-                if (details[0].equals(userId)) {
+                if (details[0].equalsIgnoreCase(userId)) {
                     String userPassword = details[6];
                     // Check if it is admin or product manager
                     if (Administrator.isAdministrator()) {
@@ -451,13 +613,12 @@ public class ProfilePanel extends javax.swing.JPanel {
                     }
                 }
             }
-        } catch (Exception e) {
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }        
+        }     
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
+        boolean validated = true;
+        
         String userId = User.myUser.getUserId();
         String userName = User.myUser.getUserName();
         String userAddress = User.myUser.getUserAddress();
@@ -468,47 +629,60 @@ public class ProfilePanel extends javax.swing.JPanel {
         char[] newPassword = txtNewPassword.getPassword();
         char[] retypeNewPassword = txtRetypeNewPassword.getPassword();
 
-        try {
-            // Validation
+        // Validation
+        if (!validateOldPassword(oldPassword)) {
+            validated = false;
+        }
 
-            // Check if the password is correct
-            ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
-            
-            // Iterate through the User array
-            for (String user : userArray) {
-                // Split each line into an array
-                String[] details = user.split(";");
-                // Find the user login name in the array list
-                if (details[0].equals(userId)) {
-                    // Compare if the password equals the input password
-                    if (Encryption.validatePassword(oldPassword, details[6])) {
-                        // Encrypt the new password
-                        String userPassword = Encryption.encryptPassword(newPassword);
-                        // Check if it is admin or product manager
-                        if (Administrator.isAdministrator()) {
-                            // Create a Adminstrator object
-                            Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
-                            // Update the Administrator
-                            if (Administrator.modify(userDetail, false)) {
-                                resetFields();
+        if (!validateNewPassword(newPassword)) {
+            validated = false;
+        }
+
+        if (!validateRetypeNewPassword(newPassword, retypeNewPassword)) {
+            validated = false;
+        }
+
+        if (validated) {
+            try {
+                // Check if the password is correct
+                ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
+                
+                // Iterate through the User array
+                for (String user : userArray) {
+                    // Split each line into an array
+                    String[] details = user.split(";");
+                    // Find the user login name in the array list
+                    if (details[0].equalsIgnoreCase(userId)) {
+                        // Compare if the password equals the input password
+                        if (Encryption.validatePassword(oldPassword, details[6])) {
+                            // Encrypt the new password
+                            String userPassword = Encryption.encryptPassword(newPassword);
+                            // Check if it is admin or product manager
+                            if (Administrator.isAdministrator()) {
+                                // Create a Adminstrator object
+                                Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
+                                // Update the Administrator
+                                if (Administrator.modify(userDetail, false)) {
+                                    resetFields();
+                                }
+                            } else if (ProductManager.isProductManager()) {
+                                // Create a Product Manager object
+                                ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
+                                // Update the Product Manager
+                                if (ProductManager.modify(userDetail, true)) {
+                                    resetFields();
+                                }
                             }
-                        } else if (ProductManager.isProductManager()) {
-                            // Create a Product Manager object
-                            ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
-                            // Update the Product Manager
-                            if (ProductManager.modify(userDetail, true)) {
-                                resetFields();
-                            }
+                        } else {
+                            // Display the error message
+                            JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Warning", JOptionPane.WARNING_MESSAGE);
                         }
-                    } else {
-                        // Display the error message
-                        JOptionPane.showMessageDialog(new JFrame(), "Wrong password", "Warning", JOptionPane.WARNING_MESSAGE);
                     }
                 }
+            } catch (Exception e) {
+                // Display the error message
+              JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUpdatePasswordActionPerformed
 
@@ -519,6 +693,68 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void lblArrowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblArrowMouseClicked
         updatePasswordPanel();
     }//GEN-LAST:event_lblArrowMouseClicked
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        String userName = txtName.getText().trim();
+        validateName(userName);
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        String userName = txtName.getText().trim();
+        validateName(userName);
+    }//GEN-LAST:event_txtNameFocusLost
+
+    private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
+        String userAddress = txtAddress.getText().trim();
+        validateAddress(userAddress);
+    }//GEN-LAST:event_txtAddressKeyReleased
+
+    private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
+        String userAddress = txtAddress.getText().trim();
+        validateAddress(userAddress);
+    }//GEN-LAST:event_txtAddressFocusLost
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        String userEmail = txtEmail.getText().trim();
+        validateEmail(userEmail);
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        String userEmail = txtEmail.getText().trim();
+        validateEmail(userEmail);
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtOldPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldPasswordKeyReleased
+        char[] userPassword = txtOldPassword.getPassword();
+        validateOldPassword(userPassword);
+    }//GEN-LAST:event_txtOldPasswordKeyReleased
+
+    private void txtOldPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOldPasswordFocusLost
+        char[] userPassword = txtOldPassword.getPassword();
+        validateOldPassword(userPassword);
+    }//GEN-LAST:event_txtOldPasswordFocusLost
+
+    private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
+        char[] userPassword = txtNewPassword.getPassword();
+        validateNewPassword(userPassword);
+    }//GEN-LAST:event_txtNewPasswordKeyReleased
+
+    private void txtNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPasswordFocusLost
+        char[] userPassword = txtNewPassword.getPassword();
+        validateNewPassword(userPassword);
+    }//GEN-LAST:event_txtNewPasswordFocusLost
+
+    private void txtRetypeNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRetypeNewPasswordKeyReleased
+        char[] userPassword = txtNewPassword.getPassword();
+        char[] retypePassword = txtRetypeNewPassword.getPassword();
+        validateRetypeNewPassword(userPassword, retypePassword);
+    }//GEN-LAST:event_txtRetypeNewPasswordKeyReleased
+
+    private void txtRetypeNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRetypeNewPasswordFocusLost
+        char[] userPassword = txtNewPassword.getPassword();
+        char[] retypePassword = txtRetypeNewPassword.getPassword();
+        validateRetypeNewPassword(userPassword, retypePassword);
+    }//GEN-LAST:event_txtRetypeNewPasswordFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

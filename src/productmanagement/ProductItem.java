@@ -108,7 +108,7 @@ public class ProductItem {
     return ReadObject.generateId("PI", FILE_NAME);
   }
 
-  public static void register(ProductItem item, int itemQuantity) {
+  public static boolean register(ProductItem item, int itemQuantity) {
     // Set default registered product item as false
     boolean registered = false;
 
@@ -119,7 +119,7 @@ public class ProductItem {
         // Split the line into an array
         String[] details = itemDetails.split(";");
         // Find if any existing Item name and brand matches the registering Item
-        if (details[1].equals(item.getItemName()) && details[2].equals(item.getItemBrand())) {
+        if (details[1].equalsIgnoreCase(item.getItemName()) && details[2].equalsIgnoreCase(item.getItemBrand())) {
           // Set the Item as registered
           registered = true;
           // Stop the iteration
@@ -135,14 +135,15 @@ public class ProductItem {
       // Write the new item into the Item database and log action
       WriteObject.write(item, FILE_NAME, true, "Registered new Item (" + item.getItemId() + ")", true);
       InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
-      InventoryTransaction.register(transaction);
+      return InventoryTransaction.register(transaction);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Product item already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
-  public static void modify(ProductItem item) {
+  public static boolean modify(ProductItem item) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -156,8 +157,8 @@ public class ProductItem {
         // Split line into array
         String[] details = itemDetails.split(";");
         // Find the Item with the matching ID
-        if (details[0].equals(item.getItemId())) {
-          if (item.getItemStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(item.getItemId())) {
+          if (item.getItemStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")", true);
           } else {
@@ -173,10 +174,12 @@ public class ProductItem {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
+      return true;
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   public static ProductItem search(String keyword) {

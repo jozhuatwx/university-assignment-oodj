@@ -123,7 +123,7 @@ public class ProductCatalogue {
         // Split the line into an array
         String[] details = catalogueDetails.split(";");
         // Find if any existing Catalogue title matches the registering Catalogue
-        if (details[1].equals(catalogue.getCatalogueTitle())) {
+        if (details[1].equalsIgnoreCase(catalogue.getCatalogueTitle())) {
           // Set the Catalogue as registered
           registered = true;
           // Stop the iteration
@@ -157,8 +157,8 @@ public class ProductCatalogue {
         // Split line into array
         String[] details = catalogueDetails.split(";");
         // Find the Catalogue with the matching ID
-        if (details[0].equals(catalogue.getCatalogueId())) {
-          if (catalogue.getCatalogueStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(catalogue.getCatalogueId())) {
+          if (catalogue.getCatalogueStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
             WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")", true);
           } else {

@@ -80,7 +80,7 @@ public class Supplier {
     return ReadObject.generateId("S", FILE_NAME);
   }
 
-  public static void register(Supplier supplier) {
+  public static boolean register(Supplier supplier) {
     // Set default registered Supplier as false
     boolean registered = false;
 
@@ -91,7 +91,7 @@ public class Supplier {
         // Split the line into an array
         String[] details = supplierDetails.split(";");
         // Find if any existing Supplier name matches the registering Supplier
-        if (details[1].equals(supplier.getSupplierName())) {
+        if (details[1].equalsIgnoreCase(supplier.getSupplierName())) {
           // Set the Supplier as registered
           registered = true;
           // Stop the iteration
@@ -106,13 +106,15 @@ public class Supplier {
     if (!registered) {
       // Write the new supplier into the Supplier database and log action
       WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")", true);
+      return true;
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Warning", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
-  public static void modify(Supplier supplier) {
+  public static boolean modify(Supplier supplier) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -125,8 +127,8 @@ public class Supplier {
         // Split line into array
         String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
-        if (details[0].equals(supplier.getSupplierId())) {
-          if (supplier.getSupplierStatus().equals(ACTIVE)) {
+        if (details[0].equalsIgnoreCase(supplier.getSupplierId())) {
+          if (supplier.getSupplierStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log action
             WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")", true);
           } else {
@@ -142,10 +144,12 @@ public class Supplier {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
+      return true;
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   public static Supplier search(String keyword) {

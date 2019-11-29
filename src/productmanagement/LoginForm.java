@@ -2,50 +2,36 @@ package productmanagement;
 
 import java.awt.Color;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class LoginForm extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     public LoginForm() {
         initComponents();
+        
+        // Set Login button as the default button
         this.getRootPane().setDefaultButton(btnLogin);
     }
 
     private void login() {
-        String userLoginName = txtLoginName.getText();
+        String userLoginName = txtLoginName.getText().trim();
         char[] userPassword = txtPassword.getPassword();
 
-        if (userLoginName.trim().length() > 0 && userPassword.length > 0) {
+        if (userLoginName.length() > 0 && userPassword.length > 0) {
             if (User.login(userLoginName, userPassword)) {
-            // Display form based on role
-            switch (User.myUser.getUserRole()) {
-                case ProductManager.ROLE:
-                    MainForm main = new MainForm();
-                    main.setVisible(true);
-                    break;
-            
-                case Administrator.ROLE:
-
-                    break;
+                MainForm main = new MainForm();
+                main.setVisible(true);
+                // Close the login form
+                this.dispose();
             }
-
-            // Close the login form
-            this.dispose();
-            }
-        } else if (userLoginName.trim().length() == 0 && userPassword.length == 0) {
+        }
+        
+        if (userLoginName.length() <= 0) {
             lblLoginNameError.setText("Login name cannot be empty");
+        }
+        
+        if (userPassword.length <= 0) {
             lblPasswordError.setText("Password cannot be empty");
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Login name and password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
-        } else if (userLoginName.trim().length() == 0) {
-            lblLoginNameError.setText("Login name cannot be empty");
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Login name cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
-        } else if (userPassword.length == 0) {
-            lblPasswordError.setText("Password cannot be empty");
-            // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty", "Alert", JOptionPane.WARNING_MESSAGE);
         }
     }
 
@@ -435,8 +421,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFrameBarMousePressed
 
     private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
-        String userLoginName = txtLoginName.getText();
-        if (userLoginName.trim().length() == 0) {
+        if (txtLoginName.getText().trim().length() <= 0) {
             lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");
@@ -444,8 +429,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginNameFocusLost
 
     private void txtLoginNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyReleased
-        String userLoginName = txtLoginName.getText();
-        if (userLoginName.trim().length() == 0) {
+        if (txtLoginName.getText().trim().length() <= 0) {
             lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");
@@ -453,8 +437,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginNameKeyReleased
 
     private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
-        char[] userPassword = txtPassword.getPassword();
-        if (userPassword.length == 0) {
+        if (txtPassword.getPassword().length == 0) {
             lblPasswordError.setText("Password cannot be empty");
         } else {
             lblPasswordError.setText(" ");
@@ -462,8 +445,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordFocusLost
 
     private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
-        char[] userPassword = txtPassword.getPassword();
-        if (userPassword.length == 0) {
+        if (txtPassword.getPassword().length == 0) {
             lblPasswordError.setText("Password cannot be empty");
         } else {
             lblPasswordError.setText(" ");
