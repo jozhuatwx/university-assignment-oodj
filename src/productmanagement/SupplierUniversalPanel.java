@@ -72,16 +72,16 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         pnlBackground = new javax.swing.JPanel();
         lblNum = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
+        lblNameError = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
+        lblEmailError = new javax.swing.JLabel();
+        btnStatus = new javax.swing.JButton();
         lblControl = new javax.swing.JLabel();
         txtContact = new javax.swing.JTextField();
+        lblContactError = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
-        lblEdit = new javax.swing.JLabel();
         lblAddressError = new javax.swing.JLabel();
-        lblAddressError1 = new javax.swing.JLabel();
-        lblAddressError2 = new javax.swing.JLabel();
-        lblAddressError3 = new javax.swing.JLabel();
-        btnStatus = new javax.swing.JButton();
+        lblEdit = new javax.swing.JLabel();
 
         pnlTESTING.setBackground(new java.awt.Color(46, 52, 66));
 
@@ -98,11 +98,28 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
 
+        lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblNameError.setForeground(new java.awt.Color(255, 0, 0));
+        lblNameError.setText("ERROR");
+
         txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtEmail.setText("chunwei2978@gmail.com");
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtEmail.setEnabled(false);
+
+        lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
+        lblEmailError.setText("ERROR");
+
+        btnStatus.setBackground(new java.awt.Color(255, 255, 255));
+        btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
+        btnStatus.setBorder(null);
+        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStatusMouseClicked(evt);
+            }
+        });
 
         lblControl.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -120,42 +137,25 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         txtContact.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtContact.setEnabled(false);
 
+        lblContactError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblContactError.setForeground(new java.awt.Color(255, 0, 0));
+        lblContactError.setText("ERROR");
+
         txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtAddress.setText("315,jalan 13,Salak selatan baru,57100 kuala lumpur");
         txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtAddress.setEnabled(false);
 
+        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
+        lblAddressError.setText("ERROR");
+
         lblEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
         lblEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEditMouseClicked(evt);
-            }
-        });
-
-        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
-        lblAddressError.setText("ERROR");
-
-        lblAddressError1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblAddressError1.setForeground(new java.awt.Color(255, 0, 0));
-        lblAddressError1.setText("ERROR");
-
-        lblAddressError2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblAddressError2.setForeground(new java.awt.Color(255, 0, 0));
-        lblAddressError2.setText("ERROR");
-
-        lblAddressError3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblAddressError3.setForeground(new java.awt.Color(255, 0, 0));
-        lblAddressError3.setText("ERROR");
-
-        btnStatus.setBackground(new java.awt.Color(255, 255, 255));
-        btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
-        btnStatus.setBorder(null);
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
             }
         });
 
@@ -168,17 +168,17 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                 .addComponent(lblNum)
                 .addGap(30, 30, 30)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblAddressError1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNameError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtContact)
                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(lblAddressError3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblContactError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(49, 49, 49)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(lblAddressError2, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblEmailError, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,8 +207,8 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                     .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAddressError)
-                    .addComponent(lblAddressError1))
+                    .addComponent(lblEmailError)
+                    .addComponent(lblNameError))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -217,8 +217,8 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(3, 3, 3)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAddressError2)
-                    .addComponent(lblAddressError3))
+                    .addComponent(lblAddressError)
+                    .addComponent(lblContactError))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -317,11 +317,11 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStatus;
     private javax.swing.JLabel lblAddressError;
-    private javax.swing.JLabel lblAddressError1;
-    private javax.swing.JLabel lblAddressError2;
-    private javax.swing.JLabel lblAddressError3;
+    private javax.swing.JLabel lblContactError;
     private javax.swing.JLabel lblControl;
     private javax.swing.JLabel lblEdit;
+    private javax.swing.JLabel lblEmailError;
+    private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblNum;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlTESTING;
