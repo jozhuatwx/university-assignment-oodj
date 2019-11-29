@@ -15,6 +15,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             btnAdd.setVisible(false);
         }
         resetFields();
+        repopulateSupplierList();
     }
     
     private void showAddPanel() {
@@ -36,7 +37,9 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtAddress.setText("");
         txtContact.setText("");
         txtEmail.setText("");
+    }
 
+    private void repopulateSupplierList() {
         pnlSupplierList.removeAll();
         
         int i = 0;
@@ -66,6 +69,9 @@ public class SupplierPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNameError.setText(" ");
+        }
         return validated;
     }
 
@@ -80,6 +86,9 @@ public class SupplierPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblAddressError.setText(" ");
+        }
         return validated;
     }
 
@@ -94,6 +103,9 @@ public class SupplierPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblEmailError.setText(" ");
+        }
         return validated;
     }
 
@@ -108,6 +120,9 @@ public class SupplierPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblContactError.setText(" ");
+        }
         return validated;
     }
     
@@ -150,6 +165,11 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(46, 52, 66));
         btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -438,7 +458,23 @@ public class SupplierPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        pnlSupplierList.removeAll();
+        
+        int i = 0;
+        ArrayList<Supplier> supplierArray = Supplier.search(keyword);
+        for (; i < supplierArray.size(); i++) {
+            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplierArray.get(i), i + 1);
+            sup.setPreferredSize(new Dimension(755, 72));
+            pnlSupplierList.add(sup);
+        }
+        if (i * 72 < 385) {
+            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (75 * i))));
+        }
+        pnlSupplierList.revalidate();
+        pnlSupplierList.repaint();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -459,19 +495,19 @@ public class SupplierPanel extends javax.swing.JPanel {
         String supplierContact = txtContact.getText().trim();
         
         // Validation
-        if (validateName(supplierName)) {
+        if (!validateName(supplierName)) {
             validated = false;
         }
 
-        if (validateAddress(supplierAddress)) {
+        if (!validateAddress(supplierAddress)) {
             validated = false;
         }
 
-        if (validateEmail(supplierEmail)) {
+        if (!validateEmail(supplierEmail)) {
             validated = false;
         }
 
-        if (validateContact(supplierContact)) {
+        if (!validateContact(supplierContact)) {
             validated = false;
         }
 
@@ -479,6 +515,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             Supplier supplier = new Supplier(Supplier.generateSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, Supplier.ACTIVE);
             if (Supplier.register(supplier)) {
                 resetFields();
+                repopulateSupplierList();
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -522,6 +559,26 @@ public class SupplierPanel extends javax.swing.JPanel {
         String supplierEmail = txtEmail.getText().trim();
         validateEmail(supplierEmail);
     }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        pnlSupplierList.removeAll();
+        
+        int i = 0;
+        ArrayList<Supplier> supplierArray = Supplier.search(keyword);
+        for (; i < supplierArray.size(); i++) {
+            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplierArray.get(i), i + 1);
+            sup.setPreferredSize(new Dimension(755, 72));
+            pnlSupplierList.add(sup);
+        }
+        if (i * 72 < 385) {
+            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (75 * i))));
+        }
+        pnlSupplierList.revalidate();
+        pnlSupplierList.repaint();
+    }//GEN-LAST:event_txtSearchKeyReleased
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
