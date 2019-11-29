@@ -29,7 +29,7 @@ public class ProductCategory {
     return categoryId;
   }
 
-  public void setCategoryId(String categoryId) {
+  private void setCategoryId(String categoryId) {
     this.categoryId = categoryId;
   }
 
@@ -37,7 +37,7 @@ public class ProductCategory {
     return categoryName;
   }
 
-  public void setCategoryName(String categoryName) {
+  private void setCategoryName(String categoryName) {
     this.categoryName = categoryName;
   }
 
@@ -45,7 +45,7 @@ public class ProductCategory {
     return categoryDescription;
   }
 
-  public void setCategoryDescription(String categoryDescription) {
+  private void setCategoryDescription(String categoryDescription) {
     this.categoryDescription = categoryDescription;
   }
 
@@ -53,7 +53,7 @@ public class ProductCategory {
     return categoryStatus;
   }
 
-  public void setCategoryStatus(String categoryStatus) {
+  private void setCategoryStatus(String categoryStatus) {
     this.categoryStatus = categoryStatus;
   }
 

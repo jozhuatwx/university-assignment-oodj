@@ -31,7 +31,7 @@ public class Supplier {
     return supplierId;
   }
 
-  public void setSupplierId(String supplierId) {
+  private void setSupplierId(String supplierId) {
     this.supplierId = supplierId;
   }
 
@@ -39,7 +39,7 @@ public class Supplier {
     return supplierName;
   }
 
-  public void setSupplierName(String supplierName) {
+  private void setSupplierName(String supplierName) {
     this.supplierName = supplierName;
   }
 
@@ -47,7 +47,7 @@ public class Supplier {
     return supplierAddress;
   }
 
-  public void setSupplierAddress(String supplierAddress) {
+  private void setSupplierAddress(String supplierAddress) {
     this.supplierAddress = supplierAddress;
   }
 
@@ -55,7 +55,7 @@ public class Supplier {
     return supplierEmail;
   }
 
-  public void setSupplierEmail(String supplierEmail) {
+  private void setSupplierEmail(String supplierEmail) {
     this.supplierEmail = supplierEmail;
   }
 
@@ -63,7 +63,7 @@ public class Supplier {
     return supplierContact;
   }
 
-  public void setSupplierContact(String supplierContact) {
+  private void setSupplierContact(String supplierContact) {
     this.supplierContact = supplierContact;
   }
 
@@ -71,7 +71,7 @@ public class Supplier {
     return supplierStatus;
   }
 
-  public void setSupplierStatus(String supplierStatus) {
+  private void setSupplierStatus(String supplierStatus) {
     this.supplierStatus = supplierStatus;
   }
 

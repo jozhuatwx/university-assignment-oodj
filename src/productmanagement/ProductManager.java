@@ -26,7 +26,7 @@ public class ProductManager extends User {
     return productManagerStatus;
   }
   
-  public void setProductManagerStatus(String status) {
+  private void setProductManagerStatus(String status) {
     this.productManagerStatus = status;
   }
   

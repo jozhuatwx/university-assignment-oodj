@@ -35,7 +35,7 @@ public class ProductItem {
     return itemId;
   }
 
-  public void setItemId(String itemId) {
+  private void setItemId(String itemId) {
     this.itemId = itemId;
   }
 
@@ -43,7 +43,7 @@ public class ProductItem {
     return itemName;
   }
 
-  public void setItemName(String itemName) {
+  private void setItemName(String itemName) {
     this.itemName = itemName;
   }
 
@@ -51,7 +51,7 @@ public class ProductItem {
     return itemBrand;
   }
 
-  public void setItemBrand(String itemBrand) {
+  private void setItemBrand(String itemBrand) {
     this.itemBrand = itemBrand;
   }
 
@@ -59,7 +59,7 @@ public class ProductItem {
     return itemPrice;
   }
 
-  public void setItemPrice(double itemPrice) {
+  private void setItemPrice(double itemPrice) {
     this.itemPrice = itemPrice;
   }
 
@@ -67,7 +67,7 @@ public class ProductItem {
     return itemDescription;
   }
 
-  public void setItemDescription(String itemDescription) {
+  private void setItemDescription(String itemDescription) {
     this.itemDescription = itemDescription;
   }
 
@@ -75,7 +75,7 @@ public class ProductItem {
     return itemImagePath;
   }
 
-  public void setItemImagePath(String itemImagePath) {
+  private void setItemImagePath(String itemImagePath) {
     this.itemImagePath = itemImagePath;
   }
 
@@ -83,7 +83,7 @@ public class ProductItem {
     return itemSupplierId;
   }
 
-  public void setItemSupplierId(String itemSupplierId) {
+  private void setItemSupplierId(String itemSupplierId) {
     this.itemSupplierId = itemSupplierId;
   }
 
@@ -91,7 +91,7 @@ public class ProductItem {
     return itemCategoryId;
   }
 
-  public void setItemCategoryId(String itemCategoryId) {
+  private void setItemCategoryId(String itemCategoryId) {
     this.itemCategoryId = itemCategoryId;
   }
 
@@ -99,7 +99,7 @@ public class ProductItem {
     return itemStatus;
   }
 
-  public void setItemStatus(String itemStatus) {
+  private void setItemStatus(String itemStatus) {
     this.itemStatus = itemStatus;
   }
 

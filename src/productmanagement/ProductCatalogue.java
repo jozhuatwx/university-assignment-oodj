@@ -39,7 +39,7 @@ public class ProductCatalogue {
     return catalogueId;
   }
 
-  public void setCatalogueId(String catalogueId) {
+  private void setCatalogueId(String catalogueId) {
     this.catalogueId = catalogueId;
   }
 
@@ -47,7 +47,7 @@ public class ProductCatalogue {
     return catalogueTitle;
   }
 
-  public void setCatalogueTitle(String catalogueTitle) {
+  private void setCatalogueTitle(String catalogueTitle) {
     this.catalogueTitle = catalogueTitle;
   }
 
@@ -55,7 +55,7 @@ public class ProductCatalogue {
     return catalogueBannerPath;
   }
 
-  public void setCatalogueBannerPath(String catalogueBannerPath) {
+  private void setCatalogueBannerPath(String catalogueBannerPath) {
     this.catalogueBannerPath = catalogueBannerPath;
   }
 
@@ -63,7 +63,7 @@ public class ProductCatalogue {
     return catalogueDescription;
   }
 
-  public void setCatalogueDescription(String catalogueDescription) {
+  private void setCatalogueDescription(String catalogueDescription) {
     this.catalogueDescription = catalogueDescription;
   }
 
@@ -71,7 +71,7 @@ public class ProductCatalogue {
     return catalogueStartDate;
   }
 
-  public void setCatalogueStartDate(LocalDate catalogueStartDate) {
+  private void setCatalogueStartDate(LocalDate catalogueStartDate) {
     this.catalogueStartDate = catalogueStartDate;
   }
 
@@ -79,7 +79,7 @@ public class ProductCatalogue {
     return catalogueEndDate;
   }
 
-  public void setCatalogueEndDate(LocalDate catalogueEndDate) {
+  private void setCatalogueEndDate(LocalDate catalogueEndDate) {
     this.catalogueEndDate = catalogueEndDate;
   }
 
@@ -87,7 +87,7 @@ public class ProductCatalogue {
     return catalogueGeneratedDateTime;
   }
 
-  public void setCatalogueGeneratedDateTime(LocalDateTime catalogueGeneratedDateTime) {
+  private void setCatalogueGeneratedDateTime(LocalDateTime catalogueGeneratedDateTime) {
     this.catalogueGeneratedDateTime = catalogueGeneratedDateTime;
   }
 
@@ -95,7 +95,7 @@ public class ProductCatalogue {
     return catalogueUserId;
   }
 
-  public void setCatalogueUserId(String catalogueUserId) {
+  private void setCatalogueUserId(String catalogueUserId) {
     this.catalogueUserId = catalogueUserId;
   }
 
@@ -103,7 +103,7 @@ public class ProductCatalogue {
     return catalogueStatus;
   }
 
-  public void setCatalogueStatus(String catalogueStatus) {
+  private void setCatalogueStatus(String catalogueStatus) {
     this.catalogueStatus = catalogueStatus;
   }
 

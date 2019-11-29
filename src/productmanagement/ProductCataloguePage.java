@@ -32,7 +32,7 @@ public class ProductCataloguePage {
     return pageId;
   }
 
-  public void setPageId(String pageId) {
+  private void setPageId(String pageId) {
     this.pageId = pageId;
   }
 
@@ -40,7 +40,7 @@ public class ProductCataloguePage {
     return pageNumber;
   }
 
-  public void setPageNumber(int pageNumber) {
+  private void setPageNumber(int pageNumber) {
     this.pageNumber = pageNumber;
   }
 
@@ -48,7 +48,7 @@ public class ProductCataloguePage {
     return pageItemIds;
   }
 
-  public void setPageItemIds(String[] pageItemIds) {
+  private void setPageItemIds(String[] pageItemIds) {
     this.pageItemIds = pageItemIds;
   }
 
@@ -60,7 +60,7 @@ public class ProductCataloguePage {
     return pageCatalogueId;
   }
 
-  public void setPageCatalogueId(String pageCatalogueId) {
+  private void setPageCatalogueId(String pageCatalogueId) {
     this.pageCatalogueId = pageCatalogueId;
   }
 
@@ -68,7 +68,7 @@ public class ProductCataloguePage {
     return pageStatus;
   }
   
-  public void setPageStatus(String pageStatus) {
+  private void setPageStatus(String pageStatus) {
     this.pageStatus = pageStatus;
   }
 
