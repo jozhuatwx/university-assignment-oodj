@@ -10,7 +10,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     boolean isClosed;
     
     // Create a variable to check the textbox is enabled or disabled 
-    boolean isEnabled = false;
+    boolean isEditing = false;
 
     public SupplierUniversalPanel(Supplier supplier, int i) {
         initComponents();
@@ -57,7 +57,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
 
         switch (supplier.getSupplierStatus()) {
             case Supplier.ACTIVE:
-                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));                
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
                 break;
         
             case Supplier.INACTIVE:
@@ -68,6 +68,63 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         if (ProductManager.isProductManager()) {
             lblEdit.setVisible(false);
         }
+    }
+
+    // Validation
+    private boolean validateName(String supplierName) {
+        boolean validated = true;
+
+        if (supplierName.length() <= 0) {
+            lblNameError.setText("Supplier Name cannot be empty");
+            validated = false;
+        } else if (!supplierName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+            lblNameError.setText("Please enter a valid name");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateAddress(String supplierAddress) {
+        boolean validated = true;
+
+        if (supplierAddress.length() <= 0) {
+            lblAddressError.setText("Supplier Address cannot be empty");
+            validated = false;
+        } else if (supplierAddress.contains(";")) {
+            lblAddressError.setText("Supplier Address cannot contain semi-colons");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateEmail(String supplierEmail) {
+        boolean validated = true;
+
+        if (supplierEmail.length() <= 0) {
+            lblEmailError.setText("Supplier Email cannot be empty");
+            validated = false;
+        } else if (!supplierEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+            lblEmailError.setText("Please enter a valid email");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateContact(String supplierContact) {
+        boolean validated = true;
+
+        if (supplierContact.length() <= 0) {
+            lblContactError.setText("Supplier contact cnnot be empty");
+            validated = false;
+        } else if (!supplierContact.matches("^(|\\+6)(?:[0-9]( |-)?){9,10}[0-9]")) {
+            lblContactError.setText("Please enter a valid contact");
+            validated = false;
+        }
+
+        return validated;
     }
     
     /**
@@ -110,6 +167,16 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
         txtName.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNameFocusLost(evt);
+            }
+        });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
@@ -120,6 +187,16 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtEmail.setEnabled(false);
         txtEmail.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
 
         lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
@@ -151,6 +228,16 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         txtContact.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtContact.setEnabled(false);
         txtContact.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContactFocusLost(evt);
+            }
+        });
+        txtContact.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtContactKeyReleased(evt);
+            }
+        });
 
         lblContactError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblContactError.setForeground(new java.awt.Color(255, 0, 0));
@@ -161,6 +248,16 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtAddress.setEnabled(false);
         txtAddress.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAddressFocusLost(evt);
+            }
+        });
+        txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAddressKeyReleased(evt);
+            }
+        });
 
         lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
@@ -193,13 +290,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                     .addComponent(lblEmailError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(lblEdit))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
                         .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblEdit))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(12, 12, 12))
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -208,15 +307,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
                         .addComponent(lblNameError))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblEmailError))
                     .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,13 +354,13 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblControlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblControlMouseClicked
-        if(isClosed && !isEnabled){
+        if (isClosed && !isEditing) {
             showPanel();
 
             // Change the icon from down to up
             lblControl.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-up.png")));
 
-        } else if (!isClosed && !isEnabled){
+        } else if (!isClosed && !isEditing){
             hidePanel();
 
             // Change the icon from up to down
@@ -270,7 +369,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if (!isEnabled){
+        if (!isEditing) {
             txtName.setEnabled(true);
             txtEmail.setEnabled(true);
             txtContact.setEnabled(true);
@@ -281,29 +380,123 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
             
             // When the textbox is enabled, set the boolean variable to true.
-            isEnabled = true;
-          
+            isEditing = true;
         } else {
             txtName.setEnabled(false);
             txtEmail.setEnabled(false);
             txtContact.setEnabled(false);
             txtAddress.setEnabled(false);
             lblControl.setEnabled(true);
+
+            boolean validated = true;
+        
+            String supplierName = txtName.getText().trim();
+            String supplierAddress = txtAddress.getText().trim();
+            String supplierEmail = txtEmail.getText().trim();
+            String supplierContact = txtContact.getText().trim();
             
-            // Change the icon from save icon to edit icon
-            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-            
-            // When the textbox is enabled, set the boolean variable to true.
-            isEnabled = false;
+            // Validation
+            if (validateName(supplierName)) {
+                validated = false;
+            }
+
+            if (validateAddress(supplierAddress)) {
+                validated = false;
+            }
+
+            if (validateEmail(supplierEmail)) {
+                validated = false;
+            }
+
+            if (validateContact(supplierContact)) {
+                validated = false;
+            }
+
+            if (validated) {
+                Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, supplier.getSupplierStatus());
+                if (Supplier.modify(modifiedSupplier)) {
+                    supplier = modifiedSupplier;
+                    resetFields();
+
+                    // Change the icon from save icon to edit icon
+                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+                    
+                    // When the textbox is enabled, set the boolean variable to true.
+                    isEditing = false;
+                }
+            }
         }
     }//GEN-LAST:event_lblEditMouseClicked
 
     private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-        if (isEnabled) {
-            // Update
+        if (isEditing) {
+            if (supplier.getSupplierStatus().equals(Supplier.ACTIVE)) {
+                Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), Supplier.INACTIVE);
+                if (Supplier.modify(modifiedSupplier)) {
+                    supplier = modifiedSupplier;
+                    resetFields();
+
+                    // Change the icon from save icon to edit icon
+                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+                    
+                    // When the textbox is enabled, set the boolean variable to true.
+                    isEditing = false;
+                }
+            } else if (supplier.getSupplierStatus().equals(Supplier.INACTIVE)) {
+                Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), Supplier.ACTIVE);
+                if (Supplier.modify(modifiedSupplier)) {
+                    supplier = modifiedSupplier;
+                    resetFields();
+                    
+                    // Change the icon from save icon to edit icon
+                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+
+                    // When the textbox is enabled, set the boolean variable to true.
+                    isEditing = false;
+                }
+            }
         }
     }//GEN-LAST:event_btnStatusMouseClicked
 
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        String supplierName = txtName.getText().trim();
+        validateName(supplierName);
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        String supplierName = txtName.getText().trim();
+        validateName(supplierName);
+    }//GEN-LAST:event_txtNameFocusLost
+
+    private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
+        String supplierAddress = txtAddress.getText().trim();
+        validateAddress(supplierAddress);
+    }//GEN-LAST:event_txtAddressKeyReleased
+
+    private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
+        String supplierAddress = txtAddress.getText().trim();
+        validateAddress(supplierAddress);
+    }//GEN-LAST:event_txtAddressFocusLost
+
+    private void txtContactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactKeyReleased
+        String supplierContact = txtContact.getText().trim();
+        validateContact(supplierContact);
+    }//GEN-LAST:event_txtContactKeyReleased
+
+    private void txtContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusLost
+        String supplierContact = txtContact.getText().trim();
+        validateContact(supplierContact);
+    }//GEN-LAST:event_txtContactFocusLost
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        String supplierEmail = txtEmail.getText().trim();
+        validateEmail(supplierEmail);
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        String supplierEmail = txtEmail.getText().trim();
+        validateEmail(supplierEmail);
+    }//GEN-LAST:event_txtEmailFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStatus;
