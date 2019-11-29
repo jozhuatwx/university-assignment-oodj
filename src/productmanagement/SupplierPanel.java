@@ -38,6 +38,63 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtContact.setText("");
         txtEmail.setText("");
     }
+
+    // Validation
+    private boolean validateName(String supplierName) {
+        boolean validated = true;
+
+        if (supplierName.length() <= 0) {
+            lblNameError.setText("Supplier Name cannot be empty");
+            validated = false;
+        } else if (!supplierName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+            lblNameError.setText("Please enter a valid name");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateAddress(String supplierAddress) {
+        boolean validated = true;
+
+        if (supplierAddress.length() <= 0) {
+            lblAddressError.setText("Supplier Address cannot be empty");
+            validated = false;
+        } else if (!supplierAddress.contains(";")) {
+            lblAddressError.setText("Item Brand cannot contain semi-colons");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateEmail(String supplierEmail) {
+        boolean validated = true;
+
+        if (supplierEmail.length() <= 0) {
+            lblEmailError.setText("Supplier Email cannot be empty");
+            validated = false;
+        } else if (!supplierEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+            lblEmailError.setText("Please enter a valid email");
+            validated = false;
+        }
+
+        return validated;
+    }
+
+    private boolean validateContact(String supplierContact) {
+        boolean validated = true;
+
+        if (supplierContact.length() <= 0) {
+            lblContactError.setText("Supplier contact cnnot be empty");
+            validated = false;
+        } else if (!supplierContact.matches("^(|\\+6)(?:[0-9]( |-)?){9,10}[0-9]")) {
+            lblContactError.setText("Please enter a valid contact");
+            validated = false;
+        }
+
+        return validated;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,6 +181,16 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         txtName.setBorder(null);
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNameFocusLost(evt);
+            }
+        });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
@@ -136,6 +203,16 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         txtAddress.setBorder(null);
         txtAddress.setPreferredSize(new java.awt.Dimension(350, 30));
+        txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAddressFocusLost(evt);
+            }
+        });
+        txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAddressKeyReleased(evt);
+            }
+        });
 
         lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
@@ -148,6 +225,16 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         txtContact.setBorder(null);
         txtContact.setPreferredSize(new java.awt.Dimension(350, 30));
+        txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContactFocusLost(evt);
+            }
+        });
+        txtContact.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtContactKeyReleased(evt);
+            }
+        });
 
         lblContactError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblContactError.setForeground(new java.awt.Color(255, 0, 0));
@@ -160,6 +247,16 @@ public class SupplierPanel extends javax.swing.JPanel {
         txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         txtEmail.setBorder(null);
         txtEmail.setPreferredSize(new java.awt.Dimension(350, 30));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
 
         lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
@@ -434,8 +531,7 @@ public class SupplierPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // Track if there is an error
-        boolean error = false;
+        boolean validated = true;
         
         String supplierName = txtName.getText().trim();
         String supplierAddress = txtAddress.getText().trim();
@@ -443,33 +539,69 @@ public class SupplierPanel extends javax.swing.JPanel {
         String supplierContact = txtContact.getText().trim();
         
         // Validation
-        if (supplierName.length() <= 0) {
-            lblNameError.setText("Supplier Name cannot be empty");
-            error = true;
+        if (validateName(supplierName)) {
+            validated = false;
         }
 
-        if (supplierAddress.length() <= 0) {
-            lblAddressError.setText("Supplier Address cannot be empty");
-            error = true;
+        if (validateAddress(supplierAddress)) {
+            validated = false;
         }
 
-        if (supplierEmail.length() <= 0) {
-            lblEmailError.setText("Supplier Email cannot be empty");
-            error = true;
+        if (validateEmail(supplierEmail)) {
+            validated = false;
         }
 
-        if (supplierContact.length() <= 0) {
-            lblContactError.setText("Supplier Contact cannot be empty");
-            error = true;
+        if (validateContact(supplierContact)) {
+            validated = false;
         }
 
-        if (!error) {
+        if (!validated) {
             Supplier supplier = new Supplier(Supplier.generateSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, Supplier.ACTIVE);
             if (Supplier.register(supplier)) {
                 resetFields();
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        String supplierName = txtName.getText().trim();
+        validateName(supplierName);
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        String supplierName = txtName.getText().trim();
+        validateName(supplierName);
+    }//GEN-LAST:event_txtNameFocusLost
+
+    private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
+        String supplierAddress = txtAddress.getText().trim();
+        validateAddress(supplierAddress);
+    }//GEN-LAST:event_txtAddressKeyReleased
+
+    private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
+        String supplierAddress = txtAddress.getText().trim();
+        validateAddress(supplierAddress);
+    }//GEN-LAST:event_txtAddressFocusLost
+
+    private void txtContactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactKeyReleased
+        String supplierContact = txtContact.getText().trim();
+        validateContact(supplierContact);
+    }//GEN-LAST:event_txtContactKeyReleased
+
+    private void txtContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusLost
+        String supplierContact = txtContact.getText().trim();
+        validateContact(supplierContact);
+    }//GEN-LAST:event_txtContactFocusLost
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        String supplierEmail = txtEmail.getText().trim();
+        validateEmail(supplierEmail);
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        String supplierEmail = txtEmail.getText().trim();
+        validateEmail(supplierEmail);
+    }//GEN-LAST:event_txtEmailFocusLost
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
