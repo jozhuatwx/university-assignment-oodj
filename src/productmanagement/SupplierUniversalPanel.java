@@ -68,7 +68,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlTESTING = new javax.swing.JPanel();
         pnlBackground = new javax.swing.JPanel();
         lblNum = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -83,7 +82,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblAddressError = new javax.swing.JLabel();
         lblEdit = new javax.swing.JLabel();
 
-        pnlTESTING.setBackground(new java.awt.Color(46, 52, 66));
+        setBackground(new java.awt.Color(46, 52, 66));
 
         pnlBackground.setBackground(new java.awt.Color(255, 255, 255));
         pnlBackground.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -222,37 +221,26 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout pnlTESTINGLayout = new javax.swing.GroupLayout(pnlTESTING);
-        pnlTESTING.setLayout(pnlTESTINGLayout);
-        pnlTESTINGLayout.setHorizontalGroup(
-            pnlTESTINGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTESTINGLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlTESTINGLayout.setVerticalGroup(
-            pnlTESTINGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlTESTINGLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(154, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTESTING, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTESTING, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblControlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblControlMouseClicked
-        // TODO add your handling code here:
+        
         if(isClose && isEnabled == false){
             open();
 
@@ -268,15 +256,12 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        // TODO add your handling code here:
-        
+                
         if(isEnabled == false){
             txtName.setEnabled(true);
             txtEmail.setEnabled(true);
             txtContact.setEnabled(true);
             txtAddress.setEnabled(true);
-            //btnStatus.setEnabled(true);
-            //btnStatus.addMouseListener(ml);
             lblControl.setEnabled(false);
             
             // Change the icon from edit icon to save icon
@@ -290,8 +275,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             txtEmail.setEnabled(false);
             txtContact.setEnabled(false);
             txtAddress.setEnabled(false);
-            //btnStatus.setEnabled(false);
-            //btnStatus.removeMouseListener(ml);
             lblControl.setEnabled(true);
             
             // Change the icon from save icon to edit icon
@@ -308,8 +291,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         if(isEnabled){
         System.out.println("HI");
-        }else{
         
+        // Change the icon 
+        btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
         }
     }//GEN-LAST:event_btnStatusMouseClicked
 
@@ -324,7 +308,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblNum;
     private javax.swing.JPanel pnlBackground;
-    private javax.swing.JPanel pnlTESTING;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtEmail;
