@@ -29,9 +29,9 @@ public class ItemPanel extends javax.swing.JPanel {
         pnlTopFrameBar.revalidate();
         pnlTopFrameBar.repaint();
         
-        pblBackground.setPreferredSize(new Dimension(619, 485));
-        pblBackground.revalidate();
-        pblBackground.repaint();
+        pnlBackground.setPreferredSize(new Dimension(619, 485));
+        pnlBackground.revalidate();
+        pnlBackground.repaint();
         
         
         //When the panel is closed, set the boolean variable to true.
@@ -43,7 +43,7 @@ public class ItemPanel extends javax.swing.JPanel {
         lblTitle.setText(underlinedTitle);
        
     }
-        ////Create a variable to check the panel is closed or opened
+        //Create a variable to check the panel is closed or opened
         boolean isClose;
         
         
@@ -86,7 +86,7 @@ public class ItemPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pblBackground = new javax.swing.JPanel();
+        pnlBackground = new javax.swing.JPanel();
         pnlTopFrameBar = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
@@ -130,7 +130,7 @@ public class ItemPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(18, 22, 31));
 
-        pblBackground.setBackground(new java.awt.Color(18, 22, 31));
+        pnlBackground.setBackground(new java.awt.Color(18, 22, 31));
 
         pnlTopFrameBar.setBackground(new java.awt.Color(46, 52, 66));
 
@@ -202,7 +202,7 @@ public class ItemPanel extends javax.swing.JPanel {
 
         txaDescription.setColumns(20);
         txaDescription.setRows(5);
-        txaDescription.setPreferredSize(new java.awt.Dimension(170, 48));
+        txaDescription.setBorder(null);
         scrpnlDescription.setViewportView(txaDescription);
 
         lblImage.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -496,20 +496,20 @@ public class ItemPanel extends javax.swing.JPanel {
 
         srcpnlItemList.setViewportView(pnlItemList);
 
-        javax.swing.GroupLayout pblBackgroundLayout = new javax.swing.GroupLayout(pblBackground);
-        pblBackground.setLayout(pblBackgroundLayout);
-        pblBackgroundLayout.setHorizontalGroup(
-            pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pblBackgroundLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
+        pnlBackground.setLayout(pnlBackgroundLayout);
+        pnlBackgroundLayout.setHorizontalGroup(
+            pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(srcpnlItemList)
                     .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        pblBackgroundLayout.setVerticalGroup(
-            pblBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pblBackgroundLayout.createSequentialGroup()
+        pnlBackgroundLayout.setVerticalGroup(
+            pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlTopFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -521,12 +521,12 @@ public class ItemPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pblBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pblBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -571,9 +571,9 @@ public class ItemPanel extends javax.swing.JPanel {
             pnlTopFrameBar.revalidate();
             pnlTopFrameBar.repaint();
         
-            pblBackground.setPreferredSize(new Dimension(619, 1000));
-            pblBackground.revalidate();
-            pblBackground.repaint();
+            pnlBackground.setPreferredSize(new Dimension(619, 1000));
+            pnlBackground.revalidate();
+            pnlBackground.repaint();
                  
             //When the panel is opened, set the boolean variable to false.
             isClose = false;
@@ -588,9 +588,9 @@ public class ItemPanel extends javax.swing.JPanel {
             pnlTopFrameBar.revalidate();
             pnlTopFrameBar.repaint();
 
-            pblBackground.setPreferredSize(new Dimension(619, 450));
-            pblBackground.revalidate();
-            pblBackground.repaint();
+            pnlBackground.setPreferredSize(new Dimension(619, 450));
+            pnlBackground.revalidate();
+            pnlBackground.repaint();
 
             //When the panel is closed, set the boolean variable to true.
             isClose = true;
@@ -627,8 +627,8 @@ public class ItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblSupplier;
     private javax.swing.JLabel lblSupplierError;
     private javax.swing.JLabel lblTitle;
-    private javax.swing.JPanel pblBackground;
     private javax.swing.JPanel pnlAddItemForm;
+    private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlItemList;
     private javax.swing.JPanel pnlTopFrameBar;
     private javax.swing.JPanel pnltemporary;
