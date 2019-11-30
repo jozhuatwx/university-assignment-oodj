@@ -283,6 +283,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         txtTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtTitle.setText("Title");
         txtTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtTitle.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtTitle.setEnabled(false);
         txtTitle.setPreferredSize(new java.awt.Dimension(200, 30));
         txtTitle.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -300,6 +301,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
         ftxStartDate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ftxStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        ftxStartDate.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         ftxStartDate.setEnabled(false);
         ftxStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         ftxStartDate.setPreferredSize(new java.awt.Dimension(150, 30));
@@ -314,6 +316,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
         ftxEndDate.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ftxEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        ftxEndDate.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         ftxEndDate.setEnabled(false);
         ftxEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         ftxEndDate.setPreferredSize(new java.awt.Dimension(150, 30));
@@ -326,6 +329,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(4);
         txaDescription.setText("Description");
+        txaDescription.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txaDescription.setEnabled(false);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -374,7 +378,6 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
         btnStatus.setBorder(null);
         btnStatus.setDisabledIcon(null);
-        btnStatus.setEnabled(false);
         btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnStatusMouseClicked(evt);

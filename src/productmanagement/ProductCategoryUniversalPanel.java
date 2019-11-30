@@ -189,6 +189,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(4);
         txaDescription.setText("Description");
+        txaDescription.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txaDescription.setEnabled(false);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {

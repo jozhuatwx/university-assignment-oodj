@@ -379,6 +379,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(2);
         txaDescription.setText("Description\n");
+        txaDescription.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txaDescription.setEnabled(false);
         txaDescription.setMaximumSize(new java.awt.Dimension(225, 30));
         txaDescription.setMinimumSize(new java.awt.Dimension(225, 30));
