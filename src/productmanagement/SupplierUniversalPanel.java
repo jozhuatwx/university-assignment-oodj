@@ -176,7 +176,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblEdit = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(46, 52, 66));
-        setMaximumSize(new java.awt.Dimension(32767, 168));
         setMinimumSize(new java.awt.Dimension(755, 50));
 
         pnlBackground.setBackground(new java.awt.Color(255, 255, 255));
