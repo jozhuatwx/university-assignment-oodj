@@ -902,7 +902,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
                 // Copy image file to system
                 Path currentRelativePath = Paths.get("");
-                String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf(".") + 2);
+                String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf("."));
                 String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + itemImagePath;
                 Path tempFilePath = Path.of(itemImageTempPath);
                 Path newFilePath = Path.of(newFilePathString);

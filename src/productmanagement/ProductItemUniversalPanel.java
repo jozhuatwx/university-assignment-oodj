@@ -49,7 +49,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         txtBrand.setText(item.getItemBrand());
         txtSellingPrice.setText(String.valueOf(Math.round(item.getItemPrice())));
         txaDescription.setText(item.getItemDescription());
-        lblInsertImage.setIcon(new ImageIcon(getClass().getResource(item.getItemImagePath())));
+        lblInsertImage.setIcon(resizeImage(item.getItemImagePath()));
 
         switch (item.getItemStatus()) {
             case ProductItem.ACTIVE:
@@ -712,7 +712,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
                     // Copy image file to system
                     Path currentRelativePath = Paths.get("");
-                    String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf(".") + 2);
+                    String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf("."));
                     String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + itemImagePath;
                     Path tempFilePath = Path.of(itemImageTempPath);
                     Path newFilePath = Path.of(newFilePathString);

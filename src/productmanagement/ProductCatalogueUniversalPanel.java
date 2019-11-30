@@ -103,7 +103,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         txaDescription.setText(catalogue.getCatalogueDescription());
         ftxStartDate.setValue(convertToDate(catalogue.getCatalogueStartDate()));
         ftxEndDate.setValue(convertToDate(catalogue.getCatalogueEndDate()));
-        lblImage.setIcon(new ImageIcon(getClass().getResource(catalogue.getCatalogueBannerPath())));
+        lblImage.setIcon(resizeImage(catalogue.getCatalogueBannerPath()));
         lblUserId.setText(catalogue.getCatalogueUserId());
 
         // Calculate the number of pages
@@ -783,7 +783,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
                 // Copy image file to system
                 Path currentRelativePath = Paths.get("");
-                String catalogueBannerPath = "/productmanagement/img/productcatalogue/" + catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf(".") + 2);
+                String catalogueBannerPath = "/productmanagement/img/productcatalogue/" + catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf("."));
                 String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + catalogueBannerPath;
                 Path tempFilePath = Path.of(catalogueImageTempPath);
                 Path newFilePath = Path.of(newFilePathString);
