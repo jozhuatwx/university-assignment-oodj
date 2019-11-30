@@ -179,6 +179,11 @@ public class MainForm extends javax.swing.JFrame {
         lblCatalogue.setForeground(new java.awt.Color(153, 153, 153));
         lblCatalogue.setText("Catalogue");
         lblCatalogue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCatalogue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCatalogueMouseClicked(evt);
+            }
+        });
 
         pnlUnderline.setBackground(new java.awt.Color(255, 255, 255));
         pnlUnderline.setPreferredSize(new java.awt.Dimension(100, 3));
@@ -343,6 +348,13 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.add(sp);
         pnlContent.revalidate();
     }//GEN-LAST:event_lblSupplierMouseClicked
+
+    private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
+        pnlContent.removeAll();
+        ProductCataloguePanel pcp = new ProductCataloguePanel();
+        pnlContent.add(pcp);
+        pnlContent.revalidate();
+    }//GEN-LAST:event_lblCatalogueMouseClicked
 
     /**
      * @param args the command line arguments

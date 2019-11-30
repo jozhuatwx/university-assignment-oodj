@@ -80,9 +80,9 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         txtEndDate = new javax.swing.JTextField();
         lblBannerImage = new javax.swing.JLabel();
         lblImage = new javax.swing.JLabel();
-        btnCreate = new javax.swing.JButton();
-        txtEndDate1 = new javax.swing.JTextField();
         lblNumberOfPage = new javax.swing.JLabel();
+        txtNumOfPage = new javax.swing.JTextField();
+        btnCreate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -211,20 +211,20 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
             }
         });
 
-        btnCreate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        btnCreate.setText("Create");
-        btnCreate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnCreateKeyPressed(evt);
-            }
-        });
-
-        txtEndDate1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        txtEndDate1.setText("jTextField1");
-
         lblNumberOfPage.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         lblNumberOfPage.setForeground(new java.awt.Color(255, 255, 255));
         lblNumberOfPage.setText("Number of Page :");
+
+        txtNumOfPage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
+        txtNumOfPage.setText("jTextField1");
+
+        btnCreate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnCreate.setText("Create");
+        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCreateMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlInformationLayout = new javax.swing.GroupLayout(pnlInformation);
         pnlInformation.setLayout(pnlInformationLayout);
@@ -256,7 +256,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
                                 .addGroup(pnlInformationLayout.createSequentialGroup()
                                     .addComponent(lblNumberOfPage)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtEndDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txtNumOfPage, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(pnlInformationLayout.createSequentialGroup()
                         .addGap(136, 136, 136)
                         .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -284,7 +284,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumberOfPage)
-                    .addComponent(txtEndDate1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumOfPage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblBannerImage)
@@ -374,13 +374,6 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_pnlFrameBarMousePressed
 
-    private void btnCreateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCreateKeyPressed
-       
-        AddProductCataloguePage apcp= new AddProductCataloguePage();
-        apcp.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnCreateKeyPressed
-
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // TODO add your handling code here:
         // To let the user insert the image after pressed the label
@@ -403,6 +396,12 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
             imageFilePath = "/productmanagement/img/InsertImage.png";
         }
     }//GEN-LAST:event_lblImageMouseClicked
+
+    private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
+        AddProductCataloguePage apcp= new AddProductCataloguePage();
+        apcp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCreateMouseClicked
 
     /**
      * @param args the command line arguments
@@ -456,7 +455,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrDescription;
     private javax.swing.JTextArea txaDescription;
     private javax.swing.JTextField txtEndDate;
-    private javax.swing.JTextField txtEndDate1;
+    private javax.swing.JTextField txtNumOfPage;
     private javax.swing.JTextField txtStartDate;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables

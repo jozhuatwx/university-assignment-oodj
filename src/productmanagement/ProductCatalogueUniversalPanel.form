@@ -81,11 +81,13 @@
                                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="scrDescription" min="-2" pref="185" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="scrDescription" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                  <Component id="lblDescriptionError" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="lblDescriptionError" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
@@ -426,7 +428,6 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblEditPage" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           <Component id="lblSaveIcon" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="lblEditIcon" min="-2" max="-2" attributes="0"/>
@@ -440,10 +441,7 @@
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblEditIcon" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="lblSaveIcon" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="lblSaveIcon" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="lblEditCatalogue" min="-2" pref="28" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="-2" attributes="0"/>

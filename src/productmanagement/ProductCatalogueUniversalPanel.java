@@ -312,7 +312,6 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             pnlEditDropDownListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblEditPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditDropDownListLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addComponent(lblSaveIcon)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblEditIcon))
@@ -324,9 +323,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 .addGap(0, 0, 0)
                 .addGroup(pnlEditDropDownListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblEditIcon)
-                    .addGroup(pnlEditDropDownListLayout.createSequentialGroup()
-                        .addComponent(lblSaveIcon)
-                        .addGap(0, 0, 0)))
+                    .addComponent(lblSaveIcon))
                 .addComponent(lblEditCatalogue, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblEditPage, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -350,9 +347,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                             .addComponent(lblTitleError, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(22, 22, 22)))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22))
-                    .addComponent(lblDescriptionError, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDescriptionError, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)))
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -525,6 +523,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
             lblSaveIcon.setVisible(true);
             lblEditIcon.setVisible(false);
+            lblEditCatalogue.setVisible(false);
+            lblEditPage.setVisible(false);
 
             //When the textbox is enabled, set the boolean variable to true.
             isEditing = true;
@@ -533,6 +533,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             pnlEditDropDownList.setPreferredSize(new Dimension(78, 33));
             pnlEditDropDownList.revalidate();
             pnlEditDropDownList.repaint();
+            
     }//GEN-LAST:event_lblEditCatalogueMouseClicked
 
     private void lblEditIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditIconMouseEntered
@@ -591,6 +592,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
             lblSaveIcon.setVisible(false);
             lblEditIcon.setVisible(true);
+            lblEditCatalogue.setVisible(true);
+            lblEditPage.setVisible(true);
             
             //When the textbox is enabled, set the boolean variable to true.
             isEditing = false;
