@@ -712,9 +712,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
                     // Copy image file to system
                     Path currentRelativePath = Paths.get("");
-                    String itemImagePath = currentRelativePath.toAbsolutePath().toString() + "/src/productmanagement/img/productitem/" + itemId;
+                    String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf(".") + 2);
+                    String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + itemImagePath;
                     Path tempFilePath = Path.of(itemImageTempPath);
-                    Path newFilePath = Path.of(itemImagePath);
+                    Path newFilePath = Path.of(newFilePathString);
                     Files.copy(tempFilePath, newFilePath);
                     
                     ProductItem modifiedItem = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
