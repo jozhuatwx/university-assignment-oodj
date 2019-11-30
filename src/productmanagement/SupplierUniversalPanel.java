@@ -442,30 +442,27 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
 
     private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
         if (isEditing) {
-            if (supplier.getSupplierStatus().equals(Supplier.ACTIVE)) {
-                Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), Supplier.INACTIVE);
-                if (Supplier.modify(modifiedSupplier)) {
-                    supplier = modifiedSupplier;
-                    resetFields();
+            String supplierStatus = Supplier.ACTIVE;
+            switch (supplier.getSupplierStatus()) {
+                case Supplier.ACTIVE:
+                    supplierStatus = Supplier.INACTIVE;
+                    break;
+            
+                case Supplier.INACTIVE:
+                    supplierStatus = Supplier.ACTIVE;
+                    break;
+            }
+            
+            Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), supplierStatus);
+            if (Supplier.modify(modifiedSupplier)) {
+                supplier = modifiedSupplier;
+                resetFields();
 
-                    // Change the icon from save icon to edit icon
-                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-                    
-                    // When the textbox is enabled, set the boolean variable to true.
-                    isEditing = false;
-                }
-            } else if (supplier.getSupplierStatus().equals(Supplier.INACTIVE)) {
-                Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), Supplier.ACTIVE);
-                if (Supplier.modify(modifiedSupplier)) {
-                    supplier = modifiedSupplier;
-                    resetFields();
-                    
-                    // Change the icon from save icon to edit icon
-                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-
-                    // When the textbox is enabled, set the boolean variable to true.
-                    isEditing = false;
-                }
+                // Change the icon from save icon to edit icon
+                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+                
+                // When the textbox is enabled, set the boolean variable to true.
+                isEditing = false;
             }
         }
     }//GEN-LAST:event_btnStatusMouseClicked
