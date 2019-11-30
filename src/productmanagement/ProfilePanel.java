@@ -73,7 +73,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             lblAddressError.setText("User Address cannot be empty");
             validated = false;
         } else if (!userAddress.contains(";")) {
-            lblAddressError.setText("Item Brand cannot contain semi-colons");
+            lblAddressError.setText("User Address cannot contain semi-colons");
             validated = false;
         }
 
@@ -140,7 +140,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userPassword.equals(confirmPassword)) {
-            lblConfirmPasswordError.setText("Retype New Password does not match");
+            lblConfirmPasswordError.setText("Confirm New Password does not match");
             validated = false;
         }
 
@@ -631,7 +631,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                     }
                 }
             }
-        }     
+        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePasswordActionPerformed
