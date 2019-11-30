@@ -153,11 +153,15 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
         txtName.setPreferredSize(new java.awt.Dimension(250, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNameFocusLost(evt);
             }
@@ -181,8 +185,12 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         txaDescription.setColumns(20);
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txaDescription.setRows(4);
+        txaDescription.setText("Description");
         txaDescription.setEnabled(false);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusLost(evt);
             }
@@ -413,6 +421,9 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String categoryName = txtName.getText().trim();
         validateName(categoryName);
+        if (categoryName.equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
@@ -423,7 +434,22 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
         String categoryDescription = txaDescription.getText().trim();
         validateDescription(categoryDescription);
+        if (categoryDescription.equalsIgnoreCase("")) {
+            txaDescription.setText("Description");
+        }
     }//GEN-LAST:event_txaDescriptionFocusLost
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txaDescriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusGained
+        if (txaDescription.getText().trim().equalsIgnoreCase("Description")) {
+            txaDescription.setText("");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -104,6 +104,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial Rounded MT Bold" size="12" style="0"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="Search"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
             </Property>
@@ -112,6 +113,8 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusGained"/>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusLost"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
           </Events>
         </Component>
@@ -270,6 +273,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Name"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -278,6 +282,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNameFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNameFocusLost"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNameKeyReleased"/>
               </Events>
@@ -321,11 +326,13 @@
                       <Font name="Arial Rounded MT Bold" size="11" style="0"/>
                     </Property>
                     <Property name="rows" type="int" value="4"/>
+                    <Property name="text" type="java.lang.String" value="Description"/>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
                   </Properties>
                   <Events>
+                    <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txaDescriptionFocusGained"/>
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txaDescriptionFocusLost"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txaDescriptionKeyReleased"/>
                   </Events>

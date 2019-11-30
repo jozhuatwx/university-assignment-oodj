@@ -34,8 +34,8 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     }
     
     private void resetFields() {
-        txtName.setText("");
-        txaDescription.setText("");
+        txtName.setText("Name");
+        txaDescription.setText("Description");
     }
 
     private void repopulateCategoriesList() {
@@ -158,8 +158,17 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         pnlAddCategory.setPreferredSize(new java.awt.Dimension(755, 359));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -203,9 +212,13 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         lblName.setText("Name :");
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setText("Name");
         txtName.setBorder(null);
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNameFocusLost(evt);
             }
@@ -229,8 +242,12 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         txaDescription.setColumns(20);
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         txaDescription.setRows(4);
+        txaDescription.setText("Description");
         txaDescription.setBorder(null);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusLost(evt);
             }
@@ -433,6 +450,9 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String categoryName = txtName.getText().trim();
         validateName(categoryName);
+        if (categoryName.equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
@@ -443,11 +463,38 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
         String categoryDescription = txaDescription.getText().trim();
         validateDescription(categoryDescription);
+        if (categoryDescription.equalsIgnoreCase("")) {
+            txaDescription.setText("Description");
+        }
     }//GEN-LAST:event_txaDescriptionFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         search();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        if (txtSearch.getText().trim().equalsIgnoreCase("Search")) {
+            txtSearch.setText("");
+        }
+    }//GEN-LAST:event_txtSearchFocusGained
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        if (txtSearch.getText().trim().equalsIgnoreCase("")) {
+            txtSearch.setText("Search");
+        }
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txaDescriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusGained
+        if (txaDescription.getText().trim().equalsIgnoreCase("Description")) {
+            txaDescription.setText("");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
