@@ -6,32 +6,39 @@ import java.util.ArrayList;
 import javax.swing.Box;
 
 public class SupplierPanel extends javax.swing.JPanel {
+    // Constant fields
+    public static final int PANEL_MAX_HEIGHT = 359;
+    public static final int PANEL_MIN_HEIGHT = 61;
+    public static final int PANEL_WIDTH = 755;
 
     public SupplierPanel() {
         initComponents();
+        // Hide the Panel
         hideAddPanel();
         // If the user is Product Manager, then hide the Add and Modify button
         if (ProductManager.isProductManager()){
             btnAdd.setVisible(false);
         }
+        // Populate the list with Suppliers
         repopulateSupplierList();
     }
     
     private void showAddPanel() {
         // Resize the Panel and show the components inside
-        pnlAddSupplier.setPreferredSize(new Dimension(755, 359));
+        pnlAddSupplier.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddSupplier.revalidate();
         pnlAddSupplier.repaint();
     }
 
     private void hideAddPanel() {
         // Resize the Panel and hide the components inside
-        pnlAddSupplier.setPreferredSize(new Dimension(755, 61));
+        pnlAddSupplier.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddSupplier.revalidate();
         pnlAddSupplier.repaint();
     }
     
     private void resetFields() {
+        // Clear the fields
         txtName.setText("");
         txtAddress.setText("");
         txtContact.setText("");
@@ -39,21 +46,55 @@ public class SupplierPanel extends javax.swing.JPanel {
     }
 
     private void repopulateSupplierList() {
+        // Remove all existing Suppliers
         pnlSupplierList.removeAll();
         
         int i = 0;
         ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
+        // Iterate through the Supplier array
         for (; i < supplierArray.size(); i++) {
+            // Split the line into an array
             String[] details = supplierArray.get(i).split(";");
+            // Create a Supplier object with the details
             Supplier supplier = new Supplier(details);
+            // Create a Universal Panel object with the Supplier object
             SupplierUniversalPanel sup = new SupplierUniversalPanel(supplier, i + 1);
-            sup.setPreferredSize(new Dimension(755, 72));
+            // Set the size of the Universal Panel
+            sup.setPreferredSize(new Dimension(SupplierUniversalPanel.MAIN_WIDTH, SupplierUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
             pnlSupplierList.add(sup);
         }
-        if (i * 72 < 385) {
-            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (75 * i))));
+        // Fill remaining space with an empty box
+        if (i * SupplierUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (SupplierUniversalPanel.MAIN_MIN_HEIGHT * i))));
         }
         pnlSupplierList.revalidate();
+    }
+
+    private void search() {
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        // Remove all existing Suppliers
+        pnlSupplierList.removeAll();
+        
+        int i = 0;
+        // Get an array list of the Suppliers matching the keyword
+        ArrayList<Supplier> supplierArray = Supplier.search(keyword);
+        for (; i < supplierArray.size(); i++) {
+            // Create a Universal Panel object with the Supplier object
+            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplierArray.get(i), i + 1);
+            // Set the size of the Universal Panel object
+            sup.setPreferredSize(new Dimension(SupplierUniversalPanel.MAIN_WIDTH, SupplierUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlSupplierList.add(sup);
+        }
+        // Fill remaining space with an empty box
+        if (i * SupplierUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (SupplierUniversalPanel.MAIN_MIN_HEIGHT * i))));
+        }
+        pnlSupplierList.revalidate();
+        pnlSupplierList.repaint();
     }
 
     // Validation
@@ -458,23 +499,7 @@ public class SupplierPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String keyword = txtSearch.getText().trim();
-
-        hideAddPanel();
-        pnlSupplierList.removeAll();
-        
-        int i = 0;
-        ArrayList<Supplier> supplierArray = Supplier.search(keyword);
-        for (; i < supplierArray.size(); i++) {
-            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplierArray.get(i), i + 1);
-            sup.setPreferredSize(new Dimension(755, 72));
-            pnlSupplierList.add(sup);
-        }
-        if (i * 72 < 385) {
-            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (75 * i))));
-        }
-        pnlSupplierList.revalidate();
-        pnlSupplierList.repaint();
+        search();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -512,6 +537,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         }
 
         if (validated) {
+            // Register the Supplier if no error
             Supplier supplier = new Supplier(Supplier.generateSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, Supplier.ACTIVE);
             if (Supplier.register(supplier)) {
                 resetFields();
@@ -561,23 +587,7 @@ public class SupplierPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        String keyword = txtSearch.getText().trim();
-
-        hideAddPanel();
-        pnlSupplierList.removeAll();
-        
-        int i = 0;
-        ArrayList<Supplier> supplierArray = Supplier.search(keyword);
-        for (; i < supplierArray.size(); i++) {
-            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplierArray.get(i), i + 1);
-            sup.setPreferredSize(new Dimension(755, 72));
-            pnlSupplierList.add(sup);
-        }
-        if (i * 72 < 385) {
-            pnlSupplierList.add(Box.createRigidArea(new Dimension(0, 385 - (75 * i))));
-        }
-        pnlSupplierList.revalidate();
-        pnlSupplierList.repaint();
+        search();
     }//GEN-LAST:event_txtSearchKeyReleased
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

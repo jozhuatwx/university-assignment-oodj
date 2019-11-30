@@ -8,29 +8,35 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ProductManagerPanel extends javax.swing.JPanel {
+    // Constant fields
+    public static final int PANEL_MAX_HEIGHT = 446;
+    public static final int PANEL_MIN_HEIGHT = 61;
+    public static final int PANEL_WIDTH = 755;
 
     public ProductManagerPanel() {
         initComponents();
+        // Hide the Panel
         hideAddPanel();
+        // Popualate the list with Product Managers
         repopulateProductManagerList();
     }
     
     private void showAddPanel() {
         // Resize the Panel and show the components inside
-        pnlAddProductManager.setPreferredSize(new Dimension(755, 446));
+        pnlAddProductManager.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddProductManager.revalidate();
         pnlAddProductManager.repaint();
     }
 
     private void hideAddPanel() {
         // Resize the Panel and hide the components inside
-        pnlAddProductManager.setPreferredSize(new Dimension(755, 61));
+        pnlAddProductManager.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddProductManager.revalidate();
         pnlAddProductManager.repaint();
     }
     
     private void resetFields() {
-        // Clear all fields
+        // Clear the fields
         txtName.setText("");
         txtLoginName.setText("");
         txtAddress.setText("");
@@ -40,24 +46,60 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     }
 
     private void repopulateProductManagerList() {
+        // Remove all exisiting Product Managers
         pnlProductManagerList.removeAll();
         
         int i = 0, x = 0;
         ArrayList<String> userArray = ReadObject.readArray(ProductManager.FILE_NAME);
+        // Iterate through the User array
         for (; i < userArray.size(); i++) {
+            // Split the line into an array
             String[] details = userArray.get(i).split(";");
+            // Find Product Managers only
             if (details[4].equalsIgnoreCase(ProductManager.ROLE)) {
+                // Create a Product Manager object with the details
                 ProductManager user = new ProductManager(details);
+                // Create a Universal Panel with the Project Manager object
                 ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(user, x + 1);
-                pmup.setPreferredSize(new Dimension(755, 232));
+                // Set the size of the Universal Panel
+                pmup.setPreferredSize(new Dimension(ProductManagerUniversalPanel.MAIN_WIDTH, ProductManagerUniversalPanel.MAIN_MIN_HEIGHT));
+                // Add the panel into the list
                 pnlProductManagerList.add(pmup);
+                // Keeps track of the number of Product Managers
                 x++;
             }
         }
-        if (x * 232 < 385) {
-            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (232 * x))));
+        // Fill remaining space with an empty box
+        if (x * ProductManagerUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductManagerUniversalPanel.MAIN_MIN_HEIGHT * x))));
         }
         pnlProductManagerList.revalidate();
+    }
+
+    private void search() {
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        // Remove all existing Product Managers
+        pnlProductManagerList.removeAll();
+        
+        int i = 0;
+        // Get an array list of Product Managers matching the keyword
+        ArrayList<ProductManager> userArray = ProductManager.searchProductManager(keyword);
+        for (; i < userArray.size(); i++) {
+            // Create a Universal Panel object with the Product Manager object
+            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(userArray.get(i), i + 1);
+            // Set the size of the Universal Panel
+            pmup.setPreferredSize(new Dimension(ProductManagerUniversalPanel.MAIN_WIDTH, ProductManagerUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlProductManagerList.add(pmup);
+        }
+        // Fill remaining space with an empty box
+        if (i * ProductManagerUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductManagerUniversalPanel.MAIN_MIN_HEIGHT * i))));
+        }
+        pnlProductManagerList.revalidate();
+        pnlProductManagerList.repaint();
     }
 
     // Validation
@@ -549,23 +591,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String keyword = txtSearch.getText().trim();
-
-        hideAddPanel();
-        pnlProductManagerList.removeAll();
-        
-        int i = 0;
-        ArrayList<ProductManager> userArray = ProductManager.searchProductManager(keyword);
-        for (; i < userArray.size(); i++) {
-            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(userArray.get(i), i + 1);
-            pmup.setPreferredSize(new Dimension(755, 232));
-            pnlProductManagerList.add(pmup);
-        }
-        if (i * 232 < 385) {
-            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (232 * i))));
-        }
-        pnlProductManagerList.revalidate();
-        pnlProductManagerList.repaint();
+        search();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -616,6 +642,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
             try {
                 // Encrypt the new password
                 String userPassword = Encryption.encryptPassword(password);
+                // Register the Product Manager if no error
                 ProductManager productManager = new ProductManager(User.generateUserId(), userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                 if (ProductManager.register(productManager)) {
                     resetFields();
@@ -691,23 +718,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtConfirmPasswordFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        String keyword = txtSearch.getText().trim();
-
-        hideAddPanel();
-        pnlProductManagerList.removeAll();
-        
-        int i = 0;
-        ArrayList<ProductManager> userArray = ProductManager.searchProductManager(keyword);
-        for (; i < userArray.size(); i++) {
-            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(userArray.get(i), i + 1);
-            pmup.setPreferredSize(new Dimension(755, 232));
-            pnlProductManagerList.add(pmup);
-        }
-        if (i * 232 < 385) {
-            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (232 * i))));
-        }
-        pnlProductManagerList.revalidate();
-        pnlProductManagerList.repaint();
+        search();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

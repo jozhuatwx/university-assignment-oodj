@@ -1,24 +1,34 @@
 package productmanagement;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
+
+import javax.swing.Box;
 
 public class ProductCategoryPanel extends javax.swing.JPanel {
+    // Constant fields
+    public static final int PANEL_MAX_HEIGHT = 359;
+    public static final int PANEL_MIN_HEIGHT = 61;
+    public static final int PANEL_WIDTH = 755;
 
     public ProductCategoryPanel() {
         initComponents();
+        // Hide the Panel
         hideAddPanel();
+        // Populate the list with Categories
+        repopulateCategoriesList();
     }
     
     private void showAddPanel() {
         // Resize the Panel and show the components inside
-        pnlAddCategory.setPreferredSize(new Dimension(755, 359));
+        pnlAddCategory.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddCategory.revalidate();
         pnlAddCategory.repaint();
     }
 
     private void hideAddPanel() {
         // Resize the Panel and hide the components inside
-        pnlAddCategory.setPreferredSize(new Dimension(755, 61));
+        pnlAddCategory.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddCategory.revalidate();
         pnlAddCategory.repaint();
     }
@@ -28,8 +38,61 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         txaDescription.setText("");
     }
 
+    private void repopulateCategoriesList() {
+        // Remove all existing Categories
+        pnlCategoryList.removeAll();
+
+        int i = 0;
+        ArrayList<String> categoryArray = ReadObject.readArray(ProductCategory.FILE_NAME);
+        // Iterate through the Product Category array
+        for (; i < categoryArray.size(); i++) {
+            // Split the line into an array
+            String[] details = categoryArray.get(i).split(";");
+            // Create a Product Category object with the details
+            ProductCategory category = new ProductCategory(details);
+            // Create a Universal Panel object with the Category object
+            ProductCategoryUniversalPanel pcup = new ProductCategoryUniversalPanel(category, i + 1);
+            // Set the size of the Universal Panel
+            pcup.setPreferredSize(new Dimension(ProductCategoryUniversalPanel.MAIN_WIDTH, ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlCategoryList.add(pcup);
+        }
+        // Fill remaining space with an empty box
+        if (i * ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlCategoryList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT * i))));
+        }
+        pnlCategoryList.revalidate();
+    }
+
+    private void search() {
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        // Remove all existing Product Categories
+        pnlCategoryList.removeAll();
+
+        int i = 0;
+        // Get an array list of the Product Categories matching the keyword
+        ArrayList<ProductCategory> categoryArray = ProductCategory.search(keyword);
+        for (; i < categoryArray.size(); i++) {
+            // Create a Universal Panel object with the Prodect Category object
+            ProductCategoryUniversalPanel pcup = new ProductCategoryUniversalPanel(categoryArray.get(i), i + 1);
+            // Set the size of the Universal Panel object
+            pcup.setPreferredSize(new Dimension(ProductCategoryUniversalPanel.MAIN_WIDTH, ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlCategoryList.add(pcup);
+        }
+        // Fill remaining space with an empty box
+        if (i * ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlCategoryList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT * i))));
+        }
+        pnlCategoryList.revalidate();
+        pnlCategoryList.revalidate();
+        pnlCategoryList.repaint();
+    }
+
     // Validation
-    private boolean validateCategoryName(String categoryName) {
+    private boolean validateName(String categoryName) {
         boolean validated = true;
 
         if (categoryName.length() <= 0) {
@@ -40,10 +103,13 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNameError.setText(" ");
+        }
         return validated;
     }
 
-    private boolean validateCategoryDescription(String categoryDescription) {
+    private boolean validateDescription(String categoryDescription) {
         boolean validated = true;
 
         if (categoryDescription.contains(";")) {
@@ -51,6 +117,9 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblDescriptionError.setText(" ");
+        }
         return validated;
     }
 
@@ -320,7 +389,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        search();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -339,15 +408,16 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         String categoryDescription = txaDescription.getText().trim();
         
         // Validate
-        if (!validateCategoryName(categoryName)) {
+        if (!validateName(categoryName)) {
             validated = false;
         }
 
-        if (!validateCategoryDescription(categoryDescription)) {
+        if (!validateDescription(categoryDescription)) {
             validated = false;
         }
 
         if (validated) {
+            // Register the Product Category if no error
             ProductCategory category = new ProductCategory(ProductCategory.generateCategoryId(), categoryName, categoryDescription, ProductCategory.ACTIVE);
             if (ProductCategory.register(category)) {
                 resetFields();
@@ -357,26 +427,26 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
 
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
         String categoryName = txtName.getText().trim();
-        validateCategoryName(categoryName);
+        validateName(categoryName);
     }//GEN-LAST:event_txtNameKeyReleased
 
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String categoryName = txtName.getText().trim();
-        validateCategoryName(categoryName);
+        validateName(categoryName);
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
         String categoryDescription = txaDescription.getText().trim();
-        validateCategoryDescription(categoryDescription);
+        validateDescription(categoryDescription);
     }//GEN-LAST:event_txaDescriptionKeyReleased
 
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
         String categoryDescription = txaDescription.getText().trim();
-        validateCategoryDescription(categoryDescription);
+        validateDescription(categoryDescription);
     }//GEN-LAST:event_txaDescriptionFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        // TODO add your handling code here:
+        search();
     }//GEN-LAST:event_txtSearchKeyReleased
 
 

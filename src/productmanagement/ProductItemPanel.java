@@ -16,13 +16,21 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ProductItemPanel extends javax.swing.JPanel {
+    // Constant fields
+    public static final int PANEL_MAX_HEIGHT = 633;
+    public static final int PANEL_MIN_HEIGHT = 61;
+    public static final int PANEL_WIDTH = 755;
+    
+    // Keeps track of temporary image file path
     String imageFilePath = "/productmanagement/img/InsertImage.png";
 
     public ProductItemPanel() {
         initComponents();
+        // Hide the Panel
         hideAddPanel();
         resetCategory();
         resetSupplier();
+        // Populate the list with Product Items
         repopulateItemList();
     }
     
@@ -41,7 +49,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     }
     
     private void resetFields() {
-        // Clear all fields
+        // Clear the fields
         txtName.setText("");
         txtBrand.setText("");
         txtSellingPrice.setText("");
@@ -81,19 +89,27 @@ public class ProductItemPanel extends javax.swing.JPanel {
     }
 
     private void repopulateItemList() {
+        // Remove all existing Product Items
         pnlItemList.removeAll();
         
         int i = 0;
         ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        // Iterate through the Item array
         for (; i < itemArray.size(); i++) {
+            // Split the line into an array
             String[] details = itemArray.get(i).split(";");
+            // Create an Item object with the details
             ProductItem item = new ProductItem(details);
+            // Create a Universal Panel object with the Item object
             ProductItemUniversalPanel iup = new ProductItemUniversalPanel(item, i + 1);
-            iup.setPreferredSize(new Dimension(755, 245));
+            // Set the size of the Universal Panel
+            iup.setPreferredSize(new Dimension(ProductItemUniversalPanel.MAIN_WIDTH, ProductItemUniversalPanel.MAIN_HEIGHT));
+            // Add the panel into the list
             pnlItemList.add(iup);
         }
-        if (i * 245 < 385) {
-            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (245 * i))));
+        // Fill remaining space with an empty box
+        if (i * ProductItemUniversalPanel.MAIN_HEIGHT < 385) {
+            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductItemUniversalPanel.MAIN_HEIGHT * i))));
         }
         pnlItemList.revalidate();
     }
@@ -125,6 +141,32 @@ public class ProductItemPanel extends javax.swing.JPanel {
         Image newImg = img.getScaledInstance(lblInsertImage.getWidth(),lblInsertImage.getHeight(),Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
+    }
+
+    private void search() {
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        // Remove all existing Product Items
+        pnlItemList.removeAll();
+        
+        int i = 0;
+        // Get an array list of the Product Items matching the keyword
+        ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
+        for (; i < itemArray.size(); i++) {
+            // Create a Universal Panel object with the Product Item object
+            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(itemArray.get(i), i + 1);
+            // Set the size of the Universal Panel object
+            iup.setPreferredSize(new Dimension(ProductItemUniversalPanel.MAIN_WIDTH, ProductItemUniversalPanel.MAIN_HEIGHT));
+            // Add the Panel into the list
+            pnlItemList.add(iup);
+        }
+        // Fill remaining space with an empty box
+        if (i * ProductItemUniversalPanel.MAIN_HEIGHT < 385) {
+            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductItemUniversalPanel.MAIN_HEIGHT * i))));
+        }
+        pnlItemList.revalidate();
+        pnlItemList.repaint();
     }
 
     // Validation
@@ -752,23 +794,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String keyword = txtSearch.getText().trim();
-
-        hideAddPanel();
-        pnlItemList.removeAll();
-        
-        int i = 0;
-        ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
-        for (; i < itemArray.size(); i++) {
-            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(itemArray.get(i), i + 1);
-            iup.setPreferredSize(new Dimension(755, 245));
-            pnlItemList.add(iup);
-        }
-        if (i * 245 < 385) {
-            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (245 * i))));
-        }
-        pnlItemList.revalidate();
-        pnlItemList.repaint();
+        search();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -836,6 +862,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 Path newFilePath = Path.of(itemImagePath);
                 Files.copy(tempFilePath, newFilePath);
                 
+                // Register the Product Item if no error
                 ProductItem item = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
                 if (ProductItem.register(item, itemQuantity)) {
                     resetFields();
@@ -898,23 +925,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txaDescriptionFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        String keyword = txtSearch.getText().trim();
-
-        hideAddPanel();
-        pnlItemList.removeAll();
-        
-        int i = 0;
-        ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
-        for (; i < itemArray.size(); i++) {
-            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(itemArray.get(i), i + 1);
-            iup.setPreferredSize(new Dimension(755, 245));
-            pnlItemList.add(iup);
-        }
-        if (i * 245 < 385) {
-            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (245 * i))));
-        }
-        pnlItemList.revalidate();
-        pnlItemList.repaint();
+        search();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
