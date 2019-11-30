@@ -80,7 +80,7 @@ public class ProductCatalogue {
     return ReadObject.generateId("CL", FILE_NAME);
   }
 
-  public static void register(ProductCatalogue catalogue) {
+  public static boolean register(ProductCatalogue catalogue) {
     // Set default registered Catalogue as false
     boolean registered = false;
 
@@ -105,14 +105,15 @@ public class ProductCatalogue {
 
     if (!registered) {
       // Write the new Catalogue into the Catalogue database and log action
-      WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")", true);
+      return WriteObject.write(catalogue, FILE_NAME, true, "Registered new Catalogue (" + catalogue.getCatalogueId() + ")", true);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Catalogue title is taken, please try another title", "Warning", JOptionPane.WARNING_MESSAGE);
     }
+    return false;
   }
 
-  public static void modify(ProductCatalogue catalogue) {
+  public static boolean modify(ProductCatalogue catalogue) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -141,11 +142,12 @@ public class ProductCatalogue {
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File(FILE_NAME));
+      return tempFile.renameTo(new File(FILE_NAME));
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   public static ArrayList<ProductCatalogue> search(String keyword) {

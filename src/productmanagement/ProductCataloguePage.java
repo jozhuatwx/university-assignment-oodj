@@ -61,12 +61,12 @@ public class ProductCataloguePage {
     return ReadObject.generateId("PG", FILE_NAME);
   }
 
-  public static void register(ProductCataloguePage page) {
+  public static boolean register(ProductCataloguePage page) {
     // Write the new Page into the Page database and log the action
-    WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")", true);
+    return WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")", true);
   }
 
-  public static void modify(ProductCataloguePage page) {
+  public static boolean modify(ProductCataloguePage page) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -95,11 +95,12 @@ public class ProductCataloguePage {
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File(FILE_NAME));
+      return tempFile.renameTo(new File(FILE_NAME));
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    return false;
   }
 
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
