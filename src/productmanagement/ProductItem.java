@@ -178,6 +178,6 @@ public class ProductItem {
   // Overrides the default toString() to display the information of the Product Item class
   @Override
   public String toString() {
-    return getItemId() + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId() + ";" + getItemStatus();
+    return getItemId() + ";" + getItemName() + ";" + getItemBrand() + ";" + String.valueOf(getItemPrice()) + ";" + getItemDescription() + ";" + getItemImagePath() + ";" + getItemSupplierId() + ";" + getItemCategoryId() + ";" + getItemStatus();
   }
 }
