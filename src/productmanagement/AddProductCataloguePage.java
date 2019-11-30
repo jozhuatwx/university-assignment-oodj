@@ -314,7 +314,7 @@ public class AddProductCataloguePage extends javax.swing.JFrame {
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         // Close the form
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void lblCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseEntered
