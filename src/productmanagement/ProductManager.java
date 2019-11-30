@@ -21,13 +21,13 @@ public class ProductManager extends User {
     this.productManagerStatus = productManagerStatus;
   }
 
+  ProductManager(String[] details) {
+    this(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
+  }
+
   // Getters and Setters
   public String getProductManagerStatus() {
     return productManagerStatus;
-  }
-  
-  private void setProductManagerStatus(String status) {
-    this.productManagerStatus = status;
   }
   
   // Check if the user is a Product Manager
@@ -92,6 +92,6 @@ public class ProductManager extends User {
   // Overrides the default toString() to display the information of the Product Manager class
   @Override
   public String toString() {
-    return String.valueOf(getUserId()) + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword() + ";" + getProductManagerStatus();
+    return getUserId() + ";" + getUserName() + ";" + getUserAddress() + ";" + getUserEmail() + ";" + getUserRole() + ";" + getUserLoginName() + ";" + getUserPassword() + ";" + getProductManagerStatus();
   }
 }

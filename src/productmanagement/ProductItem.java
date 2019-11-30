@@ -30,77 +30,45 @@ public class ProductItem {
     this.itemStatus = itemStatus;
   }
 
+  ProductItem(String[] details) {
+    this(details[0], details[1], details[2], Double.valueOf(details[3]), details[4], details[5], details[6], details[7], details[8]);
+  }
+
   // Getters and setters
   public String getItemId() {
     return itemId;
-  }
-
-  private void setItemId(String itemId) {
-    this.itemId = itemId;
   }
 
   public String getItemName() {
     return itemName;
   }
 
-  private void setItemName(String itemName) {
-    this.itemName = itemName;
-  }
-
   public String getItemBrand() {
     return itemBrand;
-  }
-
-  private void setItemBrand(String itemBrand) {
-    this.itemBrand = itemBrand;
   }
 
   public double getItemPrice() {
     return itemPrice;
   }
 
-  private void setItemPrice(double itemPrice) {
-    this.itemPrice = itemPrice;
-  }
-
   public String getItemDescription() {
     return itemDescription;
-  }
-
-  private void setItemDescription(String itemDescription) {
-    this.itemDescription = itemDescription;
   }
 
   public String getItemImagePath() {
     return itemImagePath;
   }
 
-  private void setItemImagePath(String itemImagePath) {
-    this.itemImagePath = itemImagePath;
-  }
-
   public String getItemSupplierId() {
     return itemSupplierId;
-  }
-
-  private void setItemSupplierId(String itemSupplierId) {
-    this.itemSupplierId = itemSupplierId;
   }
 
   public String getItemCategoryId() {
     return itemCategoryId;
   }
 
-  private void setItemCategoryId(String itemCategoryId) {
-    this.itemCategoryId = itemCategoryId;
-  }
-
   public String getItemStatus() {
     return itemStatus;
-  }
-
-  private void setItemStatus(String itemStatus) {
-    this.itemStatus = itemStatus;
   }
 
   // Generate the Product Item ID
@@ -143,7 +111,7 @@ public class ProductItem {
     return false;
   }
 
-  public static boolean modify(ProductItem item) {
+  public static boolean modify(ProductItem item, int itemQuantity) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -174,7 +142,8 @@ public class ProductItem {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
-      return true;
+      InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
+      return InventoryTransaction.register(transaction);
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -195,7 +164,7 @@ public class ProductItem {
         // Find if any existing Item matches the keyword
         if (details[1].toLowerCase().contains(keyword) || details[2].toLowerCase().contains(keyword) || details[5].toLowerCase().contains(keyword)) {
           // Get Item information
-          ProductItem item = new ProductItem(details[0], details[1], details[2], Double.valueOf(details[3]), details[4], details[5], details[6], details[7], details[8]);
+          ProductItem item = new ProductItem(details);
           itemArrayList.add(item);
         }
       }

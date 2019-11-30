@@ -34,77 +34,45 @@ public class ProductCatalogue {
     this.catalogueStatus = catalogueStatus;
   }
 
+  ProductCatalogue(String[] details) {
+    this(details[0], details[1], details[2], details[3], LocalDate.parse(details[4]), LocalDate.parse(details[5]), LocalDateTime.parse(details[6]), details[7], details[8]);
+  }
+
   // Getters and setters
   public String getCatalogueId() {
     return catalogueId;
-  }
-
-  private void setCatalogueId(String catalogueId) {
-    this.catalogueId = catalogueId;
   }
 
   public String getCatalogueTitle() {
     return catalogueTitle;
   }
 
-  private void setCatalogueTitle(String catalogueTitle) {
-    this.catalogueTitle = catalogueTitle;
-  }
-
   public String getCatalogueBannerPath() {
     return catalogueBannerPath;
-  }
-
-  private void setCatalogueBannerPath(String catalogueBannerPath) {
-    this.catalogueBannerPath = catalogueBannerPath;
   }
 
   public String getCatalogueDescription() {
     return catalogueDescription;
   }
 
-  private void setCatalogueDescription(String catalogueDescription) {
-    this.catalogueDescription = catalogueDescription;
-  }
-
   public LocalDate getCatalogueStartDate() {
     return catalogueStartDate;
-  }
-
-  private void setCatalogueStartDate(LocalDate catalogueStartDate) {
-    this.catalogueStartDate = catalogueStartDate;
   }
 
   public LocalDate getCatalogueEndDate() {
     return catalogueEndDate;
   }
 
-  private void setCatalogueEndDate(LocalDate catalogueEndDate) {
-    this.catalogueEndDate = catalogueEndDate;
-  }
-
   public LocalDateTime getCatalogueGeneratedDateTime() {
     return catalogueGeneratedDateTime;
-  }
-
-  private void setCatalogueGeneratedDateTime(LocalDateTime catalogueGeneratedDateTime) {
-    this.catalogueGeneratedDateTime = catalogueGeneratedDateTime;
   }
 
   public String getCatalogueUserId() {
     return catalogueUserId;
   }
 
-  private void setCatalogueUserId(String catalogueUserId) {
-    this.catalogueUserId = catalogueUserId;
-  }
-
   public String getCatalogueStatus() {
     return catalogueStatus;
-  }
-
-  private void setCatalogueStatus(String catalogueStatus) {
-    this.catalogueStatus = catalogueStatus;
   }
 
   // Generate the Product Catalogue ID
@@ -193,7 +161,7 @@ public class ProductCatalogue {
         // Find if any existing Catalogue matches the keyword
         if (details[1].toLowerCase().contains(keyword) || details[3].toLowerCase().contains(keyword)) {
           // Get Catalogue information
-          ProductCatalogue catalogue = new ProductCatalogue(details[0], details[1], details[2], details[3], LocalDate.parse(details[4]), LocalDate.parse(details[5]), LocalDateTime.parse(details[6]), details[7], details[8]);
+          ProductCatalogue catalogue = new ProductCatalogue(details);
           catalogueArrayList.add(catalogue);
         }
       }

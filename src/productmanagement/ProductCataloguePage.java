@@ -27,29 +27,21 @@ public class ProductCataloguePage {
     this.pageStatus = pageStatus;
   }
 
+  ProductCataloguePage(String[] details) {
+    this(details[0], Integer.valueOf(details[1]), details[2].split(","), details[3], details[4]);
+  }
+
   // Getters and setters
   public String getPageId() {
     return pageId;
-  }
-
-  private void setPageId(String pageId) {
-    this.pageId = pageId;
   }
 
   public int getPageNumber() {
     return pageNumber;
   }
 
-  private void setPageNumber(int pageNumber) {
-    this.pageNumber = pageNumber;
-  }
-
   public String[] getPageItemIds() {
     return pageItemIds;
-  }
-
-  private void setPageItemIds(String[] pageItemIds) {
-    this.pageItemIds = pageItemIds;
   }
 
   public int getPageNumberOfItems() {
@@ -60,18 +52,10 @@ public class ProductCataloguePage {
     return pageCatalogueId;
   }
 
-  private void setPageCatalogueId(String pageCatalogueId) {
-    this.pageCatalogueId = pageCatalogueId;
-  }
-
   public String getPageStatus() {
     return pageStatus;
   }
   
-  private void setPageStatus(String pageStatus) {
-    this.pageStatus = pageStatus;
-  }
-
   // Generate the Product Catalogue Page ID
   public static String generatePageId() {
     return ReadObject.generateId("PG", FILE_NAME);
