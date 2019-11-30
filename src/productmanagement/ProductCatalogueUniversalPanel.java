@@ -9,7 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -87,13 +90,19 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         // When the panel is opened, set the boolean variable to false.
         isClosed = false;
     }
+    
+    private Date convertToDate(LocalDate dateToConvert) {
+        return java.util.Date.from(dateToConvert.atStartOfDay()
+            .atZone(ZoneId.systemDefault())
+            .toInstant());
+    }
 
     private void resetFields() {
         // Fill the fields with Product Catalogue information
         txtTitle.setText(catalogue.getCatalogueTitle());
         txaDescription.setText(catalogue.getCatalogueDescription());
-        ftxStartDate.setValue(catalogue.getCatalogueStartDate());
-        ftxEndDate.setValue(catalogue.getCatalogueEndDate());
+        ftxStartDate.setValue(convertToDate(catalogue.getCatalogueStartDate()));
+        ftxEndDate.setValue(convertToDate(catalogue.getCatalogueEndDate()));
         lblImage.setIcon(new ImageIcon(getClass().getResource(catalogue.getCatalogueBannerPath())));
         lblUserId.setText(catalogue.getCatalogueUserId());
 
@@ -163,13 +172,14 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateStartDate(String catalogueStartDateString) {
         boolean validated = true;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
         try {
             if (catalogueStartDateString.length() <= 0) {
                 lblStartDateError.setText("Catalogue Start Date cannot be empty");
                 validated = false;
             } else {
-                LocalDate startDate = LocalDate.parse(catalogueStartDateString);
+                LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                 if (startDate.isBefore(LocalDate.now())) {
                     lblStartDateError.setText("Catalogue Start Date cannot be before today");
                     validated = false;
@@ -188,15 +198,16 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateEndDate(String catalogueStartDateString, String catalogueEndDateString) {
         boolean validated = true;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
         try {
             if (catalogueEndDateString.length() <= 0) {
                 lblEndDateError.setText("Catalogue End Date cannot be empty");
                 validated = false;
             } else {
-                LocalDate endDate = LocalDate.parse(catalogueEndDateString);
+                LocalDate endDate = LocalDate.parse(catalogueEndDateString, formatter);
                 if (validateStartDate(catalogueStartDateString)) {
-                    LocalDate startDate = LocalDate.parse(catalogueStartDateString);
+                    LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                     if (endDate.isBefore(startDate)) {
                         lblEndDateError.setText("Catalogue End Date cannot be before the start date");
                         validated = false;
@@ -349,7 +360,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/add.png"))); // NOI18N
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblImage.setEnabled(false);
-        lblImage.setPreferredSize(new java.awt.Dimension(323, 60));
+        lblImage.setPreferredSize(new java.awt.Dimension(325, 60));
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblImageMouseClicked(evt);
@@ -512,7 +523,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(45, 45, 45)))
                                 .addComponent(pnlEditDropDownList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -562,7 +573,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblImageError))
                             .addComponent(scrDescription))
@@ -763,17 +774,19 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
             if (validated) {
                 // Convert String to LocalDate
-                LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString);
-                LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString, formatter);
+                LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString, formatter);
 
                 // Generate Catalogue Id
                 String catalogueId = ProductCatalogue.generateCatalogueId();
 
                 // Copy image file to system
                 Path currentRelativePath = Paths.get("");
-                String catalogueBannerPath = currentRelativePath.toAbsolutePath().toString() + "/src/productmanagement/img/productcatalogue/" + catalogueId;
+                String catalogueBannerPath = "/productmanagement/img/productcatalogue/" + catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf(".") + 2);
+                String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + catalogueBannerPath;
                 Path tempFilePath = Path.of(catalogueImageTempPath);
-                Path newFilePath = Path.of(catalogueBannerPath);
+                Path newFilePath = Path.of(newFilePathString);
                 Files.copy(tempFilePath, newFilePath);
 
                 ProductCatalogue modifiedCatalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
