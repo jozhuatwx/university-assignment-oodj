@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -22,6 +23,7 @@ public class ItemPanel extends javax.swing.JPanel {
         hideAddPanel();
         resetCategory();
         resetSupplier();
+        repopulateItemList();
     }
     
     private void showAddPanel() {
@@ -76,6 +78,24 @@ public class ItemPanel extends javax.swing.JPanel {
             // Add the item into the combobox
             cmbSupplier.addItem(comboItem);
         }
+    }
+
+    private void repopulateItemList() {
+        pnlItemList.removeAll();
+        
+        int i = 0;
+        ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        for (; i < itemArray.size(); i++) {
+            String[] details = itemArray.get(i).split(";");
+            ProductItem item = new ProductItem(details);
+            ItemUniversalPanel iup = new ItemUniversalPanel(item, i + 1);
+            iup.setPreferredSize(new Dimension(755, 245));
+            pnlItemList.add(iup);
+        }
+        if (i * 245 < 385) {
+            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (245 * i))));
+        }
+        pnlItemList.revalidate();
     }
     
     // Create a method to resize the image and label
@@ -284,12 +304,6 @@ public class ItemPanel extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         scrItemList = new javax.swing.JScrollPane();
         pnlItemList = new javax.swing.JPanel();
-        pnltemporary = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        lblProductCategory = new javax.swing.JLabel();
-        lblRemove = new javax.swing.JLabel();
-        lblEdit = new javax.swing.JLabel();
-        lblCategory1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(18, 22, 31));
 
@@ -299,6 +313,11 @@ public class ItemPanel extends javax.swing.JPanel {
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(46, 52, 66));
         btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -676,90 +695,11 @@ public class ItemPanel extends javax.swing.JPanel {
         scrItemList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrItemList.setToolTipText("");
         scrItemList.setPreferredSize(new java.awt.Dimension(755, 385));
+        scrItemList.getVerticalScrollBar().setUnitIncrement(16);
 
         pnlItemList.setBackground(new java.awt.Color(46, 52, 66));
         pnlItemList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlItemList.setPreferredSize(new java.awt.Dimension(740, 385));
-
-        pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jLabel5.setText("1.");
-
-        lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Product item Name");
-        lblProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProductCategoryMouseClicked(evt);
-            }
-        });
-
-        lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
-
-        lblEdit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
-
-        lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblCategory1.setText("Product category Name");
-        lblCategory1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCategory1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnltemporaryLayout = new javax.swing.GroupLayout(pnltemporary);
-        pnltemporary.setLayout(pnltemporaryLayout);
-        pnltemporaryLayout.setHorizontalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(40, 40, 40)
-                .addComponent(lblProductCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRemove)
-                .addContainerGap())
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(lblCategory1)
-                .addContainerGap(357, Short.MAX_VALUE))
-        );
-        pnltemporaryLayout.setVerticalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEdit)
-                    .addComponent(lblRemove)
-                    .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblProductCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlItemListLayout = new javax.swing.GroupLayout(pnlItemList);
-        pnlItemList.setLayout(pnlItemListLayout);
-        pnlItemListLayout.setHorizontalGroup(
-            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlItemListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlItemListLayout.setVerticalGroup(
-            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlItemListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
-        );
-
+        pnlItemList.setLayout(new javax.swing.BoxLayout(pnlItemList, javax.swing.BoxLayout.Y_AXIS));
         scrItemList.setViewportView(pnlItemList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -783,15 +723,6 @@ public class ItemPanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void lblProductCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductCategoryMouseClicked
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_lblProductCategoryMouseClicked
-
-    private void lblCategory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategory1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCategory1MouseClicked
 
     private void lblInsertImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsertImageMouseClicked
         // To let the user insert the image after pressed the label
@@ -821,7 +752,23 @@ public class ItemPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        pnlItemList.removeAll();
+        
+        int i = 0;
+        ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
+        for (; i < itemArray.size(); i++) {
+            ItemUniversalPanel iup = new ItemUniversalPanel(itemArray.get(i), i + 1);
+            iup.setPreferredSize(new Dimension(755, 245));
+            pnlItemList.add(iup);
+        }
+        if (i * 245 < 385) {
+            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (245 * i))));
+        }
+        pnlItemList.revalidate();
+        pnlItemList.repaint();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -950,6 +897,25 @@ public class ItemPanel extends javax.swing.JPanel {
         validateDescription(itemDescription);
     }//GEN-LAST:event_txaDescriptionFocusLost
 
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        pnlItemList.removeAll();
+        
+        int i = 0;
+        ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
+        for (; i < itemArray.size(); i++) {
+            ItemUniversalPanel iup = new ItemUniversalPanel(itemArray.get(i), i + 1);
+            iup.setPreferredSize(new Dimension(755, 245));
+            pnlItemList.add(iup);
+        }
+        if (i * 245 < 385) {
+            pnlItemList.add(Box.createRigidArea(new Dimension(0, 385 - (245 * i))));
+        }
+        pnlItemList.revalidate();
+        pnlItemList.repaint();
+    }//GEN-LAST:event_txtSearchKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
@@ -958,25 +924,20 @@ public class ItemPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbCategory;
     private javax.swing.JComboBox<String> cmbSupplier;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblAddItem;
     private javax.swing.JLabel lblBrand;
     private javax.swing.JLabel lblBrandError;
     private javax.swing.JLabel lblCategory;
-    private javax.swing.JLabel lblCategory1;
     private javax.swing.JLabel lblCategoryError;
     private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblDescriptionError;
-    private javax.swing.JLabel lblEdit;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblImageError;
     private javax.swing.JLabel lblInsertImage;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNameError;
-    private javax.swing.JLabel lblProductCategory;
     private javax.swing.JLabel lblQuantity;
     private javax.swing.JLabel lblQuantityError;
-    private javax.swing.JLabel lblRemove;
     private javax.swing.JLabel lblSellingPrice;
     private javax.swing.JLabel lblSellingPriceError;
     private javax.swing.JLabel lblSupplier;
@@ -984,7 +945,6 @@ public class ItemPanel extends javax.swing.JPanel {
     private javax.swing.JPanel pnlAddItem;
     private javax.swing.JPanel pnlAddItemForm;
     private javax.swing.JPanel pnlItemList;
-    private javax.swing.JPanel pnltemporary;
     private javax.swing.JScrollPane scrDescription;
     private javax.swing.JScrollPane scrItemList;
     private javax.swing.JTextArea txaDescription;
