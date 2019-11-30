@@ -8,13 +8,35 @@ public class MainForm extends javax.swing.JFrame {
 
     public MainForm() {
         initComponents();
-               
+        
+        resetTabs();
+        //Set the lblDashboard to white colour font and underlined. 
+        lblDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline.setVisible(true);
+        
         // Open DashboardPanel initially
         DashboardPanel dp = new DashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
     }
 
+    public void resetTabs(){
+        //Reset all the appearance of the tabs
+        pnlUnderline.setVisible(false);
+        pnlUnderline1.setVisible(false);
+        pnlUnderline2.setVisible(false);
+        pnlUnderline3.setVisible(false);
+        pnlUnderline4.setVisible(false);
+        pnlUnderline5.setVisible(false);
+        
+        lblDashboard.setForeground(new java.awt.Color(153,153,153));
+        lblProfile.setForeground(new java.awt.Color(153,153,153));
+        lblCategory.setForeground(new java.awt.Color(153,153,153));
+        lblItem.setForeground(new java.awt.Color(153,153,153));
+        lblSupplier.setForeground(new java.awt.Color(153,153,153));
+        lblCatalogue.setForeground(new java.awt.Color(153,153,153));
+        
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,6 +57,11 @@ public class MainForm extends javax.swing.JFrame {
         lblSupplier = new javax.swing.JLabel();
         lblCatalogue = new javax.swing.JLabel();
         pnlUnderline = new javax.swing.JPanel();
+        pnlUnderline1 = new javax.swing.JPanel();
+        pnlUnderline2 = new javax.swing.JPanel();
+        pnlUnderline3 = new javax.swing.JPanel();
+        pnlUnderline4 = new javax.swing.JPanel();
+        pnlUnderline5 = new javax.swing.JPanel();
         scrPanel = new javax.swing.JScrollPane();
         pnlContent = new javax.swing.JPanel();
 
@@ -179,6 +206,11 @@ public class MainForm extends javax.swing.JFrame {
         lblCatalogue.setForeground(new java.awt.Color(153, 153, 153));
         lblCatalogue.setText("Catalogue");
         lblCatalogue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCatalogue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCatalogueMouseClicked(evt);
+            }
+        });
 
         pnlUnderline.setBackground(new java.awt.Color(255, 255, 255));
         pnlUnderline.setPreferredSize(new java.awt.Dimension(100, 3));
@@ -194,6 +226,76 @@ public class MainForm extends javax.swing.JFrame {
             .addGap(0, 3, Short.MAX_VALUE)
         );
 
+        pnlUnderline1.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline1.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout pnlUnderline1Layout = new javax.swing.GroupLayout(pnlUnderline1);
+        pnlUnderline1.setLayout(pnlUnderline1Layout);
+        pnlUnderline1Layout.setHorizontalGroup(
+            pnlUnderline1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlUnderline1Layout.setVerticalGroup(
+            pnlUnderline1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        pnlUnderline2.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline2.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout pnlUnderline2Layout = new javax.swing.GroupLayout(pnlUnderline2);
+        pnlUnderline2.setLayout(pnlUnderline2Layout);
+        pnlUnderline2Layout.setHorizontalGroup(
+            pnlUnderline2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 83, Short.MAX_VALUE)
+        );
+        pnlUnderline2Layout.setVerticalGroup(
+            pnlUnderline2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        pnlUnderline3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline3.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout pnlUnderline3Layout = new javax.swing.GroupLayout(pnlUnderline3);
+        pnlUnderline3.setLayout(pnlUnderline3Layout);
+        pnlUnderline3Layout.setHorizontalGroup(
+            pnlUnderline3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlUnderline3Layout.setVerticalGroup(
+            pnlUnderline3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        pnlUnderline4.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline4.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout pnlUnderline4Layout = new javax.swing.GroupLayout(pnlUnderline4);
+        pnlUnderline4.setLayout(pnlUnderline4Layout);
+        pnlUnderline4Layout.setHorizontalGroup(
+            pnlUnderline4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlUnderline4Layout.setVerticalGroup(
+            pnlUnderline4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        pnlUnderline5.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline5.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout pnlUnderline5Layout = new javax.swing.GroupLayout(pnlUnderline5);
+        pnlUnderline5.setLayout(pnlUnderline5Layout);
+        pnlUnderline5Layout.setHorizontalGroup(
+            pnlUnderline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlUnderline5Layout.setVerticalGroup(
+            pnlUnderline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout pnlTabsLayout = new javax.swing.GroupLayout(pnlTabs);
         pnlTabs.setLayout(pnlTabsLayout);
         pnlTabsLayout.setHorizontalGroup(
@@ -201,20 +303,29 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(pnlTabsLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlTabsLayout.createSequentialGroup()
-                        .addComponent(lblDashboard)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblProfile)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblCategory)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblItem)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblSupplier)
-                        .addGap(35, 35, 35)
-                        .addComponent(lblCatalogue)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblDashboard)
+                    .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCategory)
+                    .addComponent(pnlUnderline2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlUnderline3, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(lblItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline4, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline5, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         pnlTabsLayout.setVerticalGroup(
             pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,7 +339,14 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(lblCatalogue)
                     .addComponent(lblCategory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlUnderline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         scrPanel.setBackground(new java.awt.Color(18, 22, 31));
@@ -257,7 +375,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(pnlTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(scrPanel))
+                .addComponent(scrPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         setSize(new java.awt.Dimension(800, 550));
@@ -314,6 +433,11 @@ public class MainForm extends javax.swing.JFrame {
         ProfilePanel pp = new ProfilePanel();
         pnlContent.add(pp);
         pnlContent.revalidate();
+        
+        resetTabs();
+        //Set the lblProfile to white colour font and underlined. 
+        lblProfile.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline1.setVisible(true);
     }//GEN-LAST:event_lblProfileMouseClicked
 
     private void lblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashboardMouseClicked
@@ -321,6 +445,11 @@ public class MainForm extends javax.swing.JFrame {
         DashboardPanel dp = new DashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
+        
+        resetTabs();
+        //Set the lblDashboard to white colour font and underlined. 
+        lblDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline.setVisible(true);
     }//GEN-LAST:event_lblDashboardMouseClicked
 
     private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
@@ -328,6 +457,11 @@ public class MainForm extends javax.swing.JFrame {
         ProductCategoryPanel cp = new ProductCategoryPanel();
         pnlContent.add(cp);
         pnlContent.revalidate();
+        
+        resetTabs();
+        //Set the lblCategory to white colour font and underlined. 
+        lblCategory.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline2.setVisible(true);
     }//GEN-LAST:event_lblCategoryMouseClicked
 
     private void lblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblItemMouseClicked
@@ -335,6 +469,11 @@ public class MainForm extends javax.swing.JFrame {
         ProductItemPanel ip = new ProductItemPanel();
         pnlContent.add(ip);
         pnlContent.revalidate();
+        
+        resetTabs();
+        //Set the lblItem to white colour font and underlined. 
+        lblItem.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline3.setVisible(true);
     }//GEN-LAST:event_lblItemMouseClicked
 
     private void lblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSupplierMouseClicked
@@ -342,7 +481,24 @@ public class MainForm extends javax.swing.JFrame {
         SupplierPanel sp = new SupplierPanel();
         pnlContent.add(sp);
         pnlContent.revalidate();
+        
+        resetTabs();
+        //Set the lblSupplier to white colour font and underlined. 
+        lblSupplier.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline4.setVisible(true);
     }//GEN-LAST:event_lblSupplierMouseClicked
+
+    private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
+        pnlContent.removeAll();
+        ProductCataloguePanel pcp = new ProductCataloguePanel();
+        pnlContent.add(pcp);
+        pnlContent.revalidate();
+        
+        resetTabs();
+        //Set the lblCatalogue to white colour font and underlined. 
+        lblCatalogue.setForeground(new java.awt.Color(255, 255, 255));
+        pnlUnderline5.setVisible(true);
+    }//GEN-LAST:event_lblCatalogueMouseClicked
 
     /**
      * @param args the command line arguments
@@ -407,6 +563,11 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel pnlFrameBar;
     private javax.swing.JPanel pnlTabs;
     private javax.swing.JPanel pnlUnderline;
+    private javax.swing.JPanel pnlUnderline1;
+    private javax.swing.JPanel pnlUnderline2;
+    private javax.swing.JPanel pnlUnderline3;
+    private javax.swing.JPanel pnlUnderline4;
+    private javax.swing.JPanel pnlUnderline5;
     public javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
 }
