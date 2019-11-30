@@ -38,11 +38,13 @@ public class ProfilePanel extends javax.swing.JPanel {
     }
 
     private void resetFields() {
+        // Fill the fields with User information
         txtName.setText(User.myUser.getUserName());
         txtAddress.setText(User.myUser.getUserAddress());
         txtEmail.setText(User.myUser.getUserEmail());
         lblUserLoginName.setText(User.myUser.getUserLoginName());
 
+        // Clear the fields
         txtOldPassword.setText("");
         txtNewPassword.setText("");
         txtConfirmNewPassword.setText("");

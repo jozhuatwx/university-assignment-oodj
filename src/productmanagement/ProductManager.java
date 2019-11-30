@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ProductManager extends User {
-  // Constant variables
+  // Constant fields
   public static final String ROLE = "PM";
   public static final String ACTIVE = "active";
   public static final String INACTIVE = "inactive";

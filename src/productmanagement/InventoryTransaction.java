@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class InventoryTransaction {
-  // Constant variables
+  // Constant fields
   public static final String FILE_NAME = "InventoryTransaction.txt";
   public static final String TEMP_FILE_NAME = "TempInventoryTransaction.txt";
 

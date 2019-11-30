@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Supplier {
-  // Constant variables
+  // Constant fields
   public static final String FILE_NAME = "Supplier.txt";
   public static final String TEMP_FILE_NAME = "TempSupplier.txt";
   public static final String ACTIVE = "active";

@@ -1,7 +1,7 @@
 package productmanagement;
 
 public class Administrator extends User {
-  // Constant variables
+  // Constant fields
   public static final String ROLE = "AD";
 
   // Construct the Administrator
