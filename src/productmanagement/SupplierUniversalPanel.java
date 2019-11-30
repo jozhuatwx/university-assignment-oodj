@@ -394,12 +394,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             // When the textbox is enabled, set the boolean variable to true.
             isEditing = true;
         } else {
-            txtName.setEnabled(false);
-            txtEmail.setEnabled(false);
-            txtContact.setEnabled(false);
-            txtAddress.setEnabled(false);
-            lblControl.setEnabled(true);
-
             boolean validated = true;
         
             String supplierName = txtName.getText().trim();
@@ -429,6 +423,12 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                 if (Supplier.modify(modifiedSupplier)) {
                     supplier = modifiedSupplier;
                     resetFields();
+                    
+                    txtName.setEnabled(false);
+                    txtEmail.setEnabled(false);
+                    txtContact.setEnabled(false);
+                    txtAddress.setEnabled(false);
+                    lblControl.setEnabled(true);
 
                     // Change the icon from save icon to edit icon
                     lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));

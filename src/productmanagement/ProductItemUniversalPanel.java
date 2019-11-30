@@ -536,16 +536,6 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             // When the textbox is enabled, set the boolean variable to true.
             isEditing = true;
         } else {
-            txtName.setEnabled(false);
-            txtBrand.setEnabled(false);
-            txtQuantity.setEnabled(false);
-            txtSellingPrice.setEnabled(false);
-            cmbSupplier.setEnabled(false);
-            cmbCategory.setEnabled(false);
-            txaDescription.setEnabled(false);
-            lblInsertImage.setEnabled(false);
-            btnStatus.setEnabled(false);
-
             boolean validated = true;
 
             String itemName = txtName.getText().trim();
@@ -609,6 +599,16 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     ProductItem item = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
                     if (ProductItem.modify(item, itemQuantity)) {
                         resetFields();
+
+                        txtName.setEnabled(false);
+                        txtBrand.setEnabled(false);
+                        txtQuantity.setEnabled(false);
+                        txtSellingPrice.setEnabled(false);
+                        cmbSupplier.setEnabled(false);
+                        cmbCategory.setEnabled(false);
+                        txaDescription.setEnabled(false);
+                        lblInsertImage.setEnabled(false);
+                        btnStatus.setEnabled(false);
 
                         // Change the icon from save icon to edit icon
                         lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));

@@ -79,20 +79,6 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
             lblNameError.setText(" ");
         }
         return validated;
-    }  
-
-    private boolean validateLoginName(String userLoginName) {
-        boolean validated = true;
-
-        if (userLoginName.length() <= 0) {
-            lblLoginNameError.setText("Product Manager Login Name cannot be empty");
-            validated = false;
-        }
-
-        if (validated) {
-            lblLoginNameError.setText(" ");
-        }
-        return validated;
     }
 
     private boolean validateAddress(String userAddress) {
@@ -441,12 +427,6 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
             isEditing = true;
 
         } else {
-            txtName.setEnabled(false);
-            txtEmail.setEnabled(false);
-            txtLoginName.setEnabled(false);
-            txtAddress.setEnabled(false);
-            lblControl.setEnabled(true);
-
             boolean validated = true;
 
             String userId = User.myUser.getUserId();
@@ -489,6 +469,12 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                     // Update the Product Manager
                     if (ProductManager.modify(userDetail, false)) {
                         resetFields();
+
+                        txtName.setEnabled(false);
+                        txtEmail.setEnabled(false);
+                        txtLoginName.setEnabled(false);
+                        txtAddress.setEnabled(false);
+                        lblControl.setEnabled(true);
 
                         // Change the icon from save icon to edit icon
                         lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
