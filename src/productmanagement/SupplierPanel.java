@@ -15,7 +15,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         initComponents();
         // Hide the Panel
         hideAddPanel();
-        // If the user is Product Manager, then hide the Add and Modify button
+        // Hide the Add button for Product Manager
         if (ProductManager.isProductManager()){
             btnAdd.setVisible(false);
         }
