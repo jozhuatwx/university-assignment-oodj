@@ -103,7 +103,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         txaDescription.setText(catalogue.getCatalogueDescription());
         ftxStartDate.setValue(convertToDate(catalogue.getCatalogueStartDate()));
         ftxEndDate.setValue(convertToDate(catalogue.getCatalogueEndDate()));
-        lblImage.setIcon(resizeImage(catalogue.getCatalogueBannerPath()));
+        lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
         lblUserId.setText(catalogue.getCatalogueUserId());
 
         // Calculate the number of pages
@@ -123,13 +123,13 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }
     
     // Create a method to resize the image and label
-    private ImageIcon resizeImage(String imagePath){
+    private ImageIcon resizeImage(String imagePath) {
         // Get the imageicon
         ImageIcon MyImage = new ImageIcon(imagePath);
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(lblImage.getWidth(),lblImage.getHeight(),Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -357,7 +357,6 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblDescriptionError.setText(" ");
 
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/add.png"))); // NOI18N
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblImage.setEnabled(false);
         lblImage.setPreferredSize(new java.awt.Dimension(325, 60));

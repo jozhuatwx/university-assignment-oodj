@@ -138,13 +138,13 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         return validated;
     }
     
-    private ImageIcon resizeImage(String imagePath){
+    private ImageIcon resizeImage(String imagePath) {
         // Get the imageicon
         ImageIcon MyImage = new ImageIcon(imagePath);
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(lblImage.getWidth(),lblImage.getHeight(),Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -379,6 +379,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
         btnSubmit.setBackground(new java.awt.Color(46, 52, 66));
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Add");
         btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSubmit.setPreferredSize(new java.awt.Dimension(150, 40));
@@ -390,6 +391,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(46, 52, 66));
         btnCancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
         btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));

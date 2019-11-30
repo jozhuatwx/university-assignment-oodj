@@ -49,7 +49,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         txtBrand.setText(item.getItemBrand());
         txtSellingPrice.setText(String.valueOf(Math.round(item.getItemPrice())));
         txaDescription.setText(item.getItemDescription());
-        lblInsertImage.setIcon(resizeImage(item.getItemImagePath()));
+        lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
 
         switch (item.getItemStatus()) {
             case ProductItem.ACTIVE:
@@ -105,7 +105,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }
 
     // Create a method to resize the image and label
-    private ImageIcon resizeImage(String imagePath){
+    private ImageIcon resizeImage(String imagePath) {
         int x, y;
         
         // Get the imageicon and get the width & height of the image
@@ -117,18 +117,18 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         // To resize the label based on the dimension
         if (x > y) {
             // If the width longer than height, then it is a horizontal image
-            lblInsertImage.setSize(160,128);
+            lblImage.setSize(160,128);
         } else if (y > x){
             // If the height longer than width, then it is a vertical image
-            lblInsertImage.setSize(102, 128);
+            lblImage.setSize(102, 128);
         } else {
             // The width is equal to the height, then it is a square image
-            lblInsertImage.setSize(128, 128);
+            lblImage.setSize(128, 128);
         }
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(lblInsertImage.getWidth(),lblInsertImage.getHeight(),Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -280,7 +280,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
         pnlBackground = new javax.swing.JPanel();
         lblNum = new javax.swing.JLabel();
-        lblInsertImage = new javax.swing.JLabel();
+        lblImage = new javax.swing.JLabel();
         lblImageError = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblNameError = new javax.swing.JLabel();
@@ -311,13 +311,13 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         lblNum.setText("1.");
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
-        lblInsertImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        lblInsertImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblInsertImage.setEnabled(false);
-        lblInsertImage.setPreferredSize(new java.awt.Dimension(160, 128));
-        lblInsertImage.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImage.setEnabled(false);
+        lblImage.setPreferredSize(new java.awt.Dimension(160, 128));
+        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblInsertImageMouseClicked(evt);
+                lblImageMouseClicked(evt);
             }
         });
 
@@ -516,7 +516,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblImageError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblInsertImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -553,7 +553,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(lblInsertImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblImageError)
                                 .addGap(18, 18, 18)
@@ -647,7 +647,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             cmbSupplier.setEnabled(true);
             cmbCategory.setEnabled(true);
             txaDescription.setEnabled(true);
-            lblInsertImage.setEnabled(true);
+            lblImage.setEnabled(true);
             btnStatus.setEnabled(true);
             btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -732,7 +732,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                         cmbSupplier.setEnabled(false);
                         cmbCategory.setEnabled(false);
                         txaDescription.setEnabled(false);
-                        lblInsertImage.setEnabled(false);
+                        lblImage.setEnabled(false);
                         btnStatus.setEnabled(false);
                         btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
@@ -751,7 +751,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_lblEditMouseClicked
 
-    private void lblInsertImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsertImageMouseClicked
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         if (isEditing) {
             // To let the user insert the image after pressed the label
             JFileChooser file = new JFileChooser();
@@ -766,14 +766,14 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             if (result == JFileChooser.APPROVE_OPTION){
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
-                lblInsertImage.setIcon(resizeImage(path));
+                lblImage.setIcon(resizeImage(path));
                 imageFilePath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
-                lblInsertImage.setIcon(new ImageIcon(getClass().getResource(item.getItemImagePath())));
+                lblImage.setIcon(new ImageIcon(getClass().getResource(item.getItemImagePath())));
                 imageFilePath = item.getItemImagePath();
             }
         }
-    }//GEN-LAST:event_lblInsertImageMouseClicked
+    }//GEN-LAST:event_lblImageMouseClicked
 
     private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
         if (txtName.getText().trim().equalsIgnoreCase("Name")) {
@@ -884,8 +884,8 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblCategoryError;
     private javax.swing.JLabel lblDescriptionError;
     private javax.swing.JLabel lblEdit;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblImageError;
-    private javax.swing.JLabel lblInsertImage;
     private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblNum;
     private javax.swing.JLabel lblQuantityError;

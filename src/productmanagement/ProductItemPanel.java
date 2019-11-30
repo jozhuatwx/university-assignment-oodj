@@ -55,7 +55,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         txtSellingPrice.setText("Selling Price");
         txtQuantity.setText("Quantity");
         txaDescription.setText("Description");
-        lblInsertImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+        lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
         lblNameError.setText(" ");
         lblBrandError.setText(" ");
         lblSellingPriceError.setText(" ");
@@ -133,18 +133,18 @@ public class ProductItemPanel extends javax.swing.JPanel {
         // To resize the label based on the dimension
         if (x > y) {
             // If the width longer than height, then it is a horizontal image
-            lblInsertImage.setSize(160,128);
+            lblImage.setSize(160,128);
         } else if (y > x){
             // If the height longer than width, then it is a vertical image
-            lblInsertImage.setSize(102, 128);
+            lblImage.setSize(102, 128);
         } else {
             // The width is equal to the height, then it is a square image
-            lblInsertImage.setSize(128, 128);
+            lblImage.setSize(128, 128);
         }
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance(lblInsertImage.getWidth(),lblInsertImage.getHeight(),Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -348,8 +348,8 @@ public class ProductItemPanel extends javax.swing.JPanel {
         scrDescription = new javax.swing.JScrollPane();
         txaDescription = new javax.swing.JTextArea();
         lblDescriptionError = new javax.swing.JLabel();
+        lblSelectImage = new javax.swing.JLabel();
         lblImage = new javax.swing.JLabel();
-        lblInsertImage = new javax.swing.JLabel();
         lblImageError = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -580,20 +580,20 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblDescriptionError.setForeground(new java.awt.Color(255, 0, 0));
         lblDescriptionError.setText(" ");
 
-        lblImage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        lblImage.setForeground(new java.awt.Color(255, 255, 255));
-        lblImage.setText("Image :");
+        lblSelectImage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblSelectImage.setForeground(new java.awt.Color(255, 255, 255));
+        lblSelectImage.setText("Image :");
 
-        lblInsertImage.setBackground(new java.awt.Color(255, 255, 255));
-        lblInsertImage.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblInsertImage.setForeground(new java.awt.Color(255, 255, 255));
-        lblInsertImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png"))); // NOI18N
-        lblInsertImage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        lblInsertImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblInsertImage.setPreferredSize(new java.awt.Dimension(156, 128));
-        lblInsertImage.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblImage.setBackground(new java.awt.Color(255, 255, 255));
+        lblImage.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblImage.setForeground(new java.awt.Color(255, 255, 255));
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png"))); // NOI18N
+        lblImage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImage.setPreferredSize(new java.awt.Dimension(156, 128));
+        lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblInsertImageMouseClicked(evt);
+                lblImageMouseClicked(evt);
             }
         });
 
@@ -658,7 +658,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddItemFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblImage)
+                                .addComponent(lblSelectImage)
                                 .addComponent(lblSellingPrice)
                                 .addComponent(lblQuantity)
                                 .addComponent(lblSupplier)
@@ -668,7 +668,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                                 .addComponent(lblQuantityError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtSellingPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblSellingPriceError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblInsertImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblImageError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddItemFormLayout.createSequentialGroup()
                                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -720,9 +720,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblSellingPriceError)
                         .addGap(18, 18, 18)
-                        .addComponent(lblImage)
+                        .addComponent(lblSelectImage)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblInsertImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlAddItemFormLayout.createSequentialGroup()
                         .addComponent(lblNameError)
                         .addGap(18, 18, 18)
@@ -810,7 +810,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblInsertImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInsertImageMouseClicked
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // To let the user insert the image after pressed the label
         JFileChooser file = new JFileChooser();
         
@@ -824,13 +824,13 @@ public class ProductItemPanel extends javax.swing.JPanel {
         if (result == JFileChooser.APPROVE_OPTION){
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
-            lblInsertImage.setIcon(resizeImage(path));
+            lblImage.setIcon(resizeImage(path));
             imageFilePath = path;
         } else if (result == JFileChooser.CANCEL_OPTION){
-            lblInsertImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+            lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
             imageFilePath = "/productmanagement/img/InsertImage.png";
         }
-    }//GEN-LAST:event_lblInsertImageMouseClicked
+    }//GEN-LAST:event_lblImageMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         hideAddPanel();
@@ -1052,11 +1052,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblDescriptionError;
     private javax.swing.JLabel lblImage;
     private javax.swing.JLabel lblImageError;
-    private javax.swing.JLabel lblInsertImage;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblQuantity;
     private javax.swing.JLabel lblQuantityError;
+    private javax.swing.JLabel lblSelectImage;
     private javax.swing.JLabel lblSellingPrice;
     private javax.swing.JLabel lblSellingPriceError;
     private javax.swing.JLabel lblSupplier;
