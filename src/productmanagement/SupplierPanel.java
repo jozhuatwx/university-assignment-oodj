@@ -14,7 +14,6 @@ public class SupplierPanel extends javax.swing.JPanel {
         if (ProductManager.isProductManager()){
             btnAdd.setVisible(false);
         }
-        resetFields();
         repopulateSupplierList();
     }
     
@@ -46,7 +45,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
         for (; i < supplierArray.size(); i++) {
             String[] details = supplierArray.get(i).split(";");
-            Supplier supplier = new Supplier(details[0], details[1], details[2], details[3], details[4], details[5]);
+            Supplier supplier = new Supplier(details);
             SupplierUniversalPanel sup = new SupplierUniversalPanel(supplier, i + 1);
             sup.setPreferredSize(new Dimension(755, 72));
             pnlSupplierList.add(sup);
@@ -429,6 +428,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         scrSupplierList.setToolTipText("");
         scrSupplierList.setMinimumSize(new java.awt.Dimension(755, 385));
         scrSupplierList.setPreferredSize(new java.awt.Dimension(755, 385));
+        scrSupplierList.getVerticalScrollBar().setUnitIncrement(16);
 
         pnlSupplierList.setBackground(new java.awt.Color(46, 52, 66));
         pnlSupplierList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N

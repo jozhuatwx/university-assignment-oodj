@@ -493,6 +493,9 @@
           <Dimension value="[755, 385]"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="scrSupplierList.getVerticalScrollBar().setUnitIncrement(16);"/>
+      </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
