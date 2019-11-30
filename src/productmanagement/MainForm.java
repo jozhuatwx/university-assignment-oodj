@@ -14,8 +14,9 @@ public class MainForm extends javax.swing.JFrame {
         lblDashboard.setForeground(new java.awt.Color(255, 255, 255));
         pnlUnderline.setVisible(true);
         
-        // Open DashboardPanel initially
-        DashboardPanel dp = new DashboardPanel();
+        // Open ProductManagerDashboardPanel initially
+        //ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
+        AdminDashboardPanel dp = new AdminDashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
     }
@@ -375,8 +376,8 @@ public class MainForm extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(pnlTabs, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(scrPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(scrPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
         setSize(new java.awt.Dimension(800, 550));
@@ -442,7 +443,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashboardMouseClicked
         pnlContent.removeAll();
-        DashboardPanel dp = new DashboardPanel();
+        ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
         
@@ -478,7 +479,8 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSupplierMouseClicked
         pnlContent.removeAll();
-        SupplierPanel sp = new SupplierPanel();
+        //SupplierPanel sp = new SupplierPanel();
+        ProductManagerPanel sp = new ProductManagerPanel();
         pnlContent.add(sp);
         pnlContent.revalidate();
         

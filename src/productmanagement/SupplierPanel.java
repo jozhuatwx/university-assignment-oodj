@@ -39,10 +39,15 @@ public class SupplierPanel extends javax.swing.JPanel {
     
     private void resetFields() {
         // Clear the fields
-        txtName.setText("");
-        txtAddress.setText("");
-        txtContact.setText("");
-        txtEmail.setText("");
+        txtName.setText("Name");
+        txtAddress.setText("Address");
+        txtContact.setText("Contact");
+        txtEmail.setText("Email");
+        
+        lblNameError.setText(" ");
+        lblAddressError.setText(" ");
+        lblContactError.setText(" ");
+        lblEmailError.setText(" ");
     }
 
     private void repopulateSupplierList() {
@@ -203,8 +208,17 @@ public class SupplierPanel extends javax.swing.JPanel {
         pnlAddSupplier.setBackground(new java.awt.Color(46, 52, 66));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -248,9 +262,13 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblName.setText("Name :");
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setText("Name");
         txtName.setBorder(null);
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNameFocusLost(evt);
             }
@@ -270,9 +288,13 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblAddress.setText("Address :");
 
         txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtAddress.setText("Address");
         txtAddress.setBorder(null);
         txtAddress.setPreferredSize(new java.awt.Dimension(350, 30));
         txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAddressFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAddressFocusLost(evt);
             }
@@ -292,9 +314,13 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblContact.setText("Contact :");
 
         txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtContact.setText("Contact");
         txtContact.setBorder(null);
         txtContact.setPreferredSize(new java.awt.Dimension(350, 30));
         txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtContactFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtContactFocusLost(evt);
             }
@@ -314,9 +340,13 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblEmail.setText("Email :");
 
         txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtEmail.setText("Email");
         txtEmail.setBorder(null);
         txtEmail.setPreferredSize(new java.awt.Dimension(350, 30));
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
             }
@@ -422,7 +452,7 @@ public class SupplierPanel extends javax.swing.JPanel {
                         .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblContactError)
                             .addComponent(lblEmailError))))
-                .addGap(33, 83, Short.MAX_VALUE))
+                .addGap(33, 84, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddSupplierFormLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlAddSupplierFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -554,6 +584,10 @@ public class SupplierPanel extends javax.swing.JPanel {
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String supplierName = txtName.getText().trim();
         validateName(supplierName);
+        
+        if (txtName.getText().trim().equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
@@ -564,6 +598,10 @@ public class SupplierPanel extends javax.swing.JPanel {
     private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
         String supplierAddress = txtAddress.getText().trim();
         validateAddress(supplierAddress);
+        
+        if (txtAddress.getText().trim().equalsIgnoreCase("")) {
+            txtAddress.setText("Address");
+        }        
     }//GEN-LAST:event_txtAddressFocusLost
 
     private void txtContactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactKeyReleased
@@ -574,6 +612,10 @@ public class SupplierPanel extends javax.swing.JPanel {
     private void txtContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusLost
         String supplierContact = txtContact.getText().trim();
         validateContact(supplierContact);
+        
+        if (txtContact.getText().trim().equalsIgnoreCase("")) {
+            txtContact.setText("Contact");
+        }
     }//GEN-LAST:event_txtContactFocusLost
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
@@ -584,11 +626,51 @@ public class SupplierPanel extends javax.swing.JPanel {
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         String supplierEmail = txtEmail.getText().trim();
         validateEmail(supplierEmail);
+        
+        if (txtEmail.getText().trim().equalsIgnoreCase("")) {
+            txtEmail.setText("Email");
+        }
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         search();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        if (txtSearch.getText().trim().equalsIgnoreCase("Search")) {
+            txtSearch.setText("");
+        }
+    }//GEN-LAST:event_txtSearchFocusGained
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        if (txtSearch.getText().trim().equalsIgnoreCase("")) {
+            txtSearch.setText("Search");
+        }
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txtAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusGained
+        if (txtAddress.getText().trim().equalsIgnoreCase("Address")) {
+            txtAddress.setText("");
+        }
+    }//GEN-LAST:event_txtAddressFocusGained
+
+    private void txtContactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusGained
+        if (txtContact.getText().trim().equalsIgnoreCase("Contact")) {
+            txtContact.setText("");
+        }
+    }//GEN-LAST:event_txtContactFocusGained
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if (txtEmail.getText().trim().equalsIgnoreCase("Email")) {
+            txtEmail.setText("");
+        }
+    }//GEN-LAST:event_txtEmailFocusGained
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

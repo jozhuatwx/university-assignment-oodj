@@ -36,6 +36,8 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     private void resetFields() {
         txtName.setText("Name");
         txaDescription.setText("Description");
+        lblNameError.setText(" ");
+        lblDescriptionError.setText(" ");
     }
 
     private void repopulateCategoriesList() {

@@ -194,11 +194,15 @@ public class LoginForm extends javax.swing.JFrame {
 
         txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtLoginName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtLoginName.setText("Login Name");
         txtLoginName.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 3, 3, new java.awt.Color(204, 204, 204)));
         txtLoginName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtLoginName.setName("txtLoginName"); // NOI18N
         txtLoginName.setPreferredSize(new java.awt.Dimension(275, 40));
         txtLoginName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtLoginNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtLoginNameFocusLost(evt);
             }
@@ -265,12 +269,9 @@ public class LoginForm extends javax.swing.JFrame {
                         .addComponent(lblLoginNameError)
                         .addComponent(lblPasswordError)
                         .addComponent(txtLoginName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
-            .addGroup(WhitePanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         WhitePanelLayout.setVerticalGroup(
             WhitePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,6 +424,7 @@ public class LoginForm extends javax.swing.JFrame {
     private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
         if (txtLoginName.getText().trim().length() <= 0) {
             lblLoginNameError.setText("Login name cannot be empty");
+            txtLoginName.setText("Login Name");
         } else {
             lblLoginNameError.setText(" ");
         }
@@ -455,6 +457,12 @@ public class LoginForm extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         login();
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtLoginNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusGained
+        if (txtLoginName.getText().trim().equalsIgnoreCase("Login Name")) {
+            txtLoginName.setText("");
+        }
+    }//GEN-LAST:event_txtLoginNameFocusGained
 
     /**
      * @param args the command line arguments
