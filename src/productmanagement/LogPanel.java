@@ -18,7 +18,7 @@ public class LogPanel extends javax.swing.JPanel {
         pnlLogList.removeAll();
 
         int i = 0;
-        ArrayList<String> logArray = ReadObject.readArray(WriteObject.LOG_FILE_NAME);
+        ArrayList<String> logArray = ReadObject.readArray(Log.LOG_FILE_NAME);
         // Iterate through the Log array
         for (; i < logArray.size(); i++) {
             // Split the line into an array
@@ -64,6 +64,9 @@ public class LogPanel extends javax.swing.JPanel {
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSearchFocusLost(evt);
             }
@@ -152,6 +155,10 @@ public class LogPanel extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

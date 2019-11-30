@@ -155,7 +155,7 @@ public class User {
             myUser.setUserRole(details[4]);
             myUser.setUserLoginName(details[5]);
             // Record the action into the log
-            WriteObject.log("Login");
+            Log.write("Login");
             return true;
           } else {
             // Display the error message
@@ -309,7 +309,7 @@ public class User {
 
   public static void logout() {
     // Record action into log
-    WriteObject.log("Logout");
+    Log.write("Logout");
     // Clear the user's information from the session
     myUser.setUserId("-1");
     myUser.setUserName("");
