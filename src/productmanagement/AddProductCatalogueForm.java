@@ -280,6 +280,19 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         txtTitle.setText("Title");
         txtTitle.setBorder(null);
         txtTitle.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTitleFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTitleFocusLost(evt);
+            }
+        });
+        txtTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTitleKeyReleased(evt);
+            }
+        });
 
         lblTitleError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblTitleError.setForeground(new java.awt.Color(255, 0, 0));
@@ -294,6 +307,19 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(5);
         txaDescription.setText("Description");
+        txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusLost(evt);
+            }
+        });
+        txaDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txaDescriptionKeyReleased(evt);
+            }
+        });
         scrDescription.setViewportView(txaDescription);
 
         lblDescriptionError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
@@ -618,6 +644,43 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void txtTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusGained
+        if (txtTitle.getText().trim().equalsIgnoreCase("Title")) {
+            txtTitle.setText("");
+        }
+    }//GEN-LAST:event_txtTitleFocusGained
+
+    private void txtTitleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusLost
+        String catalogueTitle = txtTitle.getText().trim();
+        validateTitle(catalogueTitle);
+        
+        if (txtTitle.getText().trim().equalsIgnoreCase("")) {
+            txtTitle.setText("Title");
+        }
+    }//GEN-LAST:event_txtTitleFocusLost
+
+    private void txaDescriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusGained
+        if (txaDescription.getText().trim().equalsIgnoreCase("Description")) {
+            txaDescription.setText("");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusGained
+
+    private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
+        if (txaDescription.getText().trim().equalsIgnoreCase("")) {
+            txaDescription.setText("Description");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusLost
+
+    private void txtTitleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTitleKeyReleased
+        String catalogueTitle = txtTitle.getText().trim();
+        validateTitle(catalogueTitle);
+    }//GEN-LAST:event_txtTitleKeyReleased
+
+    private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
+        String catalogueDescription = txaDescription.getText().trim();
+        validateDescription(catalogueDescription);
+    }//GEN-LAST:event_txaDescriptionKeyReleased
 
     /**
      * @param args the command line arguments

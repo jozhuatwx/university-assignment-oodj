@@ -106,7 +106,7 @@ public class SupplierPanel extends javax.swing.JPanel {
     private boolean validateName(String supplierName) {
         boolean validated = true;
 
-        if (supplierName.length() <= 0) {
+        if (supplierName.length() <= 0 || supplierName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Supplier Name cannot be empty");
             validated = false;
         } else if (!supplierName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -123,7 +123,7 @@ public class SupplierPanel extends javax.swing.JPanel {
     private boolean validateAddress(String supplierAddress) {
         boolean validated = true;
 
-        if (supplierAddress.length() <= 0) {
+        if (supplierAddress.length() <= 0 || supplierAddress.equalsIgnoreCase("Address")) {
             lblAddressError.setText("Supplier Address cannot be empty");
             validated = false;
         } else if (supplierAddress.contains(";")) {
@@ -140,7 +140,7 @@ public class SupplierPanel extends javax.swing.JPanel {
     private boolean validateEmail(String supplierEmail) {
         boolean validated = true;
 
-        if (supplierEmail.length() <= 0) {
+        if (supplierEmail.length() <= 0 || supplierEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Supplier Email cannot be empty");
             validated = false;
         } else if (!supplierEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
@@ -208,6 +208,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         pnlAddSupplier.setBackground(new java.awt.Color(46, 52, 66));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
@@ -261,7 +262,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name :");
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(null);
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -287,7 +288,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblAddress.setForeground(new java.awt.Color(255, 255, 255));
         lblAddress.setText("Address :");
 
-        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtAddress.setText("Address");
         txtAddress.setBorder(null);
         txtAddress.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -313,7 +314,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblContact.setForeground(new java.awt.Color(255, 255, 255));
         lblContact.setText("Contact :");
 
-        txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtContact.setText("Contact");
         txtContact.setBorder(null);
         txtContact.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -339,7 +340,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email :");
 
-        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtEmail.setText("Email");
         txtEmail.setBorder(null);
         txtEmail.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -534,6 +535,7 @@ public class SupplierPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         showAddPanel();
+        resetFields();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed

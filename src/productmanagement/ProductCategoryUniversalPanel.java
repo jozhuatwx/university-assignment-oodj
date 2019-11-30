@@ -88,7 +88,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
     private boolean validateName(String categoryName) {
         boolean validated = true;
 
-        if (categoryName.length() <= 0) {
+        if (categoryName.length() <= 0 || categoryName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Category Name cannot be empty");
             validated = false;
         } else if (!categoryName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -104,8 +104,11 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateDescription(String categoryDescription) {
         boolean validated = true;
-
-        if (categoryDescription.contains(";")) {
+        
+        if (categoryDescription.length() <= 0 || categoryDescription.equalsIgnoreCase("Description")) {
+            lblDescriptionError.setText("Category Description cannot be empty");
+            validated = false;
+        }else if (categoryDescription.contains(";")) {
             lblDescriptionError.setText("Category Description cannot contain semi-colons");
             validated = false;
         }
@@ -152,7 +155,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         lblNum.setText("1.");
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -183,7 +186,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         scrDescription.setPreferredSize(new java.awt.Dimension(241, 197));
 
         txaDescription.setColumns(20);
-        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(4);
         txaDescription.setText("Description");
         txaDescription.setEnabled(false);
@@ -293,7 +296,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
                                     .addComponent(lblShortDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNameError)))
-                        .addGap(18, 20, Short.MAX_VALUE)
+                        .addGap(18, 21, Short.MAX_VALUE)
                         .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblDescriptionError)))

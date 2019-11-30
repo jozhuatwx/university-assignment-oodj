@@ -2,6 +2,7 @@ package productmanagement;
 
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class MainForm extends javax.swing.JFrame {
     int xMouse, yMouse;
@@ -16,7 +17,7 @@ public class MainForm extends javax.swing.JFrame {
         
         // Open ProductManagerDashboardPanel initially
         //ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
-        AdminDashboardPanel dp = new AdminDashboardPanel();
+        ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
     }
@@ -50,6 +51,7 @@ public class MainForm extends javax.swing.JFrame {
         pnlFrameBar = new javax.swing.JPanel();
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
+        lblLogout = new javax.swing.JLabel();
         pnlTabs = new javax.swing.JPanel();
         lblDashboard = new javax.swing.JLabel();
         lblProfile = new javax.swing.JLabel();
@@ -131,19 +133,39 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        lblLogout.setBackground(new java.awt.Color(0, 0, 51));
+        lblLogout.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 24)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/logout.png"))); // NOI18N
+        lblLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblLogout.setMaximumSize(new java.awt.Dimension(45, 25));
+        lblLogout.setMinimumSize(new java.awt.Dimension(45, 25));
+        lblLogout.setName("lblMinimize"); // NOI18N
+        lblLogout.setOpaque(true);
+        lblLogout.setPreferredSize(new java.awt.Dimension(45, 25));
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFrameBarLayout = new javax.swing.GroupLayout(pnlFrameBar);
         pnlFrameBar.setLayout(pnlFrameBarLayout);
         pnlFrameBarLayout.setHorizontalGroup(
             pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameBarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblClose, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         pnlFrameBarLayout.setVerticalGroup(
             pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameBarLayout.createSequentialGroup()
                 .addComponent(lblClose, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -479,8 +501,8 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSupplierMouseClicked
         pnlContent.removeAll();
-        //SupplierPanel sp = new SupplierPanel();
-        ProductManagerPanel sp = new ProductManagerPanel();
+        SupplierPanel sp = new SupplierPanel();
+        //ProductManagerPanel sp = new ProductManagerPanel();
         pnlContent.add(sp);
         pnlContent.revalidate();
         
@@ -492,7 +514,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
         pnlContent.removeAll();
-        ProductCataloguePanel pcp = new ProductCataloguePanel();
+        ProductManagerPanel pcp = new ProductManagerPanel();
         pnlContent.add(pcp);
         pnlContent.revalidate();
         
@@ -501,6 +523,16 @@ public class MainForm extends javax.swing.JFrame {
         lblCatalogue.setForeground(new java.awt.Color(255, 255, 255));
         pnlUnderline5.setVisible(true);
     }//GEN-LAST:event_lblCatalogueMouseClicked
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to log out? Your unsave information will be erased.","Log Out", JOptionPane.YES_NO_OPTION);
+        
+        if(opt == 0 ){
+            LoginForm lf = new LoginForm();
+            lf.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -558,6 +590,7 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblDashboard;
     private javax.swing.JLabel lblItem;
+    private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblSupplier;

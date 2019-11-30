@@ -137,7 +137,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     private boolean validateName(String itemName) {
         boolean validated = true;
 
-        if (itemName.length() <= 0) {
+        if (itemName.length() <= 0 || itemName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Item Name cannot be empty");
             validated = false;
         } else if (!itemName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -154,10 +154,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     private boolean validateBrand(String itemBrand) {
         boolean validated = true;
 
-        if (itemBrand.length() <= 0) {
+        if (itemBrand.length() <= 0 || itemBrand.equalsIgnoreCase("Brand")) {
             lblBrandError.setText("Item Brand cannot be empty");
             validated = false;
-        } else if (!itemBrand.contains(";")) {
+        } else if (itemBrand.contains(";")) {
             lblBrandError.setText("Item Brand cannot contain semi-colons");
             validated = false;
         }
@@ -212,8 +212,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateDescription(String itemDescription) {
         boolean validated = true;
-
-        if (itemDescription.contains(";")) {
+        
+        if (itemDescription.length() <= 0 || itemDescription.equalsIgnoreCase("Description")) {
+            lblDescriptionError.setText("Category Description cannot be empty");
+            validated = false;
+        }else if (itemDescription.contains(";")) {
             lblDescriptionError.setText("Item Description cannot contain semi-colons");
             validated = false;
         }
@@ -321,7 +324,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         lblImageError.setForeground(new java.awt.Color(255, 0, 0));
         lblImageError.setText(" ");
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -337,12 +340,17 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 txtNameFocusLost(evt);
             }
         });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblNameError.setText(" ");
 
-        cmbSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        cmbSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbSupplier.setEnabled(false);
         cmbSupplier.setMaximumSize(new java.awt.Dimension(225, 30));
         cmbSupplier.setMinimumSize(new java.awt.Dimension(225, 30));
@@ -352,7 +360,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         lblSupplierError.setForeground(new java.awt.Color(255, 0, 0));
         lblSupplierError.setText(" ");
 
-        cmbCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        cmbCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbCategory.setEnabled(false);
         cmbCategory.setMaximumSize(new java.awt.Dimension(225, 30));
         cmbCategory.setMinimumSize(new java.awt.Dimension(225, 30));
@@ -367,13 +375,12 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         scrDescription.setPreferredSize(new java.awt.Dimension(225, 30));
 
         txaDescription.setColumns(15);
-        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(2);
         txaDescription.setText("Description\n");
         txaDescription.setEnabled(false);
         txaDescription.setMaximumSize(new java.awt.Dimension(225, 30));
         txaDescription.setMinimumSize(new java.awt.Dimension(225, 30));
-        txaDescription.setPreferredSize(new java.awt.Dimension(225, 30));
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusGained(evt);
@@ -382,13 +389,18 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 txaDescriptionFocusLost(evt);
             }
         });
+        txaDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txaDescriptionKeyReleased(evt);
+            }
+        });
         scrDescription.setViewportView(txaDescription);
 
         lblDescriptionError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblDescriptionError.setForeground(new java.awt.Color(255, 0, 0));
         lblDescriptionError.setText(" ");
 
-        txtBrand.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtBrand.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtBrand.setText("Brand");
         txtBrand.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtBrand.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -402,12 +414,17 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 txtBrandFocusLost(evt);
             }
         });
+        txtBrand.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBrandKeyReleased(evt);
+            }
+        });
 
         lblBrandError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblBrandError.setForeground(new java.awt.Color(255, 0, 0));
         lblBrandError.setText(" ");
 
-        txtQuantity.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtQuantity.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtQuantity.setText("Quantity");
         txtQuantity.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtQuantity.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -423,12 +440,17 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 txtQuantityFocusLost(evt);
             }
         });
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyReleased(evt);
+            }
+        });
 
         lblQuantityError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblQuantityError.setForeground(new java.awt.Color(255, 0, 0));
         lblQuantityError.setText(" ");
 
-        txtSellingPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtSellingPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSellingPrice.setText("Selling Price");
         txtSellingPrice.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtSellingPrice.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -442,6 +464,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSellingPriceFocusLost(evt);
+            }
+        });
+        txtSellingPrice.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSellingPriceKeyReleased(evt);
             }
         });
 
@@ -752,6 +779,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameFocusGained
 
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        String itemName = txtName.getText().trim();
+        validateName(itemName);
+        
         if (txtName.getText().trim().equalsIgnoreCase("")) {
             txtName.setText("Name");
         }
@@ -764,6 +794,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtQuantityFocusGained
 
     private void txtQuantityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantityFocusLost
+        String itemQuantityString = txtQuantity.getText().trim();
+        validateQuantity(itemQuantityString);
+        
         if (txtQuantity.getText().trim().equalsIgnoreCase("")) {
             txtQuantity.setText("Quantity");
         }
@@ -776,6 +809,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSellingPriceFocusGained
 
     private void txtSellingPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusLost
+        String itemPriceString = txtSellingPrice.getText().trim();
+        validatePrice(itemPriceString);
+        
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("")) {
             txtSellingPrice.setText("Selling Price");
         }
@@ -788,6 +824,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBrandFocusGained
 
     private void txtBrandFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBrandFocusLost
+        String itemBrand = txtBrand.getText().trim();
+        validateBrand(itemBrand);
+        
         if (txtBrand.getText().trim().equalsIgnoreCase("")) {
             txtBrand.setText("Brand");
         }
@@ -800,10 +839,38 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txaDescriptionFocusGained
 
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
+        String itemDescription = txaDescription.getText().trim();
+        validateDescription(itemDescription);
+        
         if (txaDescription.getText().trim().equalsIgnoreCase("")) {
             txaDescription.setText("Description");
         }
     }//GEN-LAST:event_txaDescriptionFocusLost
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        String itemName = txtName.getText().trim();
+        validateName(itemName);
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtQuantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyReleased
+        String itemQuantityString = txtQuantity.getText().trim();
+        validateQuantity(itemQuantityString);
+    }//GEN-LAST:event_txtQuantityKeyReleased
+
+    private void txtSellingPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellingPriceKeyReleased
+        String itemPriceString = txtSellingPrice.getText().trim();
+        validatePrice(itemPriceString);
+    }//GEN-LAST:event_txtSellingPriceKeyReleased
+
+    private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
+        String itemDescription = txaDescription.getText().trim();
+        validateDescription(itemDescription);
+    }//GEN-LAST:event_txaDescriptionKeyReleased
+
+    private void txtBrandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBrandKeyReleased
+        String itemBrand = txtBrand.getText().trim();
+        validateBrand(itemBrand);
+    }//GEN-LAST:event_txtBrandKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

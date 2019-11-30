@@ -422,7 +422,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFrameBarMousePressed
 
     private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
-        if (txtLoginName.getText().trim().length() <= 0) {
+        if (txtLoginName.getText().trim().length() <= 0 || txtLoginName.getText().trim().equalsIgnoreCase("Login Name") || txtLoginName.getText().trim().equalsIgnoreCase("LoginName")) {
             lblLoginNameError.setText("Login name cannot be empty");
             txtLoginName.setText("Login Name");
         } else {
@@ -431,7 +431,7 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtLoginNameFocusLost
 
     private void txtLoginNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLoginNameKeyReleased
-        if (txtLoginName.getText().trim().length() <= 0) {
+        if (txtLoginName.getText().trim().length() <= 0 || txtLoginName.getText().trim().equalsIgnoreCase("Login Name") || txtLoginName.getText().trim().equalsIgnoreCase("LoginName")) {
             lblLoginNameError.setText("Login name cannot be empty");
         } else {
             lblLoginNameError.setText(" ");

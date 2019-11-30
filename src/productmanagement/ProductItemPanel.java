@@ -179,7 +179,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private boolean validateName(String itemName) {
         boolean validated = true;
 
-        if (itemName.length() <= 0) {
+        if (itemName.length() <= 0 || itemName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Item Name cannot be empty");
             validated = false;
         } else if (!itemName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -196,10 +196,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private boolean validateBrand(String itemBrand) {
         boolean validated = true;
 
-        if (itemBrand.length() <= 0) {
+        if (itemBrand.length() <= 0 || itemBrand.equalsIgnoreCase("Brand")) {
             lblBrandError.setText("Item Brand cannot be empty");
             validated = false;
-        } else if (!itemBrand.contains(";")) {
+        } else if (itemBrand.contains(";")) {
             lblBrandError.setText("Item Brand cannot contain semi-colons");
             validated = false;
         }
@@ -254,8 +254,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private boolean validateDescription(String itemDescription) {
         boolean validated = true;
-
-        if (itemDescription.contains(";")) {
+        
+        if (itemDescription.length() <= 0 || itemDescription.equalsIgnoreCase("Description")) {
+            lblDescriptionError.setText("Category Description cannot be empty");
+            validated = false;
+        }else if (itemDescription.contains(";")) {
             lblDescriptionError.setText("Item Description cannot contain semi-colons");
             validated = false;
         }
@@ -359,6 +362,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         pnlAddItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
@@ -412,7 +416,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblCategory.setForeground(new java.awt.Color(255, 255, 255));
         lblCategory.setText("Category :");
 
-        cmbCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        cmbCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbCategory.setBorder(null);
         cmbCategory.setMinimumSize(new java.awt.Dimension(350, 30));
         cmbCategory.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -425,7 +429,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblSupplier.setForeground(new java.awt.Color(255, 255, 255));
         lblSupplier.setText("Supplier :");
 
-        cmbSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        cmbSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbSupplier.setMaximumSize(new java.awt.Dimension(350, 30));
         cmbSupplier.setMinimumSize(new java.awt.Dimension(350, 30));
         cmbSupplier.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -438,7 +442,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name :");
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(null);
         txtName.setMinimumSize(new java.awt.Dimension(350, 30));
@@ -465,7 +469,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblQuantity.setForeground(new java.awt.Color(255, 255, 255));
         lblQuantity.setText("Quantity :");
 
-        txtQuantity.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtQuantity.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtQuantity.setText("Quantity");
         txtQuantity.setBorder(null);
         txtQuantity.setMaximumSize(new java.awt.Dimension(350, 30));
@@ -493,7 +497,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblBrand.setForeground(new java.awt.Color(255, 255, 255));
         lblBrand.setText("Brand :");
 
-        txtBrand.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtBrand.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtBrand.setText("Brand");
         txtBrand.setBorder(null);
         txtBrand.setMinimumSize(new java.awt.Dimension(350, 30));
@@ -520,7 +524,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblSellingPrice.setForeground(new java.awt.Color(255, 255, 255));
         lblSellingPrice.setText("Selling Price :");
 
-        txtSellingPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtSellingPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSellingPrice.setText("Selling Price");
         txtSellingPrice.setBorder(null);
         txtSellingPrice.setMaximumSize(new java.awt.Dimension(350, 30));
@@ -551,7 +555,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         scrDescription.setToolTipText("");
 
         txaDescription.setColumns(20);
-        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(8);
         txaDescription.setText("Description\n");
         txaDescription.setBorder(null);
@@ -834,6 +838,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         showAddPanel();
+        resetFields();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed

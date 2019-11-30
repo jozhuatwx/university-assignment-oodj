@@ -67,7 +67,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     private boolean validateName(String userName) {
         boolean validated = true;
 
-        if (userName.length() <= 0) {
+        if (userName.length() <= 0 || userName.equalsIgnoreCase("Name")) {
             lblNameError.setText("User Name cannot be empty");
             validated = false;
         } else if (!userName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -84,10 +84,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private boolean validateAddress(String userAddress) {
         boolean validated = true;
 
-        if (userAddress.length() <= 0) {
+        if (userAddress.length() <= 0 || userAddress.equalsIgnoreCase("Address")) {
             lblAddressError.setText("User Address cannot be empty");
             validated = false;
-        } else if (!userAddress.contains(";")) {
+        } else if (userAddress.contains(";")) {
             lblAddressError.setText("User Address cannot contain semi-colons");
             validated = false;
         }
@@ -101,7 +101,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     private boolean validateEmail(String userEmail) {
         boolean validated = true;
 
-        if (userEmail.length() <= 0) {
+        if (userEmail.length() <= 0 || userEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("User Email cannot be empty");
             validated = false;
         } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
@@ -134,7 +134,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         String passwordString = new String(userPassword);
 
-        if (userPassword.length <= 8) {
+        if (userPassword.length < 8) {
             lblNewPasswordError.setText("New Password cannot be less than 8 characters");
             validated = false;
         } else if (userPassword.length > 16) {
@@ -237,7 +237,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblName.setMinimumSize(new java.awt.Dimension(200, 20));
         lblName.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setBorder(null);
         txtName.setMinimumSize(new java.awt.Dimension(7, 30));
         txtName.setPreferredSize(new java.awt.Dimension(7, 30));
@@ -266,7 +266,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblAddress.setMinimumSize(new java.awt.Dimension(200, 20));
         lblAddress.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtAddress.setBorder(null);
         txtAddress.setMinimumSize(new java.awt.Dimension(7, 30));
         txtAddress.setPreferredSize(new java.awt.Dimension(7, 30));
@@ -295,7 +295,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblEmail.setMinimumSize(new java.awt.Dimension(200, 20));
         lblEmail.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtEmail.setBorder(null);
         txtEmail.setMinimumSize(new java.awt.Dimension(7, 30));
         txtEmail.setPreferredSize(new java.awt.Dimension(7, 30));
@@ -430,7 +430,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblOldPassword.setMinimumSize(new java.awt.Dimension(200, 20));
         lblOldPassword.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtOldPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtOldPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtOldPassword.setBorder(null);
         txtOldPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtOldPassword.setPreferredSize(new java.awt.Dimension(7, 30));
@@ -460,7 +460,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblNewPasswordError.setForeground(new java.awt.Color(255, 0, 0));
         lblNewPasswordError.setText(" ");
 
-        txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtNewPassword.setBorder(null);
         txtNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));
@@ -482,7 +482,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblConfirmNewPassword.setMinimumSize(new java.awt.Dimension(200, 20));
         lblConfirmNewPassword.setPreferredSize(new java.awt.Dimension(200, 20));
 
-        txtConfirmNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtConfirmNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtConfirmNewPassword.setBorder(null);
         txtConfirmNewPassword.setMinimumSize(new java.awt.Dimension(7, 30));
         txtConfirmNewPassword.setPreferredSize(new java.awt.Dimension(7, 30));

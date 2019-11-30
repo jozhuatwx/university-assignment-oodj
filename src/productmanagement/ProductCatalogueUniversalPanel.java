@@ -280,11 +280,19 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblNum.setText("1.");
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
-        txtTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtTitle.setText("Title");
         txtTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtTitle.setEnabled(false);
         txtTitle.setPreferredSize(new java.awt.Dimension(200, 30));
+        txtTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTitleFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTitleFocusLost(evt);
+            }
+        });
 
         lblTitleError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblTitleError.setForeground(new java.awt.Color(255, 0, 0));
@@ -315,10 +323,18 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblEndDateError.setText(" ");
 
         txaDescription.setColumns(19);
-        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(4);
         txaDescription.setText("Description");
         txaDescription.setEnabled(false);
+        txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusLost(evt);
+            }
+        });
         scrDescription.setViewportView(txaDescription);
 
         lblDescriptionError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
@@ -794,6 +810,30 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         apcp.setVisible(true);
         apcp.catalogue = catalogue;
     }//GEN-LAST:event_lblEditPageMouseClicked
+
+    private void txtTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusGained
+        if (txtTitle.getText().trim().equalsIgnoreCase("Title")) {
+            txtTitle.setText("");
+        }
+    }//GEN-LAST:event_txtTitleFocusGained
+
+    private void txtTitleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusLost
+        if (txtTitle.getText().trim().equalsIgnoreCase("")) {
+            txtTitle.setText("Title");
+        }
+    }//GEN-LAST:event_txtTitleFocusLost
+
+    private void txaDescriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusGained
+        if (txaDescription.getText().trim().equalsIgnoreCase("Description")) {
+            txaDescription.setText("");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusGained
+
+    private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
+        if (txaDescription.getText().trim().equalsIgnoreCase("")) {
+            txaDescription.setText("Description");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

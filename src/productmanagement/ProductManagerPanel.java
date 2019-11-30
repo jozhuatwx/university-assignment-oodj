@@ -115,7 +115,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     private boolean validateName(String userName) {
         boolean validated = true;
 
-        if (userName.length() <= 0) {
+        if (userName.length() <= 0 || userName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Product Manager Name cannot be empty");
             validated = false;
         } else if (!userName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -132,8 +132,11 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     private boolean validateLoginName(String userLoginName) {
         boolean validated = true;
 
-        if (userLoginName.length() <= 0) {
+        if (userLoginName.length() <= 0 || userLoginName.equalsIgnoreCase("Login Name") || userLoginName.equalsIgnoreCase("LoginName")) {
             lblLoginNameError.setText("Product Manager Login Name cannot be empty");
+            validated = false;
+        }else if (userLoginName.contains(";")) {
+            lblLoginNameError.setText("Product Manager Login Name cannot contain semi-colons");
             validated = false;
         }
 
@@ -146,8 +149,11 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     private boolean validateAddress(String userAddress) {
         boolean validated = true;
 
-        if (userAddress.length() <= 0) {
+        if (userAddress.length() <= 0 || userAddress.equalsIgnoreCase("Address")) {
             lblAddressError.setText("Product Manager Address cannot be empty");
+            validated = false;
+        }else if (userAddress.contains(";")) {
+            lblAddressError.setText("Product Manager Address cannot contain semi-colons");
             validated = false;
         }
         
@@ -160,7 +166,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     private boolean validateEmail(String userEmail) {
         boolean validated = true;
 
-        if (userEmail.length() <= 0) {
+        if (userEmail.length() <= 0 || userEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Product Manager Email cannot be empty");
             validated = false;
         } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
@@ -253,6 +259,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         pnlAddProductManager.setBackground(new java.awt.Color(46, 52, 66));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
@@ -305,7 +312,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name :");
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -330,7 +337,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblLoginName.setForeground(new java.awt.Color(255, 255, 255));
         lblLoginName.setText("Login Name :");
 
-        txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtLoginName.setText("Login Name");
         txtLoginName.setPreferredSize(new java.awt.Dimension(350, 30));
         txtLoginName.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -355,7 +362,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblAddress.setForeground(new java.awt.Color(255, 255, 255));
         lblAddress.setText("Address :");
 
-        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtAddress.setText("Address");
         txtAddress.setPreferredSize(new java.awt.Dimension(350, 30));
         txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -380,7 +387,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblPassword.setText("Password :");
 
-        txtPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtPassword.setPreferredSize(new java.awt.Dimension(350, 30));
         txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -401,10 +408,13 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblEmail.setForeground(new java.awt.Color(255, 255, 255));
         lblEmail.setText("Email :");
 
-        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtEmail.setText("Email");
         txtEmail.setPreferredSize(new java.awt.Dimension(350, 30));
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
             }
@@ -423,7 +433,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblConfirmPassword.setForeground(new java.awt.Color(255, 255, 255));
         lblConfirmPassword.setText("Confirm Password :");
 
-        txtConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtConfirmPassword.setPreferredSize(new java.awt.Dimension(350, 30));
         txtConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -796,6 +806,12 @@ public class ProductManagerPanel extends javax.swing.JPanel {
             txtAddress.setText("");
         }
     }//GEN-LAST:event_txtAddressFocusGained
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if (txtEmail.getText().trim().equalsIgnoreCase("Email")) {
+            txtEmail.setText("");
+        }
+    }//GEN-LAST:event_txtEmailFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;

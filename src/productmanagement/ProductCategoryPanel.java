@@ -96,8 +96,8 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     // Validation
     private boolean validateName(String categoryName) {
         boolean validated = true;
-
-        if (categoryName.length() <= 0) {
+        
+        if (categoryName.length() <= 0 || categoryName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Category Name cannot be empty");
             validated = false;
         } else if (!categoryName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -113,8 +113,11 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
 
     private boolean validateDescription(String categoryDescription) {
         boolean validated = true;
-
-        if (categoryDescription.contains(";")) {
+        
+        if (categoryDescription.length() <= 0 || categoryDescription.equalsIgnoreCase("Description")) {
+            lblDescriptionError.setText("Category Description cannot be empty");
+            validated = false;
+        }else if (categoryDescription.contains(";")) {
             lblDescriptionError.setText("Category Description cannot contain semi-colons");
             validated = false;
         }
@@ -160,6 +163,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         pnlAddCategory.setPreferredSize(new java.awt.Dimension(755, 359));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
@@ -213,7 +217,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Name :");
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(null);
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
@@ -242,7 +246,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         scrDescription.setToolTipText("");
 
         txaDescription.setColumns(20);
-        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(4);
         txaDescription.setText("Description");
         txaDescription.setBorder(null);
@@ -338,7 +342,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
                         .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblDescriptionError))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlAddCategoryLayout = new javax.swing.GroupLayout(pnlAddCategory);
@@ -413,6 +417,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         showAddPanel();
+        resetFields();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -465,6 +470,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
         String categoryDescription = txaDescription.getText().trim();
         validateDescription(categoryDescription);
+        
         if (categoryDescription.equalsIgnoreCase("")) {
             txaDescription.setText("Description");
         }

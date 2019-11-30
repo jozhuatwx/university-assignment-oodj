@@ -86,6 +86,7 @@ public class LogPanel extends javax.swing.JPanel {
         pnlSearchItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));

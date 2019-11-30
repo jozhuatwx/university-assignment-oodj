@@ -92,7 +92,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private boolean validateName(String supplierName) {
         boolean validated = true;
 
-        if (supplierName.length() <= 0) {
+        if (supplierName.length() <= 0 || supplierName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Supplier Name cannot be empty");
             validated = false;
         } else if (!supplierName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -109,7 +109,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private boolean validateAddress(String supplierAddress) {
         boolean validated = true;
 
-        if (supplierAddress.length() <= 0) {
+        if (supplierAddress.length() <= 0 || supplierAddress.equalsIgnoreCase("Address")) {
             lblAddressError.setText("Supplier Address cannot be empty");
             validated = false;
         } else if (supplierAddress.contains(";")) {
@@ -126,7 +126,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private boolean validateEmail(String supplierEmail) {
         boolean validated = true;
 
-        if (supplierEmail.length() <= 0) {
+        if (supplierEmail.length() <= 0 || supplierEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Supplier Email cannot be empty");
             validated = false;
         } else if (!supplierEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
@@ -192,7 +192,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblNum.setText("1.");
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -216,7 +216,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblNameError.setText(" ");
 
-        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtEmail.setText("Email");
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -240,7 +240,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
         lblEmailError.setText(" ");
 
-        txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtContact.setText("Contact");
         txtContact.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtContact.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -264,7 +264,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblContactError.setForeground(new java.awt.Color(255, 0, 0));
         lblContactError.setText(" ");
 
-        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtAddress.setText("Address");
         txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));

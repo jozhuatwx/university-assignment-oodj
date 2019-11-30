@@ -108,6 +108,9 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         if (userAddress.length() <= 0  || userAddress.equalsIgnoreCase("Address")) {
             lblAddressError.setText("Product Manager Address cannot be empty");
             validated = false;
+        }else if (userAddress.contains(";")) {
+            lblAddressError.setText("Product Manager Address cannot contain semi-colons");
+            validated = false;
         }
         
         if (validated) {
@@ -208,7 +211,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblNum.setText("1.");
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
-        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -232,7 +235,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblNameError.setText(" ");
 
-        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtEmail.setText("Email");
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -256,7 +259,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
         lblEmailError.setText(" ");
 
-        txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtLoginName.setText("Login Name");
         txtLoginName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtLoginName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -275,7 +278,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblLoginNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblLoginNameError.setText(" ");
 
-        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtAddress.setText("Address");
         txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -309,7 +312,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
             }
         });
 
-        txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtNewPassword.setEnabled(false);
         txtNewPassword.setPreferredSize(new java.awt.Dimension(250, 30));
         txtNewPassword.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -327,7 +330,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblNewPasswordError.setForeground(new java.awt.Color(255, 0, 0));
         lblNewPasswordError.setText(" ");
 
-        txtConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtConfirmPassword.setEnabled(false);
         txtConfirmPassword.setPreferredSize(new java.awt.Dimension(250, 30));
         txtConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -629,7 +632,16 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                             // Update the Product Manager
                             if (ProductManager.modify(userDetail, false)) {
                                 resetFields();
-
+                                
+                                // Disable the editing of fields
+                                txtName.setEnabled(false);
+                                txtEmail.setEnabled(false);
+                                txtAddress.setEnabled(false);
+                                chkUpdatePassword.setEnabled(false);
+                                lblControl.setEnabled(true);
+                                lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                                
                                 // Change the icon from save icon to edit icon
                                 lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
 

@@ -90,16 +90,22 @@ public class AddProductCataloguePage extends javax.swing.JFrame {
         lblItem4.setForeground(new java.awt.Color(255, 255, 255));
         lblItem4.setText("Item 4 :");
 
+        cmbPageNum.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbPageNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbNumOfItem.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbNumOfItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbItem1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbItem1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbItem2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbItem2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbItem3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbItem3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbItem4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         cmbItem4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
@@ -274,9 +280,7 @@ public class AddProductCataloguePage extends javax.swing.JFrame {
                 .addGap(6, 6, 6)
                 .addComponent(pnlOption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6))
-            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

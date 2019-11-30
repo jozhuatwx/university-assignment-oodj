@@ -89,6 +89,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         pnlAddItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
@@ -193,10 +194,16 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
 
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         search();
+        
+        if (txtSearch.getText().trim().equalsIgnoreCase("")) {
+            txtSearch.setText("Search");
+        }
     }//GEN-LAST:event_txtSearchFocusLost
 
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
-        // TODO add your handling code here:
+        if(txtSearch.getText().trim().equalsIgnoreCase("Search")){
+            txtSearch.setText("");
+        }
     }//GEN-LAST:event_txtSearchFocusGained
 
 

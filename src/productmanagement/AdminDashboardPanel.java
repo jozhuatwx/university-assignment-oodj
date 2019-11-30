@@ -66,7 +66,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         pnlTopProducts.setPreferredSize(new java.awt.Dimension(542, 464));
 
         cmbTitle.setBackground(new java.awt.Color(204, 204, 204));
-        cmbTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
+        cmbTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbTitle.setForeground(new java.awt.Color(255, 255, 255));
         cmbTitle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monthly Total Sales", "Top Products" }));
 
@@ -261,9 +261,9 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                     .addComponent(cmbTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(pnlTopProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlTopProductColLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
-                    .addComponent(pnlTopProductColRight, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
-                    .addComponent(pnlTopProductColCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)))
+                    .addComponent(pnlTopProductColLeft, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addComponent(pnlTopProductColRight, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
+                    .addComponent(pnlTopProductColCenter, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)))
         );
 
         pnlRevenue.setBackground(new java.awt.Color(46, 52, 66));
@@ -415,7 +415,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlTopProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addComponent(pnlTopProducts, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
