@@ -1,7 +1,9 @@
 package productmanagement;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -10,6 +12,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     public ProductManagerPanel() {
         initComponents();
         hideAddPanel();
+        repopulateProductManagerList();
     }
     
     private void showAddPanel() {
@@ -36,6 +39,27 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         txtConfirmPassword.setText("");
     }
 
+    private void repopulateProductManagerList() {
+        pnlProductManagerList.removeAll();
+        
+        int i = 0, x = 0;
+        ArrayList<String> userArray = ReadObject.readArray(ProductManager.FILE_NAME);
+        for (; i < userArray.size(); i++) {
+            String[] details = userArray.get(i).split(";");
+            if (details[4].equalsIgnoreCase(ProductManager.ROLE)) {
+                ProductManager user = new ProductManager(details);
+                ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(user, x + 1);
+                pmup.setPreferredSize(new Dimension(755, 232));
+                pnlProductManagerList.add(pmup);
+                x++;
+            }
+        }
+        if (x * 232 < 385) {
+            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (232 * x))));
+        }
+        pnlProductManagerList.revalidate();
+    }
+
     // Validation
     private boolean validateName(String userName) {
         boolean validated = true;
@@ -48,6 +72,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblNameError.setText(" ");
+        }
         return validated;
     }  
 
@@ -55,10 +82,13 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userLoginName.length() <= 0) {
-            lblNameError.setText("Product Manager Login Name cannot be empty");
+            lblLoginNameError.setText("Product Manager Login Name cannot be empty");
             validated = false;
         }
 
+        if (validated) {
+            lblLoginNameError.setText(" ");
+        }
         return validated;
     }
 
@@ -66,10 +96,13 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userAddress.length() <= 0) {
-            lblNameError.setText("Product Manager Address cannot be empty");
+            lblAddressError.setText("Product Manager Address cannot be empty");
             validated = false;
         }
-
+        
+        if (validated) {
+            lblAddressError.setText(" ");
+        }
         return validated;
     }
 
@@ -77,10 +110,16 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userEmail.length() <= 0) {
-            lblNameError.setText("Supplier Name cannot be empty");
+            lblEmailError.setText("Product Manager Email cannot be empty");
+            validated = false;
+        } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+            lblEmailError.setText("Please enter a valid email");
             validated = false;
         }
 
+        if (validated) {
+            lblEmailError.setText(" ");
+        }
         return validated;
     }
 
@@ -100,6 +139,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
             validated = false;
         }
 
+        if (validated) {
+            lblPasswordError.setText(" ");
+        }
         return validated;
     }
 
@@ -107,10 +149,13 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userPassword.equals(confirmPassword)) {
-            lblConfirmPasswordError.setText("Retype New Password does not match");
+            lblConfirmPasswordError.setText("Confirm New Password does not match");
             validated = false;
         }
 
+        if (validated) {
+            lblConfirmPasswordError.setText(" ");
+        }
         return validated;
     }
     
@@ -151,12 +196,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         btnCancel = new javax.swing.JButton();
         scrProductManagerList = new javax.swing.JScrollPane();
         pnlProductManagerList = new javax.swing.JPanel();
-        pnltemporary = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        lblProductCategory = new javax.swing.JLabel();
-        lblRemove = new javax.swing.JLabel();
-        lblEdit = new javax.swing.JLabel();
-        lblCategory1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(18, 22, 31));
 
@@ -165,6 +204,11 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(46, 52, 66));
         btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -475,80 +519,11 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         scrProductManagerList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrProductManagerList.setToolTipText("");
         scrProductManagerList.setPreferredSize(new java.awt.Dimension(755, 385));
+        scrProductManagerList.getVerticalScrollBar().setUnitIncrement(16);
 
         pnlProductManagerList.setBackground(new java.awt.Color(46, 52, 66));
         pnlProductManagerList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlProductManagerList.setPreferredSize(new java.awt.Dimension(740, 385));
-
-        pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jLabel5.setText("1.");
-
-        lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Product Manager Name");
-
-        lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
-
-        lblEdit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
-
-        lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblCategory1.setText("Product category Name");
-
-        javax.swing.GroupLayout pnltemporaryLayout = new javax.swing.GroupLayout(pnltemporary);
-        pnltemporary.setLayout(pnltemporaryLayout);
-        pnltemporaryLayout.setHorizontalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(40, 40, 40)
-                .addComponent(lblProductCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRemove)
-                .addContainerGap())
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(lblCategory1)
-                .addContainerGap(357, Short.MAX_VALUE))
-        );
-        pnltemporaryLayout.setVerticalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEdit)
-                    .addComponent(lblRemove)
-                    .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblProductCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlProductManagerListLayout = new javax.swing.GroupLayout(pnlProductManagerList);
-        pnlProductManagerList.setLayout(pnlProductManagerListLayout);
-        pnlProductManagerListLayout.setHorizontalGroup(
-            pnlProductManagerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlProductManagerListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlProductManagerListLayout.setVerticalGroup(
-            pnlProductManagerListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlProductManagerListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(321, Short.MAX_VALUE))
-        );
-
+        pnlProductManagerList.setLayout(new javax.swing.BoxLayout(pnlProductManagerList, javax.swing.BoxLayout.Y_AXIS));
         scrProductManagerList.setViewportView(pnlProductManagerList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -574,7 +549,23 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        pnlProductManagerList.removeAll();
+        
+        int i = 0;
+        ArrayList<ProductManager> userArray = ProductManager.searchProductManager(keyword);
+        for (; i < userArray.size(); i++) {
+            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(userArray.get(i), i + 1);
+            pmup.setPreferredSize(new Dimension(755, 232));
+            pnlProductManagerList.add(pmup);
+        }
+        if (i * 232 < 385) {
+            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (232 * i))));
+        }
+        pnlProductManagerList.revalidate();
+        pnlProductManagerList.repaint();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -628,6 +619,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
                 ProductManager productManager = new ProductManager(User.generateUserId(), userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                 if (ProductManager.register(productManager)) {
                     resetFields();
+                    repopulateProductManagerList();
                 }
             } catch (Exception e) {
                 // Display the error message
@@ -698,19 +690,36 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         validateConfirmPassword(userPassword, confirmPassword);
     }//GEN-LAST:event_txtConfirmPasswordFocusLost
 
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        String keyword = txtSearch.getText().trim();
+
+        hideAddPanel();
+        pnlProductManagerList.removeAll();
+        
+        int i = 0;
+        ArrayList<ProductManager> userArray = ProductManager.searchProductManager(keyword);
+        for (; i < userArray.size(); i++) {
+            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(userArray.get(i), i + 1);
+            pmup.setPreferredSize(new Dimension(755, 232));
+            pnlProductManagerList.add(pmup);
+        }
+        if (i * 232 < 385) {
+            pnlProductManagerList.add(Box.createRigidArea(new Dimension(0, 385 - (232 * i))));
+        }
+        pnlProductManagerList.revalidate();
+        pnlProductManagerList.repaint();
+    }//GEN-LAST:event_txtSearchKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblAddProductManager;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddressError;
-    private javax.swing.JLabel lblCategory1;
     private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblConfirmPasswordError;
-    private javax.swing.JLabel lblEdit;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEmailError;
     private javax.swing.JLabel lblLoginName;
@@ -719,12 +728,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblNameError;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblPasswordError;
-    private javax.swing.JLabel lblProductCategory;
-    private javax.swing.JLabel lblRemove;
     private javax.swing.JPanel pnlAddProductManager;
     private javax.swing.JPanel pnlAddProductManagerForm;
     private javax.swing.JPanel pnlProductManagerList;
-    private javax.swing.JPanel pnltemporary;
     private javax.swing.JScrollPane scrProductManagerList;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JPasswordField txtConfirmPassword;
