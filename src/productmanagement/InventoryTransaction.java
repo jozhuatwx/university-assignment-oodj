@@ -135,6 +135,27 @@ public class InventoryTransaction {
     return totalRevenue;
   }
 
+  public static int getItemQuantity(String itemId) {
+    int itemQuantity = 0;
+    try {
+      ArrayList<String> transactionArray = ReadObject.readArray(FILE_NAME);
+      // Iterate through the Transaction array
+      for (String transactionDetails : transactionArray) {
+        // Split line into array
+        String[] details = transactionDetails.split(";");
+        // If the Item id matches
+        if (details[0].equalsIgnoreCase(itemId)) {
+          // Add the value to the Item Quantity
+          itemQuantity += Integer.valueOf(details[3]);
+        }
+      }
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    return itemQuantity;
+  }
+
   // Override the default toString() to display the information of the Inventory Transaction class
   @Override
   public String toString() {
