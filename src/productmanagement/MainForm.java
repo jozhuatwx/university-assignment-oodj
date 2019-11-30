@@ -325,14 +325,14 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
         pnlContent.removeAll();
-        CategoryPanel cp = new CategoryPanel();
+        ProductCategoryPanel cp = new ProductCategoryPanel();
         pnlContent.add(cp);
         pnlContent.revalidate();
     }//GEN-LAST:event_lblCategoryMouseClicked
 
     private void lblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblItemMouseClicked
         pnlContent.removeAll();
-        ItemPanel ip = new ItemPanel();
+        ProductItemPanel ip = new ProductItemPanel();
         pnlContent.add(ip);
         pnlContent.revalidate();
     }//GEN-LAST:event_lblItemMouseClicked
