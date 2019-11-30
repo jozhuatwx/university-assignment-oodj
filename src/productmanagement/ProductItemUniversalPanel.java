@@ -643,8 +643,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     Path newFilePath = Path.of(itemImagePath);
                     Files.copy(tempFilePath, newFilePath);
                     
-                    ProductItem item = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
-                    if (ProductItem.modify(item, itemQuantity)) {
+                    ProductItem modifiedItem = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
+                    if (ProductItem.modify(modifiedItem, itemQuantity)) {
+                        item = modifiedItem;
+                        this.itemQuantity = itemQuantity;
                         resetFields();
 
                         // Disable the editing of fields
