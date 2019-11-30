@@ -320,6 +320,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         btnUpdate.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.setBorder(null);
+        btnUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdate.setMaximumSize(new java.awt.Dimension(200, 40));
         btnUpdate.setMinimumSize(new java.awt.Dimension(200, 40));
         btnUpdate.setPreferredSize(new java.awt.Dimension(200, 40));
@@ -503,6 +504,7 @@ public class ProfilePanel extends javax.swing.JPanel {
 
         btnUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnUpdatePassword.setText("Update Password");
+        btnUpdatePassword.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnUpdatePassword.setMinimumSize(new java.awt.Dimension(200, 40));
         btnUpdatePassword.setPreferredSize(new java.awt.Dimension(200, 40));
         btnUpdatePassword.addActionListener(new java.awt.event.ActionListener() {

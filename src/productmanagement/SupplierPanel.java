@@ -231,6 +231,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,6 +244,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/add.png"))); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setPreferredSize(new java.awt.Dimension(150, 40));
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -366,6 +368,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(255, 255, 255));
         btnSubmit.setText("Add");
+        btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSubmit.setPreferredSize(new java.awt.Dimension(150, 40));
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +380,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         btnCancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
         btnCancel.setForeground(new java.awt.Color(255, 255, 255));
         btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

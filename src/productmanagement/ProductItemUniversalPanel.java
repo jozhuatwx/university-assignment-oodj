@@ -312,6 +312,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
         lblInsertImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblInsertImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblInsertImage.setEnabled(false);
         lblInsertImage.setPreferredSize(new java.awt.Dimension(160, 128));
         lblInsertImage.addMouseListener(new java.awt.event.MouseAdapter() {

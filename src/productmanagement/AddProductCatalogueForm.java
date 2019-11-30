@@ -362,6 +362,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png"))); // NOI18N
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblImage.setPreferredSize(new java.awt.Dimension(323, 60));
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -376,6 +377,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         btnSubmit.setBackground(new java.awt.Color(46, 52, 66));
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         btnSubmit.setText("Add");
+        btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSubmit.setPreferredSize(new java.awt.Dimension(150, 40));
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,6 +388,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         btnCancel.setBackground(new java.awt.Color(46, 52, 66));
         btnCancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

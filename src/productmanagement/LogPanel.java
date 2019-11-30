@@ -109,6 +109,7 @@ public class LogPanel extends javax.swing.JPanel {
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

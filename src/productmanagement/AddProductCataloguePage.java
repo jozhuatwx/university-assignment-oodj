@@ -110,14 +110,17 @@ public class AddProductCataloguePage extends javax.swing.JFrame {
 
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         btnSubmit.setText("Done");
+        btnSubmit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnNext.setBackground(new java.awt.Color(46, 52, 66));
         btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-right.png"))); // NOI18N
         btnNext.setBorder(null);
+        btnNext.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnBack.setBackground(new java.awt.Color(46, 52, 66));
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/arrow-left.png"))); // NOI18N
         btnBack.setBorder(null);
+        btnBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout pnlOptionLayout = new javax.swing.GroupLayout(pnlOption);
         pnlOption.setLayout(pnlOptionLayout);

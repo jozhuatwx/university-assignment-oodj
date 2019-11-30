@@ -514,7 +514,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
         pnlContent.removeAll();
-        ProductManagerPanel pcp = new ProductManagerPanel();
+        ProductCataloguePanel pcp = new ProductCataloguePanel();
         pnlContent.add(pcp);
         pnlContent.revalidate();
         

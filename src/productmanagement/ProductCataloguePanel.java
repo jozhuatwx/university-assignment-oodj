@@ -112,6 +112,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         btnAdd.setForeground(new java.awt.Color(255, 255, 255));
         btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/add.png"))); // NOI18N
         btnAdd.setText("Add");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdd.setPreferredSize(new java.awt.Dimension(150, 40));
         btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,6 +125,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         btnSearch.setForeground(new java.awt.Color(255, 255, 255));
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
         btnSearch.setText("Edit");
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
 
         javax.swing.GroupLayout pnlAddItemLayout = new javax.swing.GroupLayout(pnlAddItem);
