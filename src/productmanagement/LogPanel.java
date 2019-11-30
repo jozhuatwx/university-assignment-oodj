@@ -1,21 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
-/**
- *
- * @author User
- */
+import java.awt.Dimension;
+import java.util.ArrayList;
+
+import javax.swing.Box;
+
 public class LogPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form LogPanel
-     */
     public LogPanel() {
         initComponents();
+        // Populate the list with Logs
+        repopulateLogList();
+    }
+
+    private void repopulateLogList() {
+        // Remove all existing Logs
+        pnlLogList.removeAll();
+
+        int i = 0;
+        ArrayList<String> logArray = ReadObject.readArray(WriteObject.LOG_FILE_NAME);
+        // Iterate through the Log array
+        for (; i < logArray.size(); i++) {
+            // Split the line into an array
+            String[] details = logArray.get(i).split(";");
+            // Format the log
+            String log = details[0] + " " + details[1] + " " + details[3];
+            // Create a Universal Panel object with the formatted log
+            LogUniversalPanel lup = new LogUniversalPanel(log, i + 1);
+            // Set the size of the Universal Panel
+            lup.setPreferredSize(new Dimension(LogUniversalPanel.MAIN_WIDTH, LogUniversalPanel.MAIN_HEIGHT));
+            // Add the Panel into the list
+            pnlLogList.add(lup);
+        }
+        // Fill remaining space with an empty box
+        if (i * LogUniversalPanel.MAIN_HEIGHT < 385) {
+            pnlLogList.add(Box.createRigidArea(new Dimension(0, 385 - (LogUniversalPanel.MAIN_HEIGHT * i))));
+        }
+        pnlLogList.revalidate();
+        pnlLogList.repaint();
     }
 
     /**
@@ -27,26 +49,30 @@ public class LogPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlAddItem = new javax.swing.JPanel();
+        pnlSearchItem = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
-        scrItemList = new javax.swing.JScrollPane();
-        pnlItemList = new javax.swing.JPanel();
-        pnltemporary = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        lblProductCategory = new javax.swing.JLabel();
-        lblRemove = new javax.swing.JLabel();
-        lblEdit = new javax.swing.JLabel();
-        lblCategory1 = new javax.swing.JLabel();
+        scrLogList = new javax.swing.JScrollPane();
+        pnlLogList = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(18, 22, 31));
 
-        pnlAddItem.setBackground(new java.awt.Color(46, 52, 66));
-        pnlAddItem.setMaximumSize(new java.awt.Dimension(755, 32767));
+        pnlSearchItem.setBackground(new java.awt.Color(46, 52, 66));
+        pnlSearchItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         btnSearch.setBackground(new java.awt.Color(46, 52, 66));
         btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -54,167 +80,85 @@ public class LogPanel extends javax.swing.JPanel {
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
         btnSearch.setText("Search");
         btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout pnlAddItemLayout = new javax.swing.GroupLayout(pnlAddItem);
-        pnlAddItem.setLayout(pnlAddItemLayout);
-        pnlAddItemLayout.setHorizontalGroup(
-            pnlAddItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAddItemLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlSearchItemLayout = new javax.swing.GroupLayout(pnlSearchItem);
+        pnlSearchItem.setLayout(pnlSearchItemLayout);
+        pnlSearchItemLayout.setHorizontalGroup(
+            pnlSearchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSearchItemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100)
                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        pnlAddItemLayout.setVerticalGroup(
-            pnlAddItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAddItemLayout.createSequentialGroup()
+        pnlSearchItemLayout.setVerticalGroup(
+            pnlSearchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchItemLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlAddItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlSearchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        scrItemList.setBackground(new java.awt.Color(46, 52, 66));
-        scrItemList.setBorder(null);
-        scrItemList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrItemList.setToolTipText("");
-        scrItemList.setPreferredSize(new java.awt.Dimension(755, 385));
+        scrLogList.setBackground(new java.awt.Color(46, 52, 66));
+        scrLogList.setBorder(null);
+        scrLogList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrLogList.setToolTipText("");
+        scrLogList.setPreferredSize(new java.awt.Dimension(755, 385));
+        scrLogList.getVerticalScrollBar().setUnitIncrement(16);
 
-        pnlItemList.setBackground(new java.awt.Color(46, 52, 66));
-        pnlItemList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-
-        pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jLabel5.setText("1.");
-
-        lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Product item Name");
-        lblProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProductCategoryMouseClicked(evt);
-            }
-        });
-
-        lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
-
-        lblEdit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
-
-        lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblCategory1.setText("Product category Name");
-        lblCategory1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCategory1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnltemporaryLayout = new javax.swing.GroupLayout(pnltemporary);
-        pnltemporary.setLayout(pnltemporaryLayout);
-        pnltemporaryLayout.setHorizontalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(40, 40, 40)
-                .addComponent(lblProductCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRemove)
-                .addContainerGap())
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(lblCategory1)
-                .addContainerGap(362, Short.MAX_VALUE))
-        );
-        pnltemporaryLayout.setVerticalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEdit)
-                    .addComponent(lblRemove)
-                    .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblProductCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlItemListLayout = new javax.swing.GroupLayout(pnlItemList);
-        pnlItemList.setLayout(pnlItemListLayout);
-        pnlItemListLayout.setHorizontalGroup(
-            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlItemListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlItemListLayout.setVerticalGroup(
-            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlItemListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(300, 300, 300))
-        );
-
-        scrItemList.setViewportView(pnlItemList);
+        pnlLogList.setBackground(new java.awt.Color(46, 52, 66));
+        pnlLogList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlLogList.setLayout(new javax.swing.BoxLayout(pnlLogList, javax.swing.BoxLayout.Y_AXIS));
+        scrLogList.setViewportView(pnlLogList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrItemList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlSearchItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(scrLogList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlAddItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(scrItemList, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(pnlAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(438, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlSearchItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrLogList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblProductCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductCategoryMouseClicked
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchKeyReleased
 
-    }//GEN-LAST:event_lblProductCategoryMouseClicked
-
-    private void lblCategory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategory1MouseClicked
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_lblCategory1MouseClicked
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblCategory1;
-    private javax.swing.JLabel lblEdit;
-    private javax.swing.JLabel lblProductCategory;
-    private javax.swing.JLabel lblRemove;
-    private javax.swing.JPanel pnlAddItem;
-    private javax.swing.JPanel pnlItemList;
-    private javax.swing.JPanel pnltemporary;
-    private javax.swing.JScrollPane scrItemList;
+    private javax.swing.JPanel pnlLogList;
+    private javax.swing.JPanel pnlSearchItem;
+    private javax.swing.JScrollPane scrLogList;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
