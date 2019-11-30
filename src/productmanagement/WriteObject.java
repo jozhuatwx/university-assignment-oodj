@@ -2,16 +2,11 @@ package productmanagement;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class WriteObject {
-  // Constant fields
-  public final static String LOG_FILE_NAME = "Log.txt";
-
   public static boolean write(Object obj, String filename, boolean append) {
     // Writes onto the file based on the path and whether to append or overwrite it
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
@@ -29,15 +24,6 @@ public class WriteObject {
     return false;
   }
 
-  public static boolean log(String action) {
-    // Get the date and time in the format of YYYY-MM-dd HH:mm:ss
-    String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
-    // Creates a log with the date, time, user ID, user role and the action made
-    String log = dateTime + ";" + User.myUser.getUserId() + ";" + User.myUser.getUserRole() + ";" + action;
-    // Writes the log into the file
-    return write(log, LOG_FILE_NAME, true);
-  }
-
   public static boolean write(Object obj, String fileName, boolean append, String action) {
     // Default to not show message
     return write(obj, fileName, append, action, false);
@@ -48,7 +34,7 @@ public class WriteObject {
     boolean write = write(obj, fileName, append);
 
     // Writes actions into log
-    boolean log = log(action);
+    boolean log = Log.write(action);
 
     if (displayMessage) {
       // Display the success message
