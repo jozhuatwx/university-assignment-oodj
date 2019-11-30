@@ -26,6 +26,17 @@ public class ProfilePanel extends javax.swing.JPanel {
             isClosed = false;
             // Change the icon from arrow-down to arrow-up
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-up.png")));
+            
+            //Clear the field
+            txtOldPassword.setText("");
+            txtNewPassword.setText("");
+            txtConfirmNewPassword.setText("");
+            
+            //Clear the error label
+            lblOldPasswordError.setText(" ");
+            lblNewPasswordError.setText(" ");
+            lblConfirmPasswordError.setText(" ");
+            
         } else {
         // The panel is opened, then close the panel and set the boolean variable to true.
             pnlUpdatePassword.setPreferredSize(new Dimension(290, 40));
@@ -34,6 +45,7 @@ public class ProfilePanel extends javax.swing.JPanel {
             isClosed = true;
             // Change the icon from arrow-up to arrow-down
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png")));
+            
         }
     }
 
@@ -45,9 +57,10 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblUserLoginName.setText(User.myUser.getUserLoginName());
 
         // Clear the fields
-        txtOldPassword.setText("");
-        txtNewPassword.setText("");
-        txtConfirmNewPassword.setText("");
+        lblNameError.setText(" ");
+        lblAddressError.setText(" ");
+        lblEmailError.setText(" ");
+        
     }
 
     // Validation
@@ -229,6 +242,9 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtName.setMinimumSize(new java.awt.Dimension(7, 30));
         txtName.setPreferredSize(new java.awt.Dimension(7, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNameFocusLost(evt);
             }
@@ -255,6 +271,9 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtAddress.setMinimumSize(new java.awt.Dimension(7, 30));
         txtAddress.setPreferredSize(new java.awt.Dimension(7, 30));
         txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAddressFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAddressFocusLost(evt);
             }
@@ -281,6 +300,9 @@ public class ProfilePanel extends javax.swing.JPanel {
         txtEmail.setMinimumSize(new java.awt.Dimension(7, 30));
         txtEmail.setPreferredSize(new java.awt.Dimension(7, 30));
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
             }
@@ -552,7 +574,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                 .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblConfirmPasswordError)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(btnUpdatePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -722,6 +744,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String userName = txtName.getText().trim();
         validateName(userName);
+        
+        if (txtName.getText().trim().equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
@@ -732,6 +758,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
         String userAddress = txtAddress.getText().trim();
         validateAddress(userAddress);
+        
+        if (txtAddress.getText().trim().equalsIgnoreCase("")) {
+            txtAddress.setText("Address");
+        }
     }//GEN-LAST:event_txtAddressFocusLost
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
@@ -742,6 +772,10 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         String userEmail = txtEmail.getText().trim();
         validateEmail(userEmail);
+        
+        if (txtEmail.getText().trim().equalsIgnoreCase("")) {
+            txtEmail.setText("Email");
+        }
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void txtOldPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldPasswordKeyReleased
@@ -752,6 +786,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtOldPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOldPasswordFocusLost
         char[] userPassword = txtOldPassword.getPassword();
         validateOldPassword(userPassword);
+        
     }//GEN-LAST:event_txtOldPasswordFocusLost
 
     private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
@@ -762,6 +797,7 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPasswordFocusLost
         char[] userPassword = txtNewPassword.getPassword();
         validateNewPassword(userPassword);
+        
     }//GEN-LAST:event_txtNewPasswordFocusLost
 
     private void txtConfirmNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmNewPasswordKeyReleased
@@ -774,7 +810,26 @@ public class ProfilePanel extends javax.swing.JPanel {
         char[] userPassword = txtNewPassword.getPassword();
         char[] retypePassword = txtConfirmNewPassword.getPassword();
         validateConfirmNewPassword(userPassword, retypePassword);
+        
     }//GEN-LAST:event_txtConfirmNewPasswordFocusLost
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txtAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusGained
+        if (txtAddress.getText().trim().equalsIgnoreCase("Address")) {
+            txtAddress.setText("");
+        }
+    }//GEN-LAST:event_txtAddressFocusGained
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if (txtEmail.getText().trim().equalsIgnoreCase("Email")) {
+            txtEmail.setText("");
+        }
+    }//GEN-LAST:event_txtEmailFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

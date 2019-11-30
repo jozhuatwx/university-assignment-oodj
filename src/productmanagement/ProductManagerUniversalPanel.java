@@ -88,7 +88,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     private boolean validateName(String userName) {
         boolean validated = true;
 
-        if (userName.length() <= 0) {
+        if (userName.length() <= 0 || userName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Product Manager Name cannot be empty");
             validated = false;
         } else if (!userName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
@@ -105,7 +105,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     private boolean validateAddress(String userAddress) {
         boolean validated = true;
 
-        if (userAddress.length() <= 0) {
+        if (userAddress.length() <= 0  || userAddress.equalsIgnoreCase("Address")) {
             lblAddressError.setText("Product Manager Address cannot be empty");
             validated = false;
         }
@@ -119,7 +119,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     private boolean validateEmail(String userEmail) {
         boolean validated = true;
 
-        if (userEmail.length() <= 0) {
+        if (userEmail.length() <= 0 || userEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Product Manager Email cannot be empty");
             validated = false;
         } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
@@ -138,7 +138,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
         String passwordString = new String(userPassword);
 
-        if (userPassword.length <= 8) {
+        if (userPassword.length < 8) {
             lblNewPasswordError.setText("New Password cannot be less than 8 characters");
             validated = false;
         } else if (userPassword.length > 16) {
@@ -209,40 +209,91 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
         txtName.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNameFocusLost(evt);
+            }
+        });
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNameKeyReleased(evt);
+            }
+        });
 
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblNameError.setText(" ");
 
         txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtEmail.setText("Email");
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtEmail.setEnabled(false);
         txtEmail.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
+            }
+        });
 
         lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
         lblEmailError.setText(" ");
 
         txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtLoginName.setText("Login Name");
         txtLoginName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtLoginName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtLoginName.setEnabled(false);
         txtLoginName.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtLoginName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtLoginNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtLoginNameFocusLost(evt);
+            }
+        });
 
         lblLoginNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblLoginNameError.setForeground(new java.awt.Color(255, 0, 0));
         lblLoginNameError.setText(" ");
 
         txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setText("Address");
         txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtAddress.setEnabled(false);
         txtAddress.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAddressFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAddressFocusLost(evt);
+            }
+        });
+        txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtAddressKeyReleased(evt);
+            }
+        });
 
         lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
@@ -251,10 +302,26 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         chkUpdatePassword.setBackground(new java.awt.Color(255, 255, 255));
         chkUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         chkUpdatePassword.setText("Update Password");
+        chkUpdatePassword.setEnabled(false);
+        chkUpdatePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkUpdatePasswordActionPerformed(evt);
+            }
+        });
 
         txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtNewPassword.setEnabled(false);
         txtNewPassword.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtNewPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNewPasswordFocusLost(evt);
+            }
+        });
+        txtNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNewPasswordKeyReleased(evt);
+            }
+        });
 
         lblNewPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNewPasswordError.setForeground(new java.awt.Color(255, 0, 0));
@@ -263,6 +330,16 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         txtConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtConfirmPassword.setEnabled(false);
         txtConfirmPassword.setPreferredSize(new java.awt.Dimension(250, 30));
+        txtConfirmPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConfirmPasswordFocusLost(evt);
+            }
+        });
+        txtConfirmPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtConfirmPasswordKeyReleased(evt);
+            }
+        });
 
         lblConfirmPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblConfirmPasswordError.setForeground(new java.awt.Color(255, 0, 0));
@@ -322,8 +399,8 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblLoginNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNewPasswordError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                                    .addComponent(lblNewPasswordError, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblConfirmPasswordError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -466,8 +543,8 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
             // Enable editing of fields
             txtName.setEnabled(true);
             txtEmail.setEnabled(true);
-            txtLoginName.setEnabled(true);
             txtAddress.setEnabled(true);
+            chkUpdatePassword.setEnabled(true);
             lblControl.setEnabled(false);
             lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -480,11 +557,11 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         } else {
             boolean validated = true;
 
-            String userId = User.myUser.getUserId();
+            String userId = productManager.getUserId();
             String userName = txtName.getText().trim();
             String userAddress = txtAddress.getText().trim();
             String userEmail = txtEmail.getText().trim();
-            String userLoginName = User.myUser.getUserLoginName();
+            String userLoginName = productManager.getUserLoginName();
 
             char[] newPassword = txtNewPassword.getPassword();
             char[] confirmPassword = txtConfirmPassword.getPassword();
@@ -524,8 +601,8 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                         // Disable the editing of fields
                         txtName.setEnabled(false);
                         txtEmail.setEnabled(false);
-                        txtLoginName.setEnabled(false);
                         txtAddress.setEnabled(false);
+                        chkUpdatePassword.setEnabled(false);
                         lblControl.setEnabled(true);
                         lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
                         btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -533,7 +610,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                         // Change the icon from save icon to edit icon
                         lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
 
-                        // When the textbox is enabled, set the boolean variable to true.
+                        // Set the boolean variable to false.
                         isEditing = false;
                     }
                 } else if (validated && !chkUpdatePassword.isSelected()) {
@@ -556,7 +633,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                                 // Change the icon from save icon to edit icon
                                 lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
 
-                                // When the textbox is enabled, set the boolean variable to true.
+                                // Set the boolean variable to false.
                                 isEditing = false;
                             }
                         }
@@ -568,6 +645,114 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_lblEditMouseClicked
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
+        String productManagerName = txtName.getText().trim();
+        validateName(productManagerName);
+        
+        if (txtName.getText().trim().equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
+    }//GEN-LAST:event_txtNameFocusLost
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if (txtEmail.getText().trim().equalsIgnoreCase("Email")) {
+            txtEmail.setText("");
+        }
+    }//GEN-LAST:event_txtEmailFocusGained
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        String productManagerEmail = txtEmail.getText().trim();
+        validateEmail(productManagerEmail);
+        
+        if (txtEmail.getText().trim().equalsIgnoreCase("")) {
+            txtEmail.setText("Email");
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtLoginNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusLost
+        if (txtLoginName.getText().trim().equalsIgnoreCase("")) {
+            txtLoginName.setText("Login Name");
+        }
+    }//GEN-LAST:event_txtLoginNameFocusLost
+
+    private void txtLoginNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtLoginNameFocusGained
+        if (txtLoginName.getText().trim().equalsIgnoreCase("Login Name")) {
+            txtLoginName.setText("");
+        }
+    }//GEN-LAST:event_txtLoginNameFocusGained
+
+    private void txtAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusGained
+        if (txtAddress.getText().trim().equalsIgnoreCase("Address")) {
+            txtAddress.setText("");
+        }
+    }//GEN-LAST:event_txtAddressFocusGained
+
+    private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
+        String productManagerAddress = txtAddress.getText().trim();
+        validateAddress(productManagerAddress);
+        
+        if (txtAddress.getText().trim().equalsIgnoreCase("")) {
+            txtAddress.setText("Address");
+        }
+    }//GEN-LAST:event_txtAddressFocusLost
+
+    private void chkUpdatePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkUpdatePasswordActionPerformed
+        
+        if(chkUpdatePassword.isSelected()){
+            //If checkbox is checked, then enable the password fields
+            txtNewPassword.setEnabled(true);
+            txtConfirmPassword.setEnabled(true);
+            
+        }else{
+            //If checkbox is unchecked, then disable the password fields
+            txtNewPassword.setEnabled(false);
+            txtConfirmPassword.setEnabled(false);
+        }
+    }//GEN-LAST:event_chkUpdatePasswordActionPerformed
+
+    private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
+        String productManagerName = txtName.getText().trim();
+        validateName(productManagerName);
+    }//GEN-LAST:event_txtNameKeyReleased
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        String productManagerEmail = txtEmail.getText().trim();
+        validateEmail(productManagerEmail);
+    }//GEN-LAST:event_txtEmailKeyReleased
+
+    private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
+        String productManagerAddress = txtAddress.getText().trim();
+        validateAddress(productManagerAddress);
+    }//GEN-LAST:event_txtAddressKeyReleased
+
+    private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
+        char[] productManagerNewPassword = txtNewPassword.getPassword();
+        validatePassword(productManagerNewPassword);
+    }//GEN-LAST:event_txtNewPasswordKeyReleased
+
+    private void txtNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPasswordFocusLost
+        char[] productManagerNewPassword = txtNewPassword.getPassword();
+        validatePassword(productManagerNewPassword);
+    }//GEN-LAST:event_txtNewPasswordFocusLost
+
+    private void txtConfirmPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmPasswordKeyReleased
+        char[] productManagerNewPassword = txtNewPassword.getPassword();
+        char[] productManagerConfirmPassword = txtConfirmPassword.getPassword();
+        validateConfirmPassword(productManagerNewPassword,productManagerConfirmPassword);
+    }//GEN-LAST:event_txtConfirmPasswordKeyReleased
+
+    private void txtConfirmPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmPasswordFocusLost
+        char[] productManagerNewPassword = txtNewPassword.getPassword();
+        char[] productManagerConfirmPassword = txtConfirmPassword.getPassword();
+        validateConfirmPassword(productManagerNewPassword,productManagerConfirmPassword);
+    }//GEN-LAST:event_txtConfirmPasswordFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -81,6 +81,11 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
                 break;
         }
+        
+        lblNameError.setText(" ");
+        lblAddressError.setText(" ");
+        lblContactError.setText(" ");
+        lblEmailError.setText(" ");
     }
 
     // Validation
@@ -189,11 +194,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtName.setText("Name");
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
         txtName.setPreferredSize(new java.awt.Dimension(250, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNameFocusLost(evt);
             }
@@ -209,11 +218,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblNameError.setText(" ");
 
         txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtEmail.setText("Email");
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtEmail.setEnabled(false);
         txtEmail.setPreferredSize(new java.awt.Dimension(250, 30));
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtEmailFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
             }
@@ -229,11 +242,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblEmailError.setText(" ");
 
         txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtContact.setText("Contact");
         txtContact.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtContact.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtContact.setEnabled(false);
         txtContact.setPreferredSize(new java.awt.Dimension(250, 30));
         txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtContactFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtContactFocusLost(evt);
             }
@@ -249,11 +266,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblContactError.setText(" ");
 
         txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setText("Address");
         txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtAddress.setEnabled(false);
         txtAddress.setPreferredSize(new java.awt.Dimension(250, 30));
         txtAddress.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAddressFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAddressFocusLost(evt);
             }
@@ -499,6 +520,10 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String supplierName = txtName.getText().trim();
         validateName(supplierName);
+        
+        if (txtName.getText().trim().equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
@@ -509,6 +534,10 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
         String supplierAddress = txtAddress.getText().trim();
         validateAddress(supplierAddress);
+        
+        if (txtAddress.getText().trim().equalsIgnoreCase("")) {
+            txtAddress.setText("Address");
+        }
     }//GEN-LAST:event_txtAddressFocusLost
 
     private void txtContactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactKeyReleased
@@ -519,6 +548,10 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private void txtContactFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusLost
         String supplierContact = txtContact.getText().trim();
         validateContact(supplierContact);
+        
+        if (txtContact.getText().trim().equalsIgnoreCase("")) {
+            txtContact.setText("Contact");
+        }
     }//GEN-LAST:event_txtContactFocusLost
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
@@ -529,7 +562,35 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         String supplierEmail = txtEmail.getText().trim();
         validateEmail(supplierEmail);
+        
+        if (txtEmail.getText().trim().equalsIgnoreCase("")) {
+            txtEmail.setText("Email");
+        }
     }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txtEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusGained
+        if (txtEmail.getText().trim().equalsIgnoreCase("Email")) {
+            txtEmail.setText("");
+        }
+    }//GEN-LAST:event_txtEmailFocusGained
+
+    private void txtContactFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContactFocusGained
+        if (txtContact.getText().trim().equalsIgnoreCase("Contact")) {
+            txtContact.setText("");
+        }
+    }//GEN-LAST:event_txtContactFocusGained
+
+    private void txtAddressFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusGained
+        if (txtAddress.getText().trim().equalsIgnoreCase("Address")) {
+            txtAddress.setText("");
+        }
+    }//GEN-LAST:event_txtAddressFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStatus;

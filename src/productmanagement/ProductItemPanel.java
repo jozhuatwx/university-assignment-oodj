@@ -50,12 +50,18 @@ public class ProductItemPanel extends javax.swing.JPanel {
     
     private void resetFields() {
         // Clear the fields
-        txtName.setText("");
-        txtBrand.setText("");
-        txtSellingPrice.setText("");
-        txtQuantity.setText("");
-        txaDescription.setText("");
+        txtName.setText("Name");
+        txtBrand.setText("Brand");
+        txtSellingPrice.setText("Selling Price");
+        txtQuantity.setText("Quantity");
+        txaDescription.setText("Description");
         lblInsertImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+        lblNameError.setText(" ");
+        lblBrandError.setText(" ");
+        lblSellingPriceError.setText(" ");
+        lblQuantityError.setText(" ");
+        lblDescriptionError.setText(" ");
+        lblImageError.setText(" ");
     }
 
     private void resetCategory() {
@@ -353,8 +359,17 @@ public class ProductItemPanel extends javax.swing.JPanel {
         pnlAddItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
@@ -424,10 +439,14 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblName.setText("Name :");
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtName.setText("Name");
         txtName.setBorder(null);
         txtName.setMinimumSize(new java.awt.Dimension(350, 30));
         txtName.setPreferredSize(new java.awt.Dimension(350, 30));
         txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNameFocusLost(evt);
             }
@@ -447,11 +466,15 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblQuantity.setText("Quantity :");
 
         txtQuantity.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtQuantity.setText("Quantity");
         txtQuantity.setBorder(null);
         txtQuantity.setMaximumSize(new java.awt.Dimension(350, 30));
         txtQuantity.setMinimumSize(new java.awt.Dimension(350, 30));
         txtQuantity.setPreferredSize(new java.awt.Dimension(350, 30));
         txtQuantity.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtQuantityFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtQuantityFocusLost(evt);
             }
@@ -471,10 +494,14 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblBrand.setText("Brand :");
 
         txtBrand.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtBrand.setText("Brand");
         txtBrand.setBorder(null);
         txtBrand.setMinimumSize(new java.awt.Dimension(350, 30));
         txtBrand.setPreferredSize(new java.awt.Dimension(350, 30));
         txtBrand.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtBrandFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtBrandFocusLost(evt);
             }
@@ -494,11 +521,15 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblSellingPrice.setText("Selling Price :");
 
         txtSellingPrice.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        txtSellingPrice.setText("Selling Price");
         txtSellingPrice.setBorder(null);
         txtSellingPrice.setMaximumSize(new java.awt.Dimension(350, 30));
         txtSellingPrice.setMinimumSize(new java.awt.Dimension(350, 30));
         txtSellingPrice.setPreferredSize(new java.awt.Dimension(350, 30));
         txtSellingPrice.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSellingPriceFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSellingPriceFocusLost(evt);
             }
@@ -522,8 +553,12 @@ public class ProductItemPanel extends javax.swing.JPanel {
         txaDescription.setColumns(20);
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         txaDescription.setRows(8);
+        txaDescription.setText("Description\n");
         txaDescription.setBorder(null);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txaDescriptionFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusLost(evt);
             }
@@ -882,6 +917,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String itemName = txtName.getText().trim();
         validateName(itemName);
+        
+        if (txtName.getText().trim().equalsIgnoreCase("")) {
+            txtName.setText("Name");
+        }
     }//GEN-LAST:event_txtNameFocusLost
 
     private void txtQuantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyReleased
@@ -892,6 +931,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private void txtQuantityFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantityFocusLost
         String itemQuantityString = txtQuantity.getText().trim();
         validateQuantity(itemQuantityString);
+        
+        if (txtQuantity.getText().trim().equalsIgnoreCase("")) {
+            txtQuantity.setText("Quantity");
+        }
     }//GEN-LAST:event_txtQuantityFocusLost
 
     private void txtBrandKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBrandKeyReleased
@@ -902,6 +945,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private void txtBrandFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBrandFocusLost
         String itemBrand = txtBrand.getText().trim();
         validateBrand(itemBrand);
+        
+        if (txtBrand.getText().trim().equalsIgnoreCase("")) {
+            txtBrand.setText("Brand");
+        }
     }//GEN-LAST:event_txtBrandFocusLost
 
     private void txtSellingPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellingPriceKeyReleased
@@ -912,6 +959,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private void txtSellingPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusLost
         String itemPriceString = txtSellingPrice.getText().trim();
         validatePrice(itemPriceString);
+        
+        if (txtSellingPrice.getText().trim().equalsIgnoreCase("")) {
+            txtSellingPrice.setText("Selling Price");
+        }
     }//GEN-LAST:event_txtSellingPriceFocusLost
 
     private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
@@ -922,11 +973,57 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
         String itemDescription = txaDescription.getText().trim();
         validateDescription(itemDescription);
+        
+        if (txaDescription.getText().trim().equalsIgnoreCase("")) {
+            txaDescription.setText("Description");
+        }
     }//GEN-LAST:event_txaDescriptionFocusLost
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         search();
     }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        if (txtSearch.getText().trim().equalsIgnoreCase("Search")) {
+            txtSearch.setText("");
+        }
+    }//GEN-LAST:event_txtSearchFocusGained
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        if (txtSearch.getText().trim().equalsIgnoreCase("")) {
+            txtSearch.setText("Search");
+        }
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        if (txtName.getText().trim().equalsIgnoreCase("Name")) {
+            txtName.setText("");
+        }
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txtQuantityFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtQuantityFocusGained
+        if (txtQuantity.getText().trim().equalsIgnoreCase("Quantity")) {
+            txtQuantity.setText("");
+        }
+    }//GEN-LAST:event_txtQuantityFocusGained
+
+    private void txtBrandFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBrandFocusGained
+        if (txtBrand.getText().trim().equalsIgnoreCase("Brand")) {
+            txtBrand.setText("");
+        }
+    }//GEN-LAST:event_txtBrandFocusGained
+
+    private void txtSellingPriceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusGained
+        if (txtSellingPrice.getText().trim().equalsIgnoreCase("Selling Price")) {
+            txtSellingPrice.setText("");
+        }
+    }//GEN-LAST:event_txtSellingPriceFocusGained
+
+    private void txaDescriptionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusGained
+        if (txaDescription.getText().trim().equalsIgnoreCase("Description")) {
+            txaDescription.setText("");
+        }
+    }//GEN-LAST:event_txaDescriptionFocusGained
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
