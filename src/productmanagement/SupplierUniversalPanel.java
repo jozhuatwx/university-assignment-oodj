@@ -1,9 +1,19 @@
 package productmanagement;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import javax.swing.ImageIcon;
 
 public class SupplierUniversalPanel extends javax.swing.JPanel {
+    // Constant fields
+    public static final int MAIN_MAX_HEIGHT = 168;
+    public static final int MAIN_MIN_HEIGHT = 77;
+    public static final int MAIN_WIDTH = 755;
+    public static final int PANEL_MAX_HEIGHT = 143;
+    public static final int PANEL_MIN_HEIGHT = 55;
+    public static final int PANEL_WIDTH = 735;
+
+    // Supplier information
     Supplier supplier;
     
     // Create a variable to check the panel is closed or opened
@@ -14,19 +24,26 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
 
     public SupplierUniversalPanel(Supplier supplier, int i) {
         initComponents();
+        // Hide edit button for Product Manager
+        if (ProductManager.isProductManager()) {
+            lblEdit.setVisible(false);
+        }
+        // Hide the Panel
         hidePanel();
+        // Set the Supplier information
         this.supplier = supplier;
+        // Set the list number
         lblNum.setText(String.valueOf(i) + ".");
         resetFields();
     }
     
     private void hidePanel() {
-        // Set the pnlBackground to hidePanel(Resize it smaller to hide all the labels, textfield, buttons and textarea. )
-        pnlBackground.setPreferredSize(new Dimension(735, 50));
+        // Resize the Panel and hide the components inside
+        pnlBackground.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlBackground.revalidate();
         pnlBackground.repaint();
 
-        setPreferredSize(new Dimension(755, 72));
+        setPreferredSize(new Dimension(MAIN_WIDTH, MAIN_MIN_HEIGHT));
         revalidate();
         repaint();
 
@@ -35,13 +52,12 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     }
     
     private void showPanel() {
-        // If the panel is closed,then execute codes below:
-        // Set the pnlBackground to open(Resize it larger to show all the labels, textfield, buttons and textarea. )
-        pnlBackground.setPreferredSize(new Dimension(735, 168));
+        // Resize the Panel and show the components inside
+        pnlBackground.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlBackground.revalidate();
         pnlBackground.repaint();
 
-        setPreferredSize(new Dimension(755, 168));
+        setPreferredSize(new Dimension(MAIN_WIDTH, MAIN_MAX_HEIGHT));
         revalidate();
         repaint();
         
@@ -50,6 +66,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     }
 
     private void resetFields() {
+        // Fill the fields with Supplier information
         txtName.setText(supplier.getSupplierName());
         txtEmail.setText(supplier.getSupplierEmail());
         txtContact.setText(supplier.getSupplierContact());
@@ -63,10 +80,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             case Supplier.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
                 break;
-        }
-
-        if (ProductManager.isProductManager()) {
-            lblEdit.setVisible(false);
         }
     }
 
@@ -154,12 +167,12 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblNameError = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         lblEmailError = new javax.swing.JLabel();
-        btnStatus = new javax.swing.JButton();
-        lblControl = new javax.swing.JLabel();
         txtContact = new javax.swing.JTextField();
         lblContactError = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         lblAddressError = new javax.swing.JLabel();
+        btnStatus = new javax.swing.JButton();
+        lblControl = new javax.swing.JLabel();
         lblEdit = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(46, 52, 66));
@@ -214,27 +227,6 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
         lblEmailError.setText(" ");
 
-        btnStatus.setBackground(new java.awt.Color(255, 255, 255));
-        btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
-        btnStatus.setBorder(null);
-        btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
-            }
-        });
-
-        lblControl.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-down.png"))); // NOI18N
-        lblControl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblControl.setPreferredSize(new java.awt.Dimension(30, 30));
-        lblControl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblControlMouseClicked(evt);
-            }
-        });
-
         txtContact.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtContact.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtContact.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -275,8 +267,37 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
         lblAddressError.setText(" ");
 
+        btnStatus.setBackground(new java.awt.Color(255, 255, 255));
+        btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
+        btnStatus.setBorder(null);
+        btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStatusMouseClicked(evt);
+            }
+        });
+
+        lblControl.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-down.png"))); // NOI18N
+        lblControl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblControl.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblControl.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblControl.setPreferredSize(new java.awt.Dimension(30, 30));
+        lblControl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblControlMouseClicked(evt);
+            }
+        });
+
         lblEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
+        lblEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEdit.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblEdit.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblEdit.setPreferredSize(new java.awt.Dimension(30, 30));
         lblEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEditMouseClicked(evt);
@@ -296,54 +317,53 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                     .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblContactError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblEmailError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(18, 18, 18)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(lblEdit))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(12, 12, 12))
+                .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
-                        .addComponent(lblNameError))
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblEmailError))
-                    .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(2, 2, 2)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNameError))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblEmailError))
+                            .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblEdit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblAddressError))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblContactError)))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAddressError))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(txtContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblContactError)))))
                 .addContainerGap())
         );
 
@@ -360,7 +380,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -382,12 +402,15 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
         if (!isEditing) {
+            // Enable editing of fields
             txtName.setEnabled(true);
             txtEmail.setEnabled(true);
             txtContact.setEnabled(true);
             txtAddress.setEnabled(true);
             lblControl.setEnabled(false);
-            
+            lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
             // Change the icon from edit icon to save icon
             lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
             
@@ -419,16 +442,20 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             }
 
             if (validated) {
+                // Update the Supplier if no error
                 Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, supplier.getSupplierStatus());
                 if (Supplier.modify(modifiedSupplier)) {
                     supplier = modifiedSupplier;
                     resetFields();
                     
+                    // Disable the editing of fields
                     txtName.setEnabled(false);
                     txtEmail.setEnabled(false);
                     txtContact.setEnabled(false);
                     txtAddress.setEnabled(false);
                     lblControl.setEnabled(true);
+                    lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                    btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                     // Change the icon from save icon to edit icon
                     lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
@@ -443,6 +470,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
         if (isEditing) {
             String supplierStatus = Supplier.ACTIVE;
+            // Set new Supplier status as active or inactive
             switch (supplier.getSupplierStatus()) {
                 case Supplier.ACTIVE:
                     supplierStatus = Supplier.INACTIVE;
@@ -453,16 +481,11 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                     break;
             }
             
+            // Update the Supplier status
             Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), supplierStatus);
             if (Supplier.modify(modifiedSupplier)) {
                 supplier = modifiedSupplier;
                 resetFields();
-
-                // Change the icon from save icon to edit icon
-                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-                
-                // When the textbox is enabled, set the boolean variable to true.
-                isEditing = false;
             }
         }
     }//GEN-LAST:event_btnStatusMouseClicked

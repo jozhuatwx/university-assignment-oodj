@@ -1,5 +1,6 @@
 package productmanagement;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -8,6 +9,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ProductManagerUniversalPanel extends javax.swing.JPanel {
+    // Constant fields
+    public static final int MAIN_MAX_HEIGHT = 271;
+    public static final int MAIN_MIN_HEIGHT = 77;
+    public static final int MAIN_WIDTH = 755;
+    public static final int PANEL_MAX_HEIGHT = 249;
+    public static final int PANEL_MIN_HEIGHT = 55;
+    public static final int PANEL_WIDTH = 735;
+
+    // Product Manager information
     ProductManager productManager;
 
     // Create a variable to check the panel is closed or opened
@@ -18,38 +28,49 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
     public ProductManagerUniversalPanel(ProductManager productManager, int i) {
         initComponents();
-        this.productManager = productManager;
-        lblNum.setText(String.valueOf(i) + ".");
+        // Hide the panel
         hidePanel();
+        // Set the Product Manager information
+        this.productManager = productManager;
+        // Set the list number
+        lblNum.setText(String.valueOf(i) + ".");
         resetFields();
     }
         
-    public void hidePanel(){
-        // Set the pnlBackground to close(Resize it smaller to hide all the labels, textfield, buttons and textarea. )
-        pnlBackground.setPreferredSize(new Dimension(713,63));
+    private void hidePanel() {
+        // Resize the Panel and hide the components inside
+        pnlBackground.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlBackground.revalidate();
         pnlBackground.repaint();
+
+        setPreferredSize(new Dimension(MAIN_WIDTH, MAIN_MIN_HEIGHT));
+        revalidate();
+        repaint();
 
         // When the panel is closed, set the boolean variable to true.
         isClosed = true;    
     }
     
-    public void showPanel(){
-        // If the panel is closed,then execute codes below:
-        // Set the pnlBackground to open(Resize it larger to show all the labels, textfield, buttons and textarea. )
-        pnlBackground.setPreferredSize(new Dimension(712,136));
+    private void showPanel() {
+        // Resize the Panel and show the components inside
+        pnlBackground.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlBackground.revalidate();
         pnlBackground.repaint();
+
+        setPreferredSize(new Dimension(MAIN_WIDTH, MAIN_MAX_HEIGHT));
+        revalidate();
+        repaint();
            
         // When the panel is opened, set the boolean variable to false.
         isClosed = false;
     }
 
     private void resetFields() {
+        // Fill the fields with Product Manager information
         txtName.setText(productManager.getUserName());
         txtLoginName.setText(productManager.getUserLoginName());
         txtLoginName.setEnabled(false);
-        txtEmail.setText(productManager.getUserAddress());
+        txtEmail.setText(productManager.getUserEmail());
         txtAddress.setText(productManager.getUserAddress());
 
         switch (productManager.getProductManagerStatus()) {
@@ -163,18 +184,18 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblNameError = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         lblEmailError = new javax.swing.JLabel();
-        btnStatus = new javax.swing.JButton();
-        lblControl = new javax.swing.JLabel();
         txtLoginName = new javax.swing.JTextField();
         lblLoginNameError = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         lblAddressError = new javax.swing.JLabel();
-        lblEdit = new javax.swing.JLabel();
         chkUpdatePassword = new javax.swing.JCheckBox();
         txtNewPassword = new javax.swing.JPasswordField();
+        lblNewPasswordError = new javax.swing.JLabel();
         txtConfirmPassword = new javax.swing.JPasswordField();
         lblConfirmPasswordError = new javax.swing.JLabel();
-        lblNewPasswordError = new javax.swing.JLabel();
+        btnStatus = new javax.swing.JButton();
+        lblControl = new javax.swing.JLabel();
+        lblEdit = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(46, 52, 66));
 
@@ -184,28 +205,74 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblNum.setBackground(new java.awt.Color(0, 0, 0));
         lblNum.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblNum.setText("1.");
+        lblNum.setPreferredSize(new java.awt.Dimension(15, 30));
 
         txtName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtName.setEnabled(false);
+        txtName.setPreferredSize(new java.awt.Dimension(250, 30));
 
         lblNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblNameError.setForeground(new java.awt.Color(255, 0, 0));
-        lblNameError.setText("ERROR");
+        lblNameError.setText(" ");
 
         txtEmail.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         txtEmail.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txtEmail.setEnabled(false);
+        txtEmail.setPreferredSize(new java.awt.Dimension(250, 30));
 
         lblEmailError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEmailError.setForeground(new java.awt.Color(255, 0, 0));
-        lblEmailError.setText("ERROR");
+        lblEmailError.setText(" ");
+
+        txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtLoginName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtLoginName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtLoginName.setEnabled(false);
+        txtLoginName.setPreferredSize(new java.awt.Dimension(250, 30));
+
+        lblLoginNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblLoginNameError.setForeground(new java.awt.Color(255, 0, 0));
+        lblLoginNameError.setText(" ");
+
+        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtAddress.setEnabled(false);
+        txtAddress.setPreferredSize(new java.awt.Dimension(250, 30));
+
+        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
+        lblAddressError.setText(" ");
+
+        chkUpdatePassword.setBackground(new java.awt.Color(255, 255, 255));
+        chkUpdatePassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        chkUpdatePassword.setText("Update Password");
+
+        txtNewPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtNewPassword.setEnabled(false);
+        txtNewPassword.setPreferredSize(new java.awt.Dimension(250, 30));
+
+        lblNewPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblNewPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblNewPasswordError.setText(" ");
+
+        txtConfirmPassword.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        txtConfirmPassword.setEnabled(false);
+        txtConfirmPassword.setPreferredSize(new java.awt.Dimension(250, 30));
+
+        lblConfirmPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblConfirmPasswordError.setForeground(new java.awt.Color(255, 0, 0));
+        lblConfirmPasswordError.setText(" ");
 
         btnStatus.setBackground(new java.awt.Color(255, 255, 255));
         btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
         btnStatus.setBorder(null);
+        btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
         btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnStatusMouseClicked(evt);
@@ -216,126 +283,112 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         lblControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-down.png"))); // NOI18N
         lblControl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblControl.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblControl.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblControl.setPreferredSize(new java.awt.Dimension(30, 30));
         lblControl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblControlMouseClicked(evt);
             }
         });
 
-        txtLoginName.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        txtLoginName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        txtLoginName.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtLoginName.setEnabled(false);
-
-        lblLoginNameError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblLoginNameError.setForeground(new java.awt.Color(255, 0, 0));
-        lblLoginNameError.setText("ERROR");
-
-        txtAddress.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        txtAddress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        txtAddress.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        txtAddress.setEnabled(false);
-
-        lblAddressError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblAddressError.setForeground(new java.awt.Color(255, 0, 0));
-        lblAddressError.setText("ERROR");
-
         lblEdit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
+        lblEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEdit.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblEdit.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblEdit.setPreferredSize(new java.awt.Dimension(30, 30));
         lblEdit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblEditMouseClicked(evt);
             }
         });
 
-        chkUpdatePassword.setText("Update Password");
-
-        lblConfirmPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblConfirmPasswordError.setForeground(new java.awt.Color(255, 0, 0));
-        lblConfirmPasswordError.setText("ERROR");
-
-        lblNewPasswordError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        lblNewPasswordError.setForeground(new java.awt.Color(255, 0, 0));
-        lblNewPasswordError.setText("ERROR");
-
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblNum)
-                .addGap(30, 30, 30)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblNameError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtLoginName)
-                        .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                        .addComponent(lblLoginNameError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(chkUpdatePassword)
-                    .addComponent(lblNewPasswordError, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addContainerGap()
+                .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addComponent(lblEmailError, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                                .addComponent(btnStatus))
-                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEdit)
-                            .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(20, 20, 20))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(chkUpdatePassword)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblConfirmPasswordError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblLoginNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNewPasswordError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblAddressError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblConfirmPasswordError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(txtNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(66, 66, 66)
+                        .addComponent(lblEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblEmailError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblControl, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblNum)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(3, 3, 3)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEmailError)
-                    .addComponent(lblNameError))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblEdit)
-                        .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAddressError)
-                    .addComponent(lblLoginNameError))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(chkUpdatePassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfirmPasswordError)
-                    .addComponent(lblNewPasswordError))
-                .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblControl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblEmailError)
+                                    .addComponent(lblNameError, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLoginName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblLoginNameError)
+                            .addComponent(lblAddressError))
+                        .addGap(18, 18, 18)
+                        .addComponent(chkUpdatePassword)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtConfirmPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNewPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNewPasswordError)
+                            .addComponent(lblConfirmPasswordError))))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -351,14 +404,15 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
         if (isEditing) {
             String productManagerStatus = ProductManager.ACTIVE;
+            // Set new Product Manager status as active or inactive
             switch (productManager.getProductManagerStatus()) {
                 case ProductManager.ACTIVE:
                     productManagerStatus = Supplier.INACTIVE;
@@ -381,16 +435,10 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                     String userPassword = details[6];
                     // Create a Product Manager object
                     ProductManager modifiedProductManager = new ProductManager(productManager.getUserId(), productManager.getUserName(), productManager.getUserAddress(), productManager.getUserEmail(), productManager.getUserLoginName(), userPassword, productManagerStatus);
-                    // Update the Product Manager
+                    // Update the Product Manager status
                     if (ProductManager.modify(modifiedProductManager, false)) {
                         productManager = modifiedProductManager;
                         resetFields();
-
-                        // Change the icon from save icon to edit icon
-                        lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-                        
-                        // When the textbox is enabled, set the boolean variable to true.
-                        isEditing = false;
                     }
                 }
             }
@@ -414,18 +462,20 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
         if (!isEditing) {
+            // Enable editing of fields
             txtName.setEnabled(true);
             txtEmail.setEnabled(true);
             txtLoginName.setEnabled(true);
             txtAddress.setEnabled(true);
             lblControl.setEnabled(false);
+            lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
             // Change the icon from edit icon to save icon
             lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
 
             // When the textbox is enabled, set the boolean variable to true.
             isEditing = true;
-
         } else {
             boolean validated = true;
 
@@ -470,11 +520,14 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                     if (ProductManager.modify(userDetail, false)) {
                         resetFields();
 
+                        // Disable the editing of fields
                         txtName.setEnabled(false);
                         txtEmail.setEnabled(false);
                         txtLoginName.setEnabled(false);
                         txtAddress.setEnabled(false);
                         lblControl.setEnabled(true);
+                        lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                         // Change the icon from save icon to edit icon
                         lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
@@ -512,10 +565,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                 // Display the error message
                 JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
-
-            
         }
-
     }//GEN-LAST:event_lblEditMouseClicked
 
 
