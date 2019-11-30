@@ -1,21 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
-/**
- *
- * @author User
- */
+import java.awt.Dimension;
+import java.util.ArrayList;
+
+import javax.swing.Box;
+
 public class ProductCataloguePanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ProductCataloguePanel
-     */
     public ProductCataloguePanel() {
         initComponents();
+        // Hide the Add button for Administrator
+        if (Administrator.isAdministrator()) {
+            btnAdd.setVisible(false);
+        }
+        // Populate the list with Product Catalogues
+        repopulateCatalogueList();
+    }
+
+    private void repopulateCatalogueList() {
+        // Remove all existing Product Catalogues
+        pnlCatalogueList.removeAll();
+
+        int i = 0;
+        ArrayList<String> catalogueArray = ReadObject.readArray(ProductCatalogue.FILE_NAME);
+        // Iterate through the Product Catalogue array
+        for (; i < catalogueArray.size(); i++) {
+            // Split the line into an array
+            String[] details = catalogueArray.get(i).split(";");
+            // Create a Product Catalogue object with the details
+            ProductCatalogue catalogue = new ProductCatalogue(details);
+            // Create a Universal Panel object with the Product Catalogue object
+            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(catalogue, i + 1);
+            // Set the size of the Universal Panel
+            pcup.setPreferredSize(new Dimension(ProductCatalogueUniversalPanel.MAIN_WIDTH, ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlCatalogueList.add(pcup);
+        }
+        // Fill remaining space with an empty box
+        if (i * ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlCatalogueList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT * i))));
+        }
+        pnlCatalogueList.revalidate();
+    }
+
+    private void search() {
+        String keyword = txtSearch.getText().trim();
+
+        // Remove all existing Product Catalogues
+        pnlCatalogueList.removeAll();
+
+        int i = 0;
+        ArrayList<ProductCatalogue> catalogueArray = ProductCatalogue.search(keyword);
+        // Iterate through the Product Catalogue array
+        for (; i < catalogueArray.size(); i++) {
+            // Create a Universal Panel object with the Product Catalogue object
+            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(catalogueArray.get(i), i + 1);
+            // Set the size of the Universal Panel
+            pcup.setPreferredSize(new Dimension(ProductCatalogueUniversalPanel.MAIN_WIDTH, ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlCatalogueList.add(pcup);
+        }
+        // Fill remaining space with an empty box
+        if (i * ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT < 385) {
+            pnlCatalogueList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT * i))));
+        }
+        pnlCatalogueList.revalidate();
     }
 
     /**
@@ -31,14 +80,8 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         txtSearch = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
-        scrItemList = new javax.swing.JScrollPane();
-        pnlItemList = new javax.swing.JPanel();
-        pnltemporary = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        lblProductCategory = new javax.swing.JLabel();
-        lblRemove = new javax.swing.JLabel();
-        lblEdit = new javax.swing.JLabel();
-        lblCategory1 = new javax.swing.JLabel();
+        scrCatalogueList = new javax.swing.JScrollPane();
+        pnlCatalogueList = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(18, 22, 31));
 
@@ -46,8 +89,22 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         pnlAddItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
 
         btnAdd.setBackground(new java.awt.Color(46, 52, 66));
         btnAdd.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
@@ -92,96 +149,16 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        scrItemList.setBackground(new java.awt.Color(46, 52, 66));
-        scrItemList.setBorder(null);
-        scrItemList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrItemList.setToolTipText("");
-        scrItemList.setPreferredSize(new java.awt.Dimension(755, 385));
+        scrCatalogueList.setBackground(new java.awt.Color(46, 52, 66));
+        scrCatalogueList.setBorder(null);
+        scrCatalogueList.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrCatalogueList.setToolTipText("");
+        scrCatalogueList.setPreferredSize(new java.awt.Dimension(755, 385));
 
-        pnlItemList.setBackground(new java.awt.Color(46, 52, 66));
-        pnlItemList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
-        pnlItemList.setPreferredSize(new java.awt.Dimension(740, 385));
-
-        pnltemporary.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel5.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        jLabel5.setText("1.");
-
-        lblProductCategory.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblProductCategory.setText("Product item Name");
-        lblProductCategory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblProductCategoryMouseClicked(evt);
-            }
-        });
-
-        lblRemove.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Remove.png"))); // NOI18N
-
-        lblEdit.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Edit.png"))); // NOI18N
-
-        lblCategory1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblCategory1.setText("Product category Name");
-        lblCategory1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCategory1MouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnltemporaryLayout = new javax.swing.GroupLayout(pnltemporary);
-        pnltemporary.setLayout(pnltemporaryLayout);
-        pnltemporaryLayout.setHorizontalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(40, 40, 40)
-                .addComponent(lblProductCategory)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEdit)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRemove)
-                .addContainerGap())
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addGap(204, 204, 204)
-                .addComponent(lblCategory1)
-                .addContainerGap(362, Short.MAX_VALUE))
-        );
-        pnltemporaryLayout.setVerticalGroup(
-            pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnltemporaryLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEdit)
-                    .addComponent(lblRemove)
-                    .addGroup(pnltemporaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblProductCategory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(lblCategory1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout pnlItemListLayout = new javax.swing.GroupLayout(pnlItemList);
-        pnlItemList.setLayout(pnlItemListLayout);
-        pnlItemListLayout.setHorizontalGroup(
-            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlItemListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        pnlItemListLayout.setVerticalGroup(
-            pnlItemListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlItemListLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnltemporary, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(322, Short.MAX_VALUE))
-        );
-
-        scrItemList.setViewportView(pnlItemList);
+        pnlCatalogueList.setBackground(new java.awt.Color(46, 52, 66));
+        pnlCatalogueList.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        pnlCatalogueList.setLayout(new javax.swing.BoxLayout(pnlCatalogueList, javax.swing.BoxLayout.Y_AXIS));
+        scrCatalogueList.setViewportView(pnlCatalogueList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -191,7 +168,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlAddItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrItemList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(scrCatalogueList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -200,39 +177,35 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(pnlAddItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrItemList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(scrCatalogueList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblProductCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductCategoryMouseClicked
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_lblProductCategoryMouseClicked
-
-    private void lblCategory1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategory1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblCategory1MouseClicked
-
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        // TODO add your handling code here:
         AddProductCatalogueForm apcf= new AddProductCatalogueForm();
         apcf.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
+        search();
+    }//GEN-LAST:event_txtSearchKeyReleased
+
+    private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+        search();
+    }//GEN-LAST:event_txtSearchFocusLost
+
+    private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblCategory1;
-    private javax.swing.JLabel lblEdit;
-    private javax.swing.JLabel lblProductCategory;
-    private javax.swing.JLabel lblRemove;
     private javax.swing.JPanel pnlAddItem;
-    private javax.swing.JPanel pnlItemList;
-    private javax.swing.JPanel pnltemporary;
-    private javax.swing.JScrollPane scrItemList;
+    private javax.swing.JPanel pnlCatalogueList;
+    private javax.swing.JScrollPane scrCatalogueList;
     private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

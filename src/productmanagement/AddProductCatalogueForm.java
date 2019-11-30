@@ -1,52 +1,144 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-/**
- *
- * @author User
- */
 public class AddProductCatalogueForm extends javax.swing.JFrame {
     int xMouse, yMouse;
+    
+    // Keeps track of temporary image file path
     String imageFilePath = "/productmanagement/img/InsertImage.png";
-    /**
-     * Creates new form AddProductCatalogueForm
-     */
+
     public AddProductCatalogueForm() {
         initComponents();
     }
-    
-     private ImageIcon resizeImage(String imagePath){
-        int x, y;
-        
-        // Get the imageicon and get the width & height of the image
-        ImageIcon MyImage = new ImageIcon(imagePath);
-        x = MyImage.getIconWidth();
-        y = MyImage.getIconHeight();
-        
-        // To differentiate the dimension of image (horizontal,vertical or square)
-        // To resize the label based on the dimension
-        if (x > y) {
-            // If the width longer than height, then it is a horizontal image
-            lblImage.setSize(160,128);
-        } else if (y > x){
-            // If the height longer than width, then it is a vertical image
-            lblImage.setSize(102, 128);
-        } else {
-            // The width is equal to the height, then it is a square image
-            lblImage.setSize(128, 128);
+
+    private void resetFields() {
+        // Clear the fields
+        txtTitle.setText("Title");
+        txaDescription.setText("Description");
+        lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+    }
+
+    // Validation
+    private boolean validateTitle(String catalogueTitle) {
+        boolean validated = true;
+
+        if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
+            lblTitleError.setText("Catalogue Title cannot be empty");
+            validated = false;
+        } else if (!catalogueTitle.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+            lblTitleError.setText("Please enter a valid title");
+            validated = false;
         }
+
+        if (validated) {
+            lblTitleError.setText(" ");
+        }
+        return validated;
+    }
+
+    private boolean validateDescription(String catalogueDescription) {
+        boolean validated = true;
+
+        if (catalogueDescription.length() <= 0 || catalogueDescription.equalsIgnoreCase("Description")) {
+            lblDescriptionError.setText("Catalogue Description cannot be empty");
+            validated = false;
+        } else if (catalogueDescription.contains(";")) {
+            lblDescriptionError.setText("Catalogue Description cannot contain semi-colons");
+            validated = false;
+        }
+
+        if (validated) {
+            lblDescriptionError.setText(" ");
+        }
+
+        return validated;
+    }
+
+    private boolean validateStartDate(String catalogueStartDateString) {
+        boolean validated = true;
+
+        try {
+            if (catalogueStartDateString.length() <= 0) {
+                lblStartDateError.setText("Catalogue Start Date cannot be empty");
+                validated = false;
+            } else {
+                LocalDate startDate = LocalDate.parse(catalogueStartDateString);
+                if (startDate.isBefore(LocalDate.now())) {
+                    lblStartDateError.setText("Catalogue Start Date cannot be before today");
+                    validated = false;
+                }
+            }
+        } catch (Exception e) {
+            lblStartDateError.setText("Please enter a valid date");
+            validated = false;
+        }
+
+        if (validated) {
+            lblStartDateError.setText(" ");
+        }
+        return validated;
+    }
+
+    private boolean validateEndDate(String catalogueStartDateString, String catalogueEndDateString) {
+        boolean validated = true;
+
+        try {
+            if (catalogueEndDateString.length() <= 0) {
+                lblEndDateError.setText("Catalogue End Date cannot be empty");
+                validated = false;
+            } else {
+                LocalDate endDate = LocalDate.parse(catalogueEndDateString);
+                if (validateStartDate(catalogueStartDateString)) {
+                    LocalDate startDate = LocalDate.parse(catalogueStartDateString);
+                    if (endDate.isBefore(startDate)) {
+                        lblEndDateError.setText("Catalogue End Date cannot be before the start date");
+                        validated = false;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            lblStartDateError.setText("Please enter a valid date");
+            validated = false;
+        }
+
+        if (validated) {
+            lblEndDateError.setText(" ");
+        }
+        return validated;
+    }
+
+    private boolean validateImagePath(String catalogueImageTempPath) {
+        boolean validated = true;
+
+        if (catalogueImageTempPath.length() <= 0) {
+            lblImageError.setText("Item Image cannot be empty");
+            validated = false;
+        }
+
+        if (validated) {
+            lblImageError.setText(" ");
+        }
+        return validated;
+    }
+    
+    private ImageIcon resizeImage(String imagePath){
+        // Get the imageicon
+        ImageIcon MyImage = new ImageIcon(imagePath);
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
@@ -69,20 +161,25 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         lblClose = new javax.swing.JLabel();
         lblMinimize = new javax.swing.JLabel();
         pnlInformation = new javax.swing.JPanel();
+        lblAddProductCatalogue = new javax.swing.JLabel();
         lblTitle = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
+        lblTitleError = new javax.swing.JLabel();
         lblDescription = new javax.swing.JLabel();
         scrDescription = new javax.swing.JScrollPane();
         txaDescription = new javax.swing.JTextArea();
+        lblDescriptionError = new javax.swing.JLabel();
         lblStartDate = new javax.swing.JLabel();
-        txtStartDate = new javax.swing.JTextField();
+        ftxStartDate = new javax.swing.JFormattedTextField();
+        lblStartDateError = new javax.swing.JLabel();
         lblEndDate = new javax.swing.JLabel();
-        txtEndDate = new javax.swing.JTextField();
-        lblBannerImage = new javax.swing.JLabel();
+        ftxEndDate = new javax.swing.JFormattedTextField();
+        lblEndDateError = new javax.swing.JLabel();
+        lblBanner = new javax.swing.JLabel();
         lblImage = new javax.swing.JLabel();
-        lblNumberOfPage = new javax.swing.JLabel();
-        txtNumOfPage = new javax.swing.JTextField();
-        btnCreate = new javax.swing.JButton();
+        lblImageError = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -169,60 +266,104 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
         pnlInformation.setBackground(new java.awt.Color(46, 52, 66));
 
-        lblTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblAddProductCatalogue.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblAddProductCatalogue.setForeground(new java.awt.Color(255, 255, 255));
+        lblAddProductCatalogue.setText("Add Product Catalogue");
+        lblAddProductCatalogue.setPreferredSize(new java.awt.Dimension(110, 20));
+
+        lblTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(255, 255, 255));
         lblTitle.setText("Title :");
+        lblTitle.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        txtTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        txtTitle.setText("jTextField1");
+        txtTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtTitle.setText("Title");
+        txtTitle.setBorder(null);
+        txtTitle.setPreferredSize(new java.awt.Dimension(250, 30));
 
-        lblDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblTitleError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblTitleError.setForeground(new java.awt.Color(255, 0, 0));
+        lblTitleError.setText(" ");
+
+        lblDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblDescription.setForeground(new java.awt.Color(255, 255, 255));
         lblDescription.setText("Description :");
+        lblDescription.setPreferredSize(new java.awt.Dimension(100, 30));
 
         txaDescription.setColumns(20);
+        txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(5);
-        txaDescription.setPreferredSize(new java.awt.Dimension(164, 60));
+        txaDescription.setText("Description");
         scrDescription.setViewportView(txaDescription);
 
-        lblStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblDescriptionError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblDescriptionError.setForeground(new java.awt.Color(255, 0, 0));
+        lblDescriptionError.setText(" ");
+
+        lblStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblStartDate.setForeground(new java.awt.Color(255, 255, 255));
         lblStartDate.setText("Start Date :");
+        lblStartDate.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        txtStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        txtStartDate.setText("jTextField1");
+        ftxStartDate.setBorder(null);
+        ftxStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        ftxStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        ftxStartDate.setPreferredSize(new java.awt.Dimension(250, 30));
 
-        lblEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
+        lblStartDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblStartDateError.setForeground(new java.awt.Color(255, 0, 0));
+        lblStartDateError.setText(" ");
+
+        lblEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblEndDate.setForeground(new java.awt.Color(255, 255, 255));
         lblEndDate.setText("End Date :");
+        lblEndDate.setPreferredSize(new java.awt.Dimension(100, 30));
 
-        txtEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        txtEndDate.setText("jTextField1");
+        ftxEndDate.setBorder(null);
+        ftxEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        ftxEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        ftxEndDate.setPreferredSize(new java.awt.Dimension(250, 30));
 
-        lblBannerImage.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblBannerImage.setForeground(new java.awt.Color(255, 255, 255));
-        lblBannerImage.setText("Banner :");
+        lblEndDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblEndDateError.setForeground(new java.awt.Color(255, 0, 0));
+        lblEndDateError.setText(" ");
 
+        lblBanner.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblBanner.setForeground(new java.awt.Color(255, 255, 255));
+        lblBanner.setText("Banner :");
+        lblBanner.setPreferredSize(new java.awt.Dimension(100, 30));
+
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png"))); // NOI18N
-        lblImage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        lblImage.setPreferredSize(new java.awt.Dimension(323, 60));
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblImageMouseClicked(evt);
             }
         });
 
-        lblNumberOfPage.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        lblNumberOfPage.setForeground(new java.awt.Color(255, 255, 255));
-        lblNumberOfPage.setText("Number of Page :");
+        lblImageError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblImageError.setForeground(new java.awt.Color(255, 0, 0));
+        lblImageError.setText(" ");
 
-        txtNumOfPage.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 10)); // NOI18N
-        txtNumOfPage.setText("jTextField1");
+        btnSubmit.setBackground(new java.awt.Color(46, 52, 66));
+        btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnSubmit.setText("Add");
+        btnSubmit.setPreferredSize(new java.awt.Dimension(150, 40));
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
-        btnCreate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        btnCreate.setText("Create");
-        btnCreate.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCreateMouseClicked(evt);
+        btnCancel.setBackground(new java.awt.Color(46, 52, 66));
+        btnCancel.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        btnCancel.setText("Cancel");
+        btnCancel.setPreferredSize(new java.awt.Dimension(150, 40));
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -231,78 +372,104 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         pnlInformationLayout.setHorizontalGroup(
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInformationLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlInformationLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addComponent(lblAddProductCatalogue, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlInformationLayout.createSequentialGroup()
                         .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(lblEndDate, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblStartDate, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(pnlInformationLayout.createSequentialGroup()
-                                    .addComponent(lblBannerImage)
-                                    .addGap(101, 101, 101)
-                                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(pnlInformationLayout.createSequentialGroup()
+                                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblTitleError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlInformationLayout.createSequentialGroup()
                                     .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblDescription)
-                                        .addComponent(lblTitle))
-                                    .addGap(72, 72, 72)
+                                        .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
                                     .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGroup(pnlInformationLayout.createSequentialGroup()
-                                    .addComponent(lblNumberOfPage)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtNumOfPage, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(pnlInformationLayout.createSequentialGroup()
-                        .addGap(136, 136, 136)
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 25, Short.MAX_VALUE))
+                                        .addComponent(ftxStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lblDescriptionError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(scrDescription)
+                                        .addComponent(lblStartDateError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlInformationLayout.createSequentialGroup()
+                                    .addComponent(lblEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lblEndDateError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(ftxEndDate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(pnlInformationLayout.createSequentialGroup()
+                                .addComponent(lblBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlInformationLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlInformationLayout.createSequentialGroup()
+                                        .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lblImageError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(0, 0, Short.MAX_VALUE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlInformationLayout.setVerticalGroup(
             pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlInformationLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlInformationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAddProductCatalogue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitle)
-                    .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTitleError)
+                .addGap(18, 18, 18)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDescription)
-                    .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblStartDate)
-                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblEndDate)
-                    .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNumberOfPage)
-                    .addComponent(txtNumOfPage, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addGroup(pnlInformationLayout.createSequentialGroup()
+                        .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDescriptionError))
+                    .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblBannerImage)
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50))
+                    .addComponent(ftxStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblStartDateError)
+                .addGap(18, 18, 18)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ftxEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblEndDateError)
+                .addGap(18, 18, 18)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblBanner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblImageError)
+                .addGap(18, 18, 18)
+                .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addContainerGap()
                 .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,28 +477,19 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(pnlFrameBar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(407, 636));
+        setSize(new java.awt.Dimension(480, 572));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         // Close the form
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void lblCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseEntered
@@ -375,7 +533,6 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFrameBarMousePressed
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
-        // TODO add your handling code here:
         // To let the user insert the image after pressed the label
         JFileChooser file = new JFileChooser();
         
@@ -397,11 +554,70 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
-    private void btnCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCreateMouseClicked
-        AddProductCataloguePage apcp= new AddProductCataloguePage();
-        apcp.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnCreateMouseClicked
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // Close the form
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        boolean validated = true;
+
+        String catalogueTitle = txtTitle.getText().trim();
+        String catalogueDescription = txaDescription.getText().trim();
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        String catalogueImageTempPath = imageFilePath;
+
+        try {
+            // Validation
+            if (!validateTitle(catalogueTitle)) {
+                validated = false;
+            }
+
+            if (!validateDescription(catalogueDescription)) {
+                validated = false;
+            }
+
+            if (!validateStartDate(catalogueStartDateString)) {
+                validated = false;
+            }
+
+            if (!validateEndDate(catalogueStartDateString, catalogueEndDateString)) {
+                validated = false;
+            }
+
+            if (!validateImagePath(catalogueImageTempPath)) {
+                validated = false;
+            }
+
+            if (validated) {
+                // Convert String to LocalDate
+                LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString);
+                LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString);
+
+                // Generate Catalogue Id
+                String catalogueId = ProductCatalogue.generateCatalogueId();
+
+                // Copy image file to system
+                Path currentRelativePath = Paths.get("");
+                String catalogueBannerPath = currentRelativePath.toAbsolutePath().toString() + "/src/productmanagement/img/productcatalogue/" + catalogueId;
+                Path tempFilePath = Path.of(catalogueImageTempPath);
+                Path newFilePath = Path.of(catalogueBannerPath);
+                Files.copy(tempFilePath, newFilePath);
+
+                ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
+                if (ProductCatalogue.register(catalogue)) {
+                    AddProductCataloguePage apcp = new AddProductCataloguePage();
+                    apcp.catalogue = catalogue;
+                    apcp.setVisible(true);
+                    this.setVisible(false);
+                }
+            }
+        } catch (Exception e) {
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -439,24 +655,29 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreate;
-    private javax.swing.JLabel lblBannerImage;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JFormattedTextField ftxEndDate;
+    private javax.swing.JFormattedTextField ftxStartDate;
+    private javax.swing.JLabel lblAddProductCatalogue;
+    private javax.swing.JLabel lblBanner;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblDescriptionError;
     private javax.swing.JLabel lblEndDate;
+    private javax.swing.JLabel lblEndDateError;
     private javax.swing.JLabel lblImage;
+    private javax.swing.JLabel lblImageError;
     private javax.swing.JLabel lblMinimize;
-    private javax.swing.JLabel lblNumberOfPage;
     private javax.swing.JLabel lblStartDate;
+    private javax.swing.JLabel lblStartDateError;
     private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblTitleError;
     private javax.swing.JPanel pnlBackground;
     private javax.swing.JPanel pnlFrameBar;
     private javax.swing.JPanel pnlInformation;
     private javax.swing.JScrollPane scrDescription;
     private javax.swing.JTextArea txaDescription;
-    private javax.swing.JTextField txtEndDate;
-    private javax.swing.JTextField txtNumOfPage;
-    private javax.swing.JTextField txtStartDate;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
