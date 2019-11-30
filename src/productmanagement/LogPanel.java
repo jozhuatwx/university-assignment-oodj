@@ -18,19 +18,44 @@ public class LogPanel extends javax.swing.JPanel {
         pnlLogList.removeAll();
 
         int i = 0;
-        ArrayList<String> logArray = ReadObject.readArray(Log.LOG_FILE_NAME);
+        ArrayList<String> logArray = ReadObject.readArray(Log.FILE_NAME);
         // Iterate through the Log array
         for (; i < logArray.size(); i++) {
             // Split the line into an array
             String[] details = logArray.get(i).split(";");
-            // Format the log
-            String log = details[0] + " " + details[1] + " " + details[3];
+            // Create a Log object with the details
+            Log log = new Log(details);
             // Create a Universal Panel object with the formatted log
             LogUniversalPanel lup = new LogUniversalPanel(log, i + 1);
             // Set the size of the Universal Panel
             lup.setPreferredSize(new Dimension(LogUniversalPanel.MAIN_WIDTH, LogUniversalPanel.MAIN_HEIGHT));
             // Add the Panel into the list
             pnlLogList.add(lup);
+        }
+        // Fill remaining space with an empty box
+        if (i * LogUniversalPanel.MAIN_HEIGHT < 385) {
+            pnlLogList.add(Box.createRigidArea(new Dimension(0, 385 - (LogUniversalPanel.MAIN_HEIGHT * i))));
+        }
+        pnlLogList.revalidate();
+        pnlLogList.repaint();
+    }
+
+    private void search() {
+        String keyword = txtSearch.getText().trim();
+
+        // Remove all existing Logs
+        pnlLogList.removeAll();
+        
+        int i = 0;
+        // Get an array list of the Logs matching the keyword
+        ArrayList<Log> logArray = Log.search(keyword);
+        for (; i < logArray.size(); i++) {
+            // Create a Universal Panel object with the Log object
+            LogUniversalPanel sup = new LogUniversalPanel(logArray.get(i), i + 1);
+            // Set the size of the Universal Panel object
+            sup.setPreferredSize(new Dimension(SupplierUniversalPanel.MAIN_WIDTH, SupplierUniversalPanel.MAIN_MIN_HEIGHT));
+            // Add the Panel into the list
+            pnlLogList.add(sup);
         }
         // Fill remaining space with an empty box
         if (i * LogUniversalPanel.MAIN_HEIGHT < 385) {
@@ -61,6 +86,7 @@ public class LogPanel extends javax.swing.JPanel {
         pnlSearchItem.setMaximumSize(new java.awt.Dimension(755, 32767));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        txtSearch.setText("Search");
         txtSearch.setBorder(null);
         txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -145,19 +171,23 @@ public class LogPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-        // TODO add your handling code here:
+        search();
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
-        // TODO add your handling code here:
+        if (txtSearch.getText().trim().equalsIgnoreCase("")) {
+            txtSearch.setText("Search");
+        }
     }//GEN-LAST:event_txtSearchFocusLost
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        search();
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
-        // TODO add your handling code here:
+        if (txtSearch.getText().trim().equalsIgnoreCase("Search")) {
+            txtSearch.setText("");
+        }
     }//GEN-LAST:event_txtSearchFocusGained
 
 

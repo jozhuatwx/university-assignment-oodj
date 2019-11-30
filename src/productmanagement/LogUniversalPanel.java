@@ -1,5 +1,7 @@
 package productmanagement;
 
+import java.time.format.DateTimeFormatter;
+
 public class LogUniversalPanel extends javax.swing.JPanel {
     // Constant fields
     public static final int MAIN_HEIGHT = 52;
@@ -7,10 +9,12 @@ public class LogUniversalPanel extends javax.swing.JPanel {
     public static final int PANEL_HEIGHT = 42;
     public static final int PANEL_WIDTH = 735;
 
-    public LogUniversalPanel(String log, int i) {
+    public LogUniversalPanel(Log log, int i) {
         initComponents();
         lblNum.setText(i + ".");
-        lblLog.setText(log);
+        // Get the date and time in the format of YYYY-MM-dd HH:mm:ss
+        String logDateTime = log.getLogDateTime().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
+        lblLog.setText(logDateTime + " " + log.getLogUserId() + " " + log.getLogAction());
     }
 
     /**
