@@ -2,9 +2,9 @@ package productmanagement;
 
 import java.awt.Dimension;
 
-public class CategoryPanel extends javax.swing.JPanel {
+public class ProductCategoryPanel extends javax.swing.JPanel {
 
-    public CategoryPanel() {
+    public ProductCategoryPanel() {
         initComponents();
         hideAddPanel();
     }

@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class ItemPanel extends javax.swing.JPanel {
+public class ProductItemPanel extends javax.swing.JPanel {
     String imageFilePath = "/productmanagement/img/InsertImage.png";
 
-    public ItemPanel() {
+    public ProductItemPanel() {
         initComponents();
         hideAddPanel();
         resetCategory();
@@ -88,7 +88,7 @@ public class ItemPanel extends javax.swing.JPanel {
         for (; i < itemArray.size(); i++) {
             String[] details = itemArray.get(i).split(";");
             ProductItem item = new ProductItem(details);
-            ItemUniversalPanel iup = new ItemUniversalPanel(item, i + 1);
+            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(item, i + 1);
             iup.setPreferredSize(new Dimension(755, 245));
             pnlItemList.add(iup);
         }
@@ -760,7 +760,7 @@ public class ItemPanel extends javax.swing.JPanel {
         int i = 0;
         ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
         for (; i < itemArray.size(); i++) {
-            ItemUniversalPanel iup = new ItemUniversalPanel(itemArray.get(i), i + 1);
+            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(itemArray.get(i), i + 1);
             iup.setPreferredSize(new Dimension(755, 245));
             pnlItemList.add(iup);
         }
@@ -906,7 +906,7 @@ public class ItemPanel extends javax.swing.JPanel {
         int i = 0;
         ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
         for (; i < itemArray.size(); i++) {
-            ItemUniversalPanel iup = new ItemUniversalPanel(itemArray.get(i), i + 1);
+            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(itemArray.get(i), i + 1);
             iup.setPreferredSize(new Dimension(755, 245));
             pnlItemList.add(iup);
         }

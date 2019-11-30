@@ -14,10 +14,10 @@ import javax.swing.ImageIcon;
  *
  * @author User
  */
-public class CategoryUniversalPanel extends javax.swing.JPanel {
+public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
 
     /** Creates new form CategoryUniversalPanel */
-    public CategoryUniversalPanel() {
+    public ProductCategoryUniversalPanel() {
         initComponents();
         close();
         

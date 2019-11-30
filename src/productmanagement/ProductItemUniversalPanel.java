@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class ItemUniversalPanel extends javax.swing.JPanel {
+public class ProductItemUniversalPanel extends javax.swing.JPanel {
     ProductItem item;
     int itemQuantity;
 
@@ -21,7 +21,7 @@ public class ItemUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
 
-    public ItemUniversalPanel(ProductItem item, int i) {
+    public ProductItemUniversalPanel(ProductItem item, int i) {
         initComponents();
         this.item = item;
         lblNum.setText(String.valueOf(i) + ".");
