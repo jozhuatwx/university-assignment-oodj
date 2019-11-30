@@ -85,8 +85,7 @@ public class Supplier {
 
     if (!registered) {
       // Write the new supplier into the Supplier database and log action
-      WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")", true);
-      return true;
+      return WriteObject.write(supplier, FILE_NAME, true, "Registered new Supplier (" + supplier.getSupplierId() + ")", true);
     } else {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), "Supplier already registered", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -123,8 +122,7 @@ public class Supplier {
       // Delete the old file
       oldFile.delete();
       // Rename the temporary file
-      tempFile.renameTo(new File(FILE_NAME));
-      return true;
+      return tempFile.renameTo(new File(FILE_NAME));
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
