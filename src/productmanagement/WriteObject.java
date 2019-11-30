@@ -9,6 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class WriteObject {
+  // Constant fields
+  public final static String LOG_FILE_NAME = "Log.txt";
+
   public static boolean write(Object obj, String filename, boolean append) {
     // Writes onto the file based on the path and whether to append or overwrite it
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
@@ -32,7 +35,7 @@ public class WriteObject {
     // Creates a log with the date, time, user ID, user role and the action made
     String log = dateTime + ";" + User.myUser.getUserId() + ";" + User.myUser.getUserRole() + ";" + action;
     // Writes the log into the file
-    return write(log, "Log.txt", true);
+    return write(log, LOG_FILE_NAME, true);
   }
 
   public static boolean write(Object obj, String fileName, boolean append, String action) {
