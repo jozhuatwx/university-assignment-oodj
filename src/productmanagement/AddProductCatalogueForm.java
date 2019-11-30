@@ -8,10 +8,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -71,13 +71,14 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
     private boolean validateStartDate(String catalogueStartDateString) {
         boolean validated = true;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
         try {
             if (catalogueStartDateString.length() <= 0) {
                 lblStartDateError.setText("Catalogue Start Date cannot be empty");
                 validated = false;
             } else {
-                LocalDate startDate = LocalDate.parse(catalogueStartDateString);
+                LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                 if (startDate.isBefore(LocalDate.now())) {
                     lblStartDateError.setText("Catalogue Start Date cannot be before today");
                     validated = false;
@@ -96,15 +97,16 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
     private boolean validateEndDate(String catalogueStartDateString, String catalogueEndDateString) {
         boolean validated = true;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
 
         try {
             if (catalogueEndDateString.length() <= 0) {
                 lblEndDateError.setText("Catalogue End Date cannot be empty");
                 validated = false;
             } else {
-                LocalDate endDate = LocalDate.parse(catalogueEndDateString);
+                LocalDate endDate = LocalDate.parse(catalogueEndDateString, formatter);
                 if (validateStartDate(catalogueStartDateString)) {
-                    LocalDate startDate = LocalDate.parse(catalogueStartDateString);
+                    LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                     if (endDate.isBefore(startDate)) {
                         lblEndDateError.setText("Catalogue End Date cannot be before the start date");
                         validated = false;
@@ -251,7 +253,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         pnlFrameBarLayout.setHorizontalGroup(
             pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameBarLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 406, Short.MAX_VALUE)
                 .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblClose, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -307,6 +309,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         txaDescription.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txaDescription.setRows(5);
         txaDescription.setText("Description");
+        txaDescription.setBorder(null);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusGained(evt);
@@ -443,7 +446,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
                                     .addGroup(pnlInformationLayout.createSequentialGroup()
                                         .addGroup(pnlInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(lblImageError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -494,10 +497,10 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlInformation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -512,7 +515,7 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
         getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(480, 572));
+        setSize(new java.awt.Dimension(496, 572));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -621,17 +624,19 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
             if (validated) {
                 // Convert String to LocalDate
-                LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString);
-                LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString);
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString, formatter);
+                LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString, formatter);
 
                 // Generate Catalogue Id
                 String catalogueId = ProductCatalogue.generateCatalogueId();
 
                 // Copy image file to system
                 Path currentRelativePath = Paths.get("");
-                String catalogueBannerPath = currentRelativePath.toAbsolutePath().toString() + "/src/productmanagement/img/productcatalogue/" + catalogueId;
+                String catalogueBannerPath = "/productmanagement/img/productcatalogue/" + catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf(".") + 1);
+                String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + catalogueBannerPath;
                 Path tempFilePath = Path.of(catalogueImageTempPath);
-                Path newFilePath = Path.of(catalogueBannerPath);
+                Path newFilePath = Path.of(newFilePathString);
                 Files.copy(tempFilePath, newFilePath);
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
@@ -670,7 +675,9 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txaDescriptionFocusGained
 
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
-        if (txaDescription.getText().trim().equalsIgnoreCase("")) {
+        String catalogueDescription = txaDescription.getText().trim();
+        validateDescription(catalogueDescription);
+        if (catalogueDescription.equalsIgnoreCase("")) {
             txaDescription.setText("Description");
         }
     }//GEN-LAST:event_txaDescriptionFocusLost
