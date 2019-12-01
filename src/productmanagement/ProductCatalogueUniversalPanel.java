@@ -843,9 +843,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblSaveIconMouseClicked
 
     private void lblEditPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseClicked
-        ProductCataloguePageForm apcp = new ProductCataloguePageForm();
+        ProductCataloguePageForm apcp = new ProductCataloguePageForm(catalogue);
         apcp.setVisible(true);
-        apcp.catalogue = catalogue;
     }//GEN-LAST:event_lblEditPageMouseClicked
 
     private void txtTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusGained
