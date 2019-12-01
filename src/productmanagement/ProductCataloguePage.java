@@ -17,20 +17,21 @@ public class ProductCataloguePage {
 
   // Product Catalogue Page fields
   private String pageId, pageCatalogueId, pageStatus;
-  private int pageNumber;
+  private int pageNumberOfItems, pageNumber;
   private String[] pageItemIds;
 
   // Construct the Product Catalogue Page
-  ProductCataloguePage(String pageId, int pageNumber, String[] pageItemIds, String pageCatalogueId, String pageStatus) {
+  ProductCataloguePage(String pageId, int pageNumber, int pageNumberOfItems, String[] pageItemIds, String pageCatalogueId, String pageStatus) {
     this.pageId = pageId;
     this.pageNumber = pageNumber;
+    this.pageNumberOfItems = pageNumberOfItems;
     this.pageItemIds = pageItemIds;
     this.pageCatalogueId = pageCatalogueId;
     this.pageStatus = pageStatus;
   }
 
   ProductCataloguePage(String[] details) {
-    this(details[0], Integer.valueOf(details[1]), details[2].split(","), details[3], details[4]);
+    this(details[0], Integer.valueOf(details[1]), Integer.valueOf(details[2]), details[3].split(","), details[4], details[5]);
   }
 
   // Getters and setters
@@ -55,7 +56,11 @@ public class ProductCataloguePage {
   }
 
   public int getPageNumberOfItems() {
-    return getPageItemIds().length;
+    return pageNumberOfItems;
+  }
+
+  public void setPageNumberOfItems(int pageNumberOfItems) {
+    this.pageNumberOfItems = pageNumberOfItems;
   }
 
   public String getPageCatalogueId() {
@@ -102,7 +107,7 @@ public class ProductCataloguePage {
           }
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(pageArray.get(i), FILE_NAME, true);
+          WriteObject.write(pageArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
@@ -134,25 +139,16 @@ public class ProductCataloguePage {
         String[] details = pageDetails.split(";");
         // Find the Page with the matching ID
         if (details[0].equalsIgnoreCase(pageArrayList.get(currentpage).getPageId())) {
-          if (pageArrayList.get(currentpage).getPageStatus().equalsIgnoreCase(ACTIVE)) {
-            // Write the new details into the temporary file
-            WriteObject.write(pageArrayList.get(currentpage), TEMP_FILE_NAME, true);
-            if (pageArrayList.size() == (currentpage + 1)) {
-              break;
-            }
-            // Next page
-            currentpage++;
-          } else {
-            WriteObject.write(pageArrayList.get(currentpage), TEMP_FILE_NAME, true);
-            if (pageArrayList.size() == (currentpage + 1)) {
-              break;
-            }
-            // Next page
-            currentpage++;
+          // Write the new details into the temporary file
+          WriteObject.write(pageArrayList.get(currentpage), TEMP_FILE_NAME, true);
+          if (pageArrayList.size() == (currentpage + 1)) {
+            break;
           }
+          // Next page
+          currentpage++;
         } else {
           // Write the old detail into the temporary file
-          WriteObject.write(pageArray.get(i), FILE_NAME, true);
+          WriteObject.write(pageArray.get(i), TEMP_FILE_NAME, true);
         }
         i++;
       }
@@ -205,7 +201,7 @@ public class ProductCataloguePage {
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
   @Override
   public String toString() {
-    String string = getPageId() + ";" + String.valueOf(getPageNumber()) + ";";
+    String string = getPageId() + ";" + String.valueOf(getPageNumber()) + ";" + String.valueOf(getPageNumberOfItems())  + ";";
     
     int i = 0;
     // Convert string array into a string
@@ -219,11 +215,11 @@ public class ProductCataloguePage {
     }
 
     // At least four items
-    for (; i < 3; i++) {
+    for (; i < 4; i++) {
       if (i > 0) {
         string += ", ";
       } else {
-        string += " ,";
+        string += " ";
       }
     }
 
