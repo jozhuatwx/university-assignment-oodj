@@ -22,7 +22,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     public static final int PANEL_WIDTH = 755;
     
     // Keeps track of temporary image file path
-    String imageFilePath = "/productmanagement/img/InsertImage.png";
+    String imageTempPath = "/productmanagement/img/InsertImage.png";
 
     public ProductItemPanel() {
         initComponents();
@@ -825,10 +825,10 @@ public class ProductItemPanel extends javax.swing.JPanel {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblImage.setIcon(resizeImage(path));
-            imageFilePath = path;
+            imageTempPath = path;
         } else if (result == JFileChooser.CANCEL_OPTION){
             lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
-            imageFilePath = "/productmanagement/img/InsertImage.png";
+            imageTempPath = "/productmanagement/img/InsertImage.png";
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
@@ -854,7 +854,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         String itemPriceString = txtSellingPrice.getText().trim();
         String itemQuantityString = txtQuantity.getText().trim();
         String itemDescription = txaDescription.getText().trim();
-        String itemImageTempPath = imageFilePath;
+        String itemImageTempPath = imageTempPath;
         String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
         String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
 
@@ -901,12 +901,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 String itemId = ProductItem.generateItemId();
 
                 // Copy image file to system
-                Path currentRelativePath = Paths.get("");
-                String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf("."));
-                String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + itemImagePath;
-                Path tempFilePath = Path.of(itemImageTempPath);
-                Path newFilePath = Path.of(newFilePathString);
-                Files.copy(tempFilePath, newFilePath);
+                Path tempPath = Path.of(imageTempPath);
+                String newPathString = "/productmanagement/img/productitem/";
+                String fileName = itemId + imageTempPath.substring(imageTempPath.lastIndexOf("."));
+                WriteObject.saveImage(tempPath, newPathString, fileName);
+                String itemImagePath = newPathString + fileName;
                 
                 // Register the Product Item if no error
                 ProductItem item = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);

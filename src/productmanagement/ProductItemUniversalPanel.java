@@ -26,7 +26,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     int itemQuantity;
 
     // Keeps track of temporary image file path
-    String imageFilePath;
+    String imageTempPath;
 
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
@@ -35,7 +35,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         initComponents();
         // Set the Product Item information
         this.item = item;
-        imageFilePath = item.getItemImagePath();
+        imageTempPath = item.getItemImagePath();
         // Set the list number
         lblNum.setText(String.valueOf(i) + ".");
         resetFields();
@@ -664,7 +664,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             String itemPriceString = txtSellingPrice.getText().trim();
             String itemQuantityString = txtQuantity.getText().trim();
             String itemDescription = txaDescription.getText().trim();
-            String itemImageTempPath = imageFilePath;
+            String itemImageTempPath = imageTempPath;
             String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
             String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
 
@@ -711,12 +711,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     String itemId = ProductItem.generateItemId();
 
                     // Copy image file to system
-                    Path currentRelativePath = Paths.get("");
-                    String itemImagePath = "/productmanagement/img/productitem/" + itemId + itemImageTempPath.substring(itemImageTempPath.lastIndexOf("."));
-                    String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + itemImagePath;
-                    Path tempFilePath = Path.of(itemImageTempPath);
-                    Path newFilePath = Path.of(newFilePathString);
-                    Files.copy(tempFilePath, newFilePath);
+                    Path tempPath = Path.of(imageTempPath);
+                    String newPathString = "/productmanagement/img/productitem/";
+                    String fileName = itemId + imageTempPath.substring(imageTempPath.lastIndexOf("."));
+                    WriteObject.saveImage(tempPath, newPathString, fileName);
+                    String itemImagePath = newPathString + fileName;
                     
                     ProductItem modifiedItem = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
                     if (ProductItem.modify(modifiedItem, itemQuantity)) {
@@ -767,10 +766,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
                 lblImage.setIcon(resizeImage(path));
-                imageFilePath = path;
+                imageTempPath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
                 lblImage.setIcon(new ImageIcon(getClass().getResource(item.getItemImagePath())));
-                imageFilePath = item.getItemImagePath();
+                imageTempPath = item.getItemImagePath();
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked

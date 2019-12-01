@@ -634,12 +634,11 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
                 String catalogueId = ProductCatalogue.generateCatalogueId();
 
                 // Copy image file to system
-                Path currentRelativePath = Paths.get("");
-                String catalogueBannerPath = "/productmanagement/img/productcatalogue/" + catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf("."));
-                String newFilePathString = currentRelativePath.toAbsolutePath().toString() + "/src" + catalogueBannerPath;
-                Path tempFilePath = Path.of(catalogueImageTempPath);
-                Path newFilePath = Path.of(newFilePathString);
-                Files.copy(tempFilePath, newFilePath);
+                Path tempPath = Path.of(catalogueImageTempPath);
+                String newPathString = "/productmanagement/img/productcatalogue/";
+                String fileName = catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf("."));
+                WriteObject.saveImage(tempPath, newPathString, fileName);
+                String catalogueBannerPath = newPathString + fileName;
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.register(catalogue)) {
