@@ -63,6 +63,9 @@ public class WriteObject {
       // Convert String to Path
       Path newPath = Path.of(relativePath, newPathString, fileName);
 
+      // Delete file if exist
+      Files.deleteIfExists(newPath);
+
       // Copy the file
       Files.copy(tempPath, newPath);
     } catch (Exception e) {
