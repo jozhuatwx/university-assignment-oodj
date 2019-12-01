@@ -5,21 +5,39 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class MainForm extends javax.swing.JFrame {
-    int xMouse, yMouse;
+    public static boolean unsaved;
+    
+    private int xMouse, yMouse;
 
     public MainForm() {
         initComponents();
         
         resetTabs();
         //Set the lblDashboard to white colour font and underlined. 
-        lblDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        lblDashboard.setForeground(new Color(255, 255, 255));
         pnlUnderline.setVisible(true);
         
-        // Open ProductManagerDashboardPanel initially
         //ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
         ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
+
+        // Open Dashboard Panel initially
+        /*
+        if (Administrator.isAdministrator()) {
+            AdminDashboardPanel dp = new AdminDashboardPanel();
+            pnlContent.add(dp);
+            pnlContent.revalidate();
+        } else if (ProductManager.isProductManager()) {
+            ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
+            pnlContent.add(dp);
+            pnlContent.revalidate();
+        } else {
+            LoginForm lf = new LoginForm();
+            lf.setVisible(true);
+            this.dispose();
+        }
+        */
     }
 
     public void resetTabs(){
@@ -31,12 +49,12 @@ public class MainForm extends javax.swing.JFrame {
         pnlUnderline4.setVisible(false);
         pnlUnderline5.setVisible(false);
         
-        lblDashboard.setForeground(new java.awt.Color(153,153,153));
-        lblProfile.setForeground(new java.awt.Color(153,153,153));
-        lblCategory.setForeground(new java.awt.Color(153,153,153));
-        lblItem.setForeground(new java.awt.Color(153,153,153));
-        lblSupplier.setForeground(new java.awt.Color(153,153,153));
-        lblCatalogue.setForeground(new java.awt.Color(153,153,153));
+        lblDashboard.setForeground(new Color(153,153,153));
+        lblProfile.setForeground(new Color(153,153,153));
+        lblCategory.setForeground(new Color(153,153,153));
+        lblItem.setForeground(new Color(153,153,153));
+        lblSupplier.setForeground(new Color(153,153,153));
+        lblCatalogue.setForeground(new Color(153,153,153));
         
     }    
     /**
@@ -458,8 +476,8 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.revalidate();
         
         resetTabs();
-        //Set the lblProfile to white colour font and underlined. 
-        lblProfile.setForeground(new java.awt.Color(255, 255, 255));
+        // Set the lblProfile to white colour font and underlined. 
+        lblProfile.setForeground(new Color(255, 255, 255));
         pnlUnderline1.setVisible(true);
     }//GEN-LAST:event_lblProfileMouseClicked
 
@@ -468,10 +486,22 @@ public class MainForm extends javax.swing.JFrame {
         ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
+
+        /*
+        if (Administrator.isAdministrator()) {
+            AdminDashboardPanel dp = new AdminDashboardPanel();
+            pnlContent.add(dp);
+            pnlContent.revalidate();
+        } else if (ProductManager.isProductManager()) {
+            ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
+            pnlContent.add(dp);
+            pnlContent.revalidate();
+        }
+        */
         
         resetTabs();
-        //Set the lblDashboard to white colour font and underlined. 
-        lblDashboard.setForeground(new java.awt.Color(255, 255, 255));
+        // Set the lblDashboard to white colour font and underlined. 
+        lblDashboard.setForeground(new Color(255, 255, 255));
         pnlUnderline.setVisible(true);
     }//GEN-LAST:event_lblDashboardMouseClicked
 
@@ -482,8 +512,8 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.revalidate();
         
         resetTabs();
-        //Set the lblCategory to white colour font and underlined. 
-        lblCategory.setForeground(new java.awt.Color(255, 255, 255));
+        // Set the lblCategory to white colour font and underlined. 
+        lblCategory.setForeground(new Color(255, 255, 255));
         pnlUnderline2.setVisible(true);
     }//GEN-LAST:event_lblCategoryMouseClicked
 
@@ -494,42 +524,42 @@ public class MainForm extends javax.swing.JFrame {
         pnlContent.revalidate();
         
         resetTabs();
-        //Set the lblItem to white colour font and underlined. 
-        lblItem.setForeground(new java.awt.Color(255, 255, 255));
+        // Set the lblItem to white colour font and underlined. 
+        lblItem.setForeground(new Color(255, 255, 255));
         pnlUnderline3.setVisible(true);
     }//GEN-LAST:event_lblItemMouseClicked
 
     private void lblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSupplierMouseClicked
         pnlContent.removeAll();
         SupplierPanel sp = new SupplierPanel();
-        //ProductManagerPanel sp = new ProductManagerPanel();
         pnlContent.add(sp);
         pnlContent.revalidate();
         
         resetTabs();
-        //Set the lblSupplier to white colour font and underlined. 
-        lblSupplier.setForeground(new java.awt.Color(255, 255, 255));
+        // Set the lblSupplier to white colour font and underlined. 
+        lblSupplier.setForeground(new Color(255, 255, 255));
         pnlUnderline4.setVisible(true);
     }//GEN-LAST:event_lblSupplierMouseClicked
 
     private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
         pnlContent.removeAll();
-        ProductManagerPanel pcp = new ProductManagerPanel();
+        ProductCataloguePanel pcp = new ProductCataloguePanel();
         pnlContent.add(pcp);
         pnlContent.revalidate();
         
         resetTabs();
-        //Set the lblCatalogue to white colour font and underlined. 
-        lblCatalogue.setForeground(new java.awt.Color(255, 255, 255));
+        // Set the lblCatalogue to white colour font and underlined. 
+        lblCatalogue.setForeground(new Color(255, 255, 255));
         pnlUnderline5.setVisible(true);
     }//GEN-LAST:event_lblCatalogueMouseClicked
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
         int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to log out? Your unsave information will be erased.","Log Out", JOptionPane.YES_NO_OPTION);
         
-        if(opt == 0 ){
+        if (opt == 0) {
             LoginForm lf = new LoginForm();
             lf.setVisible(true);
+            User.logout();
             this.dispose();
         }
     }//GEN-LAST:event_lblLogoutMouseClicked

@@ -230,11 +230,11 @@
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblSupplier" max="32767" attributes="0"/>
-                      <Component id="pnlUnderline4" pref="74" max="32767" attributes="0"/>
+                      <Component id="pnlUnderline4" pref="75" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="lblCatalogue" max="32767" attributes="0"/>
+                      <Component id="lblCatalogue" pref="92" max="32767" attributes="0"/>
                       <Component id="pnlUnderline5" pref="92" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="158" max="32767" attributes="0"/>
