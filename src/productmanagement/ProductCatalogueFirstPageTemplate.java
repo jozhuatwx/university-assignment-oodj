@@ -1,21 +1,70 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
-/**
- *
- * @author User
- */
-public class ProductCatalogueFirstPageTemplate extends javax.swing.JPanel {
+import java.awt.Image;
+import java.nio.file.Paths;
 
-    /**
-     * Creates new form ProductCatalogueFirstPageTemplate
-     */
-    public ProductCatalogueFirstPageTemplate() {
+import javax.swing.ImageIcon;
+
+public class ProductCatalogueFirstPageTemplate extends javax.swing.JPanel {
+    private ProductCatalogue catalogue;
+    private ProductCataloguePage page;
+
+    public ProductCatalogueFirstPageTemplate(ProductCatalogue catalogue, ProductCataloguePage page) {
         initComponents();
+        this.catalogue = catalogue;
+        this.page = page;
+
+        resetContent();
+    }
+
+    private void resetContent() {
+        // Remove existing
+        pnlContent.removeAll();
+
+        switch (page.getPageNumberOfItems()) {
+            case 1:
+                pnlContent.add(new ProductCatalogueOneItemTemplate(page.getPageItemIds()));
+                break;
+            case 2:
+                pnlContent.add(new ProductCatalogueTwoItemTemplate(page.getPageItemIds()));
+                break;
+            case 3:
+                pnlContent.add(new ProductCatalogueThreeItemTemplate(page.getPageItemIds()));
+                break;
+            case 4:
+                pnlContent.add(new ProductCatalogueFourItemTemplate(page.getPageItemIds()));
+                break;
+        }
+        pnlContent.revalidate();
+
+        lblTitle.setText(catalogue.getCatalogueTitle());
+        lblTopBannerImage.setIcon(resizeImageTop((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));
+        lblBottomBannerImage.setIcon(resizeImageBottom((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));
+        lblPageNumber.setText(String.valueOf(page.getPageNumber()));
+    }
+
+    // Create a method to resize the image
+    private ImageIcon resizeImageTop(String imagePath) {
+        // Get the imageicon
+        ImageIcon MyImage = new ImageIcon(imagePath);
+        
+        // Resize the image to the size of the label
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance((int) lblTopBannerImage.getPreferredSize().getWidth(),(int) lblTopBannerImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
+
+    // Create a method to resize the image
+    private ImageIcon resizeImageBottom(String imagePath) {
+        // Get the imageicon
+        ImageIcon MyImage = new ImageIcon(imagePath);
+        
+        // Resize the image to the size of the label
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance((int) lblBottomBannerImage.getPreferredSize().getWidth(),(int) lblBottomBannerImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
     }
 
     /**
@@ -33,29 +82,23 @@ public class ProductCatalogueFirstPageTemplate extends javax.swing.JPanel {
         pnlContent = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         lblTopBannerImage.setBackground(new java.awt.Color(255, 0, 51));
         lblTopBannerImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTopBannerImage.setText("Banner Image");
         lblTopBannerImage.setPreferredSize(new java.awt.Dimension(63, 60));
 
         lblBottomBannerImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBottomBannerImage.setText("Banner Image");
-        lblBottomBannerImage.setPreferredSize(new java.awt.Dimension(31, 60));
+        lblBottomBannerImage.setPreferredSize(new java.awt.Dimension(425, 60));
 
         lblPageNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPageNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPageNumber.setText("1");
 
-        javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
-        pnlContent.setLayout(pnlContentLayout);
-        pnlContentLayout.setHorizontalGroup(
-            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        pnlContentLayout.setVerticalGroup(
-            pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
+        pnlContent.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContent.setMinimumSize(new java.awt.Dimension(400, 400));
+        pnlContent.setPreferredSize(new java.awt.Dimension(400, 400));
+        pnlContent.setLayout(new java.awt.BorderLayout());
 
         lblTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 3, 24)); // NOI18N
         lblTitle.setText("TITLE: CATALOGUE CNY");
@@ -66,20 +109,19 @@ public class ProductCatalogueFirstPageTemplate extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap(164, Short.MAX_VALUE)
-                            .addComponent(lblPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(174, 174, 174))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addContainerGap())
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(184, 184, 184))
                 .addComponent(lblBottomBannerImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createSequentialGroup()
                     .addComponent(lblTopBannerImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -90,14 +132,14 @@ public class ProductCatalogueFirstPageTemplate extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(513, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(13, 13, 13)
                     .addComponent(lblTopBannerImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 412, Short.MAX_VALUE)
                     .addComponent(lblBottomBannerImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(lblPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)

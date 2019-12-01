@@ -1,30 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
 import java.awt.Image;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-/**
- *
- * @author User
- */
 public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
+    ArrayList<ProductItem> items = new ArrayList<>();
 
-    /**
-     * Creates new form ProductCatalogueFourItemTemplate
-     */
-    public ProductCatalogueFourItemTemplate() {
+    public ProductCatalogueFourItemTemplate(String[] itemIds) {
         initComponents();
         
+        // Get first four Items
+        for (int i = 0; i < 4; i++) {
+            boolean found = false;
+            ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+            // Iterate through the Item array
+            for (String itemDetails : itemArray) {
+                // Split the line into details
+                String[] details = itemDetails.split(";");
+                // Check the details for a matching Id
+                if (details[0].equalsIgnoreCase(itemIds[i])) {
+                    // Create a Product Item object and add into array list
+                    items.add(new ProductItem(details));
+                    found = true;
+                    break;
+                }
+            }
+            // If item is not found, create an empty Product Item object and add it to the array list
+            if (!found) {
+                items.add(new ProductItem("", "", "", 0, "", "", "", "", ""));
+            }
+        }
+
+        resetItem(items.get(0), lblImageItem1, lblNameItem1, lblBrandItem1, lblPriceItem1);
+        resetItem(items.get(1), lblImageItem2, lblNameItem2, lblBrandItem2, lblPriceItem2);
+        resetItem(items.get(2), lblImageItem3, lblNameItem3, lblBrandItem3, lblPriceItem3);
+        resetItem(items.get(3), lblImageItem4, lblNameItem4, lblBrandItem4, lblPriceItem4);
+    }
+
+    private void resetItem(ProductItem item, JLabel lblImage, JLabel lblName, JLabel lblBrand, JLabel lblPrice) {
+        if (!item.getItemId().trim().equalsIgnoreCase("")) {
+            lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath(), lblImage));
+            lblName.setText(item.getItemName());
+            lblBrand.setText(item.getItemBrand());
+            lblPrice.setText("RM " + String.valueOf(item.getItemPrice()));
+        } else {
+            lblImage.setIcon(new ImageIcon());
+            lblName.setText("Title");
+            lblBrand.setText("Brand");
+            lblPrice.setText("Price");
+        }
     }
     
     // Create a method to resize the image and label
-    private ImageIcon resizeImage(String imagePath, JLabel lblImage, int itemNo){
+    private ImageIcon resizeImage(String imagePath, JLabel lblImage){
         int x, y;
         
         // Get the imageicon and get the width & height of the image
@@ -89,6 +121,8 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         lblImageItem4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(400, 400));
 
         pnlItem1.setBackground(new java.awt.Color(255, 255, 255));
         pnlItem1.setPreferredSize(new java.awt.Dimension(200, 198));
@@ -129,9 +163,8 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         );
 
         pnlItem1.add(pnlContentItem1);
-        pnlContentItem1.setBounds(0, 120, 200, 78);
+        pnlContentItem1.setBounds(0, 120, 200, 80);
 
-        lblImageItem1.setText("Image");
         lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlItem1.add(lblImageItem1);
         lblImageItem1.setBounds(29, 10, 141, 100);
@@ -175,9 +208,8 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         );
 
         pnlItem2.add(pnlContentItem2);
-        pnlContentItem2.setBounds(0, 120, 200, 78);
+        pnlContentItem2.setBounds(0, 120, 200, 80);
 
-        lblImageItem2.setText("Image");
         lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlItem2.add(lblImageItem2);
         lblImageItem2.setBounds(29, 10, 141, 100);
@@ -221,9 +253,8 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         );
 
         pnlItem3.add(pnlContentItem3);
-        pnlContentItem3.setBounds(0, 120, 200, 78);
+        pnlContentItem3.setBounds(0, 120, 200, 80);
 
-        lblImageItem3.setText("Image");
         lblImageItem3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlItem3.add(lblImageItem3);
         lblImageItem3.setBounds(29, 10, 141, 100);
@@ -267,9 +298,8 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         );
 
         pnlItem4.add(pnlContentItem4);
-        pnlContentItem4.setBounds(0, 120, 200, 78);
+        pnlContentItem4.setBounds(0, 120, 200, 80);
 
-        lblImageItem4.setText("Image");
         lblImageItem4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlItem4.add(lblImageItem4);
         lblImageItem4.setBounds(29, 10, 141, 100);

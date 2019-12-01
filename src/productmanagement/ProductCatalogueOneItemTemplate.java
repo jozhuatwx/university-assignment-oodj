@@ -1,29 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
 import java.awt.Image;
-import java.awt.Point;
-import java.io.File;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
-/**
- *
- * @author User
- */
+import javax.swing.ImageIcon;
+
 public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
+    private ProductItem item;
     
-    /**
-     * Creates new form ProductCatalogueOneItemTemplate
-     */
-    public ProductCatalogueOneItemTemplate() {
+    public ProductCatalogueOneItemTemplate(String[] itemIds) {
         initComponents();
         
+        if (!itemIds[0].trim().equalsIgnoreCase("")) {
+            ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+            for (String itemDetails : itemArray) {
+                String[] details = itemDetails.split(";");
+                if (details[0].equalsIgnoreCase(itemIds[0])) {
+                    item = new ProductItem(details);
+                }
+            }
+
+            lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
+            lblTitle.setText(item.getItemName());
+            lblBrand.setText(item.getItemBrand());
+            lblPrice.setText("RM " + String.valueOf(item.getItemPrice()));
+            txaDescription.setText(item.getItemDescription());
+        } else {
+            lblImage.setIcon(new ImageIcon());
+            lblTitle.setText("Title");
+            lblBrand.setText("Brand");
+            lblPrice.setText("Price");
+            txaDescription.setText("");
+        }
     }
     
        
@@ -77,7 +86,8 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         lblImage = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(405, 400));
+        setMinimumSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(400, 400));
 
         pnlContent.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,8 +98,10 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         scrDescription.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescription.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        txaDescription.setEditable(false);
         txaDescription.setColumns(20);
         txaDescription.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
+        txaDescription.setLineWrap(true);
         txaDescription.setRows(5);
         txaDescription.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescription.setBorder(null);
@@ -132,10 +144,10 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        pnlImage.setBackground(new java.awt.Color(255, 255, 255));
         pnlImage.setPreferredSize(new java.awt.Dimension(405, 200));
         pnlImage.setLayout(null);
 
-        lblImage.setText("Image Here");
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlImage.add(lblImage);
         lblImage.setBounds(100, 10, 180, 180);

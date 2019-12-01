@@ -1,26 +1,60 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package productmanagement;
 
 import java.awt.Image;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
-/**
- *
- * @author User
- */
 public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
+    ArrayList<ProductItem> items = new ArrayList<>();
 
-    /**
-     * Creates new form ProductCatalogueThreeItemTemplate
-     */
-    public ProductCatalogueThreeItemTemplate() {
+    public ProductCatalogueThreeItemTemplate(String[] itemIds) {
         initComponents();
         
+        // Get first three Items
+        for (int i = 0; i < 3; i++) {
+            boolean found = false;
+            ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+            // Iterate through the Item array
+            for (String itemDetails : itemArray) {
+                // Split the line into details
+                String[] details = itemDetails.split(";");
+                // Check the details for a matching Id
+                if (details[0].equalsIgnoreCase(itemIds[i])) {
+                    // Create a Product Item object and add into array list
+                    items.add(new ProductItem(details));
+                    found = true;
+                    break;
+                }
+            }
+            // If item is not found, create an empty Product Item object and add it to the array list
+            if (!found) {
+                items.add(new ProductItem("", "", "", 0, "", "", "", "", ""));
+            }
+        }
+
+        resetItem(items.get(0), lblImageItem1, lblNameItem1, lblBrandItem1, lblPriceItem1, txaDescriptionItem1, 1);
+        resetItem(items.get(1), lblImageItem2, lblNameItem2, lblBrandItem2, lblPriceItem2, txaDescriptionItem2, 2);
+        resetItem(items.get(2), lblImageItem3, lblNameItem3, lblBrandItem3, lblPriceItem3, txaDescriptionItem3, 3);
+    }
+
+    private void resetItem(ProductItem item, JLabel lblImage, JLabel lblName, JLabel lblBrand, JLabel lblPrice, JTextArea txaDescription, int i) {
+        if (!item.getItemId().trim().equalsIgnoreCase("")) {
+            lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath(), lblImage, i));
+            lblName.setText(item.getItemName());
+            lblBrand.setText(item.getItemBrand());
+            lblPrice.setText("RM " + String.valueOf(item.getItemPrice()));
+            txaDescription.setText(item.getItemDescription());
+        } else {
+            lblImage.setIcon(new ImageIcon());
+            lblName.setText("Title");
+            lblBrand.setText("Brand");
+            lblPrice.setText("Price");
+            txaDescription.setText("");
+        }
     }
     
     // Create a method to resize the image and label
@@ -108,6 +142,8 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         lblImageItem3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMinimumSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(400, 400));
 
         pnlItem1.setBackground(new java.awt.Color(255, 255, 255));
         pnlItem1.setLayout(null);
@@ -116,9 +152,11 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         scrDescriptionItem1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescriptionItem1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        txaDescriptionItem1.setEditable(false);
         txaDescriptionItem1.setBackground(new java.awt.Color(240, 240, 240));
         txaDescriptionItem1.setColumns(20);
         txaDescriptionItem1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txaDescriptionItem1.setLineWrap(true);
         txaDescriptionItem1.setRows(5);
         txaDescriptionItem1.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescriptionItem1.setBorder(null);
@@ -160,9 +198,8 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         );
 
         pnlItem1.add(pnlContentItem1);
-        pnlContentItem1.setBounds(0, 200, 131, 200);
+        pnlContentItem1.setBounds(0, 200, 131, 201);
 
-        lblImageItem1.setText("Image");
         lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         lblImageItem1.setPreferredSize(new java.awt.Dimension(126, 178));
         pnlItem1.add(lblImageItem1);
@@ -175,9 +212,11 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         scrDescriptionItem2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescriptionItem2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        txaDescriptionItem2.setEditable(false);
         txaDescriptionItem2.setBackground(new java.awt.Color(240, 240, 240));
         txaDescriptionItem2.setColumns(20);
         txaDescriptionItem2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txaDescriptionItem2.setLineWrap(true);
         txaDescriptionItem2.setRows(5);
         txaDescriptionItem2.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescriptionItem2.setBorder(null);
@@ -219,9 +258,8 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         );
 
         pnlItem2.add(pnlContentItem2);
-        pnlContentItem2.setBounds(0, 200, 131, 200);
+        pnlContentItem2.setBounds(0, 200, 131, 201);
 
-        lblImageItem2.setText("Image");
         lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlItem2.add(lblImageItem2);
         lblImageItem2.setBounds(4, 10, 123, 180);
@@ -233,9 +271,11 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         scrDescriptionItem3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescriptionItem3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        txaDescriptionItem3.setEditable(false);
         txaDescriptionItem3.setBackground(new java.awt.Color(240, 240, 240));
         txaDescriptionItem3.setColumns(20);
         txaDescriptionItem3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txaDescriptionItem3.setLineWrap(true);
         txaDescriptionItem3.setRows(5);
         txaDescriptionItem3.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescriptionItem3.setBorder(null);
@@ -279,7 +319,6 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         pnlItem3.add(pnlContentItem3);
         pnlContentItem3.setBounds(0, 200, 131, 200);
 
-        lblImageItem3.setText("Image");
         lblImageItem3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlItem3.add(lblImageItem3);
         lblImageItem3.setBounds(4, 10, 123, 180);
