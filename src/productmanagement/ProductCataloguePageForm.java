@@ -1,23 +1,90 @@
 package productmanagement;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import javax.swing.JFrame;
 
 public class ProductCataloguePageForm extends javax.swing.JFrame {
     public ProductCatalogue catalogue;
-    private static ProductCataloguePage page;
+    private ArrayList<ProductCataloguePage> pages;
+    private int pageNumber = 1;
+
+    private ProductCataloguePage getCurrentPage() {
+        return pages.get(pageNumber - 1);
+    }
 
     private int xMouse, yMouse;
 
     public ProductCataloguePageForm() {
         initComponents();
-        update();
+        getPages();
+        resetPage();
+        resetItem();
+        resetFields();
+        resetPagination();
     }
 
-    // TODO: THIS IS TEMPORARY
-    private void update() {
-        int numOfItem = cmbNumOfItem.getSelectedIndex() + 1;
-        
+    public void getPages() {
+        ArrayList<String> pageArray = ReadObject.readArray(ProductCataloguePage.FILE_NAME);
+        // Iterate through the Page array
+        for (String pageDetails : pageArray) {
+            // Split line into array
+            String[] details = pageDetails.split(";");
+            // Create a Product Catalogue Page object with the details
+            ProductCataloguePage page = new ProductCataloguePage(details);
+            // Find the Pages with the matching Product Catalogue Id
+            if (page.getPageCatalogueId().equalsIgnoreCase(catalogue.getCatalogueId())) {
+                // Add the page to the array list of Pages
+                pages.add(page);
+            }
+        }
+
+        if (pages.size() <= 0) {
+            ProductCataloguePage page = new ProductCataloguePage(ProductCataloguePage.generatePageId(), 1, null, catalogue.getCatalogueId(), ProductCatalogue.ACTIVE);
+            if (ProductCataloguePage.register(page)) {
+                pages.add(page);
+            }
+        } else {
+            // Sort the Pages
+            Collections.sort(pages, ProductCataloguePage.pageComparator);
+        }
+    }
+
+    private void resetPage() {
+        for (int i = 0; i < pages.size(); i++) {
+            cmbPageNum.addItem(String.valueOf(i));
+        }
+    }
+
+    private void resetItem() {
+        ArrayList<String> pageArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        // Iterate through Page array
+        for (String pageDetails : pageArray) {
+            // Split the line into an array
+            String[] details = pageDetails.split(";");
+            String comboItem = details[0] + ": " + details[1];
+            // Add the item into the combobox
+            cmbItem1.addItem(comboItem);
+            cmbItem2.addItem(comboItem);
+            cmbItem3.addItem(comboItem);
+            cmbItem4.addItem(comboItem);
+        }
+    }
+
+    private void resetFields() {
+        lblCatalogueTitle.setText(catalogue.getCatalogueTitle());
+        cmbPageNum.setSelectedItem(String.valueOf(pageNumber));
+        lblTotalPages.setText("/" + String.valueOf(pages.size()));
+
+        int numOfItem = getCurrentPage().getPageNumberOfItems();
+        if (numOfItem > 0) {
+            cmbNumOfItem.setSelectedItem(numOfItem);
+        } else {
+            cmbNumOfItem.setSelectedItem(1);
+        }
+
         switch (numOfItem) {
             case 4:
                 lblItem4.setVisible(true);
@@ -35,18 +102,32 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         }
 
         switch (numOfItem) {
+            case 4:
+                break;
             case 1:
                 lblItem2.setVisible(false);
                 cmbItem2.setVisible(false);
             case 2:
                 lblItem3.setVisible(false);
                 cmbItem3.setVisible(false);
-            case 4:
-                break;
             default:
                 lblItem4.setVisible(false);
                 cmbItem4.setVisible(false);
                 break;
+        }
+    }
+
+    private void resetPagination() {
+        if (pageNumber > 1) {
+            btnBack.setEnabled(true);
+        } else {
+            btnBack.setEnabled(false);
+        }
+
+        if (pageNumber < pages.size()) {
+            btnNext.setEnabled(true);
+        } else {
+            btnNext.setEnabled(false);
         }
     }
 
@@ -384,9 +465,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOptionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCatalogueTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPrint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCatalogueTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -416,7 +497,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                         .addComponent(cmbItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(cmbItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 203, Short.MAX_VALUE)
+                .addGap(0, 203, Short.MAX_VALUE)
                 .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -440,7 +521,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
                     .addComponent(pnlOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -535,7 +616,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbPageNumItemStateChanged
 
     private void cmbNumOfItemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNumOfItemItemStateChanged
-        update();
+        resetFields();
     }//GEN-LAST:event_cmbNumOfItemItemStateChanged
 
     private void cmbItem1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbItem1ItemStateChanged
