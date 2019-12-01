@@ -436,6 +436,10 @@
                   <Dimension value="[250, 30]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ftxStartDateFocusLost"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftxStartDateKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblStartDateError">
               <Properties>
@@ -477,6 +481,10 @@
                   <Dimension value="[250, 30]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ftxEndDateFocusLost"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftxEndDateKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblEndDateError">
               <Properties>

@@ -112,7 +112,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            lblStartDateError.setText("Please enter a valid date");
+            lblEndDateError.setText("Please enter a valid date");
             validated = false;
         }
 
@@ -336,6 +336,16 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         ftxStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         ftxStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         ftxStartDate.setPreferredSize(new java.awt.Dimension(250, 30));
+        ftxStartDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftxStartDateFocusLost(evt);
+            }
+        });
+        ftxStartDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxStartDateKeyReleased(evt);
+            }
+        });
 
         lblStartDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblStartDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -350,6 +360,16 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         ftxEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         ftxEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         ftxEndDate.setPreferredSize(new java.awt.Dimension(250, 30));
+        ftxEndDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftxEndDateFocusLost(evt);
+            }
+        });
+        ftxEndDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxEndDateKeyReleased(evt);
+            }
+        });
 
         lblEndDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEndDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -642,15 +662,16 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.register(catalogue)) {
-                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm();
-                    pcpf.catalogue = catalogue;
+                    System.out.println("Success!");
+                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm(catalogue);
                     pcpf.setVisible(true);
-                    this.setVisible(false);
+                    this.dispose();
                 }
             }
         } catch (Exception e) {
             // Display the error message
             JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(e);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -692,6 +713,28 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         String catalogueDescription = txaDescription.getText().trim();
         validateDescription(catalogueDescription);
     }//GEN-LAST:event_txaDescriptionKeyReleased
+
+    private void ftxStartDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxStartDateFocusLost
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        validateStartDate(catalogueStartDateString);
+    }//GEN-LAST:event_ftxStartDateFocusLost
+
+    private void ftxEndDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxEndDateFocusLost
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        validateEndDate(catalogueStartDateString, catalogueEndDateString);
+    }//GEN-LAST:event_ftxEndDateFocusLost
+
+    private void ftxEndDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxEndDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        validateEndDate(catalogueStartDateString, catalogueEndDateString);
+    }//GEN-LAST:event_ftxEndDateKeyReleased
+
+    private void ftxStartDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxStartDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        validateStartDate(catalogueStartDateString);
+    }//GEN-LAST:event_ftxStartDateKeyReleased
 
     /**
      * @param args the command line arguments
