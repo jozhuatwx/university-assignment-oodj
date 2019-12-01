@@ -28,7 +28,7 @@
     <Container class="javax.swing.JPanel" name="pnlBackground">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="0" red="0" type="rgb"/>
+          <Color blue="1f" green="16" red="12" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
@@ -393,6 +393,9 @@
                     <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txaDescriptionFocusLost"/>
                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txaDescriptionKeyReleased"/>
                   </Events>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txaDescription.setLineWrap(true);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

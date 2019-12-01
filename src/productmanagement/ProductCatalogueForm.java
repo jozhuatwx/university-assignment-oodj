@@ -184,7 +184,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
-        pnlBackground.setBackground(new java.awt.Color(0, 0, 51));
+        pnlBackground.setBackground(new java.awt.Color(18, 22, 31));
 
         pnlFrameBar.setBackground(new java.awt.Color(0, 0, 51));
         pnlFrameBar.setPreferredSize(new java.awt.Dimension(670, 65));
@@ -308,6 +308,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         txaDescription.setRows(5);
         txaDescription.setText("Description");
         txaDescription.setBorder(null);
+        txaDescription.setLineWrap(true);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusGained(evt);
@@ -662,7 +663,6 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.register(catalogue)) {
-                    System.out.println("Success!");
                     ProductCataloguePageForm pcpf = new ProductCataloguePageForm(catalogue);
                     pcpf.setVisible(true);
                     this.dispose();
@@ -671,7 +671,6 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         } catch (Exception e) {
             // Display the error message
             JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println(e);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
