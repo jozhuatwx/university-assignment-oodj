@@ -229,7 +229,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (catalogueImageTempPath.length() <= 0) {
-            lblImageError.setText("Item Image cannot be empty");
+            lblImageError.setText("Catalogue Image cannot be empty");
             validated = false;
         }
 

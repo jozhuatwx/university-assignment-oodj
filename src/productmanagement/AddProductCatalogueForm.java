@@ -3,9 +3,7 @@ package productmanagement;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -127,8 +125,8 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
     private boolean validateImagePath(String catalogueImageTempPath) {
         boolean validated = true;
 
-        if (catalogueImageTempPath.length() <= 0) {
-            lblImageError.setText("Item Image cannot be empty");
+        if (catalogueImageTempPath.length() <= 0 || catalogueImageTempPath.equalsIgnoreCase("/productmanagement/img/InsertImage.png")) {
+            lblImageError.setText("Catalogue Image cannot be empty");
             validated = false;
         }
 
@@ -582,9 +580,11 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
             String path = selectedFile.getAbsolutePath();
             lblImage.setIcon(resizeImage(path));
             imageFilePath = path;
+            lblImageError.setText(" ");
         } else if (result == JFileChooser.CANCEL_OPTION){
             lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
             imageFilePath = "/productmanagement/img/InsertImage.png";
+            lblImageError.setText("Catalogue Image cannot be empty");
         }
     }//GEN-LAST:event_lblImageMouseClicked
 

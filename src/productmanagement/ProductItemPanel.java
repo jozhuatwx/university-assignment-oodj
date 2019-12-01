@@ -3,9 +3,7 @@ package productmanagement;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import javax.swing.Box;
@@ -272,7 +270,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private boolean validateImagePath(String itemImageTempPath) {
         boolean validated = true;
 
-        if (itemImageTempPath.equalsIgnoreCase("/productmanagement/img/InsertImage.png")) {
+        if (itemImageTempPath.length() <= 0 || itemImageTempPath.equalsIgnoreCase("/productmanagement/img/InsertImage.png")) {
             lblImageError.setText("Item Image cannot be empty");
             validated = false;
         }
@@ -826,9 +824,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
             String path = selectedFile.getAbsolutePath();
             lblImage.setIcon(resizeImage(path));
             imageTempPath = path;
+            lblImageError.setText(" ");
         } else if (result == JFileChooser.CANCEL_OPTION){
             lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
             imageTempPath = "/productmanagement/img/InsertImage.png";
+            lblImageError.setText("Item Image cannot be empty");
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
