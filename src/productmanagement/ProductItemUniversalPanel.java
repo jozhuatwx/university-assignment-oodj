@@ -68,7 +68,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private void resetCategory() {
         // Remove existing Categories
-        cmbCategory.removeAll();
+        cmbCategory.removeAllItems();
 
         ArrayList<String> categoryArray = ReadObject.readArray(ProductCategory.FILE_NAME);
         // Iterate through the Category array
@@ -87,7 +87,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private void resetSupplier() {
         // Remove existing Suppliers
-        cmbSupplier.removeAll();
+        cmbSupplier.removeAllItems();
 
         ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
         // Iterate through the Supplier array
