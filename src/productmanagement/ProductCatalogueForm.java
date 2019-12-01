@@ -14,13 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class AddProductCatalogueForm extends javax.swing.JFrame {
+public class ProductCatalogueForm extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     // Keeps track of temporary image file path
     String imageFilePath = "/productmanagement/img/InsertImage.png";
 
-    public AddProductCatalogueForm() {
+    public ProductCatalogueForm() {
         initComponents();
     }
 
@@ -642,9 +642,9 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.register(catalogue)) {
-                    AddProductCataloguePage apcp = new AddProductCataloguePage();
-                    apcp.catalogue = catalogue;
-                    apcp.setVisible(true);
+                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm();
+                    pcpf.catalogue = catalogue;
+                    pcpf.setVisible(true);
                     this.setVisible(false);
                 }
             }
@@ -710,20 +710,21 @@ public class AddProductCatalogueForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProductCatalogueForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddProductCatalogueForm().setVisible(true);
+                new ProductCatalogueForm().setVisible(true);
             }
         });
     }

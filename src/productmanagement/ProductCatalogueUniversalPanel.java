@@ -269,6 +269,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblUserId = new javax.swing.JLabel();
         btnStatus = new javax.swing.JButton();
         lblControl = new javax.swing.JLabel();
+        lblPrint = new javax.swing.JLabel();
         pnlEditDropDownList = new javax.swing.JPanel();
         lblEditIcon = new javax.swing.JLabel();
         lblEditCatalogue = new javax.swing.JLabel();
@@ -388,6 +389,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
         btnStatus.setBorder(null);
         btnStatus.setDisabledIcon(null);
+        btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
         btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnStatusMouseClicked(evt);
@@ -398,11 +402,19 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblControl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblControl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-down.png"))); // NOI18N
         lblControl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblControl.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblControl.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblControl.setPreferredSize(new java.awt.Dimension(30, 30));
         lblControl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblControlMouseClicked(evt);
             }
         });
+
+        lblPrint.setText("PRINT");
+        lblPrint.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblPrint.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblPrint.setPreferredSize(new java.awt.Dimension(30, 30));
 
         pnlEditDropDownList.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -411,6 +423,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblEditIcon.setToolTipText("");
         lblEditIcon.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblEditIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEditIcon.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblEditIcon.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblEditIcon.setPreferredSize(new java.awt.Dimension(30, 30));
         lblEditIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblEditIconMouseEntered(evt);
@@ -457,6 +472,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblSaveIcon.setToolTipText("");
         lblSaveIcon.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblSaveIcon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblSaveIcon.setMaximumSize(new java.awt.Dimension(30, 30));
+        lblSaveIcon.setMinimumSize(new java.awt.Dimension(30, 30));
+        lblSaveIcon.setPreferredSize(new java.awt.Dimension(30, 30));
         lblSaveIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSaveIconMouseClicked(evt);
@@ -469,9 +487,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             pnlEditDropDownListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblEditPage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditDropDownListLayout.createSequentialGroup()
-                .addComponent(lblSaveIcon)
+                .addComponent(lblSaveIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblEditIcon))
+                .addComponent(lblEditIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(lblEditCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlEditDropDownListLayout.setVerticalGroup(
@@ -479,8 +497,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlEditDropDownListLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(pnlEditDropDownListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblEditIcon)
-                    .addComponent(lblSaveIcon))
+                    .addComponent(lblEditIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSaveIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(lblEditCatalogue, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblEditPage, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -524,7 +542,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(45, 45, 45)))
-                                .addComponent(pnlEditDropDownList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(pnlEditDropDownList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblPrint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(ftxStartDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -536,9 +556,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                                     .addComponent(lblEndDateError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(ftxEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnStatus)
+                                .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblControl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap())))
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -567,8 +587,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblEndDateError)))
                 .addGap(21, 21, 21)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlEditDropDownList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(lblPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pnlEditDropDownList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -820,7 +843,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblSaveIconMouseClicked
 
     private void lblEditPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseClicked
-        AddProductCataloguePage apcp = new AddProductCataloguePage();
+        ProductCataloguePageForm apcp = new ProductCataloguePageForm();
         apcp.setVisible(true);
         apcp.catalogue = catalogue;
     }//GEN-LAST:event_lblEditPageMouseClicked
@@ -867,6 +890,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblNum;
     private javax.swing.JLabel lblNumberofPages;
     private javax.swing.JLabel lblPageNumbers;
+    private javax.swing.JLabel lblPrint;
     private javax.swing.JLabel lblSaveIcon;
     private javax.swing.JLabel lblStartDateError;
     private javax.swing.JLabel lblTitleError;

@@ -186,8 +186,8 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        AddProductCatalogueForm apcf= new AddProductCatalogueForm();
-        apcf.setVisible(true);
+        ProductCatalogueForm pcf= new ProductCatalogueForm();
+        pcf.setVisible(true);
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased

@@ -58,7 +58,7 @@
                   <Component id="pnlOption" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
               </Group>
-              <Component id="pnlFrameBar" alignment="0" pref="830" max="32767" attributes="0"/>
+              <Component id="pnlFrameBar" alignment="0" pref="832" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -68,7 +68,7 @@
                   <Component id="pnlFrameBar" min="-2" pref="25" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="pnlCatalogue" pref="581" max="32767" attributes="0"/>
+                      <Component id="pnlCatalogue" pref="582" max="32767" attributes="0"/>
                       <Component id="pnlOption" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
