@@ -21,7 +21,7 @@ public class MainForm extends javax.swing.JFrame {
         ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
         pnlContent.add(dp);
         pnlContent.revalidate();
-
+               
         // Open Dashboard Panel initially
         /*
         if (Administrator.isAdministrator()) {
@@ -29,6 +29,11 @@ public class MainForm extends javax.swing.JFrame {
             pnlContent.add(dp);
             pnlContent.revalidate();
         } else if (ProductManager.isProductManager()) {
+            lblProductManager.setVisible(false);
+            lblLog.setVisible(false);
+            pnlUnderline6.setVisible(false);
+            pnlUnderline7.setVisible(false);
+        
             ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
             pnlContent.add(dp);
             pnlContent.revalidate();
@@ -48,6 +53,8 @@ public class MainForm extends javax.swing.JFrame {
         pnlUnderline3.setVisible(false);
         pnlUnderline4.setVisible(false);
         pnlUnderline5.setVisible(false);
+        pnlUnderline6.setVisible(false);
+        pnlUnderline7.setVisible(false);
         
         lblDashboard.setForeground(new Color(153,153,153));
         lblProfile.setForeground(new Color(153,153,153));
@@ -55,6 +62,8 @@ public class MainForm extends javax.swing.JFrame {
         lblItem.setForeground(new Color(153,153,153));
         lblSupplier.setForeground(new Color(153,153,153));
         lblCatalogue.setForeground(new Color(153,153,153));
+        lblProductManager.setForeground(new Color(153,153,153));
+        lblLog.setForeground(new Color(153,153,153));
         
     }    
     /**
@@ -75,14 +84,18 @@ public class MainForm extends javax.swing.JFrame {
         lblProfile = new javax.swing.JLabel();
         lblCategory = new javax.swing.JLabel();
         lblItem = new javax.swing.JLabel();
-        lblSupplier = new javax.swing.JLabel();
         lblCatalogue = new javax.swing.JLabel();
+        lblSupplier = new javax.swing.JLabel();
+        lblProductManager = new javax.swing.JLabel();
+        lblLog = new javax.swing.JLabel();
         pnlUnderline = new javax.swing.JPanel();
         pnlUnderline1 = new javax.swing.JPanel();
         pnlUnderline2 = new javax.swing.JPanel();
         pnlUnderline3 = new javax.swing.JPanel();
         pnlUnderline4 = new javax.swing.JPanel();
         pnlUnderline5 = new javax.swing.JPanel();
+        pnlUnderline6 = new javax.swing.JPanel();
+        pnlUnderline7 = new javax.swing.JPanel();
         scrPanel = new javax.swing.JScrollPane();
         pnlContent = new javax.swing.JPanel();
 
@@ -174,7 +187,7 @@ public class MainForm extends javax.swing.JFrame {
             pnlFrameBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFrameBarLayout.createSequentialGroup()
                 .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 665, Short.MAX_VALUE)
                 .addComponent(lblMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblClose, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -233,6 +246,16 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        lblCatalogue.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblCatalogue.setForeground(new java.awt.Color(153, 153, 153));
+        lblCatalogue.setText("Catalogue");
+        lblCatalogue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblCatalogue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblCatalogueMouseClicked(evt);
+            }
+        });
+
         lblSupplier.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
         lblSupplier.setForeground(new java.awt.Color(153, 153, 153));
         lblSupplier.setText("Supplier");
@@ -243,13 +266,23 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
-        lblCatalogue.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
-        lblCatalogue.setForeground(new java.awt.Color(153, 153, 153));
-        lblCatalogue.setText("Catalogue");
-        lblCatalogue.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblCatalogue.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblProductManager.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblProductManager.setForeground(new java.awt.Color(153, 153, 153));
+        lblProductManager.setText("Manager");
+        lblProductManager.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblProductManager.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCatalogueMouseClicked(evt);
+                lblProductManagerMouseClicked(evt);
+            }
+        });
+
+        lblLog.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 18)); // NOI18N
+        lblLog.setForeground(new java.awt.Color(153, 153, 153));
+        lblLog.setText("Log");
+        lblLog.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblLog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogMouseClicked(evt);
             }
         });
 
@@ -316,7 +349,7 @@ public class MainForm extends javax.swing.JFrame {
         pnlUnderline4.setLayout(pnlUnderline4Layout);
         pnlUnderline4Layout.setHorizontalGroup(
             pnlUnderline4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
         );
         pnlUnderline4Layout.setVerticalGroup(
             pnlUnderline4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,11 +363,39 @@ public class MainForm extends javax.swing.JFrame {
         pnlUnderline5.setLayout(pnlUnderline5Layout);
         pnlUnderline5Layout.setHorizontalGroup(
             pnlUnderline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
         pnlUnderline5Layout.setVerticalGroup(
             pnlUnderline5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        pnlUnderline6.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline6.setPreferredSize(new java.awt.Dimension(97, 3));
+
+        javax.swing.GroupLayout pnlUnderline6Layout = new javax.swing.GroupLayout(pnlUnderline6);
+        pnlUnderline6.setLayout(pnlUnderline6Layout);
+        pnlUnderline6Layout.setHorizontalGroup(
+            pnlUnderline6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlUnderline6Layout.setVerticalGroup(
+            pnlUnderline6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+
+        pnlUnderline7.setBackground(new java.awt.Color(255, 255, 255));
+        pnlUnderline7.setPreferredSize(new java.awt.Dimension(100, 3));
+
+        javax.swing.GroupLayout pnlUnderline7Layout = new javax.swing.GroupLayout(pnlUnderline7);
+        pnlUnderline7.setLayout(pnlUnderline7Layout);
+        pnlUnderline7Layout.setHorizontalGroup(
+            pnlUnderline7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnlUnderline7Layout.setVerticalGroup(
+            pnlUnderline7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout pnlTabsLayout = new javax.swing.GroupLayout(pnlTabs);
@@ -346,31 +407,39 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDashboard)
                     .addComponent(pnlUnderline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlUnderline1, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
+                .addGap(24, 24, 24)
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblCategory)
                     .addComponent(pnlUnderline2, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addGap(24, 24, 24)
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(pnlUnderline3, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(lblItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
-                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline4, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
-                .addGap(35, 35, 35)
+                .addGap(24, 24, 24)
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline5, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                .addContainerGap(158, Short.MAX_VALUE))
+                    .addComponent(pnlUnderline4, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblSupplier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblProductManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline6, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUnderline7, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         pnlTabsLayout.setVerticalGroup(
             pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTabsLayout.createSequentialGroup()
+            .addGroup(pnlTabsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDashboard)
@@ -378,15 +447,21 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(lblItem)
                     .addComponent(lblSupplier)
                     .addComponent(lblCatalogue)
-                    .addComponent(lblCategory))
+                    .addComponent(lblCategory)
+                    .addComponent(lblLog)
+                    .addComponent(lblProductManager))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlUnderline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pnlUnderline5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlTabsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(pnlUnderline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlUnderline1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlUnderline3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlUnderline2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlUnderline5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(pnlUnderline4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(pnlUnderline6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pnlUnderline7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -405,9 +480,9 @@ public class MainForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
             .addComponent(scrPanel)
+            .addComponent(pnlTabs, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,7 +613,7 @@ public class MainForm extends javax.swing.JFrame {
         resetTabs();
         // Set the lblSupplier to white colour font and underlined. 
         lblSupplier.setForeground(new Color(255, 255, 255));
-        pnlUnderline4.setVisible(true);
+        pnlUnderline5.setVisible(true);
     }//GEN-LAST:event_lblSupplierMouseClicked
 
     private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
@@ -550,7 +625,7 @@ public class MainForm extends javax.swing.JFrame {
         resetTabs();
         // Set the lblCatalogue to white colour font and underlined. 
         lblCatalogue.setForeground(new Color(255, 255, 255));
-        pnlUnderline5.setVisible(true);
+        pnlUnderline4.setVisible(true);
     }//GEN-LAST:event_lblCatalogueMouseClicked
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
@@ -563,6 +638,30 @@ public class MainForm extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void lblLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogMouseClicked
+        pnlContent.removeAll();
+        LogPanel lp = new LogPanel();
+        pnlContent.add(lp);
+        pnlContent.revalidate();
+        
+        resetTabs();
+        // Set the lblProfile to white colour font and underlined. 
+        lblLog.setForeground(new Color(255, 255, 255));
+        pnlUnderline7.setVisible(true);
+    }//GEN-LAST:event_lblLogMouseClicked
+
+    private void lblProductManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductManagerMouseClicked
+        pnlContent.removeAll();
+        ProductManagerPanel pmp = new ProductManagerPanel();
+        pnlContent.add(pmp);
+        pnlContent.revalidate();
+        
+        resetTabs();
+        // Set the lblProfile to white colour font and underlined. 
+        lblProductManager.setForeground(new Color(255, 255, 255));
+        pnlUnderline6.setVisible(true);
+    }//GEN-LAST:event_lblProductManagerMouseClicked
 
     /**
      * @param args the command line arguments
@@ -620,8 +719,10 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblDashboard;
     private javax.swing.JLabel lblItem;
+    private javax.swing.JLabel lblLog;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblMinimize;
+    private javax.swing.JLabel lblProductManager;
     private javax.swing.JLabel lblProfile;
     private javax.swing.JLabel lblSupplier;
     private javax.swing.JPanel pnlContent;
@@ -633,6 +734,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JPanel pnlUnderline3;
     private javax.swing.JPanel pnlUnderline4;
     private javax.swing.JPanel pnlUnderline5;
+    private javax.swing.JPanel pnlUnderline6;
+    private javax.swing.JPanel pnlUnderline7;
     public javax.swing.JScrollPane scrPanel;
     // End of variables declaration//GEN-END:variables
 }
