@@ -7,8 +7,8 @@ import java.util.Collections;
 import javax.swing.JFrame;
 
 public class ProductCataloguePageForm extends javax.swing.JFrame {
-    public ProductCatalogue catalogue;
-    private ArrayList<ProductCataloguePage> pages;
+    private ProductCatalogue catalogue;
+    private ArrayList<ProductCataloguePage> pages = new ArrayList<>();
     private int pageNumber = 1;
 
     private ProductCataloguePage getCurrentPage() {
@@ -17,8 +17,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
     private int xMouse, yMouse;
 
-    public ProductCataloguePageForm() {
+    public ProductCataloguePageForm(ProductCatalogue catalogue) {
         initComponents();
+        this.catalogue = catalogue;
         getPages();
         resetPage();
         resetItem();
@@ -42,7 +43,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         }
 
         if (pages.size() <= 0) {
-            ProductCataloguePage page = new ProductCataloguePage(ProductCataloguePage.generatePageId(), 1, null, catalogue.getCatalogueId(), ProductCatalogue.ACTIVE);
+            String[] catalogueItemIds = {};
+            ProductCataloguePage page = new ProductCataloguePage(ProductCataloguePage.generatePageId(), 1, catalogueItemIds, catalogue.getCatalogueId(), ProductCatalogue.ACTIVE);
             if (ProductCataloguePage.register(page)) {
                 pages.add(page);
             }
@@ -53,12 +55,21 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }
 
     private void resetPage() {
-        for (int i = 0; i < pages.size(); i++) {
+        // Clear exisiting page numbers
+        cmbPageNum.removeAll();
+
+        for (int i = 1; i <= pages.size(); i++) {
             cmbPageNum.addItem(String.valueOf(i));
         }
     }
 
     private void resetItem() {
+        // Remove existing items
+        cmbItem1.removeAll();
+        cmbItem2.removeAll();
+        cmbItem3.removeAll();
+        cmbItem4.removeAll();
+        
         ArrayList<String> pageArray = ReadObject.readArray(ProductItem.FILE_NAME);
         // Iterate through Page array
         for (String pageDetails : pageArray) {
@@ -666,11 +677,13 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ProductCataloguePageForm().setVisible(true);
             }
         });
+        */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
