@@ -1,10 +1,12 @@
 package productmanagement;
 
 import java.awt.Color;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ProductCataloguePageForm extends javax.swing.JFrame {
     private ProductCatalogue catalogue;
@@ -21,9 +23,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         initComponents();
         this.catalogue = catalogue;
         getPages();
-        resetPage();
+        resetPageNumbers();
         resetItem();
         resetFields();
+        resetNumOfCombobox();
         resetPagination();
     }
 
@@ -54,7 +57,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         }
     }
 
-    private void resetPage() {
+    private void resetPageNumbers() {
         // Clear exisiting page numbers
         cmbPageNum.removeAll();
 
@@ -70,17 +73,32 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbItem3.removeAll();
         cmbItem4.removeAll();
         
-        ArrayList<String> pageArray = ReadObject.readArray(ProductItem.FILE_NAME);
-        // Iterate through Page array
-        for (String pageDetails : pageArray) {
+        String[] pageItemIds = getCurrentPage().getPageItemIds();
+        ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        // Iterate through Item array
+        for (String itemDetails : itemArray) {
             // Split the line into an array
-            String[] details = pageDetails.split(";");
+            String[] details = itemDetails.split(";");
             String comboItem = details[0] + ": " + details[1];
-            // Add the item into the combobox
+            // Add the Item into the combobox
             cmbItem1.addItem(comboItem);
             cmbItem2.addItem(comboItem);
             cmbItem3.addItem(comboItem);
             cmbItem4.addItem(comboItem);
+
+            // Set selected Product Item
+            if (pageItemIds[0].equals(details[0])) {
+                cmbItem1.setSelectedItem(comboItem);
+            }
+            if (pageItemIds[1].equals(details[0])) {
+                cmbItem2.setSelectedItem(comboItem);
+            }
+            if (pageItemIds[2].equals(details[0])) {
+                cmbItem3.setSelectedItem(comboItem);
+            }
+            if (pageItemIds[3].equals(details[0])) {
+                cmbItem4.setSelectedItem(comboItem);
+            }
         }
     }
 
@@ -88,14 +106,13 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblCatalogueTitle.setText(catalogue.getCatalogueTitle());
         cmbPageNum.setSelectedItem(String.valueOf(pageNumber));
         lblTotalPages.setText("/" + String.valueOf(pages.size()));
+        cmbNumOfItem.setSelectedItem(getCurrentPage().getPageNumberOfItems());
+    }
 
+    private void resetNumOfCombobox() {
         int numOfItem = getCurrentPage().getPageNumberOfItems();
-        if (numOfItem > 0) {
-            cmbNumOfItem.setSelectedItem(numOfItem);
-        } else {
-            cmbNumOfItem.setSelectedItem(1);
-        }
-
+        numOfItem = numOfItem > 0 ? numOfItem : 1;
+        
         switch (numOfItem) {
             case 4:
                 lblItem4.setVisible(true);
@@ -260,7 +277,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        pnlBackground.setBackground(new java.awt.Color(0, 0, 51));
+        pnlBackground.setBackground(new java.awt.Color(18, 22, 31));
 
         pnlCatalogue.setBackground(new java.awt.Color(255, 255, 255));
         pnlCatalogue.setPreferredSize(new java.awt.Dimension(425, 600));
@@ -288,8 +305,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblPageNum.setText("Page Number :");
         lblPageNum.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        cmbPageNum.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        cmbPageNum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPageNum.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbPageNum.setPreferredSize(new java.awt.Dimension(100, 30));
         cmbPageNum.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -297,7 +313,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             }
         });
 
-        lblTotalPages.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        lblTotalPages.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         lblTotalPages.setForeground(new java.awt.Color(255, 255, 255));
         lblTotalPages.setText("/ 1000");
         lblTotalPages.setPreferredSize(new java.awt.Dimension(42, 30));
@@ -316,7 +332,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblNumOfItem.setText("Number of Items :");
         lblNumOfItem.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        cmbNumOfItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
+        cmbNumOfItem.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbNumOfItem.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
         cmbNumOfItem.setPreferredSize(new java.awt.Dimension(200, 30));
         cmbNumOfItem.addItemListener(new java.awt.event.ItemListener() {
@@ -330,9 +346,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblItem1.setText("Item 1 :");
         lblItem1.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        cmbItem1.setEditable(true);
-        cmbItem1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        cmbItem1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbItem1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        cmbItem1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem1.setPreferredSize(new java.awt.Dimension(200, 30));
         cmbItem1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -345,9 +360,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblItem2.setText("Item 2 :");
         lblItem2.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        cmbItem2.setEditable(true);
-        cmbItem2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        cmbItem2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbItem2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        cmbItem2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem2.setPreferredSize(new java.awt.Dimension(200, 30));
         cmbItem2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -360,9 +374,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblItem3.setText("Item 3 :");
         lblItem3.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        cmbItem3.setEditable(true);
-        cmbItem3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        cmbItem3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbItem3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        cmbItem3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem3.setPreferredSize(new java.awt.Dimension(200, 30));
         cmbItem3.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -375,9 +388,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         lblItem4.setText("Item 4 :");
         lblItem4.setPreferredSize(new java.awt.Dimension(130, 30));
 
-        cmbItem4.setEditable(true);
-        cmbItem4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
-        cmbItem4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbItem4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
+        cmbItem4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem4.setPreferredSize(new java.awt.Dimension(200, 30));
         cmbItem4.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -532,7 +544,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
+                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
                     .addComponent(pnlOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -598,11 +610,19 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
         // Close the form
-        this.dispose();
+        int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to close? Your unsave information will be erased.", "Log Out", JOptionPane.YES_NO_OPTION);
+        
+        if (opt == 0) {
+            this.dispose();
+        }
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        if (ProductCataloguePage.modify(pages)) {
+            // Display success message
+            JOptionPane.showMessageDialog(new JFrame(), "Updated product catalogue pages in " + catalogue.getCatalogueId(), "Success", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
@@ -627,23 +647,79 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbPageNumItemStateChanged
 
     private void cmbNumOfItemItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbNumOfItemItemStateChanged
-        resetFields();
+        resetNumOfCombobox();
     }//GEN-LAST:event_cmbNumOfItemItemStateChanged
 
     private void cmbItem1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbItem1ItemStateChanged
-        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            // Edit Product Item Ids
+            String[] pageItemIds = getCurrentPage().getPageItemIds();
+            String itemId = String.valueOf(cmbItem1.getSelectedItem()).substring(0, 10);
+            if (itemId.equalsIgnoreCase("None")) {
+                itemId = " ";
+            }
+            pageItemIds[0] = itemId;
+            // Create a Product Catalogue Page object
+            ProductCataloguePage modifiedPage = new ProductCataloguePage(getCurrentPage().getPageId(), pageNumber, pageItemIds, getCurrentPage().getPageCatalogueId(), ProductCataloguePage.ACTIVE);
+            // Get the index using page number
+            int index = pageNumber - 1;
+            // Edit the ArrayList
+            pages.set(index, modifiedPage);
+        }
     }//GEN-LAST:event_cmbItem1ItemStateChanged
 
     private void cmbItem2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbItem2ItemStateChanged
-        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            // Edit Product Item Ids
+            String[] pageItemIds = getCurrentPage().getPageItemIds();
+            String itemId = String.valueOf(cmbItem2.getSelectedItem()).substring(0, 10);
+            if (itemId.equalsIgnoreCase("None")) {
+                itemId = " ";
+            }
+            pageItemIds[1] = itemId;
+            // Create a Product Catalogue Page object
+            ProductCataloguePage modifiedPage = new ProductCataloguePage(getCurrentPage().getPageId(), pageNumber, pageItemIds, getCurrentPage().getPageCatalogueId(), ProductCataloguePage.ACTIVE);
+            // Get the index using page number
+            int index = pageNumber - 1;
+            // Edit the ArrayList
+            pages.set(index, modifiedPage);
+        }
     }//GEN-LAST:event_cmbItem2ItemStateChanged
 
     private void cmbItem3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbItem3ItemStateChanged
-        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            // Edit Product Item Ids
+            String[] pageItemIds = getCurrentPage().getPageItemIds();
+            String itemId = String.valueOf(cmbItem3.getSelectedItem()).substring(0, 10);
+            if (itemId.equalsIgnoreCase("None")) {
+                itemId = " ";
+            }
+            pageItemIds[2] = itemId;
+            // Create a Product Catalogue Page object
+            ProductCataloguePage modifiedPage = new ProductCataloguePage(getCurrentPage().getPageId(), pageNumber, pageItemIds, getCurrentPage().getPageCatalogueId(), ProductCataloguePage.ACTIVE);
+            // Get the index using page number
+            int index = pageNumber - 1;
+            // Edit the ArrayList
+            pages.set(index, modifiedPage);
+        }
     }//GEN-LAST:event_cmbItem3ItemStateChanged
 
     private void cmbItem4ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbItem4ItemStateChanged
-        // TODO add your handling code here:
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            // Edit Product Item Ids
+            String[] pageItemIds = getCurrentPage().getPageItemIds();
+            String itemId = String.valueOf(cmbItem4.getSelectedItem()).substring(0, 10);
+            if (itemId.equalsIgnoreCase("None")) {
+                itemId = " ";
+            }
+            pageItemIds[3] = itemId;
+            // Create a Product Catalogue Page object
+            ProductCataloguePage modifiedPage = new ProductCataloguePage(getCurrentPage().getPageId(), pageNumber, pageItemIds, getCurrentPage().getPageCatalogueId(), ProductCataloguePage.ACTIVE);
+            // Get the index using page number
+            int index = pageNumber - 1;
+            // Edit the ArrayList
+            pages.set(index, modifiedPage);
+        }
     }//GEN-LAST:event_cmbItem4ItemStateChanged
 
     /**
