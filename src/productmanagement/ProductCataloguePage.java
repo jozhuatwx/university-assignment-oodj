@@ -2,6 +2,7 @@ package productmanagement;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 
 import javax.swing.JFrame;
@@ -41,8 +42,16 @@ public class ProductCataloguePage {
     return pageNumber;
   }
 
+  public void setPageNumber(int pageNumber) {
+    this.pageNumber = pageNumber;
+  }
+
   public String[] getPageItemIds() {
     return pageItemIds;
+  }
+
+  public void setPageItemIds(String[] pageItemIds) {
+    this.pageItemIds = pageItemIds;
   }
 
   public int getPageNumberOfItems() {
@@ -56,6 +65,10 @@ public class ProductCataloguePage {
   public String getPageStatus() {
     return pageStatus;
   }
+
+  public void setPageStatus(String pageStatus) {
+    this.pageStatus = pageStatus;
+  }
   
   // Generate the Product Catalogue Page ID
   public static String generatePageId() {
@@ -64,7 +77,7 @@ public class ProductCataloguePage {
 
   public static boolean register(ProductCataloguePage page) {
     // Write the new Page into the Page database and log the action
-    return WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")", true);
+    return WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")");
   }
 
   public static boolean modify(ProductCataloguePage page) {
@@ -83,9 +96,9 @@ public class ProductCataloguePage {
         if (details[0].equalsIgnoreCase(page.getPageId())) {
           if (page.getPageStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")", true);
+            WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")");
           } else {
-            WriteObject.write(page, TEMP_FILE_NAME, true, "Deactived product catalogue page information (" + page.getPageId() + ")", true);
+            WriteObject.write(page, TEMP_FILE_NAME, true, "Deactived product catalogue page information (" + page.getPageId() + ")");
           }
         } else {
           // Write the old detail into the temporary file
@@ -97,6 +110,59 @@ public class ProductCataloguePage {
       oldFile.delete();
       // Rename the temporary file
       return tempFile.renameTo(new File(FILE_NAME));
+    } catch (Exception e) {
+      // Display the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    return false;
+  }
+
+  public static boolean modify(ArrayList<ProductCataloguePage> pageArrayList) {
+    // Sort the Pages according to Product Catalogue Page Id
+    Collections.sort(pageArrayList, ProductCataloguePage.idComparator);
+
+    int i = 0, currentpage = 0;
+    File oldFile = new File(FILE_NAME);
+    // Create a temporary file
+    File tempFile = new File(TEMP_FILE_NAME);
+
+    try {
+      ArrayList<String> pageArray = ReadObject.readArray(FILE_NAME);
+      // Iterate through the Page array
+      for (String pageDetails : pageArray) {
+        // Split line into array
+        String[] details = pageDetails.split(";");
+        // Find the Page with the matching ID
+        if (details[0].equalsIgnoreCase(pageArrayList.get(currentpage).getPageId())) {
+          if (pageArrayList.get(currentpage).getPageStatus().equalsIgnoreCase(ACTIVE)) {
+            // Write the new details into the temporary file
+            WriteObject.write(pageArrayList.get(currentpage), TEMP_FILE_NAME, true);
+            if (pageArrayList.size() == (currentpage + 1)) {
+              break;
+            }
+            // Next page
+            currentpage++;
+          } else {
+            WriteObject.write(pageArrayList.get(currentpage), TEMP_FILE_NAME, true);
+            if (pageArrayList.size() == (currentpage + 1)) {
+              break;
+            }
+            // Next page
+            currentpage++;
+          }
+        } else {
+          // Write the old detail into the temporary file
+          WriteObject.write(pageArray.get(i), FILE_NAME, true);
+        }
+        i++;
+      }
+      // Delete the old file
+      oldFile.delete();
+      // Rename the temporary file
+      tempFile.renameTo(new File(FILE_NAME));
+      // Log the action
+      Log.write("Updated product catalogue pages in " + pageArrayList.get(0).getPageCatalogueId());
+      return true;
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -120,19 +186,44 @@ public class ProductCataloguePage {
     }
   };
 
+  // Overrides the default compare method to sort the Pages based on Page number
+  public static Comparator<ProductCataloguePage> idComparator = new Comparator<ProductCataloguePage>() {
+    @Override
+    public int compare(ProductCataloguePage page1, ProductCataloguePage page2) {
+      if (Integer.valueOf(page1.getPageId().substring(2)) < Integer.valueOf(page2.getPageId().substring(2))) {
+        return -1;
+      } else {
+        if (page1.getPageId() == page2.getPageId()) {
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    }
+  };
+
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
   @Override
   public String toString() {
     String string = getPageId() + ";" + String.valueOf(getPageNumber()) + ";";
     
-    // Set default first as true
-    boolean first = true;
+    int i = 0;
     // Convert string array into a string
     for (String itemId : getPageItemIds()) {
-      if (!first) {
+      if (i > 0) {
         string += "," + itemId;
       } else {
         string += itemId;
+      }
+      i++;
+    }
+
+    // At least four items
+    for (; i < 3; i++) {
+      if (i > 0) {
+        string += ", ";
+      } else {
+        string += " ,";
       }
     }
 
