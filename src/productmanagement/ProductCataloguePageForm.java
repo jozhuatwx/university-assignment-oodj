@@ -29,6 +29,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         resetFields();
         resetNumOfCombobox(getCurrentPage().getPageNumberOfItems());
         resetPagination();
+        resetPreview();
 
         enableListeners();
     }
@@ -186,6 +187,19 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         }
     }
 
+    private void resetPreview() {
+        // Clear the preview
+        pnlCatalogue.removeAll();
+
+        if (pageNumber > 1) {
+            pnlCatalogue.add(new ProductCatalogueTemplate(catalogue, getCurrentPage()));
+        } else {
+            pnlCatalogue.add(new ProductCatalogueFirstPageTemplate(catalogue, getCurrentPage()));
+        }
+        pnlCatalogue.revalidate();
+        pnlCatalogue.repaint();
+    }
+
     // Page Navigation
     private void navigatePage(int navigatePageNumber) {
         disableListeners();
@@ -195,6 +209,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         resetFields();
         resetNumOfCombobox(getCurrentPage().getPageNumberOfItems());
         resetPagination();
+        resetPreview();
+
         enableListeners();
     }
 
@@ -321,17 +337,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
         pnlCatalogue.setBackground(new java.awt.Color(255, 255, 255));
         pnlCatalogue.setPreferredSize(new java.awt.Dimension(425, 600));
-
-        javax.swing.GroupLayout pnlCatalogueLayout = new javax.swing.GroupLayout(pnlCatalogue);
-        pnlCatalogue.setLayout(pnlCatalogueLayout);
-        pnlCatalogueLayout.setHorizontalGroup(
-            pnlCatalogueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 425, Short.MAX_VALUE)
-        );
-        pnlCatalogueLayout.setVerticalGroup(
-            pnlCatalogueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        pnlCatalogue.setLayout(new java.awt.BorderLayout());
 
         pnlOption.setBackground(new java.awt.Color(46, 52, 66));
 
@@ -714,6 +720,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             int index = pageNumber - 1;
             // Edit the ArrayList
             pages.set(index, modifiedPage);
+            resetPreview();
         }
     };
 
@@ -735,6 +742,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             int index = pageNumber - 1;
             // Edit the ArrayList
             pages.set(index, modifiedPage);
+            resetPreview();
         }
     };
 
@@ -756,6 +764,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             int index = pageNumber - 1;
             // Edit the ArrayList
             pages.set(index, modifiedPage);
+            resetPreview();
         }
     };
 
@@ -777,6 +786,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             int index = pageNumber - 1;
             // Edit the ArrayList
             pages.set(index, modifiedPage);
+            resetPreview();
         }
     };
 
@@ -798,6 +808,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             int index = pageNumber - 1;
             // Edit the ArrayList
             pages.set(index, modifiedPage);
+            resetPreview();
         }
     };
 
