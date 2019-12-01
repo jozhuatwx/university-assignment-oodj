@@ -147,9 +147,6 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         } else if (userPassword.length > 16) {
             lblNewPasswordError.setText("New Password cannot be more than 16 characters");
             validated = false;
-        } else if (passwordString.matches(";")) {
-            lblNewPasswordError.setText("New Password cannot contain semi-colons");
-            validated = false;
         }
 
         if (validated) {
