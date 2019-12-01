@@ -559,6 +559,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         txaDescription.setRows(8);
         txaDescription.setText("Description\n");
         txaDescription.setBorder(null);
+        txaDescription.setLineWrap(true);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusGained(evt);

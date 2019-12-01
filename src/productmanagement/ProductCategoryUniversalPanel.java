@@ -191,6 +191,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         txaDescription.setText("Description");
         txaDescription.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         txaDescription.setEnabled(false);
+        txaDescription.setLineWrap(true);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusGained(evt);

@@ -383,6 +383,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         txaDescription.setEnabled(false);
         txaDescription.setMaximumSize(new java.awt.Dimension(225, 30));
         txaDescription.setMinimumSize(new java.awt.Dimension(225, 30));
+        txaDescription.setLineWrap(true);
         txaDescription.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusGained(evt);
