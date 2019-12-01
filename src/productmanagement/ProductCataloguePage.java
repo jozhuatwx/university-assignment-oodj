@@ -2,6 +2,7 @@ package productmanagement;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -102,6 +103,22 @@ public class ProductCataloguePage {
     }
     return false;
   }
+
+  // Overrides the default compare method to sort the Pages based on Page number
+  public static Comparator<ProductCataloguePage> pageComparator = new Comparator<ProductCataloguePage>() {
+    @Override
+    public int compare(ProductCataloguePage page1, ProductCataloguePage page2) {
+      if (page1.getPageNumber() < page2.getPageNumber()) {
+        return -1;
+      } else {
+        if (page1.getPageNumber() == page2.getPageNumber()) {
+          return 0;
+        } else {
+          return 1;
+        }
+      }
+    }
+  };
 
   // Overrides the default toString() method to display the information of the Product Catalogue Page class
   @Override
