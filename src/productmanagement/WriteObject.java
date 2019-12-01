@@ -1,7 +1,11 @@
 package productmanagement;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -45,5 +49,27 @@ public class WriteObject {
       return true;
     }
     return false;
+  }
+
+  public static boolean saveImage(Path tempPath, String newPathString, String fileName) {
+    // newPathString = /productmanagement/img/productcatalogue/
+    // fileName = ID.png
+    String relativePath = Paths.get(".").toAbsolutePath().toString() + "/src";
+
+    try {
+      // Create directory if does not exist
+      new File(relativePath + newPathString).mkdirs();
+
+      // Convert String to Path
+      Path newPath = Path.of(relativePath, newPathString, fileName);
+
+      // Copy the file
+      Files.copy(tempPath, newPath);
+    } catch (Exception e) {
+      // Displays the error message
+      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      return false;
+    }
+    return true;
   }
 }
