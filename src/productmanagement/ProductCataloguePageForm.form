@@ -226,35 +226,34 @@
                               <EmptySpace type="separate" max="32767" attributes="0"/>
                               <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lblNumOfItem" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="cmbNumOfItem" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="cmbPageNum" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="lblTotalPages" min="-2" pref="50" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="lblAddPages" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lblCatalogueTitle" alignment="0" max="-2" attributes="0"/>
-                                  <Component id="lblItem4" alignment="0" max="-2" attributes="0"/>
-                                  <Component id="lblPageNum" alignment="0" max="-2" attributes="0"/>
-                                  <Component id="lblItem1" alignment="0" max="-2" attributes="0"/>
-                                  <Component id="lblItem2" alignment="0" max="-2" attributes="0"/>
-                                  <Component id="lblItem3" alignment="0" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace type="separate" max="32767" attributes="0"/>
-                                      <Component id="lblPrint" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lblNumOfItem" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="cmbNumOfItem" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="cmbPageNum" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="lblTotalPages" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="lblPrint" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblAddPages" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lblCatalogueTitle" alignment="0" max="-2" attributes="0"/>
+                                          <Component id="lblItem4" alignment="0" max="-2" attributes="0"/>
+                                          <Component id="lblPageNum" alignment="0" max="-2" attributes="0"/>
+                                          <Component id="lblItem1" alignment="0" max="-2" attributes="0"/>
+                                          <Component id="lblItem2" alignment="0" max="-2" attributes="0"/>
+                                          <Component id="lblItem3" alignment="0" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="cmbItem4" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -262,9 +261,9 @@
                                           <Component id="cmbItem2" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="cmbItem3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -277,7 +276,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lblCatalogueTitle" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="lblPrint" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblPrint" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -314,7 +313,7 @@
                               <Component id="cmbItem4" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="199" max="32767" attributes="0"/>
+                      <EmptySpace pref="203" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                           <Component id="btnSubmit" min="-2" max="-2" attributes="0"/>
@@ -669,7 +668,9 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Print"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/productmanagement/img/white-print.png"/>
+                </Property>
                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[30, 30]"/>
                 </Property>
