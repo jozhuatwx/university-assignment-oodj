@@ -802,7 +802,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString, formatter);
 
                 // Generate Catalogue Id
-                String catalogueId = ProductCatalogue.generateCatalogueId();
+                String catalogueId = catalogue.getCatalogueId();
 
                 // Copy image file to system
                 Path tempPath = Path.of(catalogueImageTempPath);
