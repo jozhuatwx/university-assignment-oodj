@@ -276,6 +276,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     } else {
                         validated = false;
                     }
+                    break;
                 }
             }
         }
@@ -302,6 +303,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 if (details[0].equalsIgnoreCase(itemCategoryId) && details[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
                     lblCategoryError.setText("Category selected is inactive");
                     // Does not prevent user from saving
+                    break;
                 }
             }
         }
