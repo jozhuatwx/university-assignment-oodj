@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -136,6 +137,15 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         } else {
             cmbNumOfItem.setSelectedIndex(getCurrentPage().getPageNumberOfItems() - 1);
         }
+        switch (getCurrentPage().getPageStatus()) {
+            case ProductCataloguePage.ACTIVE:
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                break;
+        
+            case ProductCataloguePage.INACTIVE:
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                break;
+        }
     }
 
     private void resetNumOfCombobox(int numOfItem) {
@@ -249,6 +259,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         btnNext = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         lblPrint = new javax.swing.JLabel();
+        btnStatus = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AddProductCatalogueForm");
@@ -457,6 +468,19 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             }
         });
 
+        btnStatus.setBackground(new java.awt.Color(46, 52, 66));
+        btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
+        btnStatus.setBorder(null);
+        btnStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
+        btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnStatusMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlOptionLayout = new javax.swing.GroupLayout(pnlOption);
         pnlOption.setLayout(pnlOptionLayout);
         pnlOptionLayout.setHorizontalGroup(
@@ -480,7 +504,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                                     .addGroup(pnlOptionLayout.createSequentialGroup()
                                         .addComponent(cmbPageNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblTotalPages, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblTotalPages, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblPrint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -506,9 +532,11 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlOptionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPrint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCatalogueTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblPrint, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCatalogueTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
                 .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -681,6 +709,30 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             navigatePage(pageNumber + 1);
         }
     }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
+        String pageStatus = ProductCataloguePage.ACTIVE;
+        // Set new Page status as active or inactive
+        switch (getCurrentPage().getPageStatus()) {
+            case ProductCataloguePage.ACTIVE:
+                pageStatus = ProductCataloguePage.INACTIVE;
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                break;
+        
+            case ProductCataloguePage.INACTIVE:
+                pageStatus = ProductCataloguePage.ACTIVE;
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                break;
+        }
+
+        // Update the Page status
+        // Create a Product Catalogue Page object
+        ProductCataloguePage modifiedPage = new ProductCataloguePage(getCurrentPage().getPageId(), pageNumber, getCurrentPage().getPageNumberOfItems(), getCurrentPage().getPageItemIds(), getCurrentPage().getPageCatalogueId(), pageStatus);
+        // Get the index using page number
+        int index = pageNumber - 1;
+        // Edit the ArrayList
+        pages.set(index, modifiedPage);
+    }//GEN-LAST:event_btnStatusMouseClicked
 
 
     // EVENT LISTENERS
@@ -855,6 +907,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnStatus;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbItem1;
     private javax.swing.JComboBox<String> cmbItem2;
