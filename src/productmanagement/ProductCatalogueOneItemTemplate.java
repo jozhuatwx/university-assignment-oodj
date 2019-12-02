@@ -62,7 +62,7 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
             
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getBounds().getWidth(),(int) lblImage.getBounds().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -149,8 +149,9 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         pnlImage.setLayout(null);
 
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImage.setPreferredSize(new java.awt.Dimension(180, 180));
         pnlImage.add(lblImage);
-        lblImage.setBounds(100, 10, 180, 180);
+        lblImage.setBounds(110, 10, 180, 180);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

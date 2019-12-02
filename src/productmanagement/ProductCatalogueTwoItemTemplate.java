@@ -97,7 +97,7 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getBounds().getWidth(),(int) lblImage.getBounds().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -195,6 +195,7 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         pnlContentItem1.setBounds(1, 1, 202, 197);
 
         lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem1.setPreferredSize(new java.awt.Dimension(140, 140));
         pnlItem1.add(lblImageItem1);
         lblImageItem1.setBounds(234, 31, 140, 140);
 
@@ -260,6 +261,7 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         pnlContentItem2.setBounds(203, 1, 202, 197);
 
         lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem2.setPreferredSize(new java.awt.Dimension(140, 140));
         pnlItem2.add(lblImageItem2);
         lblImageItem2.setBounds(33, 30, 140, 140);
 

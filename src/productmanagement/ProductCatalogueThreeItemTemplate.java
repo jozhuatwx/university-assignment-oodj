@@ -102,7 +102,7 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getBounds().getWidth(),(int) lblImage.getBounds().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -201,9 +201,9 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         pnlContentItem1.setBounds(0, 200, 131, 201);
 
         lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem1.setPreferredSize(new java.awt.Dimension(126, 178));
+        lblImageItem1.setPreferredSize(new java.awt.Dimension(123, 180));
         pnlItem1.add(lblImageItem1);
-        lblImageItem1.setBounds(4, 10, 123, 178);
+        lblImageItem1.setBounds(4, 10, 123, 180);
 
         pnlItem2.setBackground(new java.awt.Color(255, 255, 255));
         pnlItem2.setLayout(null);
@@ -261,6 +261,7 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         pnlContentItem2.setBounds(0, 200, 131, 201);
 
         lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem2.setPreferredSize(new java.awt.Dimension(123, 180));
         pnlItem2.add(lblImageItem2);
         lblImageItem2.setBounds(4, 10, 123, 180);
 
@@ -320,6 +321,7 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         pnlContentItem3.setBounds(0, 200, 131, 200);
 
         lblImageItem3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem3.setPreferredSize(new java.awt.Dimension(123, 180));
         pnlItem3.add(lblImageItem3);
         lblImageItem3.setBounds(4, 10, 123, 180);
 

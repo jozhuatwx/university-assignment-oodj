@@ -70,7 +70,6 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         if (x > y) {
             // If the width longer than height, then it is a horizontal image
             lblImage.setBounds(29,10,141,100);
-                
         } else if (y > x){
             // If the height longer than width, then it is a vertical image
             lblImage.setBounds(70,10,71,100);
@@ -81,7 +80,7 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getBounds().getWidth(),(int) lblImage.getBounds().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }    
@@ -166,8 +165,9 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem1.setBounds(0, 120, 200, 80);
 
         lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem1.setPreferredSize(new java.awt.Dimension(140, 100));
         pnlItem1.add(lblImageItem1);
-        lblImageItem1.setBounds(29, 10, 141, 100);
+        lblImageItem1.setBounds(29, 10, 140, 100);
 
         pnlItem2.setBackground(new java.awt.Color(255, 255, 255));
         pnlItem2.setPreferredSize(new java.awt.Dimension(200, 198));
@@ -211,8 +211,9 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem2.setBounds(0, 120, 200, 80);
 
         lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem2.setPreferredSize(new java.awt.Dimension(140, 100));
         pnlItem2.add(lblImageItem2);
-        lblImageItem2.setBounds(29, 10, 141, 100);
+        lblImageItem2.setBounds(29, 10, 140, 100);
 
         pnlItem3.setBackground(new java.awt.Color(255, 255, 255));
         pnlItem3.setPreferredSize(new java.awt.Dimension(200, 198));
@@ -256,8 +257,9 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem3.setBounds(0, 120, 200, 80);
 
         lblImageItem3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem3.setPreferredSize(new java.awt.Dimension(140, 100));
         pnlItem3.add(lblImageItem3);
-        lblImageItem3.setBounds(29, 10, 141, 100);
+        lblImageItem3.setBounds(29, 10, 140, 100);
 
         pnlItem4.setBackground(new java.awt.Color(255, 255, 255));
         pnlItem4.setPreferredSize(new java.awt.Dimension(200, 198));
@@ -301,8 +303,9 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem4.setBounds(0, 120, 200, 80);
 
         lblImageItem4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        lblImageItem4.setPreferredSize(new java.awt.Dimension(140, 100));
         pnlItem4.add(lblImageItem4);
-        lblImageItem4.setBounds(29, 10, 141, 100);
+        lblImageItem4.setBounds(29, 10, 140, 100);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
