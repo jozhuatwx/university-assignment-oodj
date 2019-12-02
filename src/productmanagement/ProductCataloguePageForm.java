@@ -254,7 +254,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             if (item[0].equals(itemId)) {
                 // Show error if the Item is inactive
                 if (item[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
-                    lblError.setText("Product Item selected is inactive");
+                    lblError.setText("Item selected is inactive");
                     validated = false;
                     break;
                 } else {
@@ -265,7 +265,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                         // Show error if the Supplier is inactive
                         if (supplier[0].equalsIgnoreCase(item[6])) {
                             if ((supplier[5].equalsIgnoreCase(Supplier.INACTIVE))) {
-                                lblError.setText("Supplier of Product Item selected is inactive");
+                                lblError.setText("Supplier of Item selected is inactive");
                                 validated = false;
                                 break;
                             } else {

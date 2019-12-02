@@ -117,7 +117,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userName.length() <= 0 || userName.equalsIgnoreCase("Name")) {
-            lblNameError.setText("Product Manager Name cannot be empty");
+            lblNameError.setText("Manager Name cannot be empty");
             validated = false;
         } else if (!userName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
             lblNameError.setText("Please enter a valid name");
@@ -134,10 +134,10 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userLoginName.length() <= 0 || userLoginName.equalsIgnoreCase("Login Name") || userLoginName.equalsIgnoreCase("LoginName")) {
-            lblLoginNameError.setText("Product Manager Login Name cannot be empty");
+            lblLoginNameError.setText("Manager Login Name cannot be empty");
             validated = false;
         }else if (userLoginName.contains(";")) {
-            lblLoginNameError.setText("Product Manager Login Name cannot contain semi-colons");
+            lblLoginNameError.setText("Manager Login Name cannot contain semi-colons");
             validated = false;
         }
 
@@ -151,10 +151,10 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userAddress.length() <= 0 || userAddress.equalsIgnoreCase("Address")) {
-            lblAddressError.setText("Product Manager Address cannot be empty");
+            lblAddressError.setText("Manager Address cannot be empty");
             validated = false;
         }else if (userAddress.contains(";")) {
-            lblAddressError.setText("Product Manager Address cannot contain semi-colons");
+            lblAddressError.setText("Manager Address cannot contain semi-colons");
             validated = false;
         }
         
@@ -168,7 +168,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (userEmail.length() <= 0 || userEmail.equalsIgnoreCase("Email")) {
-            lblEmailError.setText("Product Manager Email cannot be empty");
+            lblEmailError.setText("Manager Email cannot be empty");
             validated = false;
         } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
             lblEmailError.setText("Please enter a valid email");

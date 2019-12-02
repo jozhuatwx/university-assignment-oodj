@@ -30,7 +30,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         boolean validated = true;
 
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
-            lblTitleError.setText("Catalogue Title cannot be empty");
+            lblTitleError.setText("Title cannot be empty");
             validated = false;
         } else if (!catalogueTitle.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
             lblTitleError.setText("Please enter a valid title");
@@ -47,10 +47,10 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         boolean validated = true;
 
         if (catalogueDescription.length() <= 0 || catalogueDescription.equalsIgnoreCase("Description")) {
-            lblDescriptionError.setText("Catalogue Description cannot be empty");
+            lblDescriptionError.setText("Description cannot be empty");
             validated = false;
         } else if (catalogueDescription.contains(";")) {
-            lblDescriptionError.setText("Catalogue Description cannot contain semi-colons");
+            lblDescriptionError.setText("Description cannot contain semi-colons");
             validated = false;
         }
 
@@ -67,12 +67,12 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
         try {
             if (catalogueStartDateString.length() <= 0) {
-                lblStartDateError.setText("Catalogue Start Date cannot be empty");
+                lblStartDateError.setText("Start Date cannot be empty");
                 validated = false;
             } else {
                 LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                 if (startDate.isBefore(LocalDate.now())) {
-                    lblStartDateError.setText("Catalogue Start Date cannot be before today");
+                    lblStartDateError.setText("Start Date cannot be before today");
                     validated = false;
                 }
             }
@@ -93,14 +93,14 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
         try {
             if (catalogueEndDateString.length() <= 0) {
-                lblEndDateError.setText("Catalogue End Date cannot be empty");
+                lblEndDateError.setText("End Date cannot be empty");
                 validated = false;
             } else {
                 LocalDate endDate = LocalDate.parse(catalogueEndDateString, formatter);
                 if (validateStartDate(catalogueStartDateString)) {
                     LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                     if (endDate.isBefore(startDate)) {
-                        lblEndDateError.setText("Catalogue End Date cannot be before the start date");
+                        lblEndDateError.setText("End Date cannot be before the start date");
                         validated = false;
                     }
                 }
@@ -120,7 +120,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         boolean validated = true;
 
         if (catalogueImageTempPath.length() <= 0 || catalogueImageTempPath.equalsIgnoreCase("/productmanagement/img/InsertImage.png")) {
-            lblImageError.setText("Catalogue Image cannot be empty");
+            lblImageError.setText("Image cannot be empty");
             validated = false;
         }
 
@@ -643,7 +643,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
             if (validated) {
                 // Convert String to LocalDate
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
                 LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString, formatter);
                 LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString, formatter);
 
