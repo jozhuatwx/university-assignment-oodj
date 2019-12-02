@@ -7,11 +7,16 @@ import java.util.Collections;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class ProductCataloguePageForm extends javax.swing.JFrame {
+    // Keeps the Catalogue information
     private ProductCatalogue catalogue;
+    // Keeps all the Pages in the Catalogue information
     private ArrayList<ProductCataloguePage> pages = new ArrayList<>();
+
+    // Keeps track of the Page Number
     private int pageNumber = 1;
 
     private ProductCataloguePage getCurrentPage() {
@@ -85,6 +90,11 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbItem3.addItem("None");
         cmbItem4.addItem("None");
 
+        boolean foundItem1 = false;
+        boolean foundItem2 = false;
+        boolean foundItem3 = false;
+        boolean foundItem4 = false;
+
         String[] pageItemIds = getCurrentPage().getPageItemIds();
         ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
         // Iterate through Item array
@@ -101,28 +111,32 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Set selected Product Item
             if (pageItemIds[0].equalsIgnoreCase(details[0])) {
                 cmbItem1.setSelectedItem(comboItem);
+                foundItem1 = true;
             }
             if (pageItemIds[1].equalsIgnoreCase(details[0])) {
                 cmbItem2.setSelectedItem(comboItem);
+                foundItem2 = true;
             }
             if (pageItemIds[2].equalsIgnoreCase(details[0])) {
                 cmbItem3.setSelectedItem(comboItem);
+                foundItem3 = true;
             }
             if (pageItemIds[3].equalsIgnoreCase(details[0])) {
                 cmbItem4.setSelectedItem(comboItem);
+                foundItem4 = true;
             }
         }
 
-        if (pageItemIds[0].trim().equalsIgnoreCase("")) {
+        if (!foundItem1) {
             cmbItem1.setSelectedItem("None");
         }
-        if (pageItemIds[1].trim().equalsIgnoreCase("")) {
+        if (!foundItem2) {
             cmbItem2.setSelectedItem("None");
         }
-        if (pageItemIds[2].trim().equalsIgnoreCase("")) {
+        if (!foundItem3) {
             cmbItem3.setSelectedItem("None");
         }
-        if (pageItemIds[3].trim().equalsIgnoreCase("")) {
+        if (!foundItem4) {
             cmbItem4.setSelectedItem("None");
         }
     }
@@ -224,6 +238,61 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         enableListeners();
     }
 
+    // Validation
+    private boolean validateItemStatus(String itemId, JLabel lblError) {
+        boolean validated = true;
+        
+        ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
+        ArrayList<String> categoryArray = ReadObject.readArray(ProductCategory.FILE_NAME);
+
+        // Iterate through the Item array
+        for (String itemDetails : itemArray) {
+            // Split the line into details
+            String[] item = itemDetails.split(";");
+            // Find the line has matching Id
+            if (item[0].equals(itemId)) {
+                // Show error if the Item is inactive
+                if (item[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                    lblError.setText("Product Item selected is inactive");
+                    validated = false;
+                    break;
+                } else {
+                    // Iterate through the Supplier array
+                    for (String supplierDetails : supplierArray) {
+                        // Split the line into details
+                        String[] supplier = supplierDetails.split(";");
+                        // Show error if the Supplier is inactive
+                        if (supplier[0].equalsIgnoreCase(item[6])) {
+                            if ((supplier[5].equalsIgnoreCase(Supplier.INACTIVE))) {
+                                lblError.setText("Supplier of Product Item selected is inactive");
+                                validated = false;
+                                break;
+                            } else {
+                                // Iterate through the Category array
+                                for (String categoryDetails : categoryArray) {
+                                    // Split the line into details
+                                    String[] category = categoryDetails.split(";");
+                                    // Show error iff the Category is inactive
+                                    if (category[0].equalsIgnoreCase(item[7]) && category[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
+                                        lblError.setText("Category selected is inactive");
+                                        // Does not prevent user from saving
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (validated) {
+            lblError.setText(" ");
+        }
+        return validated;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -249,12 +318,16 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbNumOfItem = new javax.swing.JComboBox<>();
         lblItem1 = new javax.swing.JLabel();
         cmbItem1 = new javax.swing.JComboBox<>();
+        lblItem1Error = new javax.swing.JLabel();
         lblItem2 = new javax.swing.JLabel();
         cmbItem2 = new javax.swing.JComboBox<>();
+        lblItem2Error = new javax.swing.JLabel();
         lblItem3 = new javax.swing.JLabel();
         cmbItem3 = new javax.swing.JComboBox<>();
+        lblItem3Error = new javax.swing.JLabel();
         lblItem4 = new javax.swing.JLabel();
         cmbItem4 = new javax.swing.JComboBox<>();
+        lblItem4Error = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
         btnNext = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -398,6 +471,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbItem1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem1.setPreferredSize(new java.awt.Dimension(200, 30));
 
+        lblItem1Error.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblItem1Error.setForeground(new java.awt.Color(255, 0, 0));
+        lblItem1Error.setText(" ");
+
         lblItem2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblItem2.setForeground(new java.awt.Color(255, 255, 255));
         lblItem2.setText("Item 2 :");
@@ -406,6 +483,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbItem2.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbItem2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem2.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        lblItem2Error.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblItem2Error.setForeground(new java.awt.Color(255, 0, 0));
+        lblItem2Error.setText(" ");
 
         lblItem3.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblItem3.setForeground(new java.awt.Color(255, 255, 255));
@@ -416,6 +497,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbItem3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem3.setPreferredSize(new java.awt.Dimension(200, 30));
 
+        lblItem3Error.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblItem3Error.setForeground(new java.awt.Color(255, 0, 0));
+        lblItem3Error.setText(" ");
+
         lblItem4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         lblItem4.setForeground(new java.awt.Color(255, 255, 255));
         lblItem4.setText("Item 4 :");
@@ -424,6 +509,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         cmbItem4.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         cmbItem4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None" }));
         cmbItem4.setPreferredSize(new java.awt.Dimension(200, 30));
+
+        lblItem4Error.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
+        lblItem4Error.setForeground(new java.awt.Color(255, 0, 0));
+        lblItem4Error.setText(" ");
 
         btnSubmit.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         btnSubmit.setText("Save Catalogue");
@@ -514,18 +603,35 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                             .addGroup(pnlOptionLayout.createSequentialGroup()
                                 .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblCatalogueTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblItem4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblPageNum, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblItem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
-                                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cmbItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbItem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cmbItem1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblItem1Error, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(pnlOptionLayout.createSequentialGroup()
+                                .addComponent(lblItem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlOptionLayout.createSequentialGroup()
+                        .addComponent(lblItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlOptionLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbItem2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOptionLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblItem2Error, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(pnlOptionLayout.createSequentialGroup()
+                        .addComponent(lblItem4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbItem4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOptionLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblItem3Error, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblItem4Error, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         pnlOptionLayout.setVerticalGroup(
@@ -549,24 +655,31 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                     .addComponent(lblNumOfItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbNumOfItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblItem1Error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblItem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlOptionLayout.createSequentialGroup()
-                        .addComponent(lblItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblItem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlOptionLayout.createSequentialGroup()
-                        .addComponent(cmbItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addComponent(cmbItem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 203, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblItem2Error)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblItem3Error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblItem4Error)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlOptionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -590,7 +703,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
+                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
                     .addComponent(pnlOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -610,7 +723,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                 .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(835, 647));
+        setSize(new java.awt.Dimension(835, 658));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -672,8 +785,27 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
-        // TODO add your handling code here:
-        Print.printPanel(pnlCatalogue); // DOES NOT PRINT THE WHOLE CATALOGUE YET
+        boolean validated = true;
+
+        if (!validateItemStatus(String.valueOf(cmbItem1.getSelectedItem()), lblItem1Error)) {
+            validated = false;
+        }
+
+        if (!validateItemStatus(String.valueOf(cmbItem2.getSelectedItem()), lblItem2Error)) {
+            validated = false;
+        }
+
+        if (!validateItemStatus(String.valueOf(cmbItem3.getSelectedItem()), lblItem3Error)) {
+            validated = false;
+        }
+
+        if (!validateItemStatus(String.valueOf(cmbItem4.getSelectedItem()), lblItem4Error)) {
+            validated = false;
+        }
+
+        if (validated) {
+            Print.printPanel(pnlCatalogue); // DOES NOT PRINT THE WHOLE CATALOGUE YET
+        }
     }//GEN-LAST:event_lblPrintMouseClicked
 
     private void lblAddPagesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddPagesMouseClicked
@@ -795,6 +927,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Edit the ArrayList
             pages.set(index, modifiedPage);
             resetPreview();
+            validateItemStatus(itemId, lblItem1Error);
         }
     };
 
@@ -817,6 +950,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Edit the ArrayList
             pages.set(index, modifiedPage);
             resetPreview();
+            validateItemStatus(itemId, lblItem2Error);
         }
     };
 
@@ -839,6 +973,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Edit the ArrayList
             pages.set(index, modifiedPage);
             resetPreview();
+            validateItemStatus(itemId, lblItem3Error);
         }
     };
 
@@ -861,6 +996,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Edit the ArrayList
             pages.set(index, modifiedPage);
             resetPreview();
+            validateItemStatus(itemId, lblItem4Error);
         }
     };
 
@@ -919,9 +1055,13 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     private javax.swing.JLabel lblCatalogueTitle;
     private javax.swing.JLabel lblClose;
     private javax.swing.JLabel lblItem1;
+    private javax.swing.JLabel lblItem1Error;
     private javax.swing.JLabel lblItem2;
+    private javax.swing.JLabel lblItem2Error;
     private javax.swing.JLabel lblItem3;
+    private javax.swing.JLabel lblItem3Error;
     private javax.swing.JLabel lblItem4;
+    private javax.swing.JLabel lblItem4Error;
     private javax.swing.JLabel lblMinimize;
     private javax.swing.JLabel lblNumOfItem;
     private javax.swing.JLabel lblPageNum;
