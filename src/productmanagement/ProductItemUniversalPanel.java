@@ -3,7 +3,6 @@ package productmanagement;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,6 +29,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
+
+    // Keeps track of supplier status
+    boolean supplierStatus = true;
 
     public ProductItemUniversalPanel(ProductItem item, int i) {
         initComponents();
@@ -176,7 +178,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 lblSellingPriceError.setText("Item Price cannot be empty");
                 validated = false;
             } else {
-                Integer.valueOf(itemPriceString);
+                int itemPrice = Integer.valueOf(itemPriceString);
+                if (itemPrice < 0) {
+                    lblSellingPriceError.setText("Item Price cannot be negative");
+                    validated = false;
+                }
             }
         } catch (NumberFormatException e) {
             lblSellingPriceError.setText("Please enter a valid number");
@@ -197,7 +203,14 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 lblQuantityError.setText("Item Quantity cannot be empty");
                 validated = false;
             } else {
-                Integer.valueOf(itemQuantityString);
+                int itemQuantity = Integer.valueOf(itemQuantityString);
+                if (itemQuantity < 0) {
+                    lblQuantityError.setText("Item Quantity cannot be negative");
+                    validated = false;
+                } else if (!supplierStatus && itemQuantity > this.itemQuantity) {
+                    lblQuantityError.setText("Supplier is inactive, cannot add quantity");
+                    validated = false;
+                }
             }
         } catch (NumberFormatException e) {
             lblQuantityError.setText("Please enter a valid number");
@@ -243,10 +256,28 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateSupplierId(String itemSupplierId) {
         boolean validated = true;
+        supplierStatus = true;
 
         if (itemSupplierId.length() <= 0) {
             lblSupplierError.setText("Please select a supplier");
             validated = false;
+        } else {
+            ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
+            // Iterate through the Supplier array
+            for (String supplierDetails : supplierArray) {
+                // Split the line into details
+                String[] details = supplierDetails.split(";");
+                // Show error if the Supplier is inactive
+                if (details[0].equalsIgnoreCase(itemSupplierId) && details[5].equalsIgnoreCase(Supplier.INACTIVE)) {
+                    lblSupplierError.setText("Supplier selected is inactive");
+                    // Does not prevent user from saving if using same supplier but prevent user from adding item to it
+                    if (item.getItemSupplierId().equalsIgnoreCase(itemSupplierId)) {
+                        supplierStatus = false;
+                    } else {
+                        validated = false;
+                    }
+                }
+            }
         }
 
         if (validated) {
@@ -261,6 +292,18 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         if (itemCategoryId.length() <= 0) {
             lblCategoryError.setText("Please select a category");
             validated = false;
+        } else {
+            ArrayList<String> categoryArray = ReadObject.readArray(ProductCategory.FILE_NAME);
+            // Iterate through the Category array
+            for (String categoryDetails : categoryArray) {
+                // Split the line into details
+                String[] details = categoryDetails.split(";");
+                // Show error if the Category is inactive
+                if (details[0].equalsIgnoreCase(itemCategoryId) && details[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
+                    lblCategoryError.setText("Category selected is inactive");
+                    // Does not prevent user from saving
+                }
+            }
         }
 
         if (validated) {
@@ -683,10 +726,6 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     validated = false;
                 }
 
-                if (!validateQuantity(itemQuantityString)) {
-                    validated = false;
-                }
-
                 if (!validateDescription(itemDescription)) {
                     validated = false;
                 }
@@ -696,6 +735,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 }
 
                 if (!validateSupplierId(itemSupplierId)) {
+                    validated = false;
+                }
+
+                // Must check Supplier first to check if it is active or inactive
+                if (!validateQuantity(itemQuantityString)) {
                     validated = false;
                 }
 
@@ -709,7 +753,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     int itemQuantity = Integer.valueOf(itemQuantityString);
 
                     // Generate item id
-                    String itemId = ProductItem.generateItemId();
+                    String itemId = item.getItemId();
 
                     // Copy image file to system
                     Path tempPath = Path.of(imageTempPath);

@@ -71,9 +71,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
         for (String category : categoryArray) {
             // Split the line into an array
             String[] details = category.split(";");
-            String comboItem = details[0] + ": " + details[1];
-            // Add the item into the combobox
-            cmbCategory.addItem(comboItem);
+            if (details[3].equalsIgnoreCase(ProductCategory.ACTIVE)) {
+                String comboItem = details[0] + ": " + details[1];
+                // Add the item into the combobox
+                cmbCategory.addItem(comboItem);
+            }
         }
     }
 
@@ -86,9 +88,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
         for (String supplier : supplierArray) {
             // Split the line into an array
             String[] details = supplier.split(";");
-            String comboItem = details[0] + ": " + details[1];
-            // Add the item into the combobox
-            cmbSupplier.addItem(comboItem);
+            if (details[5].equalsIgnoreCase(Supplier.ACTIVE)) {
+                String comboItem = details[0] + ": " + details[1];
+                // Add the item into the combobox
+                cmbSupplier.addItem(comboItem);
+            }
         }
     }
 
@@ -216,7 +220,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 lblSellingPriceError.setText("Item Price cannot be empty");
                 validated = false;
             } else {
-                Integer.valueOf(itemPriceString);
+                int itemPrice = Integer.valueOf(itemPriceString);
+                if (itemPrice < 0) {
+                    lblSellingPriceError.setText("Item Price cannot be negative");
+                    validated = false;
+                }
             }
         } catch (NumberFormatException e) {
             lblSellingPriceError.setText("Please enter a valid number");
@@ -237,7 +245,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 lblQuantityError.setText("Item Quantity cannot be empty");
                 validated = false;
             } else {
-                Integer.valueOf(itemQuantityString);
+                int itemQuantity = Integer.valueOf(itemQuantityString);
+                if (itemQuantity < 0) {
+                    lblQuantityError.setText("Item Quantity cannot be negative");
+                    validated = false;
+                }
             }
         } catch (NumberFormatException e) {
             lblQuantityError.setText("Please enter a valid number");
