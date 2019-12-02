@@ -2,6 +2,7 @@ package productmanagement;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.Box;
 import javax.swing.JFrame;
@@ -185,7 +186,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
 
         String passwordString = new String(userPassword);
 
-        if (userPassword.length <= 8) {
+        if (userPassword.length < 8) {
             lblPasswordError.setText("New Password cannot be less than 8 characters");
             validated = false;
         } else if (userPassword.length > 16) {
@@ -202,7 +203,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     private boolean validateConfirmPassword(char[] userPassword, char[] confirmPassword) {
         boolean validated = true;
 
-        if (userPassword.equals(confirmPassword)) {
+        if (!Arrays.equals(userPassword, confirmPassword)) {
             lblConfirmPasswordError.setText("Confirm New Password does not match");
             validated = false;
         }

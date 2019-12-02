@@ -3,6 +3,7 @@ package productmanagement;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -158,7 +159,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     private boolean validateConfirmPassword(char[] userPassword, char[] confirmPassword) {
         boolean validated = true;
 
-        if (userPassword.equals(confirmPassword)) {
+        if (!Arrays.equals(userPassword, confirmPassword)) {
             lblConfirmPasswordError.setText("Confirm New Password does not match");
             validated = false;
         }
