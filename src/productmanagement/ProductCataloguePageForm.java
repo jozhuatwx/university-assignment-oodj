@@ -420,7 +420,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         pnlBackground.setBackground(new java.awt.Color(18, 22, 31));
 
         pnlCatalogue.setBackground(new java.awt.Color(255, 255, 255));
-        pnlCatalogue.setPreferredSize(new java.awt.Dimension(425, 600));
+        pnlCatalogue.setPreferredSize(new java.awt.Dimension(420, 594));
         pnlCatalogue.setLayout(new java.awt.BorderLayout());
 
         pnlOption.setBackground(new java.awt.Color(46, 52, 66));
@@ -621,7 +621,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(cmbItem2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlOptionLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblItem2Error, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(pnlOptionLayout.createSequentialGroup()
                         .addComponent(lblItem4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -703,7 +703,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                    .addComponent(pnlCatalogue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlOption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -713,7 +713,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 835, Short.MAX_VALUE)
+            .addComponent(pnlFrameBar, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -723,7 +723,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                 .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        setSize(new java.awt.Dimension(835, 658));
+        setSize(new java.awt.Dimension(820, 641));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -804,7 +804,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         }
 
         if (validated) {
-            Print.printPanel(pnlCatalogue); // DOES NOT PRINT THE WHOLE CATALOGUE YET
+            Print.printCatalogue(catalogue);
         }
     }//GEN-LAST:event_lblPrintMouseClicked
 
