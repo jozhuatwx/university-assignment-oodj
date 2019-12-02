@@ -525,8 +525,14 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCloseMouseEntered
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        // Close the form
-        System.exit(0);
+        // Create a confirmation box
+        int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to leave? Your unsave information will be erased.","Leaving?", JOptionPane.YES_NO_OPTION);
+        
+        if (opt == 0) {
+            // If yes, close the form
+            System.exit(0);
+        }
+
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void pnlFrameBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlFrameBarMousePressed
@@ -629,9 +635,11 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCatalogueMouseClicked
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        // Create a confirmation box
         int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to log out? Your unsave information will be erased.","Log Out", JOptionPane.YES_NO_OPTION);
         
         if (opt == 0) {
+            // If yes, close this form and open the LoginForm
             LoginForm lf = new LoginForm();
             lf.setVisible(true);
             User.logout();
