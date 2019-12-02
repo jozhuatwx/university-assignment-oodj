@@ -1,5 +1,6 @@
 package productmanagement;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.nio.file.Paths;
 
@@ -23,30 +24,39 @@ public class ProductCatalogueFirstPageTemplate extends javax.swing.JPanel {
 
         switch (page.getPageNumberOfItems()) {
             case 1:
-                pnlContent.add(new ProductCatalogueOneItemTemplate(page.getPageItemIds()));
+                ProductCatalogueOneItemTemplate one = new ProductCatalogueOneItemTemplate(page.getPageItemIds());
+                one.setSize(one.getPreferredSize());
+                pnlContent.add(one);
                 break;
             case 2:
-                pnlContent.add(new ProductCatalogueTwoItemTemplate(page.getPageItemIds()));
+                ProductCatalogueTwoItemTemplate two = new ProductCatalogueTwoItemTemplate(page.getPageItemIds());
+                two.setSize(two.getPreferredSize());
+                pnlContent.add(two);
                 break;
             case 3:
-                pnlContent.add(new ProductCatalogueThreeItemTemplate(page.getPageItemIds()));
+                ProductCatalogueThreeItemTemplate three = new ProductCatalogueThreeItemTemplate(page.getPageItemIds());
+                three.setSize(three.getPreferredSize());
+                pnlContent.add(three);
                 break;
             case 4:
-                pnlContent.add(new ProductCatalogueFourItemTemplate(page.getPageItemIds()));
+                ProductCatalogueFourItemTemplate four = new ProductCatalogueFourItemTemplate(page.getPageItemIds());
+                four.setSize(four.getPreferredSize());
+                pnlContent.add(four);
                 break;
         }
         pnlContent.revalidate();
         
-        lblTitle.setSize(lblTitle.getPreferredSize());
         lblTopBannerImage.setSize(lblTopBannerImage.getPreferredSize());
+        lblTitle.setSize(lblTitle.getPreferredSize());
+        pnlContent.setSize(pnlContent.getPreferredSize());
         lblBottomBannerImage.setSize(lblBottomBannerImage.getPreferredSize());
         lblPageNumber.setSize(lblPageNumber.getPreferredSize());
 
         lblTopBannerImage.setLocation(0, 20);
         lblTitle.setLocation(70, 20);
         pnlContent.setLocation(0, 86);
-        lblBottomBannerImage.setLocation(0, 431);
-        lblPageNumber.setLocation(0, 502);
+        lblBottomBannerImage.setLocation(0, 481);
+        lblPageNumber.setLocation(0, 552);
 
         lblTitle.setText(catalogue.getCatalogueTitle());
         lblTopBannerImage.setIcon(resizeImageTop((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));

@@ -1,5 +1,6 @@
 package productmanagement;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.nio.file.Paths;
 
@@ -51,8 +52,8 @@ public class ProductCatalogueTemplate extends javax.swing.JPanel {
         
         lblTopBannerImage.setLocation(0, 20);
         pnlContent.setLocation(0, 86);
-        lblBottomBannerImage.setLocation(0, 431);
-        lblPageNumber.setLocation(0, 502);
+        lblBottomBannerImage.setLocation(0, 481);
+        lblPageNumber.setLocation(0, 552);
 
         lblTopBannerImage.setIcon(resizeImage((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));
         lblBottomBannerImage.setIcon(resizeImage((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));
