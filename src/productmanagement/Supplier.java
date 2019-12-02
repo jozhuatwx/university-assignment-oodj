@@ -157,6 +157,6 @@ public class Supplier {
   // Overrides the default toString() to display the information of the Supplier class
   @Override
   public String toString() {
-    return String.valueOf(getSupplierId()) + ";" + getSupplierName() + ";" + getSupplierAddress() + ";" + getSupplierEmail() + ";" + getSupplierContact() + ";" + getSupplierStatus();
+    return getSupplierId() + ";" + getSupplierName() + ";" + getSupplierAddress() + ";" + getSupplierEmail() + ";" + getSupplierContact() + ";" + getSupplierStatus();
   }
 }
