@@ -33,6 +33,24 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
             lblPrice.setText("Price");
             txaDescription.setText("");
         }
+
+        pnlImage.setSize(pnlImage.getPreferredSize());
+        lblImage.setSize(lblImage.getBounds().width, lblImage.getBounds().height);
+        pnlContent.setSize(pnlContent.getPreferredSize());
+        lblTitle.setSize(lblTitle.getPreferredSize());
+        lblBrand.setSize(lblBrand.getPreferredSize());
+        lblPrice.setSize(lblPrice.getPreferredSize());
+        scrDescription.setSize(scrDescription.getPreferredSize());
+        txaDescription.setSize(txaDescription.getPreferredSize());
+
+        pnlImage.setLocation(0, 0);
+        lblImage.setLocation(lblImage.getBounds().x, lblImage.getBounds().y);
+        pnlContent.setLocation(0, 200);
+        lblTitle.setLocation(10, 10);
+        lblBrand.setLocation(10, 38);
+        lblPrice.setLocation(10, 57);
+        scrDescription.setLocation(10, 82);
+        txaDescription.setLocation(0, 0);
     }
     
        
@@ -78,25 +96,35 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
 
         pnlContent = new javax.swing.JPanel();
         lblTitle = new javax.swing.JLabel();
-        scrDescription = new javax.swing.JScrollPane();
-        txaDescription = new javax.swing.JTextArea();
         lblBrand = new javax.swing.JLabel();
         lblPrice = new javax.swing.JLabel();
+        scrDescription = new javax.swing.JScrollPane();
+        txaDescription = new javax.swing.JTextArea();
         pnlImage = new javax.swing.JPanel();
         lblImage = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(400, 400));
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setMinimumSize(new java.awt.Dimension(420, 420));
+        setPreferredSize(new java.awt.Dimension(420, 420));
 
         pnlContent.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContent.setPreferredSize(new java.awt.Dimension(420, 220));
 
         lblTitle.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
         lblTitle.setText("MR CHAIR");
+        lblTitle.setPreferredSize(new java.awt.Dimension(410, 21));
+
+        lblBrand.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblBrand.setText("BRAND");
+        lblBrand.setPreferredSize(new java.awt.Dimension(410, 13));
+
+        lblPrice.setText("RM 100");
+        lblPrice.setPreferredSize(new java.awt.Dimension(410, 14));
 
         scrDescription.setBorder(null);
         scrDescription.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescription.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrDescription.setPreferredSize(new java.awt.Dimension(400, 127));
 
         txaDescription.setEditable(false);
         txaDescription.setColumns(20);
@@ -105,43 +133,34 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         txaDescription.setRows(5);
         txaDescription.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescription.setBorder(null);
+        txaDescription.setPreferredSize(new java.awt.Dimension(400, 127));
         scrDescription.setViewportView(txaDescription);
-
-        lblBrand.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        lblBrand.setText("BRAND");
-
-        lblPrice.setText("RM 100");
 
         javax.swing.GroupLayout pnlContentLayout = new javax.swing.GroupLayout(pnlContent);
         pnlContent.setLayout(pnlContentLayout);
         pnlContentLayout.setHorizontalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrDescription)
-                    .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addComponent(lblTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(75, 75, 75))
-                    .addGroup(pnlContentLayout.createSequentialGroup()
-                        .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblBrand, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBrand, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(lblPrice, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(lblTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlContentLayout.setVerticalGroup(
             pnlContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlContentLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTitle)
+                .addComponent(lblTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrand)
+                .addComponent(lblBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPrice)
-                .addGap(18, 18, 18)
-                .addComponent(scrDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrDescription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pnlImage.setBackground(new java.awt.Color(255, 255, 255));
@@ -151,14 +170,14 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         lblImage.setPreferredSize(new java.awt.Dimension(180, 180));
         pnlImage.add(lblImage);
-        lblImage.setBounds(110, 10, 180, 180);
+        lblImage.setBounds(120, 10, 180, 180);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
