@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -22,13 +23,6 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
     public ProductCatalogueForm() {
         initComponents();
-    }
-
-    private void resetFields() {
-        // Clear the fields
-        txtTitle.setText("Title");
-        txaDescription.setText("Description");
-        lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
     }
 
     // Validation
@@ -69,7 +63,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
     private boolean validateStartDate(String catalogueStartDateString) {
         boolean validated = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 
         try {
             if (catalogueStartDateString.length() <= 0) {
@@ -95,7 +89,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
     private boolean validateEndDate(String catalogueStartDateString, String catalogueEndDateString) {
         boolean validated = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 
         try {
             if (catalogueEndDateString.length() <= 0) {
@@ -337,14 +331,15 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         ftxStartDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         ftxStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         ftxStartDate.setPreferredSize(new java.awt.Dimension(250, 30));
-        ftxStartDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ftxStartDateFocusLost(evt);
+        ftxStartDate.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void changedUpdate (javax.swing.event.DocumentEvent evt) {
+                ftxStartDateUpdate(evt);
             }
-        });
-        ftxStartDate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ftxStartDateKeyReleased(evt);
+            public void removeUpdate (javax.swing.event.DocumentEvent evt) {
+                ftxStartDateUpdate(evt);
+            }
+            public void insertUpdate (javax.swing.event.DocumentEvent evt) {
+                ftxStartDateUpdate(evt);
             }
         });
 
@@ -361,14 +356,15 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         ftxEndDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         ftxEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         ftxEndDate.setPreferredSize(new java.awt.Dimension(250, 30));
-        ftxEndDate.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ftxEndDateFocusLost(evt);
+        ftxStartDate.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void changedUpdate (javax.swing.event.DocumentEvent evt) {
+                ftxEndDateUpdate(evt);
             }
-        });
-        ftxEndDate.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                ftxEndDateKeyReleased(evt);
+            public void removeUpdate (javax.swing.event.DocumentEvent evt) {
+                ftxEndDateUpdate(evt);
+            }
+            public void insertUpdate (javax.swing.event.DocumentEvent evt) {
+                ftxEndDateUpdate(evt);
             }
         });
 
@@ -713,27 +709,17 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         validateDescription(catalogueDescription);
     }//GEN-LAST:event_txaDescriptionKeyReleased
 
-    private void ftxStartDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxStartDateFocusLost
+    private void ftxStartDateUpdate(javax.swing.event.DocumentEvent evt) {
         String catalogueStartDateString = ftxStartDate.getText().trim();
         validateStartDate(catalogueStartDateString);
-    }//GEN-LAST:event_ftxStartDateFocusLost
+    }
 
-    private void ftxEndDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxEndDateFocusLost
+    private void ftxEndDateUpdate(javax.swing.event.DocumentEvent evt) {
         String catalogueStartDateString = ftxStartDate.getText().trim();
         String catalogueEndDateString = ftxEndDate.getText().trim();
         validateEndDate(catalogueStartDateString, catalogueEndDateString);
-    }//GEN-LAST:event_ftxEndDateFocusLost
+    }
 
-    private void ftxEndDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxEndDateKeyReleased
-        String catalogueStartDateString = ftxStartDate.getText().trim();
-        String catalogueEndDateString = ftxEndDate.getText().trim();
-        validateEndDate(catalogueStartDateString, catalogueEndDateString);
-    }//GEN-LAST:event_ftxEndDateKeyReleased
-
-    private void ftxStartDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxStartDateKeyReleased
-        String catalogueStartDateString = ftxStartDate.getText().trim();
-        validateStartDate(catalogueStartDateString);
-    }//GEN-LAST:event_ftxStartDateKeyReleased
 
     /**
      * @param args the command line arguments
