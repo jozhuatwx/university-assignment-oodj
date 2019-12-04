@@ -140,7 +140,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (itemName.length() <= 0 || itemName.equalsIgnoreCase("Name")) {
-            lblNameError.setText("Item Name cannot be empty");
+            lblNameError.setText("Cannot be empty");
             validated = false;
         } else if (!itemName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
             lblNameError.setText("Please enter a valid name");
@@ -157,10 +157,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (itemBrand.length() <= 0 || itemBrand.equalsIgnoreCase("Brand")) {
-            lblBrandError.setText("Item Brand cannot be empty");
+            lblBrandError.setText("Cannot be empty");
             validated = false;
         } else if (itemBrand.contains(";")) {
-            lblBrandError.setText("Item Brand cannot contain semi-colons");
+            lblBrandError.setText("Cannot contain semi-colons");
             validated = false;
         }
         
@@ -175,12 +175,12 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
         try {
             if (itemPriceString.length() <= 0) {
-                lblSellingPriceError.setText("Item Price cannot be empty");
+                lblSellingPriceError.setText("Cannot be empty");
                 validated = false;
             } else {
                 int itemPrice = Integer.valueOf(itemPriceString);
                 if (itemPrice < 0) {
-                    lblSellingPriceError.setText("Item Price cannot be negative");
+                    lblSellingPriceError.setText("Cannot be negative");
                     validated = false;
                 }
             }
@@ -200,12 +200,12 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
         try {
             if (itemQuantityString.length() <= 0) {
-                lblQuantityError.setText("Item Quantity cannot be empty");
+                lblQuantityError.setText("Cannot be empty");
                 validated = false;
             } else {
                 int itemQuantity = Integer.valueOf(itemQuantityString);
                 if (itemQuantity < 0) {
-                    lblQuantityError.setText("Item Quantity cannot be negative");
+                    lblQuantityError.setText("Cannot be negative");
                     validated = false;
                 } else if (!supplierStatus && itemQuantity > this.itemQuantity) {
                     lblQuantityError.setText("Supplier is inactive, cannot add quantity");
@@ -227,10 +227,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
         
         if (itemDescription.length() <= 0 || itemDescription.equalsIgnoreCase("Description")) {
-            lblDescriptionError.setText("Category Description cannot be empty");
+            lblDescriptionError.setText("Cannot be empty");
             validated = false;
         }else if (itemDescription.contains(";")) {
-            lblDescriptionError.setText("Item Description cannot contain semi-colons");
+            lblDescriptionError.setText("Cannot contain semi-colons");
             validated = false;
         }
 
@@ -244,7 +244,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (itemImageTempPath.length() <= 0) {
-            lblImageError.setText("Item Image cannot be empty");
+            lblImageError.setText("Cannot be empty");
             validated = false;
         }
 
