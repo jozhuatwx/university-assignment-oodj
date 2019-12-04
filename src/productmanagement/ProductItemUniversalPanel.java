@@ -760,8 +760,10 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                     Path tempPath = Path.of(imageTempPath);
                     String newPathString = "/productmanagement/img/productitem/";
                     String fileName = itemId + imageTempPath.substring(imageTempPath.lastIndexOf("."));
-                    WriteObject.saveImage(tempPath, newPathString, fileName);
                     String itemImagePath = newPathString + fileName;
+                    if (!imageTempPath.equalsIgnoreCase(itemImagePath)) {
+                        WriteObject.saveImage(tempPath, newPathString, fileName);
+                    }
                     
                     ProductItem modifiedItem = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
                     if (ProductItem.modify(modifiedItem, itemQuantity)) {
