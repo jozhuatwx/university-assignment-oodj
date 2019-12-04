@@ -694,7 +694,6 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             cmbCategory.setEnabled(true);
             txaDescription.setEnabled(true);
             lblImage.setEnabled(true);
-            btnStatus.setEnabled(true);
             btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
             // Change the icon from edit icon to save icon
@@ -779,7 +778,6 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                         cmbCategory.setEnabled(false);
                         txaDescription.setEnabled(false);
                         lblImage.setEnabled(false);
-                        btnStatus.setEnabled(false);
                         btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                         // Change the icon from save icon to edit icon
