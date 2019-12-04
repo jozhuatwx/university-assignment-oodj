@@ -142,8 +142,12 @@ public class ProductItem {
       oldFile.delete();
       // Rename the temporary file
       tempFile.renameTo(new File(FILE_NAME));
-      InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
-      return InventoryTransaction.register(transaction);
+      if (itemQuantity != 0) {
+        InventoryTransaction transaction = new InventoryTransaction(item.getItemId(), itemQuantity);
+        return InventoryTransaction.register(transaction);
+      } else {
+        return true;
+      }
     } catch (Exception e) {
       // Display the error message
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
