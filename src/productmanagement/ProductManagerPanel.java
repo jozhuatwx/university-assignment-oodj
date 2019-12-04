@@ -225,7 +225,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
 
         pnlAddProductManager = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         pnlAddProductManagerForm = new javax.swing.JPanel();
         lblAddProductManager = new javax.swing.JLabel();
@@ -272,19 +271,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
-            }
-        });
-
-        btnSearch.setBackground(new java.awt.Color(46, 52, 66));
-        btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
-        btnSearch.setText("Search");
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
             }
         });
 
@@ -577,8 +563,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
                     .addGroup(pnlAddProductManagerLayout.createSequentialGroup()
                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(pnlAddProductManagerForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -589,9 +573,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(pnlAddProductManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlAddProductManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlAddProductManagerForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -630,10 +612,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        search();
-    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         showAddPanel();
@@ -818,7 +796,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel lblAddProductManager;
     private javax.swing.JLabel lblAddress;

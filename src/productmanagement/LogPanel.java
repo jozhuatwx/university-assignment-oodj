@@ -76,7 +76,6 @@ public class LogPanel extends javax.swing.JPanel {
 
         pnlSearchItem = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
         scrLogList = new javax.swing.JScrollPane();
         pnlLogList = new javax.swing.JPanel();
 
@@ -104,19 +103,6 @@ public class LogPanel extends javax.swing.JPanel {
             }
         });
 
-        btnSearch.setBackground(new java.awt.Color(46, 52, 66));
-        btnSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 14)); // NOI18N
-        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Search.png"))); // NOI18N
-        btnSearch.setText("Search");
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch.setPreferredSize(new java.awt.Dimension(150, 40));
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlSearchItemLayout = new javax.swing.GroupLayout(pnlSearchItem);
         pnlSearchItem.setLayout(pnlSearchItemLayout);
         pnlSearchItemLayout.setHorizontalGroup(
@@ -124,17 +110,13 @@ public class LogPanel extends javax.swing.JPanel {
             .addGroup(pnlSearchItemLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlSearchItemLayout.setVerticalGroup(
             pnlSearchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchItemLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlSearchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -182,10 +164,6 @@ public class LogPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtSearchFocusLost
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        search();
-    }//GEN-LAST:event_btnSearchActionPerformed
-
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
         if (txtSearch.getText().trim().equalsIgnoreCase("Search")) {
             txtSearch.setText("");
@@ -194,7 +172,6 @@ public class LogPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSearch;
     private javax.swing.JPanel pnlLogList;
     private javax.swing.JPanel pnlSearchItem;
     private javax.swing.JScrollPane scrLogList;
