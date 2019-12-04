@@ -751,7 +751,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 if (validated) {
                     // Convert String to int
                     int itemPrice = Integer.valueOf(itemPriceString);
-                    int itemQuantity = Integer.valueOf(itemQuantityString);
+                    int itemQuantity = Integer.valueOf(itemQuantityString) - this.itemQuantity;
 
                     // Generate item id
                     String itemId = item.getItemId();
