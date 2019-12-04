@@ -148,7 +148,7 @@ public class InventoryTransaction {
         // Split line into array
         String[] details = transactionDetails.split(";");
         // If the Item id matches
-        if (details[0].equalsIgnoreCase(itemId)) {
+        if (details[2].equalsIgnoreCase(itemId)) {
           // Add the value to the Item Quantity
           itemQuantity += Integer.valueOf(details[3]);
         }
