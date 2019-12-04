@@ -140,7 +140,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
             lblTitleError.setText("Catalogue Title cannot be empty");
             validated = false;
-        } else if (!catalogueTitle.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblTitleError.setText("Please enter a valid title");
             validated = false;
         }

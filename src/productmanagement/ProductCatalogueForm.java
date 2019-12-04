@@ -32,7 +32,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
             lblTitleError.setText("Title cannot be empty");
             validated = false;
-        } else if (!catalogueTitle.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblTitleError.setText("Please enter a valid title");
             validated = false;
         }

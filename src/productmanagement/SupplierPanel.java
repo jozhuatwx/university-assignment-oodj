@@ -109,7 +109,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         if (supplierName.length() <= 0 || supplierName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Supplier Name cannot be empty");
             validated = false;
-        } else if (!supplierName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!supplierName.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblNameError.setText("Please enter a valid name");
             validated = false;
         }
