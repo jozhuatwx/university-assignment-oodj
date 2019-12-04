@@ -129,7 +129,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         if (supplierEmail.length() <= 0 || supplierEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Supplier Email cannot be empty");
             validated = false;
-        } else if (!supplierEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+        } else if (!supplierEmail.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?")) {
             lblEmailError.setText("Please enter a valid email");
             validated = false;
         }

@@ -126,7 +126,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         if (userEmail.length() <= 0 || userEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Manager Email cannot be empty");
             validated = false;
-        } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+        } else if (!userEmail.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?")) {
             lblEmailError.setText("Please enter a valid email");
             validated = false;
         }
