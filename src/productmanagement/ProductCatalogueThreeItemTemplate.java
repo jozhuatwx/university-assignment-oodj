@@ -151,25 +151,35 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         scrDescriptionItem1.setBorder(null);
         scrDescriptionItem1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescriptionItem1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrDescriptionItem1.setMaximumSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem1.setMinimumSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem1.setPreferredSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem1.setLayout(null);
 
         txaDescriptionItem1.setEditable(false);
         txaDescriptionItem1.setBackground(new java.awt.Color(240, 240, 240));
         txaDescriptionItem1.setColumns(20);
-        txaDescriptionItem1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txaDescriptionItem1.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txaDescriptionItem1.setLineWrap(true);
         txaDescriptionItem1.setRows(5);
         txaDescriptionItem1.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescriptionItem1.setBorder(null);
+        txaDescriptionItem1.setMaximumSize(new java.awt.Dimension(120, 140));
+        txaDescriptionItem1.setMinimumSize(new java.awt.Dimension(120, 140));
+        txaDescriptionItem1.setPreferredSize(new java.awt.Dimension(120, 140));
         scrDescriptionItem1.setViewportView(txaDescriptionItem1);
+        scrDescriptionItem1.add(txaDescriptionItem1);
+        txaDescriptionItem1.setBounds(0, 0, 120, 140);
 
         pnlContentItem1.add(scrDescriptionItem1);
-        scrDescriptionItem1.setBounds(6, 87, 120, 100);
+        scrDescriptionItem1.setBounds(6, 87, 120, 140);
 
         lblBrandItem1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lblBrandItem1.setText("BRAND");
         pnlContentItem1.add(lblBrandItem1);
         lblBrandItem1.setBounds(6, 37, 116, 13);
 
+        lblPriceItem1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem1.setText("RM 100");
         pnlContentItem1.add(lblPriceItem1);
         lblPriceItem1.setBounds(6, 56, 78, 13);
@@ -205,25 +215,35 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         scrDescriptionItem2.setBorder(null);
         scrDescriptionItem2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescriptionItem2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrDescriptionItem2.setMaximumSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem2.setMinimumSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem2.setPreferredSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem2.setLayout(null);
 
         txaDescriptionItem2.setEditable(false);
         txaDescriptionItem2.setBackground(new java.awt.Color(240, 240, 240));
         txaDescriptionItem2.setColumns(20);
-        txaDescriptionItem2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txaDescriptionItem2.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txaDescriptionItem2.setLineWrap(true);
         txaDescriptionItem2.setRows(5);
         txaDescriptionItem2.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescriptionItem2.setBorder(null);
+        txaDescriptionItem2.setMaximumSize(new java.awt.Dimension(120, 140));
+        txaDescriptionItem2.setMinimumSize(new java.awt.Dimension(120, 140));
+        txaDescriptionItem2.setPreferredSize(new java.awt.Dimension(120, 140));
         scrDescriptionItem2.setViewportView(txaDescriptionItem2);
+        scrDescriptionItem2.add(txaDescriptionItem2);
+        txaDescriptionItem2.setBounds(0, 0, 120, 140);
 
         pnlContentItem2.add(scrDescriptionItem2);
-        scrDescriptionItem2.setBounds(6, 87, 120, 100);
+        scrDescriptionItem2.setBounds(6, 87, 120, 140);
 
         lblBrandItem2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lblBrandItem2.setText("BRAND");
         pnlContentItem2.add(lblBrandItem2);
         lblBrandItem2.setBounds(6, 37, 116, 13);
 
+        lblPriceItem2.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem2.setText("RM 100");
         pnlContentItem2.add(lblPriceItem2);
         lblPriceItem2.setBounds(6, 56, 78, 13);
@@ -259,25 +279,35 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
         scrDescriptionItem3.setBorder(null);
         scrDescriptionItem3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescriptionItem3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrDescriptionItem3.setMaximumSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem3.setMinimumSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem3.setPreferredSize(new java.awt.Dimension(120, 140));
+        scrDescriptionItem3.setLayout(null);
 
         txaDescriptionItem3.setEditable(false);
         txaDescriptionItem3.setBackground(new java.awt.Color(240, 240, 240));
         txaDescriptionItem3.setColumns(20);
-        txaDescriptionItem3.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        txaDescriptionItem3.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
         txaDescriptionItem3.setLineWrap(true);
         txaDescriptionItem3.setRows(5);
         txaDescriptionItem3.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
         txaDescriptionItem3.setBorder(null);
+        txaDescriptionItem3.setMaximumSize(new java.awt.Dimension(120, 140));
+        txaDescriptionItem3.setMinimumSize(new java.awt.Dimension(120, 140));
+        txaDescriptionItem3.setPreferredSize(new java.awt.Dimension(120, 140));
         scrDescriptionItem3.setViewportView(txaDescriptionItem3);
+        scrDescriptionItem3.add(txaDescriptionItem3);
+        txaDescriptionItem3.setBounds(0, 0, 120, 140);
 
         pnlContentItem3.add(scrDescriptionItem3);
-        scrDescriptionItem3.setBounds(6, 87, 120, 100);
+        scrDescriptionItem3.setBounds(6, 87, 120, 140);
 
         lblBrandItem3.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lblBrandItem3.setText("BRAND");
         pnlContentItem3.add(lblBrandItem3);
         lblBrandItem3.setBounds(6, 37, 116, 13);
 
+        lblPriceItem3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem3.setText("RM 100");
         pnlContentItem3.add(lblPriceItem3);
         lblPriceItem3.setBounds(6, 56, 78, 13);

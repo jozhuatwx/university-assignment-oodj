@@ -111,6 +111,7 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         pnlContent.add(lblBrand);
         lblBrand.setBounds(10, 38, 400, 13);
 
+        lblPrice.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPrice.setText("RM 100");
         lblPrice.setPreferredSize(new java.awt.Dimension(410, 14));
         pnlContent.add(lblPrice);
@@ -119,17 +120,24 @@ public class ProductCatalogueOneItemTemplate extends javax.swing.JPanel {
         scrDescription.setBorder(null);
         scrDescription.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         scrDescription.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        scrDescription.setMaximumSize(new java.awt.Dimension(400, 127));
+        scrDescription.setMinimumSize(new java.awt.Dimension(400, 127));
         scrDescription.setPreferredSize(new java.awt.Dimension(400, 127));
+        scrDescription.setLayout(null);
 
         txaDescription.setEditable(false);
         txaDescription.setColumns(20);
-        txaDescription.setFont(new java.awt.Font("Arial Narrow", 0, 13)); // NOI18N
+        txaDescription.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txaDescription.setLineWrap(true);
         txaDescription.setRows(5);
-        txaDescription.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry\n. Lorem Ipsum has been the industry's standard dummy text ever since t\nhe 1500s, when an unknown printer took a galley of type and scrambled it to m\nake a type specimen book. It has survived not only five centuries, but also the\n leap into electronic typesetting, remaining essentially unchanged. It was popula\nrised in the 1960s w");
+        txaDescription.setText("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an nknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typeseting, remaining essentially unchanged. It was popularised in the 1960s w");
         txaDescription.setBorder(null);
+        txaDescription.setMaximumSize(new java.awt.Dimension(400, 127));
+        txaDescription.setMinimumSize(new java.awt.Dimension(400, 127));
         txaDescription.setPreferredSize(new java.awt.Dimension(400, 127));
         scrDescription.setViewportView(txaDescription);
+        scrDescription.add(txaDescription);
+        txaDescription.setBounds(0, 0, 400, 127);
 
         pnlContent.add(scrDescription);
         scrDescription.setBounds(10, 82, 400, 127);

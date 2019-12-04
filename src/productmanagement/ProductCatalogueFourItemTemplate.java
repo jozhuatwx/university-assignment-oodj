@@ -164,6 +164,7 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem1.add(lblBrandItem1);
         lblBrandItem1.setBounds(0, 37, 210, 15);
 
+        lblPriceItem1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPriceItem1.setText("RM 100");
         lblPriceItem1.setMaximumSize(new java.awt.Dimension(210, 15));
@@ -213,6 +214,7 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem2.add(lblBrandItem2);
         lblBrandItem2.setBounds(0, 37, 210, 15);
 
+        lblPriceItem2.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPriceItem2.setText("RM 100");
         lblPriceItem2.setMaximumSize(new java.awt.Dimension(210, 15));
@@ -262,6 +264,7 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem3.add(lblBrandItem3);
         lblBrandItem3.setBounds(0, 37, 210, 15);
 
+        lblPriceItem3.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPriceItem3.setText("RM 100");
         lblPriceItem3.setMaximumSize(new java.awt.Dimension(210, 15));
@@ -311,6 +314,7 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         pnlContentItem4.add(lblBrandItem4);
         lblBrandItem4.setBounds(0, 37, 210, 15);
 
+        lblPriceItem4.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         lblPriceItem4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPriceItem4.setText("RM 100");
         lblPriceItem4.setMaximumSize(new java.awt.Dimension(210, 15));
