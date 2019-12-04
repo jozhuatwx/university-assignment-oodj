@@ -688,7 +688,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 lblImage.setIcon(resizeImage(path));
                 imageFilePath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
-                lblImage.setIcon(new ImageIcon(getClass().getResource(catalogue.getCatalogueBannerPath())));
+                lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
                 imageFilePath = catalogue.getCatalogueBannerPath();
             }
         }
@@ -716,9 +716,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         isEditing = true;
             
         // Resize the size of the edit drop down list
-        pnlEditDropDownList.setPreferredSize(new Dimension(78, 33));
-        pnlEditDropDownList.revalidate();
-        pnlEditDropDownList.repaint();
+        //pnlEditDropDownList.setPreferredSize(new Dimension(78, 33));
+        //pnlEditDropDownList.revalidate();
+        //pnlEditDropDownList.repaint();
             
     }//GEN-LAST:event_lblEditCatalogueMouseClicked
 
