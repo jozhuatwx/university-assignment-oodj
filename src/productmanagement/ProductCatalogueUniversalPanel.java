@@ -105,6 +105,16 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
         lblUserId.setText(catalogue.getCatalogueUserId());
 
+        switch (catalogue.getCatalogueStatus()) {
+            case ProductCatalogue.ACTIVE:
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                break;
+        
+            case ProductCatalogue.INACTIVE:
+                btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                break;
+        }
+
         // Calculate the number of pages
         int numberOfPages = 0;
         ArrayList<String> pageArray = ReadObject.readArray(ProductCataloguePage.FILE_NAME);
