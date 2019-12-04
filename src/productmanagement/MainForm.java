@@ -17,13 +17,7 @@ public class MainForm extends javax.swing.JFrame {
         lblDashboard.setForeground(new Color(255, 255, 255));
         pnlUnderline.setVisible(true);
         
-        //ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
-        ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
-        pnlContent.add(dp);
-        pnlContent.revalidate();
-               
         // Open Dashboard Panel initially
-        /*
         if (Administrator.isAdministrator()) {
             AdminDashboardPanel dp = new AdminDashboardPanel();
             pnlContent.add(dp);
@@ -42,7 +36,6 @@ public class MainForm extends javax.swing.JFrame {
             lf.setVisible(true);
             this.dispose();
         }
-        */
     }
 
     public void resetTabs(){
@@ -564,11 +557,7 @@ public class MainForm extends javax.swing.JFrame {
 
     private void lblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashboardMouseClicked
         pnlContent.removeAll();
-        ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
-        pnlContent.add(dp);
-        pnlContent.revalidate();
 
-        /*
         if (Administrator.isAdministrator()) {
             AdminDashboardPanel dp = new AdminDashboardPanel();
             pnlContent.add(dp);
@@ -578,7 +567,6 @@ public class MainForm extends javax.swing.JFrame {
             pnlContent.add(dp);
             pnlContent.revalidate();
         }
-        */
         
         resetTabs();
         // Set the lblDashboard to white colour font and underlined. 
