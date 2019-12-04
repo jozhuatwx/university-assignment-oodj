@@ -1,5 +1,6 @@
 package productmanagement;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.nio.file.Paths;
 
@@ -23,20 +24,28 @@ public class ProductCatalogueTemplate extends javax.swing.JPanel {
 
         switch (page.getPageNumberOfItems()) {
             case 1:
-                pnlContent.add(new ProductCatalogueOneItemTemplate(page.getPageItemIds()));
+                ProductCatalogueOneItemTemplate one = new ProductCatalogueOneItemTemplate(page.getPageItemIds());
+                one.setSize(one.getPreferredSize());
+                pnlContent.add(one);
                 break;
             case 2:
-                pnlContent.add(new ProductCatalogueTwoItemTemplate(page.getPageItemIds()));
+                ProductCatalogueTwoItemTemplate two = new ProductCatalogueTwoItemTemplate(page.getPageItemIds());
+                two.setSize(two.getPreferredSize());
+                pnlContent.add(two);
                 break;
             case 3:
-                pnlContent.add(new ProductCatalogueThreeItemTemplate(page.getPageItemIds()));
+                ProductCatalogueThreeItemTemplate three = new ProductCatalogueThreeItemTemplate(page.getPageItemIds());
+                three.setSize(three.getPreferredSize());
+                pnlContent.add(three);
                 break;
             case 4:
-                pnlContent.add(new ProductCatalogueFourItemTemplate(page.getPageItemIds()));
+                ProductCatalogueFourItemTemplate four = new ProductCatalogueFourItemTemplate(page.getPageItemIds());
+                four.setSize(four.getPreferredSize());
+                pnlContent.add(four);
                 break;
         }
         pnlContent.revalidate();
-
+        
         lblTopBannerImage.setIcon(resizeImage((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));
         lblBottomBannerImage.setIcon(resizeImage((Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath())));
         lblPageNumber.setText(String.valueOf(page.getPageNumber()));
@@ -59,57 +68,46 @@ public class ProductCatalogueTemplate extends javax.swing.JPanel {
     private void initComponents() {
 
         lblTopBannerImage = new javax.swing.JLabel();
+        pnlContent = new javax.swing.JPanel();
         lblBottomBannerImage = new javax.swing.JLabel();
         lblPageNumber = new javax.swing.JLabel();
-        pnlContent = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(420, 594));
+        setMinimumSize(new java.awt.Dimension(420, 594));
+        setLayout(null);
 
         lblTopBannerImage.setBackground(new java.awt.Color(255, 0, 51));
         lblTopBannerImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTopBannerImage.setMaximumSize(new java.awt.Dimension(420, 60));
+        lblTopBannerImage.setMinimumSize(new java.awt.Dimension(420, 60));
         lblTopBannerImage.setPreferredSize(new java.awt.Dimension(420, 60));
+        add(lblTopBannerImage);
+        lblTopBannerImage.setBounds(0, 20, 420, 60);
+
+        pnlContent.setBackground(new java.awt.Color(255, 255, 255));
+        pnlContent.setMaximumSize(new java.awt.Dimension(420, 420));
+        pnlContent.setMinimumSize(new java.awt.Dimension(420, 420));
+        pnlContent.setPreferredSize(new java.awt.Dimension(420, 420));
+        pnlContent.setLayout(null);
+        add(pnlContent);
+        pnlContent.setBounds(0, 80, 420, 420);
 
         lblBottomBannerImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblBottomBannerImage.setToolTipText("");
+        lblBottomBannerImage.setMaximumSize(new java.awt.Dimension(420, 60));
+        lblBottomBannerImage.setMinimumSize(new java.awt.Dimension(420, 60));
         lblBottomBannerImage.setPreferredSize(new java.awt.Dimension(420, 60));
+        add(lblBottomBannerImage);
+        lblBottomBannerImage.setBounds(0, 500, 420, 60);
 
         lblPageNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPageNumber.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPageNumber.setText("2");
-
-        pnlContent.setBackground(new java.awt.Color(255, 255, 255));
-        pnlContent.setMinimumSize(new java.awt.Dimension(400, 400));
-        pnlContent.setPreferredSize(new java.awt.Dimension(400, 400));
-        pnlContent.setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblTopBannerImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblBottomBannerImage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(174, 174, 174))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(lblTopBannerImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1, 1, 1)
-                .addComponent(pnlContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblBottomBannerImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblPageNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7))
-        );
+        lblPageNumber.setMaximumSize(new java.awt.Dimension(420, 15));
+        lblPageNumber.setMinimumSize(new java.awt.Dimension(420, 15));
+        lblPageNumber.setPreferredSize(new java.awt.Dimension(420, 15));
+        add(lblPageNumber);
+        lblPageNumber.setBounds(0, 570, 420, 15);
     }// </editor-fold>//GEN-END:initComponents
 
 

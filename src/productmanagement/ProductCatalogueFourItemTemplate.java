@@ -53,29 +53,33 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
             lblBrand.setText("Brand");
             lblPrice.setText("Price");
         }
+        lblImage.setLocation(lblImage.getBounds().x, lblImage.getBounds().y);
     }
     
     // Create a method to resize the image and label
     private ImageIcon resizeImage(String imagePath, JLabel lblImage){
         int x, y;
-        
+        double width, height, ratio;
+        width = lblImage.getPreferredSize().getWidth();
+        height = lblImage.getPreferredSize().getHeight();
+
         // Get the imageicon and get the width & height of the image
         ImageIcon MyImage = new ImageIcon(imagePath);
         x = MyImage.getIconWidth();
         y = MyImage.getIconHeight();
+        ratio = (double) x / y;
         
         // To differentiate the dimension of image (horizontal,vertical or square)
         // To resize the label based on the dimension
-        // To relocate the picture to the right position based on the item number
-        if (x > y) {
+        if (ratio > (width / height)) {
             // If the width longer than height, then it is a horizontal image
-            lblImage.setBounds(29,10,141,100);
-        } else if (y > x){
-            // If the height longer than width, then it is a vertical image
-            lblImage.setBounds(70,10,71,100);
+            lblImage.setBounds(0, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
+        } else if (ratio < (width / height)){
+            lblImage.setBounds((int) Math.round((width - (width / ratio)) / 2), 0, (int) Math.round(width / ratio), (int) height);
         } else {
             // The width is equal to the height, then it is a square image
-            lblImage.setBounds(50,10,100,100);
+            //Relocate the position of lblImage
+            lblImage.setBounds(0, 0, (int) width, (int) height);
         }
         
         // Resize the image to the size of the label
@@ -95,245 +99,231 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
     private void initComponents() {
 
         pnlItem1 = new javax.swing.JPanel();
+        lblImageItem1 = new javax.swing.JLabel();
         pnlContentItem1 = new javax.swing.JPanel();
+        lblNameItem1 = new javax.swing.JLabel();
         lblBrandItem1 = new javax.swing.JLabel();
         lblPriceItem1 = new javax.swing.JLabel();
-        lblNameItem1 = new javax.swing.JLabel();
-        lblImageItem1 = new javax.swing.JLabel();
         pnlItem2 = new javax.swing.JPanel();
+        lblImageItem2 = new javax.swing.JLabel();
         pnlContentItem2 = new javax.swing.JPanel();
+        lblNameItem2 = new javax.swing.JLabel();
         lblBrandItem2 = new javax.swing.JLabel();
         lblPriceItem2 = new javax.swing.JLabel();
-        lblNameItem2 = new javax.swing.JLabel();
-        lblImageItem2 = new javax.swing.JLabel();
         pnlItem3 = new javax.swing.JPanel();
+        lblImageItem3 = new javax.swing.JLabel();
         pnlContentItem3 = new javax.swing.JPanel();
+        lblNameItem3 = new javax.swing.JLabel();
         lblBrandItem3 = new javax.swing.JLabel();
         lblPriceItem3 = new javax.swing.JLabel();
-        lblNameItem3 = new javax.swing.JLabel();
-        lblImageItem3 = new javax.swing.JLabel();
         pnlItem4 = new javax.swing.JPanel();
+        lblImageItem4 = new javax.swing.JLabel();
         pnlContentItem4 = new javax.swing.JPanel();
+        lblNameItem4 = new javax.swing.JLabel();
         lblBrandItem4 = new javax.swing.JLabel();
         lblPriceItem4 = new javax.swing.JLabel();
-        lblNameItem4 = new javax.swing.JLabel();
-        lblImageItem4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(400, 400));
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setMaximumSize(new java.awt.Dimension(420, 420));
+        setMinimumSize(new java.awt.Dimension(420, 420));
+        setPreferredSize(new java.awt.Dimension(420, 420));
+        setLayout(null);
 
         pnlItem1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlItem1.setPreferredSize(new java.awt.Dimension(200, 198));
+        pnlItem1.setMaximumSize(new java.awt.Dimension(210, 210));
+        pnlItem1.setMinimumSize(new java.awt.Dimension(210, 210));
+        pnlItem1.setPreferredSize(new java.awt.Dimension(210, 210));
         pnlItem1.setLayout(null);
 
-        lblBrandItem1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        lblBrandItem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandItem1.setText("BRAND");
+        lblImageItem1.setMaximumSize(new java.awt.Dimension(210, 105));
+        lblImageItem1.setMinimumSize(new java.awt.Dimension(210, 105));
+        lblImageItem1.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlItem1.add(lblImageItem1);
+        lblImageItem1.setBounds(0, 0, 210, 105);
 
-        lblPriceItem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPriceItem1.setText("RM 100");
+        pnlContentItem1.setMaximumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem1.setMinimumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem1.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlContentItem1.setLayout(null);
 
         lblNameItem1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
         lblNameItem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNameItem1.setText("MR CHAIR");
+        lblNameItem1.setMaximumSize(new java.awt.Dimension(210, 20));
+        lblNameItem1.setMinimumSize(new java.awt.Dimension(210, 20));
+        lblNameItem1.setPreferredSize(new java.awt.Dimension(210, 20));
+        pnlContentItem1.add(lblNameItem1);
+        lblNameItem1.setBounds(0, 11, 210, 20);
 
-        javax.swing.GroupLayout pnlContentItem1Layout = new javax.swing.GroupLayout(pnlContentItem1);
-        pnlContentItem1.setLayout(pnlContentItem1Layout);
-        pnlContentItem1Layout.setHorizontalGroup(
-            pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem1Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNameItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblBrandItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPriceItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        pnlContentItem1Layout.setVerticalGroup(
-            pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNameItem1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrandItem1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPriceItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblBrandItem1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblBrandItem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandItem1.setText("BRAND");
+        lblBrandItem1.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem1.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem1.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem1.add(lblBrandItem1);
+        lblBrandItem1.setBounds(0, 37, 210, 15);
+
+        lblPriceItem1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPriceItem1.setText("RM 100");
+        lblPriceItem1.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem1.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem1.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem1.add(lblPriceItem1);
+        lblPriceItem1.setBounds(0, 58, 210, 15);
 
         pnlItem1.add(pnlContentItem1);
-        pnlContentItem1.setBounds(0, 120, 200, 80);
+        pnlContentItem1.setBounds(0, 105, 210, 105);
 
-        lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem1.setPreferredSize(new java.awt.Dimension(140, 100));
-        pnlItem1.add(lblImageItem1);
-        lblImageItem1.setBounds(29, 10, 140, 100);
+        add(pnlItem1);
+        pnlItem1.setBounds(0, 0, 210, 210);
 
         pnlItem2.setBackground(new java.awt.Color(255, 255, 255));
-        pnlItem2.setPreferredSize(new java.awt.Dimension(200, 198));
+        pnlItem2.setMaximumSize(new java.awt.Dimension(210, 210));
+        pnlItem2.setMinimumSize(new java.awt.Dimension(210, 210));
+        pnlItem2.setPreferredSize(new java.awt.Dimension(210, 210));
         pnlItem2.setLayout(null);
 
-        lblBrandItem2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        lblBrandItem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandItem2.setText("BRAND");
+        lblImageItem2.setMaximumSize(new java.awt.Dimension(210, 105));
+        lblImageItem2.setMinimumSize(new java.awt.Dimension(210, 105));
+        lblImageItem2.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlItem2.add(lblImageItem2);
+        lblImageItem2.setBounds(0, 0, 210, 105);
 
-        lblPriceItem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPriceItem2.setText("RM 100");
+        pnlContentItem2.setMaximumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem2.setMinimumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem2.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlContentItem2.setLayout(null);
 
         lblNameItem2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
         lblNameItem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNameItem2.setText("MR CHAIR");
+        lblNameItem2.setMaximumSize(new java.awt.Dimension(210, 20));
+        lblNameItem2.setMinimumSize(new java.awt.Dimension(210, 20));
+        lblNameItem2.setPreferredSize(new java.awt.Dimension(210, 20));
+        pnlContentItem2.add(lblNameItem2);
+        lblNameItem2.setBounds(0, 11, 210, 20);
 
-        javax.swing.GroupLayout pnlContentItem2Layout = new javax.swing.GroupLayout(pnlContentItem2);
-        pnlContentItem2.setLayout(pnlContentItem2Layout);
-        pnlContentItem2Layout.setHorizontalGroup(
-            pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem2Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNameItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblBrandItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPriceItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        pnlContentItem2Layout.setVerticalGroup(
-            pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNameItem2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrandItem2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPriceItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblBrandItem2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblBrandItem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandItem2.setText("BRAND");
+        lblBrandItem2.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem2.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem2.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem2.add(lblBrandItem2);
+        lblBrandItem2.setBounds(0, 37, 210, 15);
+
+        lblPriceItem2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPriceItem2.setText("RM 100");
+        lblPriceItem2.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem2.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem2.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem2.add(lblPriceItem2);
+        lblPriceItem2.setBounds(0, 58, 210, 15);
 
         pnlItem2.add(pnlContentItem2);
-        pnlContentItem2.setBounds(0, 120, 200, 80);
+        pnlContentItem2.setBounds(0, 105, 210, 105);
 
-        lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem2.setPreferredSize(new java.awt.Dimension(140, 100));
-        pnlItem2.add(lblImageItem2);
-        lblImageItem2.setBounds(29, 10, 140, 100);
+        add(pnlItem2);
+        pnlItem2.setBounds(210, 0, 210, 210);
 
         pnlItem3.setBackground(new java.awt.Color(255, 255, 255));
-        pnlItem3.setPreferredSize(new java.awt.Dimension(200, 198));
+        pnlItem3.setMaximumSize(new java.awt.Dimension(210, 210));
+        pnlItem3.setMinimumSize(new java.awt.Dimension(210, 210));
+        pnlItem3.setPreferredSize(new java.awt.Dimension(210, 210));
         pnlItem3.setLayout(null);
 
-        lblBrandItem3.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        lblBrandItem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandItem3.setText("BRAND");
+        lblImageItem3.setMaximumSize(new java.awt.Dimension(210, 105));
+        lblImageItem3.setMinimumSize(new java.awt.Dimension(210, 105));
+        lblImageItem3.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlItem3.add(lblImageItem3);
+        lblImageItem3.setBounds(0, 0, 210, 105);
 
-        lblPriceItem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPriceItem3.setText("RM 100");
+        pnlContentItem3.setMaximumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem3.setMinimumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem3.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlContentItem3.setLayout(null);
 
         lblNameItem3.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
         lblNameItem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNameItem3.setText("MR CHAIR");
+        lblNameItem3.setMaximumSize(new java.awt.Dimension(210, 20));
+        lblNameItem3.setMinimumSize(new java.awt.Dimension(210, 20));
+        lblNameItem3.setPreferredSize(new java.awt.Dimension(210, 20));
+        pnlContentItem3.add(lblNameItem3);
+        lblNameItem3.setBounds(0, 11, 210, 20);
 
-        javax.swing.GroupLayout pnlContentItem3Layout = new javax.swing.GroupLayout(pnlContentItem3);
-        pnlContentItem3.setLayout(pnlContentItem3Layout);
-        pnlContentItem3Layout.setHorizontalGroup(
-            pnlContentItem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem3Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(pnlContentItem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNameItem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblBrandItem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPriceItem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        pnlContentItem3Layout.setVerticalGroup(
-            pnlContentItem3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNameItem3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrandItem3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPriceItem3, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblBrandItem3.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblBrandItem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandItem3.setText("BRAND");
+        lblBrandItem3.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem3.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem3.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem3.add(lblBrandItem3);
+        lblBrandItem3.setBounds(0, 37, 210, 15);
+
+        lblPriceItem3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPriceItem3.setText("RM 100");
+        lblPriceItem3.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem3.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem3.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem3.add(lblPriceItem3);
+        lblPriceItem3.setBounds(0, 58, 210, 15);
 
         pnlItem3.add(pnlContentItem3);
-        pnlContentItem3.setBounds(0, 120, 200, 80);
+        pnlContentItem3.setBounds(0, 105, 210, 105);
 
-        lblImageItem3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem3.setPreferredSize(new java.awt.Dimension(140, 100));
-        pnlItem3.add(lblImageItem3);
-        lblImageItem3.setBounds(29, 10, 140, 100);
+        add(pnlItem3);
+        pnlItem3.setBounds(0, 210, 210, 210);
 
         pnlItem4.setBackground(new java.awt.Color(255, 255, 255));
-        pnlItem4.setPreferredSize(new java.awt.Dimension(200, 198));
+        pnlItem4.setMaximumSize(new java.awt.Dimension(210, 210));
+        pnlItem4.setMinimumSize(new java.awt.Dimension(210, 210));
+        pnlItem4.setPreferredSize(new java.awt.Dimension(210, 210));
         pnlItem4.setLayout(null);
 
-        lblBrandItem4.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
-        lblBrandItem4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblBrandItem4.setText("BRAND");
+        lblImageItem4.setMaximumSize(new java.awt.Dimension(210, 105));
+        lblImageItem4.setMinimumSize(new java.awt.Dimension(210, 105));
+        lblImageItem4.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlItem4.add(lblImageItem4);
+        lblImageItem4.setBounds(0, 0, 210, 105);
 
-        lblPriceItem4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPriceItem4.setText("RM 100");
+        pnlContentItem4.setMaximumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem4.setMinimumSize(new java.awt.Dimension(210, 105));
+        pnlContentItem4.setPreferredSize(new java.awt.Dimension(210, 105));
+        pnlContentItem4.setLayout(null);
 
         lblNameItem4.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 16)); // NOI18N
         lblNameItem4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNameItem4.setText("MR CHAIR");
+        lblNameItem4.setMaximumSize(new java.awt.Dimension(210, 20));
+        lblNameItem4.setMinimumSize(new java.awt.Dimension(210, 20));
+        lblNameItem4.setPreferredSize(new java.awt.Dimension(210, 20));
+        pnlContentItem4.add(lblNameItem4);
+        lblNameItem4.setBounds(0, 11, 210, 20);
 
-        javax.swing.GroupLayout pnlContentItem4Layout = new javax.swing.GroupLayout(pnlContentItem4);
-        pnlContentItem4.setLayout(pnlContentItem4Layout);
-        pnlContentItem4Layout.setHorizontalGroup(
-            pnlContentItem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem4Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addGroup(pnlContentItem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNameItem4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblBrandItem4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblPriceItem4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        pnlContentItem4Layout.setVerticalGroup(
-            pnlContentItem4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNameItem4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrandItem4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPriceItem4, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        lblBrandItem4.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        lblBrandItem4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblBrandItem4.setText("BRAND");
+        lblBrandItem4.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem4.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblBrandItem4.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem4.add(lblBrandItem4);
+        lblBrandItem4.setBounds(0, 37, 210, 15);
+
+        lblPriceItem4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPriceItem4.setText("RM 100");
+        lblPriceItem4.setMaximumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem4.setMinimumSize(new java.awt.Dimension(210, 15));
+        lblPriceItem4.setPreferredSize(new java.awt.Dimension(210, 15));
+        pnlContentItem4.add(lblPriceItem4);
+        lblPriceItem4.setBounds(0, 58, 210, 15);
 
         pnlItem4.add(pnlContentItem4);
-        pnlContentItem4.setBounds(0, 120, 200, 80);
+        pnlContentItem4.setBounds(0, 105, 210, 105);
 
-        lblImageItem4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem4.setPreferredSize(new java.awt.Dimension(140, 100));
-        pnlItem4.add(lblImageItem4);
-        lblImageItem4.setBounds(29, 10, 140, 100);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(pnlItem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(pnlItem3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(pnlItem4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlItem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlItem3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlItem4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
+        add(pnlItem4);
+        pnlItem4.setBounds(210, 210, 210, 210);
     }// </editor-fold>//GEN-END:initComponents
 
 

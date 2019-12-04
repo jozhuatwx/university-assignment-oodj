@@ -4,7 +4,6 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -413,9 +412,15 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         });
 
         lblPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/Print.png"))); // NOI18N
+        lblPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPrint.setMaximumSize(new java.awt.Dimension(30, 30));
         lblPrint.setMinimumSize(new java.awt.Dimension(30, 30));
         lblPrint.setPreferredSize(new java.awt.Dimension(30, 30));
+        lblPrint.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPrintMouseClicked(evt);
+            }
+        });
 
         pnlEditDropDownList.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -871,6 +876,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             txaDescription.setText("Description");
         }
     }//GEN-LAST:event_txaDescriptionFocusLost
+
+    private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
+        Print.printCatalogue(catalogue);
+    }//GEN-LAST:event_lblPrintMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
