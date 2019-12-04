@@ -154,6 +154,28 @@ public class Supplier {
     return supplierArrayList;
   }
 
+  public static int[] totalSuppliers() {
+    int[] suppliers = {0, 0, 0};
+
+    ArrayList<String> supplierArray = ReadObject.readArray(FILE_NAME);
+    // Iterate through the Supplier array
+    for (String supplierDetails : supplierArray) {
+      // Split the line into an array
+      String[] details = supplierDetails.split(";");
+      // Find active Suppliers
+      if (details[5].equalsIgnoreCase(ACTIVE)) {
+        suppliers[1] += 1;
+      }
+    }
+    // Get total Suppliers
+    suppliers[0] = supplierArray.size();
+
+    // Calculate inactive Suppliers
+    suppliers[2] = suppliers[0] - suppliers[1];
+    
+    return suppliers;
+  }
+
   // Overrides the default toString() to display the information of the Supplier class
   @Override
   public String toString() {
