@@ -1,7 +1,7 @@
 package productmanagement;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -42,7 +42,7 @@ public class InventoryTransaction {
     return transactionQuantity;
   }
 
-  public static String generateTransactionId() {
+  private static String generateTransactionId() {
     return ReadObject.generateId("IT", FILE_NAME);
   }
 
@@ -109,18 +109,18 @@ public class InventoryTransaction {
     return topProductItems;
   }
 
-  public static double totalRevenue() {
+  public static double totalRevenue(LocalDate startDatetime, LocalDate endDatetime) {
     double totalRevenue = 0.0;
     try {
       ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
-
       ArrayList<String> transactionArray = ReadObject.readArray(FILE_NAME);
       // Iterate through the Transaction array
       for (String transactionDetails : transactionArray) {
         // Split line into array
         String[] details = transactionDetails.split(";");
-        // Only count the outgoing transactions
-        if (Double.valueOf(details[3]) < 0) {
+        // Only count the outgoing transaction within the timeframe
+        LocalDate transactionDate = LocalDateTime.parse(details[1]).toLocalDate();
+        if ((transactionDate.isAfter(startDatetime) || transactionDate.isEqual(startDatetime)) && (transactionDate.isBefore(endDatetime) || transactionDate.isEqual(endDatetime)) && Double.valueOf(details[3]) < 0) {
           int index = Integer.valueOf(details[2].substring(2)) - 1;
           String[] item = itemArray.get(index).split(";");
           double price = Double.valueOf(item[3]);
@@ -133,6 +133,10 @@ public class InventoryTransaction {
       JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
     return totalRevenue;
+  }
+
+  public static double totalRevenue() {
+    return totalRevenue(LocalDate.MIN, LocalDate.MAX);
   }
 
   public static int getItemQuantity(String itemId) {
@@ -159,6 +163,6 @@ public class InventoryTransaction {
   // Override the default toString() to display the information of the Inventory Transaction class
   @Override
   public String toString() {
-    return getTransactionId() + ";" + getTransactionDateTime().format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss")) + ";" + getItemId() + ";" + String.valueOf(getTransactionQuantity()) + ";";
+    return getTransactionId() + ";" + getTransactionDateTime() + ";" + getItemId() + ";" + String.valueOf(getTransactionQuantity()) + ";";
   }
 }
