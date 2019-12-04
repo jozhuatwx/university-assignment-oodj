@@ -20,7 +20,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     public static final int PANEL_WIDTH = 755;
     
     // Keeps track of temporary image file path
-    String imageTempPath = "/productmanagement/img/InsertImage.png";
+    String imageTempPath = "/productmanagement/img/InsertImage.png", latestImageTempPath;
 
     public ProductItemPanel() {
         initComponents();
@@ -37,6 +37,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
         pnlAddItem.setPreferredSize(new Dimension(755, 633));
         pnlAddItem.revalidate();
         pnlAddItem.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -44,6 +47,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
         pnlAddItem.setPreferredSize(new Dimension(755, 61));
         pnlAddItem.revalidate();
         pnlAddItem.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {
@@ -823,10 +829,8 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // To let the user insert the image after pressed the label
-        JFileChooser file = new JFileChooser();
-        
         // Set the home directory of the filechooser to user
-        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+        JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
         
         // Create a new file name extension which including .jpg and .png file
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -836,12 +840,17 @@ public class ProductItemPanel extends javax.swing.JPanel {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblImage.setIcon(resizeImage(path));
+            latestImageTempPath = path;
             imageTempPath = path;
             lblImageError.setText(" ");
         } else if (result == JFileChooser.CANCEL_OPTION){
-            lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
-            imageTempPath = "/productmanagement/img/InsertImage.png";
-            lblImageError.setText("Item Image cannot be empty");
+            if(latestImageTempPath == null){
+                lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+                imageTempPath = "/productmanagement/img/InsertImage.png";
+                lblImageError.setText("Item Image cannot be empty");
+            }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+            }
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
@@ -924,6 +933,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 ProductItem item = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
                 if (ProductItem.register(item, itemQuantity)) {
                     resetFields();
+                    repopulateItemList();
                 }
             }
         } catch (Exception e) {

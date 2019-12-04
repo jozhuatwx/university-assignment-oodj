@@ -32,7 +32,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     ProductCatalogue catalogue;
 
     // Keeps track of temporary image file path
-    String imageFilePath;
+    String imageFilePath, latestImageTempPath;
 
     // Create a variable to check the panel is closed or opened
     boolean isClosed;
@@ -678,10 +678,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         if (isEditing) {
             // To let the user insert the image after pressed the label
-            JFileChooser file = new JFileChooser();
-            
             // Set the home directory of the filechooser to user
-            file.setCurrentDirectory(new File(System.getProperty("user.home")));
+            JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
             
             // Create a new file name extension which including .jpg and .png file
             FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -691,10 +689,14 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
                 lblImage.setIcon(resizeImage(path));
+                latestImageTempPath = path;
                 imageFilePath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
-                lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
-                imageFilePath = catalogue.getCatalogueBannerPath();
+                if(latestImageTempPath == null){
+                    lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
+                }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+                }
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
@@ -706,10 +708,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         ftxEndDate.setEnabled(true);
         scrDescription.setEnabled(true);
         txaDescription.setEnabled(true);
-        btnStatus.setEnabled(true);
         lblImage.setEnabled(true);
         lblControl.setEnabled(false);
-        btnStatus.setEnabled(true);
         btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         lblSaveIcon.setVisible(true);
@@ -827,10 +827,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                     ftxEndDate.setEnabled(false);
                     scrDescription.setEnabled(false);
                     txaDescription.setEnabled(false);
-                    btnStatus.setEnabled(false);
                     lblImage.setEnabled(false);
                     lblControl.setEnabled(true);
-                    btnStatus.setEnabled(false);
                     btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                     lblSaveIcon.setVisible(false);

@@ -19,7 +19,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
     int xMouse, yMouse;
     
     // Keeps track of temporary image file path
-    String imageFilePath = "/productmanagement/img/InsertImage.png";
+    String imageFilePath = "/productmanagement/img/InsertImage.png" , latestImageTempPath;
 
     public ProductCatalogueForm() {
         initComponents();
@@ -367,6 +367,11 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
                 ftxEndDateUpdate(evt);
             }
         });
+        ftxEndDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxEndDateKeyReleased(evt);
+            }
+        });
 
         lblEndDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEndDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -583,10 +588,8 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // To let the user insert the image after pressed the label
-        JFileChooser file = new JFileChooser();
-        
         // Set the home directory of the filechooser to user
-        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+        JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
         
         // Create a new file name extension which including .jpg and .png file
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -596,12 +599,17 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblImage.setIcon(resizeImage(path));
+            latestImageTempPath = path; 
             imageFilePath = path;
             lblImageError.setText(" ");
         } else if (result == JFileChooser.CANCEL_OPTION){
-            lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
-            imageFilePath = "/productmanagement/img/InsertImage.png";
-            lblImageError.setText("Catalogue Image cannot be empty");
+            if(latestImageTempPath == null){
+                lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+                imageFilePath = "/productmanagement/img/InsertImage.png";
+                lblImageError.setText("Catalogue Image cannot be empty");
+            }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+            }
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
@@ -708,6 +716,20 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         String catalogueDescription = txaDescription.getText().trim();
         validateDescription(catalogueDescription);
     }//GEN-LAST:event_txaDescriptionKeyReleased
+
+    private void ftxEndDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxEndDateKeyReleased
+        ftxStartDate.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+        public void changedUpdate (javax.swing.event.DocumentEvent evt) {
+            ftxEndDateUpdate(evt);
+        }
+        public void removeUpdate (javax.swing.event.DocumentEvent evt) {
+            ftxEndDateUpdate(evt);
+        }
+        public void insertUpdate (javax.swing.event.DocumentEvent evt) {
+            ftxEndDateUpdate(evt);
+        }
+        });    
+    }//GEN-LAST:event_ftxEndDateKeyReleased
 
     private void ftxStartDateUpdate(javax.swing.event.DocumentEvent evt) {
         String catalogueStartDateString = ftxStartDate.getText().trim();

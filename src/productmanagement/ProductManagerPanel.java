@@ -27,6 +27,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         pnlAddProductManager.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddProductManager.revalidate();
         pnlAddProductManager.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -34,6 +37,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         pnlAddProductManager.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddProductManager.revalidate();
         pnlAddProductManager.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {

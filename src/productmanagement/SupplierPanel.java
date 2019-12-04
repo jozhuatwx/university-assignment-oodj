@@ -28,6 +28,9 @@ public class SupplierPanel extends javax.swing.JPanel {
         pnlAddSupplier.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddSupplier.revalidate();
         pnlAddSupplier.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -35,6 +38,9 @@ public class SupplierPanel extends javax.swing.JPanel {
         pnlAddSupplier.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddSupplier.revalidate();
         pnlAddSupplier.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {

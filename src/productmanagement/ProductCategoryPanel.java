@@ -24,6 +24,9 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         pnlAddCategory.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddCategory.revalidate();
         pnlAddCategory.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -31,6 +34,9 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         pnlAddCategory.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddCategory.revalidate();
         pnlAddCategory.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {
@@ -450,6 +456,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
             ProductCategory category = new ProductCategory(ProductCategory.generateCategoryId(), categoryName, categoryDescription, ProductCategory.ACTIVE);
             if (ProductCategory.register(category)) {
                 resetFields();
+                repopulateCategoriesList();
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed

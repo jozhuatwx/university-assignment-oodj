@@ -483,6 +483,9 @@
                   <Dimension value="[250, 30]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftxEndDateKeyReleased"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="ftxStartDate.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {&#xa;    public void changedUpdate (javax.swing.event.DocumentEvent evt) {&#xa;        ftxEndDateUpdate(evt);&#xa;    }&#xa;    public void removeUpdate (javax.swing.event.DocumentEvent evt) {&#xa;        ftxEndDateUpdate(evt);&#xa;    }&#xa;    public void insertUpdate (javax.swing.event.DocumentEvent evt) {&#xa;        ftxEndDateUpdate(evt);&#xa;    }&#xa;});"/>
               </AuxValues>

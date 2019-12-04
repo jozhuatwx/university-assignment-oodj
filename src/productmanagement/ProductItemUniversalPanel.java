@@ -25,7 +25,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     int itemQuantity;
 
     // Keeps track of temporary image file path
-    String imageTempPath;
+    String imageTempPath, latestImageTempPath;
 
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
@@ -796,12 +796,12 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+        System.out.println("Initial imageTempPath:" + imageTempPath);
+        System.out.println("Initial imageTempPath:" + item.getItemImagePath());
         if (isEditing) {
             // To let the user insert the image after pressed the label
-            JFileChooser file = new JFileChooser();
-            
             // Set the home directory of the filechooser to user
-            file.setCurrentDirectory(new File(System.getProperty("user.home")));
+            JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
             
             // Create a new file name extension which including .jpg and .png file
             FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -811,10 +811,15 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
                 lblImage.setIcon(resizeImage(path));
+                latestImageTempPath = path;
                 imageTempPath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
-                lblImage.setIcon(new ImageIcon(getClass().getResource(item.getItemImagePath())));
-                imageTempPath = item.getItemImagePath();
+                if(latestImageTempPath == null){
+                    lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
+                }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+                }
+                
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
