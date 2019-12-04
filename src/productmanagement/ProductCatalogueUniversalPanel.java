@@ -108,10 +108,14 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         switch (catalogue.getCatalogueStatus()) {
             case ProductCatalogue.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                lblPrint.setEnabled(true);
+                lblPrint.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 break;
         
             case ProductCatalogue.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                lblPrint.setEnabled(false);
+                lblPrint.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 break;
         }
 
