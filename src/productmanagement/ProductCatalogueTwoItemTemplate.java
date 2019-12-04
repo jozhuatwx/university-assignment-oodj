@@ -54,45 +54,47 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
             lblPrice.setText("Price");
             txaDescription.setText("");
         }
+        lblImage.setLocation(lblImage.getBounds().x, lblImage.getBounds().y);
     }
     
     // Create a method to resize the image and label
     private ImageIcon resizeImage(String imagePath, JLabel lblImage, int itemNo){
         int x, y;
+        double width, height, ratio;
+        width = lblImage.getPreferredSize().getWidth();
+        height = lblImage.getPreferredSize().getHeight();
         
         // Get the imageicon and get the width & height of the image
         ImageIcon MyImage = new ImageIcon(imagePath);
         x = MyImage.getIconWidth();
         y = MyImage.getIconHeight();
+        ratio = (double) x / y;
         
         // To differentiate the dimension of image (horizontal,vertical or square)
         // To resize the label based on the dimension
         // To relocate the picture to the right position based on the item number 
-        if (x > y) {
+        if (ratio > (width / height)) {
             // If the width longer than height, then it is a horizontal image
-            if(itemNo == 1){
-                lblImageItem1.setBounds(212,34,183,130);
-            }else{
-                lblImageItem2.setBounds(10,34,183,130);
+            if (itemNo == 1){
+                lblImageItem1.setBounds(210, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
+            } else {
+                lblImageItem2.setBounds(0, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
             }
-            
-        } else if (y > x){
+        } else if (ratio < (width / height)){
             // If the height longer than width, then it is a vertical image
-            if(itemNo == 1){
-                lblImageItem1.setBounds(241,10,125,177);
-            }else{
-                lblImageItem2.setBounds(38,10,125,177);
-            }    
-                
+            if (itemNo == 1){
+                lblImageItem1.setBounds((int) Math.round((width - (width / ratio)) / 2), 0, (int) Math.round(width / ratio), (int) height);
+            } else {
+                lblImageItem2.setBounds((int) Math.round((width - (width / ratio)) / 2), 0, (int) Math.round(width / ratio), (int) height);
+            }
         } else {
             // The width is equal to the height, then it is a square image
-            
             //Relocate the position of lblImage
-                if(itemNo == 1){
-                    lblImageItem1.setBounds(233,30,140,140);
-                }else{
-                    lblImageItem2.setBounds(31,30,140,140);
-                }
+            if (itemNo == 1){
+                lblImageItem1.setBounds(210, 0, (int) width, (int) height);
+            } else {
+                lblImageItem2.setBounds(0, 210, (int) width, (int) height);
+            }
         }
         
         // Resize the image to the size of the label
@@ -120,24 +122,28 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         lblNameItem1 = new javax.swing.JLabel();
         lblImageItem1 = new javax.swing.JLabel();
         pnlItem2 = new javax.swing.JPanel();
+        lblImageItem2 = new javax.swing.JLabel();
         pnlContentItem2 = new javax.swing.JPanel();
         scrDescriptionItem2 = new javax.swing.JScrollPane();
         txaDescriptionItem2 = new javax.swing.JTextArea();
         lblBrandItem2 = new javax.swing.JLabel();
         lblPriceItem2 = new javax.swing.JLabel();
         lblNameItem2 = new javax.swing.JLabel();
-        lblImageItem2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMinimumSize(new java.awt.Dimension(400, 400));
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setMaximumSize(new java.awt.Dimension(420, 420));
+        setMinimumSize(new java.awt.Dimension(420, 420));
+        setPreferredSize(new java.awt.Dimension(420, 420));
+        setLayout(null);
 
         pnlItem1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        pnlItem1.setPreferredSize(new java.awt.Dimension(254, 199));
+        pnlItem1.setPreferredSize(new java.awt.Dimension(420, 210));
         pnlItem1.setLayout(null);
 
-        pnlContentItem1.setPreferredSize(new java.awt.Dimension(202, 200));
+        pnlContentItem1.setMaximumSize(new java.awt.Dimension(210, 210));
+        pnlContentItem1.setMinimumSize(new java.awt.Dimension(210, 210));
+        pnlContentItem1.setPreferredSize(new java.awt.Dimension(210, 210));
+        pnlContentItem1.setLayout(null);
 
         scrDescriptionItem1.setBorder(null);
         scrDescriptionItem1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -153,57 +159,49 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         txaDescriptionItem1.setBorder(null);
         scrDescriptionItem1.setViewportView(txaDescriptionItem1);
 
+        pnlContentItem1.add(scrDescriptionItem1);
+        scrDescriptionItem1.setBounds(10, 89, 180, 100);
+
         lblBrandItem1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lblBrandItem1.setText("BRAND");
+        pnlContentItem1.add(lblBrandItem1);
+        lblBrandItem1.setBounds(10, 38, 165, 13);
 
         lblPriceItem1.setText("RM 100");
+        pnlContentItem1.add(lblPriceItem1);
+        lblPriceItem1.setBounds(10, 57, 97, 14);
 
         lblNameItem1.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
         lblNameItem1.setText("MR CHAIR");
-
-        javax.swing.GroupLayout pnlContentItem1Layout = new javax.swing.GroupLayout(pnlContentItem1);
-        pnlContentItem1.setLayout(pnlContentItem1Layout);
-        pnlContentItem1Layout.setHorizontalGroup(
-            pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNameItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlContentItem1Layout.createSequentialGroup()
-                        .addGroup(pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPriceItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(scrDescriptionItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBrandItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 17, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        pnlContentItem1Layout.setVerticalGroup(
-            pnlContentItem1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNameItem1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrandItem1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPriceItem1)
-                .addGap(18, 18, 18)
-                .addComponent(scrDescriptionItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        pnlContentItem1.add(lblNameItem1);
+        lblNameItem1.setBounds(10, 11, 190, 21);
 
         pnlItem1.add(pnlContentItem1);
-        pnlContentItem1.setBounds(1, 1, 202, 197);
+        pnlContentItem1.setBounds(0, 0, 210, 210);
 
-        lblImageItem1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem1.setPreferredSize(new java.awt.Dimension(140, 140));
+        lblImageItem1.setMaximumSize(new java.awt.Dimension(210, 210));
+        lblImageItem1.setMinimumSize(new java.awt.Dimension(210, 210));
+        lblImageItem1.setPreferredSize(new java.awt.Dimension(210, 210));
         pnlItem1.add(lblImageItem1);
-        lblImageItem1.setBounds(234, 31, 140, 140);
+        lblImageItem1.setBounds(210, 0, 210, 210);
+
+        add(pnlItem1);
+        pnlItem1.setBounds(0, 0, 420, 210);
 
         pnlItem2.setBackground(new java.awt.Color(255, 255, 255));
-        pnlItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        pnlItem2.setPreferredSize(new java.awt.Dimension(420, 210));
         pnlItem2.setLayout(null);
 
-        pnlContentItem2.setPreferredSize(new java.awt.Dimension(202, 200));
+        lblImageItem2.setMaximumSize(new java.awt.Dimension(210, 210));
+        lblImageItem2.setMinimumSize(new java.awt.Dimension(210, 210));
+        lblImageItem2.setPreferredSize(new java.awt.Dimension(210, 210));
+        pnlItem2.add(lblImageItem2);
+        lblImageItem2.setBounds(0, 0, 210, 210);
+
+        pnlContentItem2.setMaximumSize(new java.awt.Dimension(210, 210));
+        pnlContentItem2.setMinimumSize(new java.awt.Dimension(210, 210));
+        pnlContentItem2.setPreferredSize(new java.awt.Dimension(210, 210));
+        pnlContentItem2.setLayout(null);
 
         scrDescriptionItem2.setBorder(null);
         scrDescriptionItem2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -219,66 +217,28 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         txaDescriptionItem2.setBorder(null);
         scrDescriptionItem2.setViewportView(txaDescriptionItem2);
 
+        pnlContentItem2.add(scrDescriptionItem2);
+        scrDescriptionItem2.setBounds(10, 89, 190, 100);
+
         lblBrandItem2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         lblBrandItem2.setText("BRAND");
+        pnlContentItem2.add(lblBrandItem2);
+        lblBrandItem2.setBounds(10, 38, 165, 13);
 
         lblPriceItem2.setText("RM 100");
+        pnlContentItem2.add(lblPriceItem2);
+        lblPriceItem2.setBounds(10, 57, 97, 14);
 
         lblNameItem2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
         lblNameItem2.setText("MR CHAIR");
-
-        javax.swing.GroupLayout pnlContentItem2Layout = new javax.swing.GroupLayout(pnlContentItem2);
-        pnlContentItem2.setLayout(pnlContentItem2Layout);
-        pnlContentItem2Layout.setHorizontalGroup(
-            pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblNameItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(pnlContentItem2Layout.createSequentialGroup()
-                        .addGroup(pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPriceItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBrandItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 17, Short.MAX_VALUE))
-                    .addComponent(scrDescriptionItem2))
-                .addContainerGap())
-        );
-        pnlContentItem2Layout.setVerticalGroup(
-            pnlContentItem2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlContentItem2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblNameItem2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblBrandItem2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPriceItem2)
-                .addGap(18, 18, 18)
-                .addComponent(scrDescriptionItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        pnlContentItem2.add(lblNameItem2);
+        lblNameItem2.setBounds(10, 11, 190, 21);
 
         pnlItem2.add(pnlContentItem2);
-        pnlContentItem2.setBounds(203, 1, 202, 197);
+        pnlContentItem2.setBounds(210, 0, 210, 210);
 
-        lblImageItem2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        lblImageItem2.setPreferredSize(new java.awt.Dimension(140, 140));
-        pnlItem2.add(lblImageItem2);
-        lblImageItem2.setBounds(33, 30, 140, 140);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(pnlItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlItem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(pnlItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(pnlItem2);
+        pnlItem2.setBounds(0, 210, 420, 210);
     }// </editor-fold>//GEN-END:initComponents
 
 
