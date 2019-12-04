@@ -26,7 +26,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="pnlTopProducts" pref="545" max="32767" attributes="0"/>
+              <Component id="pnlTopProducts" max="32767" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="0" groupAlignment="0" attributes="0">
@@ -43,14 +43,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlTopProducts" pref="465" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="pnlTopProducts" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="pnlRevenue" min="-2" pref="150" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="pnlRevenue" min="-2" pref="138" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="pnlSupplier" min="-2" pref="150" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlLatestCatalogue" pref="153" max="32767" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="pnlLatestCatalogue" min="-2" pref="139" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -68,7 +68,7 @@
           <Font name="Arial Rounded MT Bold" size="11" style="0"/>
         </Property>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[542, 464]"/>
+          <Dimension value="[537, 463]"/>
         </Property>
       </Properties>
 
@@ -79,23 +79,21 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlTopProductColLeft" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" pref="32" max="32767" attributes="0"/>
                           <Component id="pnlTopProductColCenter" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" pref="33" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="lblTopProducts" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="267" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="cmbTitle" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="cmbTitle" min="-2" max="-2" attributes="0"/>
                       <Component id="pnlTopProductColRight" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -109,9 +107,9 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="pnlTopProductColLeft" alignment="0" pref="404" max="32767" attributes="0"/>
-                      <Component id="pnlTopProductColRight" alignment="0" pref="404" max="32767" attributes="0"/>
-                      <Component id="pnlTopProductColCenter" alignment="0" pref="404" max="32767" attributes="0"/>
+                      <Component id="pnlTopProductColLeft" alignment="0" pref="402" max="32767" attributes="0"/>
+                      <Component id="pnlTopProductColRight" alignment="0" pref="402" max="32767" attributes="0"/>
+                      <Component id="pnlTopProductColCenter" alignment="0" pref="402" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -136,6 +134,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cmbTitleItemStateChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -167,9 +168,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblThirdItem" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblThirdItemUnit" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="pnlThird" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLeftItem" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblLeftItemUnit" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pnlLeftBar" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
@@ -179,17 +180,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="lblThirdItem" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblLeftItem" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblThirdItemUnit" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblLeftItemUnit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlThird" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlLeftBar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblThirdItem">
+            <Component class="javax.swing.JLabel" name="lblLeftItem">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
@@ -203,10 +204,10 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblThirdItem.setHorizontalAlignment(JLabel.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblLeftItem.setHorizontalAlignment(JLabel.CENTER);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblThirdItemUnit">
+            <Component class="javax.swing.JLabel" name="lblLeftItemUnit">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
@@ -220,23 +221,26 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblThirdItemUnit.setHorizontalAlignment(JLabel.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblLeftItemUnit.setHorizontalAlignment(JLabel.CENTER);"/>
               </AuxValues>
             </Component>
-            <Container class="javax.swing.JPanel" name="pnlThird">
+            <Container class="javax.swing.JPanel" name="pnlLeftBar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="f7" green="52" red="52" type="rgb"/>
                 </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[110, 0]"/>
+                </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 0]"/>
+                  <Dimension value="[110, 0]"/>
                 </Property>
               </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -265,10 +269,10 @@
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="lblSecondItem" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblSecondItemUnit" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCenterItem" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblCenterItemUnit" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="pnlSecond" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pnlCenter" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
@@ -278,17 +282,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="lblSecondItem" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCenterItem" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblSecondItemUnit" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblCenterItemUnit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlSecond" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlCenter" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblSecondItem">
+            <Component class="javax.swing.JLabel" name="lblCenterItem">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
@@ -302,10 +306,10 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblSecondItem.setHorizontalAlignment(JLabel.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblCenterItem.setHorizontalAlignment(JLabel.CENTER);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblSecondItemUnit">
+            <Component class="javax.swing.JLabel" name="lblCenterItemUnit">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
@@ -319,23 +323,26 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblSecondItemUnit.setHorizontalAlignment(JLabel.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblCenterItemUnit.setHorizontalAlignment(JLabel.CENTER);"/>
               </AuxValues>
             </Component>
-            <Container class="javax.swing.JPanel" name="pnlSecond">
+            <Container class="javax.swing.JPanel" name="pnlCenter">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="24" green="b9" red="f7" type="rgb"/>
                 </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[110, 0]"/>
+                </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 0]"/>
+                  <Dimension value="[110, 0]"/>
                 </Property>
               </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -363,9 +370,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblFirstItemUnit" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblFirstdItem" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="pnlFirst" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRightItemUnit" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblRightItem" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="pnlRightBar" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="22" max="32767" attributes="0"/>
                   </Group>
@@ -375,17 +382,17 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="lblFirstdItem" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRightItem" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblFirstItemUnit" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblRightItemUnit" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="pnlFirst" min="-2" max="-2" attributes="0"/>
+                      <Component id="pnlRightBar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="lblFirstdItem">
+            <Component class="javax.swing.JLabel" name="lblRightItem">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
@@ -399,10 +406,10 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblFirstdItem.setHorizontalAlignment(JLabel.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblRightItem.setHorizontalAlignment(JLabel.CENTER);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="lblFirstItemUnit">
+            <Component class="javax.swing.JLabel" name="lblRightItemUnit">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Arial Rounded MT Bold" size="11" style="0"/>
@@ -416,23 +423,26 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblFirstItemUnit.setHorizontalAlignment(JLabel.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblRightItemUnit.setHorizontalAlignment(JLabel.CENTER);"/>
               </AuxValues>
             </Component>
-            <Container class="javax.swing.JPanel" name="pnlFirst">
+            <Container class="javax.swing.JPanel" name="pnlRightBar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="9a" green="cd" red="0" type="rgb"/>
                 </Property>
+                <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                  <Dimension value="[110, 0]"/>
+                </Property>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[100, 0]"/>
+                  <Dimension value="[110, 0]"/>
                 </Property>
               </Properties>
 
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="110" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -462,12 +472,12 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="lblRevenueTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="118" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="lblRevenue" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -476,9 +486,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="lblRevenueTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="lblRevenue" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="45" max="32767" attributes="0"/>
+                  <EmptySpace pref="48" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -511,90 +521,6 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="pnlLatestCatalogue">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="42" green="34" red="2e" type="rgb"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[200, 225]"/>
-        </Property>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="lblLatestCatalogue" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="58" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="lblCatalogueTitle" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                      <Component id="lblCatalogueDate" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                  <Component id="lblLatestCatalogue" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="lblCatalogueTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblCatalogueDate" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="32" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblLatestCatalogue">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial Rounded MT Bold" size="14" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Latest Catalogue"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCatalogueTitle">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial Rounded MT Bold" size="16" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Catalogue Title"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblCatalogueTitle.setHorizontalAlignment(JLabel.CENTER);"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblCatalogueDate">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial Rounded MT Bold" size="11" style="0"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="10/10/1010 - 10/10/1010"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblCatalogueDate.setHorizontalAlignment(JLabel.CENTER);"/>
-          </AuxValues>
-        </Component>
-      </SubComponents>
-    </Container>
     <Container class="javax.swing.JPanel" name="pnlSupplier">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -609,22 +535,22 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblSupplierTitle" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblActive" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblInactive" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblInactiveSupplier" min="-2" pref="47" max="-2" attributes="0"/>
-                              <Component id="lblActiveSupplier" min="-2" pref="47" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="lblActive" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblInactive" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="24" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="lblInactiveSupplier" min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="lblActiveSupplier" min="-2" pref="47" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="lblSupplierTitle" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -633,7 +559,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="lblSupplierTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblActive" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblActiveSupplier" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -643,7 +569,7 @@
                       <Component id="lblInactive" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblInactiveSupplier" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -723,6 +649,90 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblRevenue.setHorizontalAlignment(JLabel.CENTER);"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="pnlLatestCatalogue">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="42" green="34" red="2e" type="rgb"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[200, 225]"/>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="lblLatestCatalogue" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="60" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="lblCatalogueTitle" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                      <Component id="lblCatalogueDate" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <Component id="lblLatestCatalogue" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lblCatalogueTitle" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblCatalogueDate" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="lblLatestCatalogue">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="14" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Latest Catalogue"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCatalogueTitle">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="16" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Catalogue Title"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblCatalogueTitle.setHorizontalAlignment(JLabel.CENTER);"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCatalogueDate">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Arial Rounded MT Bold" size="11" style="0"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="10/10/1010 - 10/10/1010"/>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lblCatalogueDate.setHorizontalAlignment(JLabel.CENTER);"/>
           </AuxValues>
         </Component>
       </SubComponents>
