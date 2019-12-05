@@ -94,37 +94,6 @@ public class User {
     return ReadObject.generateId("U", FILE_NAME);
   }
 
-  public static boolean forgotPassword(String userLoginName) {
-    boolean found = false;
-    // Check if the User login name exists
-    try {
-      ArrayList<String> userArray = ReadObject.readArray(FILE_NAME);
-
-      // Iterate through the User array
-      for (String user : userArray) {
-        // Split each line into an array
-        String[] details = user.split(";");
-        // Find the user login name in the array list
-        if (details[5].equalsIgnoreCase(userLoginName)) {
-          // Set the User as found
-          found = true;
-          // Log the User ID
-          WriteObject.write(details[0] + ",FORGOT PASSWORD", FILE_NAME, true);
-          return true;
-        }
-      }
-    } catch (Exception e) {
-      // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    if (!found) {
-      // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), "User not found", "Warning", JOptionPane.WARNING_MESSAGE);
-    }
-    return false;
-  }
-
   // Check if the user is logged in
   public static boolean isLoggedIn() {
     if (!myUser.getUserId().equalsIgnoreCase("-1")) {
@@ -147,6 +116,13 @@ public class User {
         if (details[5].equalsIgnoreCase(userLoginName)) {
           // Compare if the password equals the input password
           if (Encryption.validatePassword(userPassword, details[6])) {
+            if (details[4].equalsIgnoreCase(ProductManager.ROLE)) {
+              if (details[7].equalsIgnoreCase(ProductManager.INACTIVE)) {
+                // Display the error message
+                JOptionPane.showMessageDialog(new JFrame(), "Account is inactive", "Warning", JOptionPane.WARNING_MESSAGE);
+                return false;
+              }
+            }
             // Set the user's information into the session
             myUser.setUserId(details[0]);
             myUser.setUserName(details[1]);
