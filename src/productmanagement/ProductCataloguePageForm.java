@@ -112,6 +112,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                     if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
                         lblItem1Error.setText("Item selected is inactive");
                     } else {
+                        lblItem1Error.setText(" ");
                         validateSupplierId(details[6], lblItem1Error);
                         validateCategoryId(details[7], lblItem1Error);
                     }
@@ -127,6 +128,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                     if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
                         lblItem2Error.setText("Item selected is inactive");
                     } else {
+                        lblItem2Error.setText(" ");
                         validateSupplierId(details[6], lblItem2Error);
                         validateCategoryId(details[7], lblItem2Error);
                     }
@@ -140,8 +142,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                     cmbItem3.setSelectedItem(comboItem);
                     foundItem3 = true;
                     if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
-                        lblItem1Error.setText("Item selected is inactive");
+                        lblItem3Error.setText("Item selected is inactive");
                     } else {
+                        lblItem3Error.setText(" ");
                         validateSupplierId(details[6], lblItem3Error);
                         validateCategoryId(details[7], lblItem3Error);
                     }
@@ -155,8 +158,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                     cmbItem4.setSelectedItem(comboItem);
                     foundItem4 = true;
                     if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
-                        lblItem1Error.setText("Item selected is inactive");
+                        lblItem4Error.setText("Item selected is inactive");
                     } else {
+                        lblItem4Error.setText(" ");
                         validateSupplierId(details[6], lblItem4Error);
                         validateCategoryId(details[7], lblItem4Error);
                     }
@@ -206,15 +210,19 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         case 4:
             lblItem4.setVisible(true);
             cmbItem4.setVisible(true);
+            lblItem4Error.setVisible(true);
         case 3:
             lblItem3.setVisible(true);
             cmbItem3.setVisible(true);
+            lblItem3Error.setVisible(true);
         case 2:
             lblItem2.setVisible(true);
             cmbItem2.setVisible(true);
+            lblItem2Error.setVisible(true);
         default:
             lblItem1.setVisible(true);
             cmbItem1.setVisible(true);
+            lblItem1Error.setVisible(true);
             break;
         }
 
@@ -224,12 +232,15 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         case 1:
             lblItem2.setVisible(false);
             cmbItem2.setVisible(false);
+            lblItem2Error.setVisible(false);
         case 2:
             lblItem3.setVisible(false);
             cmbItem3.setVisible(false);
+            lblItem3Error.setVisible(false);
         default:
             lblItem4.setVisible(false);
             cmbItem4.setVisible(false);
+            lblItem4Error.setVisible(false);
             break;
         }
     }
@@ -348,6 +359,47 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             }
         }
         return validated;
+    }
+
+    private boolean validateAllPages() {
+        ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        ArrayList<String> inactiveItems = new ArrayList<>();
+        
+        // Iterate through the Item array
+        for (String itemDetails : itemArray) {
+            // Split the line into details
+            String[] item = itemDetails.split(";");
+            // Find the line has matching Id
+            if (item[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                inactiveItems.add(item[0]);
+            }
+        }
+
+        ArrayList<ProductCataloguePage> errorPages = new ArrayList<>();
+        // Iterate through the Pages array
+        for (ProductCataloguePage page : pages) {
+            if (page.getPageStatus().equalsIgnoreCase(ProductCataloguePage.ACTIVE)) {
+                // Iterate through the Item Ids in each Page
+                for (int i = 0; i < page.getPageNumberOfItems(); i++) {
+                    if (inactiveItems.contains(page.getPageItemIds()[i])) {
+                        errorPages.add(page);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (errorPages.size() == 0) {
+            return true;
+        } else {
+            String errorString = "Inactive item(s) in page";
+            for (ProductCataloguePage page : errorPages) {
+                errorString += " " + page.getPageNumber();
+            }
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), errorString, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
     }
 
     /**
@@ -847,7 +899,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
         boolean validated = true;
 
-        if (!validateItemStatus(String.valueOf(cmbItem1.getSelectedItem()), lblItem1Error)) {
+        /* if (!validateItemStatus(String.valueOf(cmbItem1.getSelectedItem()), lblItem1Error)) {
             validated = false;
         }
 
@@ -861,9 +913,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
         if (!validateItemStatus(String.valueOf(cmbItem4.getSelectedItem()), lblItem4Error)) {
             validated = false;
-        }
+        } */
 
-        if (validated) {
+        if (validateAllPages()) {
             Print.printCatalogue(catalogue);
         }
     }//GEN-LAST:event_lblPrintMouseClicked
