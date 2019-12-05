@@ -49,7 +49,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         // Fill the fields with Product Item information
         txtName.setText(item.getItemName());
         txtBrand.setText(item.getItemBrand());
-        txtSellingPrice.setText(String.valueOf(Math.round(item.getItemPrice())));
+        txtSellingPrice.setText("RM" +String.valueOf(Math.round(item.getItemPrice())));
         txaDescription.setText(item.getItemDescription());
         lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
 
@@ -856,12 +856,15 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private void txtSellingPriceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusGained
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("Selling Price")) {
-            txtSellingPrice.setText("");
+            txtSellingPrice.setText("RM");
         }
     }//GEN-LAST:event_txtSellingPriceFocusGained
 
     private void txtSellingPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusLost
         String itemPriceString = txtSellingPrice.getText().trim();
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
         validatePrice(itemPriceString);
         
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("")) {
@@ -911,6 +914,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private void txtSellingPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellingPriceKeyReleased
         String itemPriceString = txtSellingPrice.getText().trim();
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
         validatePrice(itemPriceString);
     }//GEN-LAST:event_txtSellingPriceKeyReleased
 
