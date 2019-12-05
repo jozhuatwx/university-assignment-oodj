@@ -465,7 +465,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             if (validated) {
                 // Update the Supplier if no error
                 Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, supplier.getSupplierStatus());
-                if (Supplier.modify(modifiedSupplier)) {
+                if (Supplier.modify(modifiedSupplier, supplier.getSupplierStatus())) {
                     supplier = modifiedSupplier;
                     resetFields();
                     
@@ -504,7 +504,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             
             // Update the Supplier status
             Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), supplierStatus);
-            if (Supplier.modify(modifiedSupplier)) {
+            if (Supplier.modify(modifiedSupplier, supplier.getSupplierStatus())) {
                 supplier = modifiedSupplier;
                 resetFields();
             }

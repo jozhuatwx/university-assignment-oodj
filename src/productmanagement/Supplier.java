@@ -93,7 +93,7 @@ public class Supplier {
     return false;
   }
 
-  public static boolean modify(Supplier supplier) {
+  public static boolean modify(Supplier supplier, String oldStatus) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -107,11 +107,14 @@ public class Supplier {
         String[] details = supplierDetails.split(";");
         // Find the Supplier with the matching ID
         if (details[0].equalsIgnoreCase(supplier.getSupplierId())) {
-          if (supplier.getSupplierStatus().equalsIgnoreCase(ACTIVE)) {
+          if (oldStatus.equalsIgnoreCase(INACTIVE) && supplier.getSupplierStatus().equalsIgnoreCase(ACTIVE)) {
+            // Write the new details into the temporary file and log action
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Activated supplier (" + supplier.getSupplierId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && supplier.getSupplierStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log action
             WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")", true);
-          } else {
-            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Deactivated supplier information (" + supplier.getSupplierId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && supplier.getSupplierStatus().equalsIgnoreCase(INACTIVE)) {
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Deactivated supplier (" + supplier.getSupplierId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file
