@@ -111,8 +111,7 @@ public class Supplier {
             // Write the new details into the temporary file and log action
             WriteObject.write(supplier, TEMP_FILE_NAME, true, "Activated supplier (" + supplier.getSupplierId() + ")", true);
           } else if (oldStatus.equalsIgnoreCase(ACTIVE) && supplier.getSupplierStatus().equalsIgnoreCase(ACTIVE)) {
-            // Write the new details into the temporary file and log action
-            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier information (" + supplier.getSupplierId() + ")", true);
+            WriteObject.write(supplier, TEMP_FILE_NAME, true, "Updated supplier (" + supplier.getSupplierId() + ")", true);
           } else if (oldStatus.equalsIgnoreCase(ACTIVE) && supplier.getSupplierStatus().equalsIgnoreCase(INACTIVE)) {
             WriteObject.write(supplier, TEMP_FILE_NAME, true, "Deactivated supplier (" + supplier.getSupplierId() + ")", true);
           }

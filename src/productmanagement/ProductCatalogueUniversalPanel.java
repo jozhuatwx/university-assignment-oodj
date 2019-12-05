@@ -723,7 +723,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
             // Update the Product Catalogue information
             ProductCatalogue modifiedCatalogue = new ProductCatalogue(catalogue.getCatalogueId(), catalogue.getCatalogueTitle(), catalogue.getCatalogueBannerPath(), catalogue.getCatalogueDescription(), catalogue.getCatalogueStartDate(), catalogue.getCatalogueEndDate(), catalogue.getCatalogueGeneratedDateTime(), catalogue.getCatalogueUserId(), catalogueStatus);
-            if (ProductCatalogue.modify(modifiedCatalogue)) {
+            if (ProductCatalogue.modify(modifiedCatalogue, catalogue.getCatalogueStatus())) {
                 catalogue = modifiedCatalogue;
                 resetFields();
             }
@@ -887,7 +887,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 String catalogueBannerPath = newPathString + fileName;
 
                 ProductCatalogue modifiedCatalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
-                if (ProductCatalogue.modify(modifiedCatalogue)) {
+                if (ProductCatalogue.modify(modifiedCatalogue, catalogue.getCatalogueStatus())) {
                     catalogue = modifiedCatalogue;
                     resetFields();
 

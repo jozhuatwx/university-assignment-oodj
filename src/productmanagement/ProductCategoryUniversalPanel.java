@@ -366,7 +366,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
             
             // Update the Category status
             ProductCategory modifiedCategory = new ProductCategory(category.getCategoryId(), category.getCategoryName(), category.getCategoryDescription(), categoryStatus);
-            if (ProductCategory.modify(modifiedCategory)) {
+            if (ProductCategory.modify(modifiedCategory, category.getCategoryStatus())) {
                 category = modifiedCategory;
                 resetFields();
             }
@@ -406,7 +406,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
                 if (validated) {
                     // Register the Product Category if no error
                     ProductCategory modifiedCategory = new ProductCategory(category.getCategoryId(), categoryName, categoryDescription, category.getCategoryStatus());
-                    if (ProductCategory.modify(modifiedCategory)) {
+                    if (ProductCategory.modify(modifiedCategory, category.getCategoryStatus())) {
                         category = modifiedCategory;
                         resetFields();
 

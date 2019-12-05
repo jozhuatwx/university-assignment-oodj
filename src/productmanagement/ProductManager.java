@@ -22,7 +22,7 @@ public class ProductManager extends User {
   }
 
   ProductManager(String[] details) {
-    this(details[0], details[1], details[2], details[3], details[4], details[5], details[6]);
+    this(details[0], details[1], details[2], details[3], details[5], details[6], details[7]);
   }
 
   // Getters and Setters
@@ -40,7 +40,7 @@ public class ProductManager extends User {
   }
 
   // Override User's function to account for deactivation
-  public static boolean modify(ProductManager user, boolean updatePassword) {
+  public static boolean modify(ProductManager user, boolean updatePassword, String oldStatus) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -55,14 +55,16 @@ public class ProductManager extends User {
         String[] details = userDetails.split(";");
         // Find the user with the matching ID
         if (details[0].equalsIgnoreCase(user.getUserId())) {
-          if (!updatePassword) {
-            user.setUserPassword(details[6]);
-          }
-          if (user.getProductManagerStatus().equalsIgnoreCase(ACTIVE)) {
+          if (oldStatus.equalsIgnoreCase(INACTIVE) && user.getProductManagerStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user information (" + user.getUserId() + ")", true);
-          } else {
-            WriteObject.write(user, TEMP_FILE_NAME, true, "Deactivated user information (" + user.getUserId() + ")", true);
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Activated user (" + user.getUserId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && user.getProductManagerStatus().equalsIgnoreCase(ACTIVE)) {
+            if (!updatePassword) {
+              user.setUserPassword(details[6]);
+            }
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Updated user (" + user.getUserId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && user.getProductManagerStatus().equalsIgnoreCase(INACTIVE)) {
+            WriteObject.write(user, TEMP_FILE_NAME, true, "Deactivated user (" + user.getUserId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file

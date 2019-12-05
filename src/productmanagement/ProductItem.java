@@ -111,7 +111,7 @@ public class ProductItem {
     return false;
   }
 
-  public static boolean modify(ProductItem item, int itemQuantity) {
+  public static boolean modify(ProductItem item, int itemQuantity, String oldStatus) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -126,11 +126,13 @@ public class ProductItem {
         String[] details = itemDetails.split(";");
         // Find the Item with the matching ID
         if (details[0].equalsIgnoreCase(item.getItemId())) {
-          if (item.getItemStatus().equalsIgnoreCase(ACTIVE)) {
+          if (oldStatus.equalsIgnoreCase(INACTIVE) && item.getItemStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(item, TEMP_FILE_NAME, true, "Updated item product information (" + item.getItemId() + ")", true);
-          } else {
-            WriteObject.write(item, TEMP_FILE_NAME, true, "Deactivated item product information (" + item.getItemId() + ")", true);
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Activated product item (" + item.getItemId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && item.getItemStatus().equalsIgnoreCase(ACTIVE)) {
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Updated product item (" + item.getItemId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && item.getItemStatus().equalsIgnoreCase(INACTIVE)) {
+            WriteObject.write(item, TEMP_FILE_NAME, true, "Deactivated product item (" + item.getItemId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file

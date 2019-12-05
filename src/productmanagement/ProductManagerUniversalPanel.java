@@ -515,7 +515,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                     // Create a Product Manager object
                     ProductManager modifiedProductManager = new ProductManager(productManager.getUserId(), productManager.getUserName(), productManager.getUserAddress(), productManager.getUserEmail(), productManager.getUserLoginName(), userPassword, productManagerStatus);
                     // Update the Product Manager status
-                    if (ProductManager.modify(modifiedProductManager, false)) {
+                    if (ProductManager.modify(modifiedProductManager, false, productManager.getProductManagerStatus())) {
                         productManager = modifiedProductManager;
                         resetFields();
                     }
@@ -596,7 +596,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                     // Create a Product Manager object
                     ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                     // Update the Product Manager
-                    if (ProductManager.modify(userDetail, false)) {
+                    if (ProductManager.modify(userDetail, true, productManager.getProductManagerStatus())) {
                         resetFields();
 
                         // Disable the editing of fields
@@ -628,7 +628,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                             // Create a Product Manager object
                             ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                             // Update the Product Manager
-                            if (ProductManager.modify(userDetail, false)) {
+                            if (ProductManager.modify(userDetail, false, productManager.getProductManagerStatus())) {
                                 resetFields();
                                 
                                 // Disable the editing of fields

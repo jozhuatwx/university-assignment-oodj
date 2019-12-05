@@ -113,7 +113,7 @@ public class ProductCatalogue {
     return false;
   }
 
-  public static boolean modify(ProductCatalogue catalogue) {
+  public static boolean modify(ProductCatalogue catalogue, String oldStatus) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -127,10 +127,12 @@ public class ProductCatalogue {
         String[] details = catalogueDetails.split(";");
         // Find the Catalogue with the matching ID
         if (details[0].equalsIgnoreCase(catalogue.getCatalogueId())) {
-          if (catalogue.getCatalogueStatus().equalsIgnoreCase(ACTIVE)) {
+          if (oldStatus.equalsIgnoreCase(INACTIVE) && catalogue.getCatalogueStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue information (" + catalogue.getCatalogueId() + ")", true);
-          } else {
+            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Activated product catalogue (" + catalogue.getCatalogueId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && catalogue.getCatalogueStatus().equalsIgnoreCase(ACTIVE)) {
+            WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Updated product catalogue (" + catalogue.getCatalogueId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && catalogue.getCatalogueStatus().equalsIgnoreCase(INACTIVE)) {
             WriteObject.write(catalogue, TEMP_FILE_NAME, true, "Deactivated product catalogue (" + catalogue.getCatalogueId() + ")", true);
           }
         } else {

@@ -84,7 +84,7 @@ public class ProductCategory {
     return false;
   }
 
-  public static boolean modify(ProductCategory category) {
+  public static boolean modify(ProductCategory category, String oldStatus) {
     int i = 0;
     File oldFile = new File(FILE_NAME);
     // Create a temporary file
@@ -98,11 +98,13 @@ public class ProductCategory {
         String[] details = categoryDetails.split(";");
         // Find the Category with the matching ID
         if (details[0].equalsIgnoreCase(category.getCategoryId())) {
-          if (category.getCategoryStatus().equalsIgnoreCase(ACTIVE)) {
+          if (oldStatus.equalsIgnoreCase(INACTIVE) && category.getCategoryStatus().equalsIgnoreCase(ACTIVE)) {
             // Write the new details into the temporary file and log the action
-            WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category information (" + category.getCategoryId() + ")", true);
-          } else {
-            WriteObject.write(category, TEMP_FILE_NAME, true, "Deactivated product category information (" + category.getCategoryId() + ")", true);
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Activated product category (" + category.getCategoryId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && category.getCategoryStatus().equalsIgnoreCase(ACTIVE)) {
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Updated product category (" + category.getCategoryId() + ")", true);
+          } else if (oldStatus.equalsIgnoreCase(ACTIVE) && category.getCategoryStatus().equalsIgnoreCase(INACTIVE)) {
+            WriteObject.write(category, TEMP_FILE_NAME, true, "Deactivated product category (" + category.getCategoryId() + ")", true);
           }
         } else {
           // Write the old detail into the temporary file
