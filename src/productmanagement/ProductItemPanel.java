@@ -607,6 +607,8 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png"))); // NOI18N
         lblImage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImage.setMaximumSize(new java.awt.Dimension(156, 128));
+        lblImage.setMinimumSize(new java.awt.Dimension(156, 128));
         lblImage.setPreferredSize(new java.awt.Dimension(156, 128));
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -879,6 +881,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
         String itemImageTempPath = imageTempPath;
         String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
         String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+        
+        //Remove the "RM" in the itemPrice, because we just want the price value
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
 
         try {
             // Validation

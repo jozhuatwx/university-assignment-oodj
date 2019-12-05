@@ -712,6 +712,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             String itemImageTempPath = imageTempPath;
             String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
             String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+            
+            //Remove the "RM" in the itemPrice, because we just want the price value
+            if(itemPriceString.startsWith("RM")){
+                itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+            }
 
             try {
                 // Validation

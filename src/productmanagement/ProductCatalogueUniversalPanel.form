@@ -77,8 +77,8 @@
                                   <Component id="scrDescription" pref="200" max="32767" attributes="0"/>
                                   <Component id="lblDescriptionError" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="lblNumberofPages" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="lblNumberofPages" min="-2" pref="134" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="lblPageNumbers" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -274,6 +274,9 @@
                   <Dimension value="[150, 30]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftxStartDateKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblStartDateError">
               <Properties>
@@ -318,6 +321,9 @@
                   <Dimension value="[150, 30]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ftxEndDateKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblEndDateError">
               <Properties>

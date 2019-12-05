@@ -342,6 +342,11 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
                 ftxStartDateUpdate(evt);
             }
         });
+        ftxStartDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxStartDateKeyReleased(evt);
+            }
+        });
 
         lblStartDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblStartDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -718,18 +723,15 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txaDescriptionKeyReleased
 
     private void ftxEndDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxEndDateKeyReleased
-        ftxStartDate.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-        public void changedUpdate (javax.swing.event.DocumentEvent evt) {
-            ftxEndDateUpdate(evt);
-        }
-        public void removeUpdate (javax.swing.event.DocumentEvent evt) {
-            ftxEndDateUpdate(evt);
-        }
-        public void insertUpdate (javax.swing.event.DocumentEvent evt) {
-            ftxEndDateUpdate(evt);
-        }
-        });    
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        validateEndDate(catalogueStartDateString, catalogueEndDateString);
     }//GEN-LAST:event_ftxEndDateKeyReleased
+
+    private void ftxStartDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxStartDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        validateStartDate(catalogueStartDateString);
+    }//GEN-LAST:event_ftxStartDateKeyReleased
 
     private void ftxStartDateUpdate(javax.swing.event.DocumentEvent evt) {
         String catalogueStartDateString = ftxStartDate.getText().trim();

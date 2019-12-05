@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -171,7 +172,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateStartDate(String catalogueStartDateString) {
         boolean validated = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 
         try {
             if (catalogueStartDateString.length() <= 0) {
@@ -197,7 +198,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateEndDate(String catalogueStartDateString, String catalogueEndDateString) {
         boolean validated = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 
         try {
             if (catalogueEndDateString.length() <= 0) {
@@ -316,6 +317,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         ftxStartDate.setEnabled(false);
         ftxStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         ftxStartDate.setPreferredSize(new java.awt.Dimension(150, 30));
+        ftxStartDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxStartDateKeyReleased(evt);
+            }
+        });
 
         lblStartDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblStartDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -331,6 +337,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         ftxEndDate.setEnabled(false);
         ftxEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         ftxEndDate.setPreferredSize(new java.awt.Dimension(150, 30));
+        ftxEndDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxEndDateKeyReleased(evt);
+            }
+        });
 
         lblEndDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEndDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -525,8 +536,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                             .addComponent(scrDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(lblDescriptionError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(lblNumberofPages, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblNumberofPages, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblPageNumbers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(25, 25, 25)
                         .addComponent(lblCreatedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -878,6 +889,17 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
         Print.printCatalogue(catalogue);
     }//GEN-LAST:event_lblPrintMouseClicked
+
+    private void ftxStartDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxStartDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        validateStartDate(catalogueStartDateString);
+    }//GEN-LAST:event_ftxStartDateKeyReleased
+
+    private void ftxEndDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxEndDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        validateEndDate(catalogueStartDateString, catalogueEndDateString);
+    }//GEN-LAST:event_ftxEndDateKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -21,6 +21,9 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
     
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
+    
+    // Create a variable to check the status is activated or deactivated
+    boolean isActivated;
 
     public ProductCategoryUniversalPanel(ProductCategory category, int i) {
         initComponents();
@@ -76,10 +79,14 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         switch (category.getCategoryStatus()) {
             case ProductCategory.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                lblEdit.setEnabled(true);
+                isActivated = true;
                 break;
         
             case ProductCategory.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                lblEdit.setEnabled(false);
+                isActivated = false;
                 break;
         }
     }
@@ -341,16 +348,19 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-        if (isEditing) {
             String categoryStatus = ProductCategory.ACTIVE;
             // Set new Product Category status as active or inactive
             switch (category.getCategoryStatus()) {
                 case ProductCategory.ACTIVE:
                     categoryStatus = ProductCategory.INACTIVE;
+                    lblEdit.setEnabled(false);
+                    isActivated = false;
                     break;
             
                 case ProductCategory.INACTIVE:
                     categoryStatus = ProductCategory.ACTIVE;
+                    lblEdit.setEnabled(true);
+                    isActivated = true;
                     break;
             }
             
@@ -360,59 +370,60 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
                 category = modifiedCategory;
                 resetFields();
             }
-        }
     }//GEN-LAST:event_btnStatusMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if (!isEditing) {
-            // Enable the editing of fields
-            txtName.setEnabled(true);
-            scrDescription.setEnabled(true);
-            txaDescription.setEnabled(true);
-            lblControl.setEnabled(false);
-            lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            
-            // Change the icon from edit icon to save icon
-            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
-            
-            // When the textbox is enabled, set the boolean variable to true.
-            isEditing = true;
-        } else {
-            boolean validated = true;
+        if(isActivated){
+            if (!isEditing) {
+                // Enable the editing of fields
+                txtName.setEnabled(true);
+                scrDescription.setEnabled(true);
+                txaDescription.setEnabled(true);
+                lblControl.setEnabled(false);
+                lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-            String categoryName = txtName.getText().trim();
-            String categoryDescription = txaDescription.getText().trim();
-            
-            // Validate
-            if (!validateName(categoryName)) {
-                validated = false;
-            }
+                // Change the icon from edit icon to save icon
+                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
 
-            if (!validateDescription(categoryDescription)) {
-                validated = false;
-            }
+                // When the textbox is enabled, set the boolean variable to true.
+                isEditing = true;
+            } else {
+                boolean validated = true;
 
-            if (validated) {
-                // Register the Product Category if no error
-                ProductCategory modifiedCategory = new ProductCategory(category.getCategoryId(), categoryName, categoryDescription, category.getCategoryStatus());
-                if (ProductCategory.modify(modifiedCategory)) {
-                    category = modifiedCategory;
-                    resetFields();
+                String categoryName = txtName.getText().trim();
+                String categoryDescription = txaDescription.getText().trim();
 
-                    // Disable the editing of fields
-                    txtName.setEnabled(false);
-                    scrDescription.setEnabled(false);
-                    txaDescription.setEnabled(false);
-                    lblControl.setEnabled(true);
-                    lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    
-                    // Change the icon from save icon to edit icon
-                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-                    
-                    // When the textbox is enabled, set the boolean variable to true.
-                    isEditing = false;
+                // Validate
+                if (!validateName(categoryName)) {
+                    validated = false;
+                }
+
+                if (!validateDescription(categoryDescription)) {
+                    validated = false;
+                }
+
+                if (validated) {
+                    // Register the Product Category if no error
+                    ProductCategory modifiedCategory = new ProductCategory(category.getCategoryId(), categoryName, categoryDescription, category.getCategoryStatus());
+                    if (ProductCategory.modify(modifiedCategory)) {
+                        category = modifiedCategory;
+                        resetFields();
+
+                        // Disable the editing of fields
+                        txtName.setEnabled(false);
+                        scrDescription.setEnabled(false);
+                        txaDescription.setEnabled(false);
+                        lblControl.setEnabled(true);
+                        lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+                        // Change the icon from save icon to edit icon
+                        lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+
+                        // When the textbox is enabled, set the boolean variable to true.
+                        isEditing = false;
+                    }
                 }
             }
         }
