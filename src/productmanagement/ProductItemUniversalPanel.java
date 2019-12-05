@@ -124,28 +124,32 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     // Create a method to resize the image and label
     private ImageIcon resizeImage(String imagePath) {
         int x, y;
-        
+        double width, height, ratio;
+        width = lblImage.getPreferredSize().getWidth();
+        height = lblImage.getPreferredSize().getHeight();
+
         // Get the imageicon and get the width & height of the image
         ImageIcon MyImage = new ImageIcon(imagePath);
         x = MyImage.getIconWidth();
         y = MyImage.getIconHeight();
+        ratio = (double) x / y;
         
         // To differentiate the dimension of image (horizontal,vertical or square)
         // To resize the label based on the dimension
-        if (x > y) {
+        if (ratio > (width / height)) {
             // If the width longer than height, then it is a horizontal image
-            lblImage.setSize(160,128);
-        } else if (y > x){
-            // If the height longer than width, then it is a vertical image
-            lblImage.setSize(102, 128);
+            lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y, (int) width, (int) Math.round(height / ratio));
+        } else if (ratio < (width / height)){
+            lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y, (int) Math.round(height * ratio), (int) height);
         } else {
             // The width is equal to the height, then it is a square image
-            lblImage.setSize(128, 128);
+            //Relocate the position of lblImage
+            lblImage.setBounds(0, 0, (int) width, (int) height);
         }
         
         // Resize the image to the size of the label
         Image img = MyImage.getImage();
-        Image newImg = img.getScaledInstance((int) lblImage.getPreferredSize().getWidth(),(int) lblImage.getPreferredSize().getHeight(), Image.SCALE_SMOOTH);
+        Image newImg = img.getScaledInstance((int) lblImage.getBounds().getWidth(),(int) lblImage.getBounds().getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
@@ -377,7 +381,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         lblNum.setText("1.");
         lblNum.setPreferredSize(new java.awt.Dimension(40, 30));
 
-        lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblImage.setEnabled(false);
         lblImage.setPreferredSize(new java.awt.Dimension(160, 128));
