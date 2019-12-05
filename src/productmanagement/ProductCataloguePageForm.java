@@ -102,28 +102,65 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Split the line into an array
             String[] details = itemDetails.split(";");
             String comboItem = details[0] + ": " + details[1];
-            // Add the Item into the combobox
-            cmbItem1.addItem(comboItem);
-            cmbItem2.addItem(comboItem);
-            cmbItem3.addItem(comboItem);
-            cmbItem4.addItem(comboItem);
-
-            // Set selected Product Item
-            if (pageItemIds[0].equalsIgnoreCase(details[0])) {
-                cmbItem1.setSelectedItem(comboItem);
-                foundItem1 = true;
+            if (details[8].equalsIgnoreCase(ProductItem.ACTIVE) || pageItemIds[0].equalsIgnoreCase(details[0])) {
+                // Add the Item into the combobox
+                cmbItem1.addItem(comboItem);
+                // Set selected Product Item
+                if (pageItemIds[0].equalsIgnoreCase(details[0])) {
+                    cmbItem1.setSelectedItem(comboItem);
+                    foundItem1 = true;
+                    if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                        lblItem1Error.setText("Item selected is inactive");
+                    } else {
+                        validateSupplierId(details[6], lblItem1Error);
+                        validateCategoryId(details[7], lblItem1Error);
+                    }
+                }
             }
-            if (pageItemIds[1].equalsIgnoreCase(details[0])) {
-                cmbItem2.setSelectedItem(comboItem);
-                foundItem2 = true;
+            if (details[8].equalsIgnoreCase(ProductItem.ACTIVE) || pageItemIds[1].equalsIgnoreCase(details[0])) {
+                // Add the Item into the combobox
+                cmbItem2.addItem(comboItem);
+                // Set selected Product Item
+                if (pageItemIds[1].equalsIgnoreCase(details[0])) {
+                    cmbItem2.setSelectedItem(comboItem);
+                    foundItem2 = true;
+                    if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                        lblItem2Error.setText("Item selected is inactive");
+                    } else {
+                        validateSupplierId(details[6], lblItem2Error);
+                        validateCategoryId(details[7], lblItem2Error);
+                    }
+                }
             }
-            if (pageItemIds[2].equalsIgnoreCase(details[0])) {
-                cmbItem3.setSelectedItem(comboItem);
-                foundItem3 = true;
+            if (details[8].equalsIgnoreCase(ProductItem.ACTIVE) || pageItemIds[2].equalsIgnoreCase(details[0])) {
+                // Add the Item into the combobox
+                cmbItem3.addItem(comboItem);
+                // Set selected Product Item
+                if (pageItemIds[2].equalsIgnoreCase(details[0])) {
+                    cmbItem3.setSelectedItem(comboItem);
+                    foundItem3 = true;
+                    if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                        lblItem1Error.setText("Item selected is inactive");
+                    } else {
+                        validateSupplierId(details[6], lblItem3Error);
+                        validateCategoryId(details[7], lblItem3Error);
+                    }
+                }
             }
-            if (pageItemIds[3].equalsIgnoreCase(details[0])) {
-                cmbItem4.setSelectedItem(comboItem);
-                foundItem4 = true;
+            if (details[8].equalsIgnoreCase(ProductItem.ACTIVE) || pageItemIds[3].equalsIgnoreCase(details[0])) {
+                // Add the Item into the combobox
+                cmbItem4.addItem(comboItem);
+                // Set selected Product Item
+                if (pageItemIds[3].equalsIgnoreCase(details[0])) {
+                    cmbItem4.setSelectedItem(comboItem);
+                    foundItem4 = true;
+                    if (details[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                        lblItem1Error.setText("Item selected is inactive");
+                    } else {
+                        validateSupplierId(details[6], lblItem4Error);
+                        validateCategoryId(details[7], lblItem4Error);
+                    }
+                }
             }
         }
 
@@ -240,12 +277,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
     // Validation
     private boolean validateItemStatus(String itemId, JLabel lblError) {
+        boolean warning = false;
         boolean validated = true;
         
         ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
-        ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
-        ArrayList<String> categoryArray = ReadObject.readArray(ProductCategory.FILE_NAME);
-
         // Iterate through the Item array
         for (String itemDetails : itemArray) {
             // Split the line into details
@@ -257,38 +292,60 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                     lblError.setText("Item selected is inactive");
                     validated = false;
                     break;
-                } else {
-                    // Iterate through the Supplier array
-                    for (String supplierDetails : supplierArray) {
-                        // Split the line into details
-                        String[] supplier = supplierDetails.split(";");
-                        // Show error if the Supplier is inactive
-                        if (supplier[0].equalsIgnoreCase(item[6])) {
-                            if ((supplier[5].equalsIgnoreCase(Supplier.INACTIVE))) {
-                                lblError.setText("Supplier of Item selected is inactive");
-                                // Does not prevent user from saving or printing
-                                break;
-                            } else {
-                                // Iterate through the Category array
-                                for (String categoryDetails : categoryArray) {
-                                    // Split the line into details
-                                    String[] category = categoryDetails.split(";");
-                                    // Show error iff the Category is inactive
-                                    if (category[0].equalsIgnoreCase(item[7]) && category[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
-                                        lblError.setText("Category selected is inactive");
-                                        // Does not prevent user from saving or printing
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
+                } else if (!validateSupplierId(item[6], lblError)) {
+                    // Does not prevent user from saving or printing
+                    warning = true;
+                    break;
+                } else if (!validateCategoryId(item[7], lblError)) {
+                    // Does not prevent user from saving or printing
+                    warning = true;
+                    break;
                 }
             }
         }
 
-        if (validated) {
+        if (validated && !warning) {
             lblError.setText(" ");
+        }
+        return validated;
+    }
+
+    private boolean validateSupplierId(String itemSupplierId, JLabel lblError) {
+        boolean validated = true;
+
+        ArrayList<String> supplierArray = ReadObject.readArray(Supplier.FILE_NAME);
+        // Iterate through the Supplier array
+        for (String supplierDetails : supplierArray) {
+            // Split the line into details
+            String[] supplier = supplierDetails.split(";");
+            // Show error if the Supplier is inactive
+            if (supplier[0].equalsIgnoreCase(itemSupplierId)) {
+                if ((supplier[5].equalsIgnoreCase(Supplier.INACTIVE))) {
+                    lblError.setText("Supplier of Item selected is inactive");
+                    validated = false;
+                }
+                break;
+            }
+        }
+        return validated;
+    }
+
+    private boolean validateCategoryId(String itemCategoryId, JLabel lblError) {
+        boolean validated = true;
+
+        ArrayList<String> categoryArray = ReadObject.readArray(ProductCategory.FILE_NAME);
+        // Iterate through the Category array
+        for (String categoryDetails : categoryArray) {
+            // Split the line into details
+            String[] category = categoryDetails.split(";");
+            // Show error iff the Category is inactive
+            if (category[0].equalsIgnoreCase(itemCategoryId)) {
+                if (category[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
+                    lblError.setText("Category selected is inactive");
+                    validated = false;
+                }
+                break;
+            }
         }
         return validated;
     }
