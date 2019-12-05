@@ -85,43 +85,6 @@ public class ProductCataloguePage {
     return WriteObject.write(page, FILE_NAME, true, "Registered new Catalogue Page (" + page.getPageCatalogueId() + ")");
   }
 
-  public static boolean modify(ProductCataloguePage page) {
-    int i = 0;
-    File oldFile = new File(FILE_NAME);
-    // Create a temporary file
-    File tempFile = new File(TEMP_FILE_NAME);
-
-    try {
-      ArrayList<String> pageArray = ReadObject.readArray(FILE_NAME);
-      // Iterate through the Page array
-      for (String pageDetails : pageArray) {
-        // Split line into array
-        String[] details = pageDetails.split(";");
-        // Find the Page with the matching ID
-        if (details[0].equalsIgnoreCase(page.getPageId())) {
-          if (page.getPageStatus().equalsIgnoreCase(ACTIVE)) {
-            // Write the new details into the temporary file and log the action
-            WriteObject.write(page, TEMP_FILE_NAME, true, "Updated product catalogue page information (" + page.getPageId() + ")");
-          } else {
-            WriteObject.write(page, TEMP_FILE_NAME, true, "Deactived product catalogue page information (" + page.getPageId() + ")");
-          }
-        } else {
-          // Write the old detail into the temporary file
-          WriteObject.write(pageArray.get(i), TEMP_FILE_NAME, true);
-        }
-        i++;
-      }
-      // Delete the old file
-      oldFile.delete();
-      // Rename the temporary file
-      return tempFile.renameTo(new File(FILE_NAME));
-    } catch (Exception e) {
-      // Display the error message
-      JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
-    return false;
-  }
-
   public static boolean modify(ArrayList<ProductCataloguePage> pageArrayList) {
     // Sort the Pages according to Product Catalogue Page Id
     Collections.sort(pageArrayList, ProductCataloguePage.idComparator);

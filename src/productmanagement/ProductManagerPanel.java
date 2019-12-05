@@ -57,8 +57,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         lblEmailError.setText(" ");
         lblPasswordError.setText(" ");
         lblConfirmPasswordError.setText(" ");
-        
-        
     }
 
     private void repopulateProductManagerList() {
@@ -189,8 +187,6 @@ public class ProductManagerPanel extends javax.swing.JPanel {
 
     private boolean validatePassword(char[] userPassword) {
         boolean validated = true;
-
-        String passwordString = new String(userPassword);
 
         if (userPassword.length < 8) {
             lblPasswordError.setText("New Password cannot be less than 8 characters");

@@ -897,24 +897,6 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
-        boolean validated = true;
-
-        /* if (!validateItemStatus(String.valueOf(cmbItem1.getSelectedItem()), lblItem1Error)) {
-            validated = false;
-        }
-
-        if (!validateItemStatus(String.valueOf(cmbItem2.getSelectedItem()), lblItem2Error)) {
-            validated = false;
-        }
-
-        if (!validateItemStatus(String.valueOf(cmbItem3.getSelectedItem()), lblItem3Error)) {
-            validated = false;
-        }
-
-        if (!validateItemStatus(String.valueOf(cmbItem4.getSelectedItem()), lblItem4Error)) {
-            validated = false;
-        } */
-
         if (validateAllPages()) {
             Print.printCatalogue(catalogue);
         }

@@ -1,6 +1,5 @@
 package productmanagement;
 
-import java.awt.Dimension;
 import java.awt.Image;
 import java.nio.file.Paths;
 

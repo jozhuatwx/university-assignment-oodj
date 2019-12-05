@@ -133,8 +133,6 @@ public class ProfilePanel extends javax.swing.JPanel {
     private boolean validateNewPassword(char[] userPassword) {
         boolean validated = true;
 
-        String passwordString = new String(userPassword);
-
         if (userPassword.length < 8) {
             lblNewPasswordError.setText("New Password cannot be less than 8 characters");
             validated = false;
