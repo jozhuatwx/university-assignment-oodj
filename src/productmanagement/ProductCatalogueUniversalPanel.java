@@ -251,6 +251,51 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         }
         return validated;
     }
+
+    private boolean validateAllPages() {
+        ArrayList<String> itemArray = ReadObject.readArray(ProductItem.FILE_NAME);
+        ArrayList<String> inactiveItems = new ArrayList<>();
+        
+        // Iterate through the Item array
+        for (String itemDetails : itemArray) {
+            // Split the line into details
+            String[] item = itemDetails.split(";");
+            // Find the line has matching Id
+            if (item[8].equalsIgnoreCase(ProductItem.INACTIVE)) {
+                inactiveItems.add(item[0]);
+            }
+        }
+
+        ArrayList<String> pageArray = ReadObject.readArray(ProductCataloguePage.FILE_NAME);
+        ArrayList<ProductCataloguePage> errorPages = new ArrayList<>();
+        // Iterate through the Pages array
+        for (String pageDetails : pageArray) {
+            // Split the line into details
+            String[] details = pageDetails.split(";");
+            ProductCataloguePage page = new ProductCataloguePage(details);
+            if (page.getPageStatus().equalsIgnoreCase(ProductCataloguePage.ACTIVE)) {
+                // Iterate through the Item Ids in each Page
+                for (int i = 0; i < page.getPageNumberOfItems(); i++) {
+                    if (inactiveItems.contains(page.getPageItemIds()[i])) {
+                        errorPages.add(page);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (errorPages.size() == 0) {
+            return true;
+        } else {
+            String errorString = "Inactive item(s) in page";
+            for (ProductCataloguePage page : errorPages) {
+                errorString += " " + page.getPageNumber();
+            }
+            // Display the error message
+            JOptionPane.showMessageDialog(new JFrame(), errorString, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -892,7 +937,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txaDescriptionFocusLost
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
-        Print.printCatalogue(catalogue);
+        if (validateAllPages()) {
+            Print.printCatalogue(catalogue);
+        }
     }//GEN-LAST:event_lblPrintMouseClicked
 
 
