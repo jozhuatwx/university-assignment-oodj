@@ -41,6 +41,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
     
+    // Create a variable to check the catalogueStatus is activated or deactivated
+    boolean isActivated;
+    
     public ProductCatalogueUniversalPanel(ProductCatalogue catalogue, int i) {
         initComponents();
         // Hide edit button for Administrator
@@ -111,12 +114,16 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
                 lblPrint.setEnabled(true);
                 lblPrint.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                lblEditIcon.setEnabled(true);
+                isActivated = true;
                 break;
         
             case ProductCatalogue.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
                 lblPrint.setEnabled(false);
                 lblPrint.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                lblEditIcon.setEnabled(false);
+                isActivated = false;
                 break;
         }
 
@@ -462,9 +469,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
         btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
         btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
             }
         });
 
@@ -707,29 +714,6 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-        if (isEditing) {
-            String catalogueStatus = ProductCatalogue.ACTIVE;
-            // Set new Product Catalogue status as active or inactive
-            switch (catalogue.getCatalogueStatus()) {
-                case ProductCatalogue.ACTIVE:
-                    catalogueStatus = ProductCatalogue.INACTIVE;
-                    break;
-            
-                case ProductCatalogue.INACTIVE:
-                    catalogueStatus = ProductCatalogue.ACTIVE;
-                    break;
-            }
-
-            // Update the Product Catalogue information
-            ProductCatalogue modifiedCatalogue = new ProductCatalogue(catalogue.getCatalogueId(), catalogue.getCatalogueTitle(), catalogue.getCatalogueBannerPath(), catalogue.getCatalogueDescription(), catalogue.getCatalogueStartDate(), catalogue.getCatalogueEndDate(), catalogue.getCatalogueGeneratedDateTime(), catalogue.getCatalogueUserId(), catalogueStatus);
-            if (ProductCatalogue.modify(modifiedCatalogue)) {
-                catalogue = modifiedCatalogue;
-                resetFields();
-            }
-        }
-    }//GEN-LAST:event_btnStatusMouseClicked
-
     private void lblControlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblControlMouseClicked
         if (isClosed && !isEditing){
             showPanel();
@@ -780,7 +764,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         txaDescription.setEnabled(true);
         lblImage.setEnabled(true);
         lblControl.setEnabled(false);
+        // Disable editing of btnStatus
         btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnStatus.setEnabled(false);
 
         lblSaveIcon.setVisible(true);
         lblEditIcon.setVisible(false);
@@ -789,19 +775,16 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
         // When the textbox is enabled, set the boolean variable to true.
         isEditing = true;
-            
-        // Resize the size of the edit drop down list
-        //pnlEditDropDownList.setPreferredSize(new Dimension(78, 33));
-        //pnlEditDropDownList.revalidate();
-        //pnlEditDropDownList.repaint();
-            
+          
     }//GEN-LAST:event_lblEditCatalogueMouseClicked
 
     private void lblEditIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditIconMouseEntered
-        //Resize the size of the edit drop down list
-        pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
-        pnlEditDropDownList.revalidate();
-        pnlEditDropDownList.repaint();
+        if(isActivated){
+            //Resize the size of the edit drop down list
+            pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
+            pnlEditDropDownList.revalidate();
+            pnlEditDropDownList.repaint();
+        }
     }//GEN-LAST:event_lblEditIconMouseEntered
 
     private void lblEditIconMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditIconMouseExited
@@ -872,7 +855,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
             if (validated) {
                 // Convert String to LocalDate
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
                 LocalDate catalogueStartDate = LocalDate.parse(catalogueStartDateString, formatter);
                 LocalDate catalogueEndDate = LocalDate.parse(catalogueEndDateString, formatter);
 
@@ -899,7 +882,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                     txaDescription.setEnabled(false);
                     lblImage.setEnabled(false);
                     lblControl.setEnabled(true);
+                    // Enable the editing of btnStatus
                     btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    btnStatus.setEnabled(true);
 
                     lblSaveIcon.setVisible(false);
                     lblEditIcon.setVisible(true);
@@ -961,6 +946,32 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         String catalogueEndDateString = ftxEndDate.getText().trim();
         validateEndDate(catalogueStartDateString, catalogueEndDateString);
     }//GEN-LAST:event_ftxEndDateKeyReleased
+
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+            String catalogueStatus = ProductCatalogue.ACTIVE;
+            // Set new Product Catalogue status as active or inactive
+            switch (catalogue.getCatalogueStatus()) {
+                case ProductCatalogue.ACTIVE:
+                    catalogueStatus = ProductCatalogue.INACTIVE;
+                    lblEditIcon.setEnabled(false);
+                    isActivated = false;
+                    break;
+            
+                case ProductCatalogue.INACTIVE:
+                    catalogueStatus = ProductCatalogue.ACTIVE;
+                    lblEditIcon.setEnabled(true);
+                    isActivated = true;
+                    break;
+            }
+
+            // Update the Product Catalogue information
+            ProductCatalogue modifiedCatalogue = new ProductCatalogue(catalogue.getCatalogueId(), catalogue.getCatalogueTitle(), catalogue.getCatalogueBannerPath(), catalogue.getCatalogueDescription(), catalogue.getCatalogueStartDate(), catalogue.getCatalogueEndDate(), catalogue.getCatalogueGeneratedDateTime(), catalogue.getCatalogueUserId(), catalogueStatus);
+            if (ProductCatalogue.modify(modifiedCatalogue)) {
+                catalogue = modifiedCatalogue;
+                resetFields();
+            }
+        
+    }//GEN-LAST:event_btnStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

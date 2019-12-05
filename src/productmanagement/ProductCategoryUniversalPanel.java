@@ -22,7 +22,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
     
-    // Create a variable to check the status is activated or deactivated
+    // Create a variable to check the categoryStatus is activated or deactivated
     boolean isActivated;
 
     public ProductCategoryUniversalPanel(ProductCategory category, int i) {
@@ -221,13 +221,14 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         btnStatus.setBackground(new java.awt.Color(255, 255, 255));
         btnStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png"))); // NOI18N
         btnStatus.setBorder(null);
+        btnStatus.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnStatus.setDisabledIcon(null);
         btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
         btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
         btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
             }
         });
 
@@ -347,31 +348,6 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_lblControlMouseClicked
 
-    private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-            String categoryStatus = ProductCategory.ACTIVE;
-            // Set new Product Category status as active or inactive
-            switch (category.getCategoryStatus()) {
-                case ProductCategory.ACTIVE:
-                    categoryStatus = ProductCategory.INACTIVE;
-                    lblEdit.setEnabled(false);
-                    isActivated = false;
-                    break;
-            
-                case ProductCategory.INACTIVE:
-                    categoryStatus = ProductCategory.ACTIVE;
-                    lblEdit.setEnabled(true);
-                    isActivated = true;
-                    break;
-            }
-            
-            // Update the Category status
-            ProductCategory modifiedCategory = new ProductCategory(category.getCategoryId(), category.getCategoryName(), category.getCategoryDescription(), categoryStatus);
-            if (ProductCategory.modify(modifiedCategory)) {
-                category = modifiedCategory;
-                resetFields();
-            }
-    }//GEN-LAST:event_btnStatusMouseClicked
-
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
         if(isActivated){
             if (!isEditing) {
@@ -381,7 +357,9 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
                 txaDescription.setEnabled(true);
                 lblControl.setEnabled(false);
                 lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                //Disable the editing of btnStatus
+                //btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                btnStatus.setEnabled(false);
 
                 // Change the icon from edit icon to save icon
                 lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
@@ -393,7 +371,7 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
 
                 String categoryName = txtName.getText().trim();
                 String categoryDescription = txaDescription.getText().trim();
-
+                
                 // Validate
                 if (!validateName(categoryName)) {
                     validated = false;
@@ -416,7 +394,9 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
                         txaDescription.setEnabled(false);
                         lblControl.setEnabled(true);
                         lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        //Enable the editing of btnStatus
                         btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        btnStatus.setEnabled(true);
 
                         // Change the icon from save icon to edit icon
                         lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
@@ -466,6 +446,31 @@ public class ProductCategoryUniversalPanel extends javax.swing.JPanel {
             txaDescription.setText("");
         }
     }//GEN-LAST:event_txaDescriptionFocusGained
+
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+        String categoryStatus = ProductCategory.ACTIVE;
+            // Set new Product Category status as active or inactive
+            switch (category.getCategoryStatus()) {
+                case ProductCategory.ACTIVE:
+                    categoryStatus = ProductCategory.INACTIVE;
+                    lblEdit.setEnabled(false);
+                    isActivated = false;
+                    break;
+            
+                case ProductCategory.INACTIVE:
+                    categoryStatus = ProductCategory.ACTIVE;
+                    lblEdit.setEnabled(true);
+                    isActivated = true;
+                    break;
+            }
+            
+            // Update the Category status
+            ProductCategory modifiedCategory = new ProductCategory(category.getCategoryId(), category.getCategoryName(), category.getCategoryDescription(), categoryStatus);
+            if (ProductCategory.modify(modifiedCategory)) {
+                category = modifiedCategory;
+                resetFields();
+            }
+    }//GEN-LAST:event_btnStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

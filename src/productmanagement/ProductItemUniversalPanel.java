@@ -32,6 +32,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     // Keeps track of supplier status
     boolean supplierStatus = true;
+    
+    // Create a variable to check the itemStatus is activated or deactivated
+    boolean isActivated;
 
     public ProductItemUniversalPanel(ProductItem item, int i) {
         initComponents();
@@ -56,10 +59,14 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         switch (item.getItemStatus()) {
             case ProductItem.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                lblEdit.setEnabled(true);
+                isActivated = true;
                 break;
         
             case ProductItem.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                lblEdit.setEnabled(false);
+                isActivated = false;
                 break;
         }
 
@@ -565,9 +572,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
         btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
         btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
             }
         });
 
@@ -693,153 +700,130 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-        if (isEditing) {
-            String itemStatus = ProductItem.ACTIVE;
-            // Set new Product Item status as active or inactive
-            switch (item.getItemStatus()) {
-                case ProductItem.ACTIVE:
-                    itemStatus = ProductItem.INACTIVE;
-                    break;
-            
-                case ProductItem.INACTIVE:
-                    itemStatus = ProductItem.ACTIVE;
-                    break;
-            }
-
-            // Update the Product Item information
-            ProductItem modifiedItem = new ProductItem(item.getItemId(), item.getItemName(), item.getItemBrand(), item.getItemPrice(), item.getItemDescription(), item.getItemImagePath(), item.getItemSupplierId(), item.getItemCategoryId(), itemStatus);
-            if (ProductItem.modify(modifiedItem, itemQuantity)) {
-                item = modifiedItem;
-                resetFields();
-                resetCategory();
-                resetSupplier();
-            }
-        }
-    }//GEN-LAST:event_btnStatusMouseClicked
-
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if (!isEditing) {
-            // Enable editing of fields
-            txtName.setEnabled(true);
-            txtBrand.setEnabled(true);
-            txtQuantity.setEnabled(true);
-            txtSellingPrice.setEnabled(true);
-            cmbSupplier.setEnabled(true);
-            cmbCategory.setEnabled(true);
-            txaDescription.setEnabled(true);
-            lblImage.setEnabled(true);
-            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if(isActivated){
+            if (!isEditing) {
+                // Enable editing of fields
+                txtName.setEnabled(true);
+                txtBrand.setEnabled(true);
+                txtQuantity.setEnabled(true);
+                txtSellingPrice.setEnabled(true);
+                cmbSupplier.setEnabled(true);
+                cmbCategory.setEnabled(true);
+                txaDescription.setEnabled(true);
+                lblImage.setEnabled(true);
+                //Disable editing of btnStatus
+                //btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                btnStatus.setEnabled(false);
 
-            // Change the icon from edit icon to save icon
-            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
+                // Change the icon from edit icon to save icon
+                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
 
-            // When the textbox is enabled, set the boolean variable to true.
-            isEditing = true;
-        } else {
-            boolean validated = true;
-
-            String itemName = txtName.getText().trim();
-            String itemBrand = txtBrand.getText().trim();
-            String itemPriceString = txtSellingPrice.getText().trim();
-            String itemQuantityString = txtQuantity.getText().trim();
-            String itemDescription = txaDescription.getText().trim();
-            String itemImageTempPath = imageTempPath;
-            String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
-            String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
-            
-            //Remove the "RM" in the itemPrice, because we just want the price value
-            if(itemPriceString.startsWith("RM")){
-                itemPriceString = itemPriceString.substring(2,itemPriceString.length());
-            }
-
-            try {
-                // Validation
-                if (!validateName(itemName)) {
-                    validated = false;
-                }
-
-                if (!validateBrand(itemBrand)) {
-                    validated = false;
-                }
-
-                if (!validatePrice(itemPriceString)) {
-                    validated = false;
-                }
-
-                if (!validateDescription(itemDescription)) {
-                    validated = false;
-                }
-
-                if (!validateImagePath(itemImageTempPath)) {
-                    validated = false;
-                }
-
-                if (!validateSupplierId(itemSupplierId)) {
-                    validated = false;
-                }
-
-                // Must check Supplier first to check if it is active or inactive
-                if (!validateQuantity(itemQuantityString)) {
-                    validated = false;
-                }
-
-                if (!validateCategoryId(itemCategoryId)) {
-                    validated = false;
-                }
+                // When the textbox is enabled, set the boolean variable to true.
+                isEditing = true;
+            } else {
+                boolean validated = true;
+                String itemName = txtName.getText().trim();
+                String itemBrand = txtBrand.getText().trim();
+                String itemPriceString = txtSellingPrice.getText().trim();
+                String itemQuantityString = txtQuantity.getText().trim();
+                String itemDescription = txaDescription.getText().trim();
+                String itemImageTempPath = imageTempPath;
+                String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
+                String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
                 
-                if (validated) {
-                    // Convert String to int
-                    int itemPrice = Integer.valueOf(itemPriceString);
-                    int itemQuantity = Integer.valueOf(itemQuantityString) - this.itemQuantity;
-
-                    // Generate item id
-                    String itemId = item.getItemId();
-
-                    // Copy image file to system
-                    Path tempPath = Path.of(imageTempPath);
-                    String newPathString = "/productmanagement/img/productitem/";
-                    String fileName = itemId + imageTempPath.substring(imageTempPath.lastIndexOf("."));
-                    String itemImagePath = newPathString + fileName;
-                    if (!imageTempPath.equalsIgnoreCase(itemImagePath)) {
-                        WriteObject.saveImage(tempPath, newPathString, fileName);
-                    }
-                    
-                    ProductItem modifiedItem = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
-                    if (ProductItem.modify(modifiedItem, itemQuantity)) {
-                        item = modifiedItem;
-                        this.itemQuantity = itemQuantity;
-                        resetFields();
-
-                        // Disable the editing of fields
-                        txtName.setEnabled(false);
-                        txtBrand.setEnabled(false);
-                        txtQuantity.setEnabled(false);
-                        txtSellingPrice.setEnabled(false);
-                        cmbSupplier.setEnabled(false);
-                        cmbCategory.setEnabled(false);
-                        txaDescription.setEnabled(false);
-                        lblImage.setEnabled(false);
-                        btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
-                        // Change the icon from save icon to edit icon
-                        lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-                        
-                        // When the textbox is enabled, set the boolean variable to true.
-                        isEditing = false;
-                    }
+                //Remove the "RM" in the itemPrice, because we just want the price value
+                if(itemPriceString.startsWith("RM")){
+                    itemPriceString = itemPriceString.substring(2,itemPriceString.length());
                 }
-            } catch (Exception e) {
-                // Display the error message
-                JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+                try {
+                    // Validation
+                    if (!validateName(itemName)) {
+                        validated = false;
+                    }
+
+                    if (!validateBrand(itemBrand)) {
+                        validated = false;
+                    }
+
+                    if (!validatePrice(itemPriceString)) {
+                        validated = false;
+                    }
+
+                    if (!validateDescription(itemDescription)) {
+                        validated = false;
+                    }
+
+                    if (!validateImagePath(itemImageTempPath)) {
+                        validated = false;
+                    }
+
+                    if (!validateSupplierId(itemSupplierId)) {
+                        validated = false;
+                    }
+
+                    // Must check Supplier first to check if it is active or inactive
+                    if (!validateQuantity(itemQuantityString)) {
+                        validated = false;
+                    }
+
+                    if (!validateCategoryId(itemCategoryId)) {
+                        validated = false;
+                    }
+
+                    if (validated) {
+                        // Convert String to int
+                        int itemPrice = Integer.valueOf(itemPriceString);
+                        int itemQuantity = Integer.valueOf(itemQuantityString) - this.itemQuantity;
+
+                        // Generate item id
+                        String itemId = item.getItemId();
+
+                        // Copy image file to system
+                        Path tempPath = Path.of(imageTempPath);
+                        String newPathString = "/productmanagement/img/productitem/";
+                        String fileName = itemId + imageTempPath.substring(imageTempPath.lastIndexOf("."));
+                        String itemImagePath = newPathString + fileName;
+                        if (!imageTempPath.equalsIgnoreCase(itemImagePath)) {
+                            WriteObject.saveImage(tempPath, newPathString, fileName);
+                        }
+
+                        ProductItem modifiedItem = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
+                        if (ProductItem.modify(modifiedItem, itemQuantity)) {
+                            item = modifiedItem;
+                            this.itemQuantity = itemQuantity;
+                            resetFields();
+
+                            // Disable the editing of fields
+                            txtName.setEnabled(false);
+                            txtBrand.setEnabled(false);
+                            txtQuantity.setEnabled(false);
+                            txtSellingPrice.setEnabled(false);
+                            cmbSupplier.setEnabled(false);
+                            cmbCategory.setEnabled(false);
+                            txaDescription.setEnabled(false);
+                            lblImage.setEnabled(false);
+                            //Enable the editing of btnStatus
+                            btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                            btnStatus.setEnabled(true);
+
+                            // Change the icon from save icon to edit icon
+                            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+
+                            // When the textbox is enabled, set the boolean variable to true.
+                            isEditing = false;
+                        }
+                    }
+                } catch (Exception e) {
+                    // Display the error message
+                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
-
     }//GEN-LAST:event_lblEditMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
-        System.out.println("Initial imageTempPath:" + imageTempPath);
-        System.out.println("Initial imageTempPath:" + item.getItemImagePath());
         if (isEditing) {
             // To let the user insert the image after pressed the label
             // Set the home directory of the filechooser to user
@@ -973,14 +957,41 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBrandKeyReleased
 
     private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
-        String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
-        validateSupplierId(itemSupplierId);
+        /*String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
+        validateSupplierId(itemSupplierId);*/
     }//GEN-LAST:event_cmbSupplierActionPerformed
 
     private void cmbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoryActionPerformed
-        String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
-        validateCategoryId(itemCategoryId);
+        /*String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+        validateCategoryId(itemCategoryId);*/
     }//GEN-LAST:event_cmbCategoryActionPerformed
+
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+        String itemStatus = ProductItem.ACTIVE;
+            // Set new Product Item status as active or inactive
+            switch (item.getItemStatus()) {
+                case ProductItem.ACTIVE:
+                    itemStatus = ProductItem.INACTIVE;
+                    lblEdit.setEnabled(false);
+                    isActivated = false;
+                    break;
+            
+                case ProductItem.INACTIVE:
+                    itemStatus = ProductItem.ACTIVE;
+                    lblEdit.setEnabled(true);
+                    isActivated = true;
+                    break;
+            }
+
+            // Update the Product Item information
+            ProductItem modifiedItem = new ProductItem(item.getItemId(), item.getItemName(), item.getItemBrand(), item.getItemPrice(), item.getItemDescription(), item.getItemImagePath(), item.getItemSupplierId(), item.getItemCategoryId(), itemStatus);
+            if (ProductItem.modify(modifiedItem, itemQuantity)) {
+                item = modifiedItem;
+                resetFields();
+                resetCategory();
+                resetSupplier();
+            }
+    }//GEN-LAST:event_btnStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
