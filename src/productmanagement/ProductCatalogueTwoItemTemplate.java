@@ -83,9 +83,9 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         } else if (ratio < (width / height)){
             // If the height longer than width, then it is a vertical image
             if (itemNo == 1){
-                lblImageItem1.setBounds((int) Math.round((width - (width / ratio)) / 2), 0, (int) Math.round(width / ratio), (int) height);
+                lblImageItem2.setBounds((int) Math.round((width - (height * ratio)) / 2), 0, (int) Math.round(height * ratio), (int) height);
             } else {
-                lblImageItem2.setBounds((int) Math.round((width - (width / ratio)) / 2), 0, (int) Math.round(width / ratio), (int) height);
+                lblImageItem2.setBounds((int) Math.round((width - (height * ratio)) / 2), 0, (int) Math.round(height * ratio), (int) height);
             }
         } else {
             // The width is equal to the height, then it is a square image

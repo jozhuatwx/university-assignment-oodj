@@ -77,7 +77,7 @@ public class ProductCatalogueThreeItemTemplate extends javax.swing.JPanel {
             // If the width longer than height, then it is a horizontal image
             lblImage.setBounds(0, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
         } else if (ratio < (width / height)){
-            lblImage.setBounds((int) Math.round((width - (width / ratio)) / 2), 0, (int) Math.round(width / ratio), (int) height);
+            lblImage.setBounds((int) Math.round((width - (height * ratio)) / 2), 0, (int) Math.round(height * ratio), (int) height);
         } else {
             // The width is equal to the height, then it is a square image
             //Relocate the position of lblImage
