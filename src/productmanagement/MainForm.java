@@ -523,6 +523,7 @@ public class MainForm extends javax.swing.JFrame {
         
         if (opt == 0) {
             // If yes, close the form
+            User.logout();
             System.exit(0);
         }
 
