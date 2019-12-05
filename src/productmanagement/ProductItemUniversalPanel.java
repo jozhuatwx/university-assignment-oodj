@@ -78,11 +78,18 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             // Split the line into an array
             String[] details = category.split(";");
             String comboItem = details[0] + ": " + details[1];
-            // Add the item into the combobox
-            cmbCategory.addItem(comboItem);
-            // Set selected Category
-            if (details[0].equals(item.getItemCategoryId())) {
-                cmbCategory.setSelectedItem(comboItem);
+            // Check if Category is active or previously selected
+            if (details[3].equalsIgnoreCase(ProductCategory.ACTIVE) || details[0].equalsIgnoreCase(item.getItemCategoryId())) {
+                // Add the item into the combobox
+                cmbCategory.addItem(comboItem);
+                // Set selected Category
+                if (details[0].equalsIgnoreCase(item.getItemCategoryId())) {
+                    cmbCategory.setSelectedItem(comboItem);
+                    // Check if the Category is inactive
+                    if (details[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
+                        lblCategoryError.setText("Category selected is inactive");
+                    }
+                }
             }
         }
     }
@@ -97,11 +104,19 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             // Split the line into an array
             String[] details = supplier.split(";");
             String comboItem = details[0] + ": " + details[1];
-            // Add the item into the combobox
-            cmbSupplier.addItem(comboItem);
-            // Set selected Supplier
-            if (details[0].equals(item.getItemSupplierId())) {
-                cmbSupplier.setSelectedItem(comboItem);
+            // Check if Supplier is active or previously selected
+            if (details[5].equalsIgnoreCase(Supplier.ACTIVE) || details[0].equalsIgnoreCase(item.getItemSupplierId())) {
+                // Add the item into the combobox
+                cmbSupplier.addItem(comboItem);
+                // Set selected Supplier
+                if (details[0].equals(item.getItemSupplierId())) {
+                    cmbSupplier.setSelectedItem(comboItem);
+                    // Check if the Supplier is inactive
+                    if (details[5].equalsIgnoreCase(Supplier.INACTIVE)) {
+                        lblSupplierError.setText("Supplier selected is inactive");
+                        supplierStatus = false;
+                    }
+                }
             }
         }
     }
@@ -268,20 +283,22 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 // Split the line into details
                 String[] details = supplierDetails.split(";");
                 // Show error if the Supplier is inactive
-                if (details[0].equalsIgnoreCase(itemSupplierId) && details[5].equalsIgnoreCase(Supplier.INACTIVE)) {
-                    lblSupplierError.setText("Supplier selected is inactive");
-                    // Does not prevent user from saving if using same supplier but prevent user from adding item to it
-                    if (item.getItemSupplierId().equalsIgnoreCase(itemSupplierId)) {
-                        supplierStatus = false;
-                    } else {
-                        validated = false;
+                if (details[0].equalsIgnoreCase(itemSupplierId)) {
+                    if (details[5].equalsIgnoreCase(Supplier.INACTIVE)) {
+                        lblSupplierError.setText("Supplier selected is inactive");
+                        // Does not prevent user from saving if using same supplier but prevent user from adding item to it
+                        if (item.getItemSupplierId().equalsIgnoreCase(itemSupplierId)) {
+                            supplierStatus = false;
+                        } else {
+                            validated = false;
+                        }
                     }
                     break;
                 }
             }
         }
 
-        if (validated) {
+        if (validated && supplierStatus) {
             lblSupplierError.setText(" ");
         }
         return validated;
@@ -289,6 +306,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateCategoryId(String itemCategoryId) {
         boolean validated = true;
+        boolean warning = false;
 
         if (itemCategoryId.length() <= 0) {
             lblCategoryError.setText("Please select a category");
@@ -300,15 +318,18 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 // Split the line into details
                 String[] details = categoryDetails.split(";");
                 // Show error if the Category is inactive
-                if (details[0].equalsIgnoreCase(itemCategoryId) && details[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
-                    lblCategoryError.setText("Category selected is inactive");
-                    // Does not prevent user from saving
+                if (details[0].equalsIgnoreCase(itemCategoryId)) {
+                    if (details[3].equalsIgnoreCase(ProductCategory.INACTIVE)) {
+                        lblCategoryError.setText("Category selected is inactive");
+                        // Does not prevent user from saving
+                        warning = true;
+                    }
                     break;
                 }
             }
         }
 
-        if (validated) {
+        if (validated && !warning) {
             lblCategoryError.setText(" ");
         }
         return validated;
@@ -401,6 +422,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         cmbSupplier.setMaximumSize(new java.awt.Dimension(225, 30));
         cmbSupplier.setMinimumSize(new java.awt.Dimension(225, 30));
         cmbSupplier.setPreferredSize(new java.awt.Dimension(225, 30));
+        cmbSupplier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSupplierActionPerformed(evt);
+            }
+        });
 
         lblSupplierError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblSupplierError.setForeground(new java.awt.Color(255, 0, 0));
@@ -411,6 +437,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         cmbCategory.setMaximumSize(new java.awt.Dimension(225, 30));
         cmbCategory.setMinimumSize(new java.awt.Dimension(225, 30));
         cmbCategory.setPreferredSize(new java.awt.Dimension(225, 30));
+        cmbCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbCategoryActionPerformed(evt);
+            }
+        });
 
         lblCategoryError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblCategoryError.setForeground(new java.awt.Color(255, 0, 0));
@@ -920,6 +951,16 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         String itemBrand = txtBrand.getText().trim();
         validateBrand(itemBrand);
     }//GEN-LAST:event_txtBrandKeyReleased
+
+    private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
+        String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
+        validateSupplierId(itemSupplierId);
+    }//GEN-LAST:event_cmbSupplierActionPerformed
+
+    private void cmbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoryActionPerformed
+        String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+        validateCategoryId(itemCategoryId);
+    }//GEN-LAST:event_cmbCategoryActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
