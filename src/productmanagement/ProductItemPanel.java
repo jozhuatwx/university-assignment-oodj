@@ -20,7 +20,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
     public static final int PANEL_WIDTH = 755;
     
     // Keeps track of temporary image file path
-    String imageTempPath = "/productmanagement/img/InsertImage.png";
+    String imageTempPath = "/productmanagement/img/InsertImage.png", latestImageTempPath;
 
     public ProductItemPanel() {
         initComponents();
@@ -37,6 +37,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
         pnlAddItem.setPreferredSize(new Dimension(755, 633));
         pnlAddItem.revalidate();
         pnlAddItem.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -44,6 +47,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
         pnlAddItem.setPreferredSize(new Dimension(755, 61));
         pnlAddItem.revalidate();
         pnlAddItem.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {
@@ -188,7 +194,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         if (itemName.length() <= 0 || itemName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Cannot be empty");
             validated = false;
-        } else if (!itemName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!itemName.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblNameError.setText("Please enter a valid name");
             validated = false;
         }
@@ -591,6 +597,8 @@ public class ProductItemPanel extends javax.swing.JPanel {
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png"))); // NOI18N
         lblImage.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblImage.setMaximumSize(new java.awt.Dimension(156, 128));
+        lblImage.setMinimumSize(new java.awt.Dimension(156, 128));
         lblImage.setPreferredSize(new java.awt.Dimension(156, 128));
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -809,10 +817,8 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // To let the user insert the image after pressed the label
-        JFileChooser file = new JFileChooser();
-        
         // Set the home directory of the filechooser to user
-        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+        JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
         
         // Create a new file name extension which including .jpg and .png file
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -822,12 +828,17 @@ public class ProductItemPanel extends javax.swing.JPanel {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             lblImage.setIcon(resizeImage(path));
+            latestImageTempPath = path;
             imageTempPath = path;
             lblImageError.setText(" ");
         } else if (result == JFileChooser.CANCEL_OPTION){
-            lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
-            imageTempPath = "/productmanagement/img/InsertImage.png";
-            lblImageError.setText("Item Image cannot be empty");
+            if(latestImageTempPath == null){
+                lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
+                imageTempPath = "/productmanagement/img/InsertImage.png";
+                lblImageError.setText("Item Image cannot be empty");
+            }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+            }
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
@@ -852,6 +863,11 @@ public class ProductItemPanel extends javax.swing.JPanel {
         String itemImageTempPath = imageTempPath;
         String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
         String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+        
+        //Remove the "RM" in the itemPrice, because we just want the price value
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
 
         try {
             // Validation
@@ -906,6 +922,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 ProductItem item = new ProductItem(itemId, itemName, itemBrand, itemPrice, itemDescription, itemImagePath, itemSupplierId, itemCategoryId, ProductItem.ACTIVE);
                 if (ProductItem.register(item, itemQuantity)) {
                     resetFields();
+                    repopulateItemList();
                 }
             }
         } catch (Exception e) {
@@ -958,11 +975,17 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private void txtSellingPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellingPriceKeyReleased
         String itemPriceString = txtSellingPrice.getText().trim();
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
         validatePrice(itemPriceString);
     }//GEN-LAST:event_txtSellingPriceKeyReleased
 
     private void txtSellingPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusLost
         String itemPriceString = txtSellingPrice.getText().trim();
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
         validatePrice(itemPriceString);
         
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("")) {
@@ -1020,7 +1043,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
 
     private void txtSellingPriceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusGained
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("Selling Price")) {
-            txtSellingPrice.setText("");
+            txtSellingPrice.setText("RM");
         }
     }//GEN-LAST:event_txtSellingPriceFocusGained
 

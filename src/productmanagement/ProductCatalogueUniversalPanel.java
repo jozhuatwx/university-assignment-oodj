@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,7 +33,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     ProductCatalogue catalogue;
 
     // Keeps track of temporary image file path
-    String imageFilePath;
+    String imageFilePath, latestImageTempPath;
 
     // Create a variable to check the panel is closed or opened
     boolean isClosed;
@@ -154,7 +155,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
             lblTitleError.setText("Catalogue Title cannot be empty");
             validated = false;
-        } else if (!catalogueTitle.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblTitleError.setText("Please enter a valid title");
             validated = false;
         }
@@ -185,7 +186,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateStartDate(String catalogueStartDateString) {
         boolean validated = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 
         try {
             if (catalogueStartDateString.length() <= 0) {
@@ -211,7 +212,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private boolean validateEndDate(String catalogueStartDateString, String catalogueEndDateString) {
         boolean validated = true;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
 
         try {
             if (catalogueEndDateString.length() <= 0) {
@@ -375,6 +376,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         ftxStartDate.setEnabled(false);
         ftxStartDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         ftxStartDate.setPreferredSize(new java.awt.Dimension(150, 30));
+        ftxStartDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxStartDateKeyReleased(evt);
+            }
+        });
 
         lblStartDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblStartDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -390,6 +396,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         ftxEndDate.setEnabled(false);
         ftxEndDate.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         ftxEndDate.setPreferredSize(new java.awt.Dimension(150, 30));
+        ftxEndDate.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ftxEndDateKeyReleased(evt);
+            }
+        });
 
         lblEndDateError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblEndDateError.setForeground(new java.awt.Color(255, 0, 0));
@@ -584,8 +595,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                             .addComponent(scrDescription, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(lblDescriptionError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addComponent(lblNumberofPages, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblNumberofPages, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblPageNumbers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(25, 25, 25)
                         .addComponent(lblCreatedBy, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -737,10 +748,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         if (isEditing) {
             // To let the user insert the image after pressed the label
-            JFileChooser file = new JFileChooser();
-            
             // Set the home directory of the filechooser to user
-            file.setCurrentDirectory(new File(System.getProperty("user.home")));
+            JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
             
             // Create a new file name extension which including .jpg and .png file
             FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -750,10 +759,14 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
                 lblImage.setIcon(resizeImage(path));
+                latestImageTempPath = path;
                 imageFilePath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
-                lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
-                imageFilePath = catalogue.getCatalogueBannerPath();
+                if(latestImageTempPath == null){
+                    lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + catalogue.getCatalogueBannerPath()));
+                }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+                }
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
@@ -765,10 +778,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         ftxEndDate.setEnabled(true);
         scrDescription.setEnabled(true);
         txaDescription.setEnabled(true);
-        btnStatus.setEnabled(true);
         lblImage.setEnabled(true);
         lblControl.setEnabled(false);
-        btnStatus.setEnabled(true);
         btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         lblSaveIcon.setVisible(true);
@@ -886,10 +897,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                     ftxEndDate.setEnabled(false);
                     scrDescription.setEnabled(false);
                     txaDescription.setEnabled(false);
-                    btnStatus.setEnabled(false);
                     lblImage.setEnabled(false);
                     lblControl.setEnabled(true);
-                    btnStatus.setEnabled(false);
                     btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
                     lblSaveIcon.setVisible(false);
@@ -941,6 +950,17 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             Print.printCatalogue(catalogue);
         }
     }//GEN-LAST:event_lblPrintMouseClicked
+
+    private void ftxStartDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxStartDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        validateStartDate(catalogueStartDateString);
+    }//GEN-LAST:event_ftxStartDateKeyReleased
+
+    private void ftxEndDateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ftxEndDateKeyReleased
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        validateEndDate(catalogueStartDateString, catalogueEndDateString);
+    }//GEN-LAST:event_ftxEndDateKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

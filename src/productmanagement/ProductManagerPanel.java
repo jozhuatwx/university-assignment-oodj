@@ -27,6 +27,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         pnlAddProductManager.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddProductManager.revalidate();
         pnlAddProductManager.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -34,6 +37,9 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         pnlAddProductManager.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddProductManager.revalidate();
         pnlAddProductManager.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {
@@ -170,7 +176,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         if (userEmail.length() <= 0 || userEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Manager Email cannot be empty");
             validated = false;
-        } else if (!userEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+        } else if (!userEmail.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?")) {
             lblEmailError.setText("Please enter a valid email");
             validated = false;
         }

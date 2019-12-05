@@ -25,7 +25,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     int itemQuantity;
 
     // Keeps track of temporary image file path
-    String imageTempPath;
+    String imageTempPath, latestImageTempPath;
 
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
@@ -49,7 +49,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         // Fill the fields with Product Item information
         txtName.setText(item.getItemName());
         txtBrand.setText(item.getItemBrand());
-        txtSellingPrice.setText(String.valueOf(Math.round(item.getItemPrice())));
+        txtSellingPrice.setText("RM" +String.valueOf(Math.round(item.getItemPrice())));
         txaDescription.setText(item.getItemDescription());
         lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
 
@@ -161,7 +161,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         if (itemName.length() <= 0 || itemName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Cannot be empty");
             validated = false;
-        } else if (!itemName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!itemName.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblNameError.setText("Please enter a valid name");
             validated = false;
         }
@@ -747,6 +747,11 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
             String itemImageTempPath = imageTempPath;
             String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
             String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+            
+            //Remove the "RM" in the itemPrice, because we just want the price value
+            if(itemPriceString.startsWith("RM")){
+                itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+            }
 
             try {
                 // Validation
@@ -833,12 +838,12 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+        System.out.println("Initial imageTempPath:" + imageTempPath);
+        System.out.println("Initial imageTempPath:" + item.getItemImagePath());
         if (isEditing) {
             // To let the user insert the image after pressed the label
-            JFileChooser file = new JFileChooser();
-            
             // Set the home directory of the filechooser to user
-            file.setCurrentDirectory(new File(System.getProperty("user.home")));
+            JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
             
             // Create a new file name extension which including .jpg and .png file
             FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
@@ -848,10 +853,15 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 File selectedFile = file.getSelectedFile();
                 String path = selectedFile.getAbsolutePath();
                 lblImage.setIcon(resizeImage(path));
+                latestImageTempPath = path;
                 imageTempPath = path;
             } else if (result == JFileChooser.CANCEL_OPTION){
-                lblImage.setIcon(new ImageIcon(getClass().getResource(item.getItemImagePath())));
-                imageTempPath = item.getItemImagePath();
+                if(latestImageTempPath == null){
+                    lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
+                }else{
+                    lblImage.setIcon(resizeImage(latestImageTempPath));
+                }
+                
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
@@ -888,12 +898,15 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private void txtSellingPriceFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusGained
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("Selling Price")) {
-            txtSellingPrice.setText("");
+            txtSellingPrice.setText("RM");
         }
     }//GEN-LAST:event_txtSellingPriceFocusGained
 
     private void txtSellingPriceFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSellingPriceFocusLost
         String itemPriceString = txtSellingPrice.getText().trim();
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
         validatePrice(itemPriceString);
         
         if (txtSellingPrice.getText().trim().equalsIgnoreCase("")) {
@@ -943,6 +956,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
     private void txtSellingPriceKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSellingPriceKeyReleased
         String itemPriceString = txtSellingPrice.getText().trim();
+        if(itemPriceString.startsWith("RM")){
+            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        }
         validatePrice(itemPriceString);
     }//GEN-LAST:event_txtSellingPriceKeyReleased
 

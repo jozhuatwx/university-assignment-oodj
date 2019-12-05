@@ -28,6 +28,9 @@ public class SupplierPanel extends javax.swing.JPanel {
         pnlAddSupplier.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MAX_HEIGHT));
         pnlAddSupplier.revalidate();
         pnlAddSupplier.repaint();
+        
+        // Disable the button
+        btnAdd.setEnabled(false);
     }
 
     private void hideAddPanel() {
@@ -35,6 +38,9 @@ public class SupplierPanel extends javax.swing.JPanel {
         pnlAddSupplier.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_MIN_HEIGHT));
         pnlAddSupplier.revalidate();
         pnlAddSupplier.repaint();
+        
+        // Enable the button
+        btnAdd.setEnabled(true);
     }
     
     private void resetFields() {
@@ -109,7 +115,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         if (supplierName.length() <= 0 || supplierName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Supplier Name cannot be empty");
             validated = false;
-        } else if (!supplierName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!supplierName.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblNameError.setText("Please enter a valid name");
             validated = false;
         }
@@ -143,7 +149,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         if (supplierEmail.length() <= 0 || supplierEmail.equalsIgnoreCase("Email")) {
             lblEmailError.setText("Supplier Email cannot be empty");
             validated = false;
-        } else if (!supplierEmail.matches("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
+        } else if (!supplierEmail.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?")) {
             lblEmailError.setText("Please enter a valid email");
             validated = false;
         }
