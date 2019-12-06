@@ -176,7 +176,6 @@ public class User {
 
     if (!registered) {
       try {
-        user.setUserPassword(Encryption.encryptPassword(user.getUserPassword().toCharArray()));
         // Record the new user into the User database and log action
         return WriteObject.write(user, FILE_NAME, true, "Registered new User (" + user.getUserId() + ")", true);
       } catch (Exception e) {
