@@ -106,8 +106,8 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         if (categoryName.length() <= 0 || categoryName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Category Name cannot be empty");
             validated = false;
-        } else if (!categoryName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
-            lblNameError.setText("Please enter a valid name");
+        } else if (categoryName.contains(";")) {
+            lblNameError.setText("Category Name cannot contain semi-colons");
             validated = false;
         }
 

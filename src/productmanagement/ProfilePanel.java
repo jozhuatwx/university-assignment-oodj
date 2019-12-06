@@ -71,7 +71,7 @@ public class ProfilePanel extends javax.swing.JPanel {
         if (userName.length() <= 0 || userName.equalsIgnoreCase("Name")) {
             lblNameError.setText("User Name cannot be empty");
             validated = false;
-        } else if (!userName.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$")) {
+        } else if (!userName.matches("^[a-zA-Z]+(([',. /-][a-zA-Z ])?[a-zA-Z]*)*$")) {
             lblNameError.setText("Please enter a valid name");
             validated = false;
         }

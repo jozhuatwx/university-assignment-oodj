@@ -32,8 +32,8 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
             lblTitleError.setText("Title cannot be empty");
             validated = false;
-        } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
-            lblTitleError.setText("Please enter a valid title");
+        } else if (catalogueTitle.contains(";")) {
+            lblTitleError.setText("Title cannot contain semi-colons");
             validated = false;
         }
 

@@ -103,8 +103,8 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         if (supplierName.length() <= 0 || supplierName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Supplier Name cannot be empty");
             validated = false;
-        } else if (!supplierName.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
-            lblNameError.setText("Please enter a valid name");
+        } else if (supplierName.contains(";")) {
+            lblNameError.setText("Supplier Name cannot contain semi-colons");
             validated = false;
         }
 
