@@ -72,34 +72,44 @@ public class InventoryTransaction {
         itemArray[i][3] = "0";
       }
 
-      // Get the Transactions
-      ArrayList<String> transactionArray = ReadObject.readArray(FILE_NAME);
+      if (itemArrayList.size() > 0) {
+        // Get the Transactions
+        ArrayList<String> transactionArray = ReadObject.readArray(FILE_NAME);
 
-      for (String transaction : transactionArray) {
-        String[] details = transaction.split(";");
-        // Only count the outgoing transactions
-        if (Integer.valueOf(details[3]) < 0) {
-          // Get the index in the array
-          int index = Integer.valueOf(details[2].substring(2)) - 1;
-          // Negate the negative value and add to the value in the item array
-          itemArray[index][3] = String.valueOf(Integer.valueOf(itemArray[index][3]) - Integer.valueOf(details[3]));
+        for (String transaction : transactionArray) {
+          String[] details = transaction.split(";");
+          // Only count the outgoing transactions
+          if (Integer.valueOf(details[3]) < 0) {
+            // Get the index in the array
+            int index = Integer.valueOf(details[2].substring(2)) - 1;
+            // Negate the negative value and add to the value in the item array
+            itemArray[index][3] = String.valueOf(Integer.valueOf(itemArray[index][3]) - Integer.valueOf(details[3]));
+          }
         }
-      }
 
-      // Sort the Transactions descending order
-      Arrays.sort(itemArray, new Comparator<String[]>() {
-        @Override
-        public int compare(String[] o1, String[] o2) {
-          Integer quantityOne = Integer.valueOf(o1[3]);
-          Integer quantityTwo = Integer.valueOf(o2[3]);
-          return quantityTwo.compareTo(quantityOne);
-        }
-      });
+        // Sort the Transactions descending order
+        Arrays.sort(itemArray, new Comparator<String[]>() {
+          @Override
+          public int compare(String[] o1, String[] o2) {
+            Integer quantityOne = Integer.valueOf(o1[3]);
+            Integer quantityTwo = Integer.valueOf(o2[3]);
+            return quantityTwo.compareTo(quantityOne);
+          }
+        });
 
-      // Get the top three
-      for (int i = 0; i < topProductItems.length; i++) {
-        for (int x = 0; x < 4; x++) {
-          topProductItems[i][x] = itemArray[i][x];
+        // Get the top three
+        if (itemArrayList.size() > 3) {
+          for (int i = 0; i < topProductItems.length; i++) {
+            for (int x = 0; x < 4; x++) {
+              topProductItems[i][x] = itemArray[i][x];
+            }
+          }
+        } else {
+          for (int i = 0; i < itemArrayList.size(); i++) {
+            for (int x = 0; x < 4; x++) {
+              topProductItems[i][x] = itemArray[i][x];
+            }
+          }
         }
       }
     } catch (Exception e) {
