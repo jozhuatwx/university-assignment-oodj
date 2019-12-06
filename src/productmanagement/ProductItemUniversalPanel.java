@@ -957,13 +957,17 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBrandKeyReleased
 
     private void cmbSupplierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSupplierActionPerformed
-        /*String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
-        validateSupplierId(itemSupplierId);*/
+        if (cmbSupplier.getSelectedItem() != null) {
+            String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
+            validateSupplierId(itemSupplierId);
+        }
     }//GEN-LAST:event_cmbSupplierActionPerformed
 
     private void cmbCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoryActionPerformed
-        /*String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
-        validateCategoryId(itemCategoryId);*/
+        if (cmbCategory.getSelectedItem() != null) {
+            String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
+            validateCategoryId(itemCategoryId);
+        }
     }//GEN-LAST:event_cmbCategoryActionPerformed
 
     private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
