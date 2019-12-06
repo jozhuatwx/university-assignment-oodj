@@ -69,17 +69,22 @@ public class ProductCatalogueFourItemTemplate extends javax.swing.JPanel {
         y = MyImage.getIconHeight();
         ratio = (double) x / y;
         
-        // To differentiate the dimension of image (horizontal,vertical or square)
-        // To resize the label based on the dimension
+        // To differentiate if the image is wider or higher than the label
         if (ratio > (width / height)) {
-            // If the width longer than height, then it is a horizontal image
-            lblImage.setBounds(0, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
+            if (ratio >= 1) {
+                lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y + (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
+            } else {
+                lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y + (int) Math.round((height - (height * ratio)) / 2), (int) width, (int) Math.round(height * ratio));
+            }
         } else if (ratio < (width / height)){
-            lblImage.setBounds((int) Math.round((width - (height * ratio)) / 2), 0, (int) Math.round(height * ratio), (int) height);
+            if (ratio >= 1) {
+                lblImage.setBounds(lblImage.getBounds().x + (int) Math.round((width - (height / ratio)) / 2), lblImage.getBounds().y, (int) Math.round(height / ratio), (int) height);
+            } else {
+                lblImage.setBounds(lblImage.getBounds().x + (int) Math.round((width - (height * ratio)) / 2), lblImage.getBounds().y, (int) Math.round(height * ratio), (int) height);
+            }
         } else {
-            // The width is equal to the height, then it is a square image
-            //Relocate the position of lblImage
-            lblImage.setBounds(0, 0, (int) width, (int) height);
+            // The width is equal to the height, then only scale the image
+            lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y, (int) width, (int) height);
         }
         
         // Resize the image to the size of the label

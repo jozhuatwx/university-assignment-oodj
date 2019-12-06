@@ -42,7 +42,7 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
 
     private void resetItem(ProductItem item, JLabel lblImage, JLabel lblName, JLabel lblBrand, JLabel lblPrice, JTextArea txaDescription, int i) {
         if (!item.getItemId().trim().equalsIgnoreCase("")) {
-            lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath(), lblImage, i));
+            lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath(), lblImage));
             lblName.setText(item.getItemName());
             lblBrand.setText(item.getItemBrand());
             lblPrice.setText("RM " + String.valueOf(item.getItemPrice()));
@@ -58,7 +58,7 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
     }
     
     // Create a method to resize the image and label
-    private ImageIcon resizeImage(String imagePath, JLabel lblImage, int itemNo){
+    private ImageIcon resizeImage(String imagePath, JLabel lblImage){
         int x, y;
         double width, height, ratio;
         width = lblImage.getPreferredSize().getWidth();
@@ -70,31 +70,22 @@ public class ProductCatalogueTwoItemTemplate extends javax.swing.JPanel {
         y = MyImage.getIconHeight();
         ratio = (double) x / y;
         
-        // To differentiate the dimension of image (horizontal,vertical or square)
-        // To resize the label based on the dimension
-        // To relocate the picture to the right position based on the item number 
+        // To differentiate if the image is wider or higher than the label
         if (ratio > (width / height)) {
-            // If the width longer than height, then it is a horizontal image
-            if (itemNo == 1){
-                lblImageItem1.setBounds(210, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
+            if (ratio >= 1) {
+                lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y + (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
             } else {
-                lblImageItem2.setBounds(0, (int) Math.round((height - (height / ratio)) / 2), (int) width, (int) Math.round(height / ratio));
+                lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y + (int) Math.round((height - (height * ratio)) / 2), (int) width, (int) Math.round(height * ratio));
             }
         } else if (ratio < (width / height)){
-            // If the height longer than width, then it is a vertical image
-            if (itemNo == 1){
-                lblImageItem2.setBounds((int) Math.round((width - (height * ratio)) / 2), 0, (int) Math.round(height * ratio), (int) height);
+            if (ratio >= 1) {
+                lblImage.setBounds(lblImage.getBounds().x + (int) Math.round((width - (height / ratio)) / 2), lblImage.getBounds().y, (int) Math.round(height / ratio), (int) height);
             } else {
-                lblImageItem2.setBounds((int) Math.round((width - (height * ratio)) / 2), 0, (int) Math.round(height * ratio), (int) height);
+                lblImage.setBounds(lblImage.getBounds().x + (int) Math.round((width - (height * ratio)) / 2), lblImage.getBounds().y, (int) Math.round(height * ratio), (int) height);
             }
         } else {
-            // The width is equal to the height, then it is a square image
-            //Relocate the position of lblImage
-            if (itemNo == 1){
-                lblImageItem1.setBounds(210, 0, (int) width, (int) height);
-            } else {
-                lblImageItem2.setBounds(0, 210, (int) width, (int) height);
-            }
+            // The width is equal to the height, then only scale the image
+            lblImage.setBounds(lblImage.getBounds().x, lblImage.getBounds().y, (int) width, (int) height);
         }
         
         // Resize the image to the size of the label
