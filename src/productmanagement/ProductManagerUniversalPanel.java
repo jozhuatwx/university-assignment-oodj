@@ -38,6 +38,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         this.productManager = productManager;
         // Set the list number
         lblNum.setText(String.valueOf(i) + ".");
+        System.out.println("Initial" + isActivated);
         resetFields();
     }
         
@@ -76,18 +77,21 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         txtLoginName.setEnabled(false);
         txtEmail.setText(productManager.getUserEmail());
         txtAddress.setText(productManager.getUserAddress());
-
+        System.out.println("Reset field:" + productManager.getProductManagerStatus());
+        
         switch (productManager.getProductManagerStatus()) {
             case ProductManager.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
                 lblEdit.setEnabled(true);
                 isActivated = true;
+                System.out.println("after initial:active" + isActivated);
                 break;
         
             case ProductManager.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
                 lblEdit.setEnabled(false);
                 isActivated = false;
+                System.out.println("after initial:inactive" + isActivated);
                 break;
         }
     }
@@ -511,6 +515,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
+        System.out.println("1" + isActivated);
         if(isActivated){
             if (!isEditing) {
                 // Enable editing of fields
@@ -523,7 +528,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                 // Disable the editing of btnStatus
                 btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 btnStatus.setEnabled(false);
-
+                System.out.println("2" + isActivated);
                 // Change the icon from edit icon to save icon
                 lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
 
@@ -531,7 +536,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                 isEditing = true;
             } else {
                 boolean validated = true;
-
+                System.out.println("3" + isActivated);
                 String userId = productManager.getUserId();
                 String userName = txtName.getText().trim();
                 String userAddress = txtAddress.getText().trim();
@@ -565,7 +570,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                 }
 
                 try {
-                    if (validated && chkUpdatePassword.isSelected()) {
+                    if (validated && chkUpdatePassword.isSelected()) {System.out.println("4" + isActivated);
                         String userPassword = Encryption.encryptPassword(newPassword);
                         // Create a Product Manager object
                         ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
@@ -590,7 +595,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                             // Set the boolean variable to false.
                             isEditing = false;
                         }
-                    } else if (validated && !chkUpdatePassword.isSelected()) {
+                    } else if (validated && !chkUpdatePassword.isSelected()) {System.out.println("5" + isActivated);
                         // Get the password
                         ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
 
@@ -745,16 +750,17 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
     private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
             String productManagerStatus = ProductManager.ACTIVE;
+            System.out.println(productManagerStatus);
             // Set new Product Manager status as active or inactive
             switch (productManager.getProductManagerStatus()) {
                 case ProductManager.ACTIVE:
-                    productManagerStatus = Supplier.INACTIVE;
+                    productManagerStatus = productManager.INACTIVE;
                     lblEdit.setEnabled(false);
                     isActivated = false;
                     break;
             
                 case ProductManager.INACTIVE:
-                    productManagerStatus = Supplier.ACTIVE;
+                    productManagerStatus = productManager.ACTIVE;
                     lblEdit.setEnabled(true);
                     isActivated = true;
                     break;
