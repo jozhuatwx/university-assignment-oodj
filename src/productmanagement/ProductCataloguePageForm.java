@@ -393,8 +393,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             return true;
         } else {
             String errorString = "Inactive item(s) in page";
-            for (ProductCataloguePage page : errorPages) {
-                errorString += " " + page.getPageNumber();
+            errorString += " " + errorPages.get(0).getPageNumber();
+            for (int i = 1; i < errorPages.size(); i++) {
+                errorString += ", " + errorPages.get(i).getPageNumber();
             }
             // Display the error message
             JOptionPane.showMessageDialog(new JFrame(), errorString, "Warning", JOptionPane.WARNING_MESSAGE);
