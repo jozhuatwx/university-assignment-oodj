@@ -46,9 +46,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     
     public ProductCatalogueUniversalPanel(ProductCatalogue catalogue, int i) {
         initComponents();
-        // Hide edit button for Administrator
+        // Hide edit button and disable status button for Administrator
         if (Administrator.isAdministrator()) {
             pnlEditDropDownList.setVisible(false);
+            btnStatus.setEnabled(false);
         }
         // Hide the Panel
         hidePanel();
@@ -160,7 +161,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
-            lblTitleError.setText("Catalogue Title cannot be empty");
+            lblTitleError.setText("Cannot be empty");
             validated = false;
         } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
             lblTitleError.setText("Please enter a valid title");
@@ -177,10 +178,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (catalogueDescription.length() <= 0 || catalogueDescription.equalsIgnoreCase("Description")) {
-            lblDescriptionError.setText("Catalogue Description cannot be empty");
+            lblDescriptionError.setText("Cannot be empty");
             validated = false;
         } else if (catalogueDescription.contains(";")) {
-            lblDescriptionError.setText("Catalogue Description cannot contain semi-colons");
+            lblDescriptionError.setText("Cannot contain semi-colons");
             validated = false;
         }
 
@@ -197,12 +198,12 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
         try {
             if (catalogueStartDateString.length() <= 0) {
-                lblStartDateError.setText("Catalogue Start Date cannot be empty");
+                lblStartDateError.setText("Cannot be empty");
                 validated = false;
             } else {
                 LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                 if (startDate.isBefore(LocalDate.now())) {
-                    lblStartDateError.setText("Catalogue Start Date cannot be before today");
+                    lblStartDateError.setText("Cannot be before today");
                     validated = false;
                 }
             }
@@ -223,20 +224,20 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
         try {
             if (catalogueEndDateString.length() <= 0) {
-                lblEndDateError.setText("Catalogue End Date cannot be empty");
+                lblEndDateError.setText("Cannot be empty");
                 validated = false;
             } else {
                 LocalDate endDate = LocalDate.parse(catalogueEndDateString, formatter);
                 if (validateStartDate(catalogueStartDateString)) {
                     LocalDate startDate = LocalDate.parse(catalogueStartDateString, formatter);
                     if (endDate.isBefore(startDate)) {
-                        lblEndDateError.setText("Catalogue End Date cannot be before the start date");
+                        lblEndDateError.setText("Cannot be before start date");
                         validated = false;
                     }
                 }
             }
         } catch (Exception e) {
-            lblStartDateError.setText("Please enter a valid date");
+            lblEndDateError.setText("Please enter a valid date");
             validated = false;
         }
 
@@ -250,7 +251,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         boolean validated = true;
 
         if (catalogueImageTempPath.length() <= 0) {
-            lblImageError.setText("Catalogue Image cannot be empty");
+            lblImageError.setText("Cannot be empty");
             validated = false;
         }
 

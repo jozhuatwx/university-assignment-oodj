@@ -30,7 +30,8 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         // Hide edit button for Product Manager
         if (ProductManager.isProductManager()) {
             lblEdit.setVisible(false);
-        }
+            btnStatus.setEnabled(false);
+        }         
         // Hide the Panel
         hidePanel();
         // Set the Supplier information
