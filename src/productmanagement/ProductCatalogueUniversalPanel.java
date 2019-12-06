@@ -883,8 +883,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 Path tempPath = Path.of(catalogueImageTempPath);
                 String newPathString = "/productmanagement/img/productcatalogue/";
                 String fileName = catalogueId + catalogueImageTempPath.substring(catalogueImageTempPath.lastIndexOf("."));
-                WriteObject.saveImage(tempPath, newPathString, fileName);
                 String catalogueBannerPath = newPathString + fileName;
+                if (!catalogueImageTempPath.equalsIgnoreCase(catalogueBannerPath)) {
+                    WriteObject.saveImage(tempPath, newPathString, fileName);
+                }
 
                 ProductCatalogue modifiedCatalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.modify(modifiedCatalogue, catalogue.getCatalogueStatus())) {
