@@ -282,7 +282,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             // Split the line into details
             String[] details = pageDetails.split(";");
             ProductCataloguePage page = new ProductCataloguePage(details);
-            if (page.getPageStatus().equalsIgnoreCase(ProductCataloguePage.ACTIVE)) {
+            if (page.getPageCatalogueId().equalsIgnoreCase(catalogue.getCatalogueId()) && page.getPageStatus().equalsIgnoreCase(ProductCataloguePage.ACTIVE)) {
                 // Iterate through the Item Ids in each Page
                 for (int i = 0; i < page.getPageNumberOfItems(); i++) {
                     if (inactiveItems.contains(page.getPageItemIds()[i])) {
@@ -293,7 +293,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             }
         }
 
-        if (errorPages.size() == 0) {
+        if (errorPages.isEmpty()) {
             return true;
         } else {
             String errorString = "Inactive item(s) in page";
@@ -301,7 +301,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 errorString += " " + page.getPageNumber();
             }
             // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), errorString, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), errorString, "Warning", JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
@@ -796,10 +796,12 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditIconMouseExited
 
     private void lblEditCatalogueMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditCatalogueMouseEntered
-        //Resize the size of the edit drop down list
-        pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
-        pnlEditDropDownList.revalidate();
-        pnlEditDropDownList.repaint();
+        if(isActivated){
+            //Resize the size of the edit drop down list
+            pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
+            pnlEditDropDownList.revalidate();
+            pnlEditDropDownList.repaint();
+        }
     }//GEN-LAST:event_lblEditCatalogueMouseEntered
 
     private void lblEditCatalogueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditCatalogueMouseExited
@@ -810,10 +812,12 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditCatalogueMouseExited
 
     private void lblEditPageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseEntered
-        //Resize the size of the edit drop down list
-        pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
-        pnlEditDropDownList.revalidate();
-        pnlEditDropDownList.repaint();
+        if(isActivated){
+            //Resize the size of the edit drop down list
+            pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
+            pnlEditDropDownList.revalidate();
+            pnlEditDropDownList.repaint();
+        }
     }//GEN-LAST:event_lblEditPageMouseEntered
 
     private void lblEditPageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseExited
@@ -934,8 +938,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txaDescriptionFocusLost
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
-        if (validateAllPages()) {
-            Print.printCatalogue(catalogue);
+        if(isActivated){
+            if (validateAllPages()) {
+                Print.printCatalogue(catalogue);
+            }
         }
     }//GEN-LAST:event_lblPrintMouseClicked
 

@@ -65,6 +65,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
             pnlCatalogueList.add(Box.createRigidArea(new Dimension(0, 385 - (ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT * i))));
         }
         pnlCatalogueList.revalidate();
+        pnlCatalogueList.repaint();
     }
 
     /**

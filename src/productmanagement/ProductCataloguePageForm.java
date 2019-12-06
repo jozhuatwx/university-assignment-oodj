@@ -389,7 +389,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             }
         }
 
-        if (errorPages.size() == 0) {
+        if (errorPages.isEmpty()) {
             return true;
         } else {
             String errorString = "Inactive item(s) in page";
@@ -397,7 +397,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                 errorString += " " + page.getPageNumber();
             }
             // Display the error message
-            JOptionPane.showMessageDialog(new JFrame(), errorString, "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(new JFrame(), errorString, "Warning", JOptionPane.WARNING_MESSAGE);
             return false;
         }
     }
