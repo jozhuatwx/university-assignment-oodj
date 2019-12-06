@@ -26,6 +26,9 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
+    
+    // Create a variable to check the itemStatus is activated or deactivated
+    boolean isActivated;
 
     public ProductManagerUniversalPanel(ProductManager productManager, int i) {
         initComponents();
@@ -35,6 +38,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         this.productManager = productManager;
         // Set the list number
         lblNum.setText(String.valueOf(i) + ".");
+        System.out.println("Initial" + isActivated);
         resetFields();
     }
         
@@ -73,14 +77,21 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         txtLoginName.setEnabled(false);
         txtEmail.setText(productManager.getUserEmail());
         txtAddress.setText(productManager.getUserAddress());
-
+        System.out.println("Reset field:" + productManager.getProductManagerStatus());
+        
         switch (productManager.getProductManagerStatus()) {
             case ProductManager.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                lblEdit.setEnabled(true);
+                isActivated = true;
+                System.out.println("after initial:active" + isActivated);
                 break;
         
             case ProductManager.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                lblEdit.setEnabled(false);
+                isActivated = false;
+                System.out.println("after initial:inactive" + isActivated);
                 break;
         }
     }
@@ -350,9 +361,9 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
         btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
         btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
             }
         });
 
@@ -486,42 +497,6 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-        if (isEditing) {
-            String productManagerStatus = ProductManager.ACTIVE;
-            // Set new Product Manager status as active or inactive
-            switch (productManager.getProductManagerStatus()) {
-                case ProductManager.ACTIVE:
-                    productManagerStatus = Supplier.INACTIVE;
-                    break;
-            
-                case ProductManager.INACTIVE:
-                    productManagerStatus = Supplier.ACTIVE;
-                    break;
-            }
-
-            // Get the password
-            ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
-
-            // Iterate through the User array
-            for (String user : userArray) {
-                // Split each line into an array
-                String[] details = user.split(";");
-                // Find the User id in the array list
-                if (details[0].equalsIgnoreCase(productManager.getUserId())) {
-                    String userPassword = details[6];
-                    // Create a Product Manager object
-                    ProductManager modifiedProductManager = new ProductManager(productManager.getUserId(), productManager.getUserName(), productManager.getUserAddress(), productManager.getUserEmail(), productManager.getUserLoginName(), userPassword, productManagerStatus);
-                    // Update the Product Manager status
-                    if (ProductManager.modify(modifiedProductManager, false, productManager.getProductManagerStatus())) {
-                        productManager = modifiedProductManager;
-                        resetFields();
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_btnStatusMouseClicked
-
     private void lblControlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblControlMouseClicked
         if (isClosed && !isEditing) {
             showPanel();
@@ -538,118 +513,127 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if (!isEditing) {
-            // Enable editing of fields
-            txtName.setEnabled(true);
-            txtEmail.setEnabled(true);
-            txtAddress.setEnabled(true);
-            chkUpdatePassword.setEnabled(true);
-            lblControl.setEnabled(false);
-            lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        System.out.println("1" + isActivated);
+        if(isActivated){
+            if (!isEditing) {
+                // Enable editing of fields
+                txtName.setEnabled(true);
+                txtEmail.setEnabled(true);
+                txtAddress.setEnabled(true);
+                chkUpdatePassword.setEnabled(true);
+                lblControl.setEnabled(false);
+                lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                // Disable the editing of btnStatus
+                btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                btnStatus.setEnabled(false);
+                System.out.println("2" + isActivated);
+                // Change the icon from edit icon to save icon
+                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
 
-            // Change the icon from edit icon to save icon
-            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
+                // When the textbox is enabled, set the boolean variable to true.
+                isEditing = true;
+            } else {
+                boolean validated = true;
+                System.out.println("3" + isActivated);
+                String userId = productManager.getUserId();
+                String userName = txtName.getText().trim();
+                String userAddress = txtAddress.getText().trim();
+                String userEmail = txtEmail.getText().trim();
+                String userLoginName = productManager.getUserLoginName();
 
-            // When the textbox is enabled, set the boolean variable to true.
-            isEditing = true;
-        } else {
-            boolean validated = true;
+                char[] newPassword = txtNewPassword.getPassword();
+                char[] confirmPassword = txtConfirmPassword.getPassword();
 
-            String userId = productManager.getUserId();
-            String userName = txtName.getText().trim();
-            String userAddress = txtAddress.getText().trim();
-            String userEmail = txtEmail.getText().trim();
-            String userLoginName = productManager.getUserLoginName();
-
-            char[] newPassword = txtNewPassword.getPassword();
-            char[] confirmPassword = txtConfirmPassword.getPassword();
-
-            // Validation
-            if (!validateName(userName)) {
-                validated = false;
-            }
-
-            if (!validateAddress(userAddress)) {
-                validated = false;
-            }
-
-            if (!validateEmail(userEmail)) {
-                validated = false;
-            }
-
-            if (chkUpdatePassword.isSelected()) {
-                if (!validatePassword(newPassword)) {
+                // Validation
+                if (!validateName(userName)) {
                     validated = false;
                 }
 
-                if (!validateConfirmPassword(newPassword, confirmPassword)) {
+                if (!validateAddress(userAddress)) {
                     validated = false;
                 }
-            }
 
-            try {
-                if (validated && chkUpdatePassword.isSelected()) {
-                    String userPassword = Encryption.encryptPassword(newPassword);
-                    // Create a Product Manager object
-                    ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
-                    // Update the Product Manager
-                    if (ProductManager.modify(userDetail, true, productManager.getProductManagerStatus())) {
-                        resetFields();
+                if (!validateEmail(userEmail)) {
+                    validated = false;
+                }
 
-                        // Disable the editing of fields
-                        txtName.setEnabled(false);
-                        txtEmail.setEnabled(false);
-                        txtAddress.setEnabled(false);
-                        chkUpdatePassword.setEnabled(false);
-                        lblControl.setEnabled(true);
-                        lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                        btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
-                        // Change the icon from save icon to edit icon
-                        lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-
-                        // Set the boolean variable to false.
-                        isEditing = false;
+                if (chkUpdatePassword.isSelected()) {
+                    if (!validatePassword(newPassword)) {
+                        validated = false;
                     }
-                } else if (validated && !chkUpdatePassword.isSelected()) {
-                    // Get the password
-                    ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
-                    
-                    // Iterate through the User array
-                    for (String user : userArray) {
-                        // Split each line into an array
-                        String[] details = user.split(";");
-                        // Find the User id in the array list
-                        if (details[0].equalsIgnoreCase(userId)) {
-                            String userPassword = details[6];
-                            // Create a Product Manager object
-                            ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
-                            // Update the Product Manager
-                            if (ProductManager.modify(userDetail, false, productManager.getProductManagerStatus())) {
-                                resetFields();
-                                
-                                // Disable the editing of fields
-                                txtName.setEnabled(false);
-                                txtEmail.setEnabled(false);
-                                txtAddress.setEnabled(false);
-                                chkUpdatePassword.setEnabled(false);
-                                lblControl.setEnabled(true);
-                                lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                                btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                                
-                                // Change the icon from save icon to edit icon
-                                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
 
-                                // Set the boolean variable to false.
-                                isEditing = false;
+                    if (!validateConfirmPassword(newPassword, confirmPassword)) {
+                        validated = false;
+                    }
+                }
+
+                try {
+                    if (validated && chkUpdatePassword.isSelected()) {System.out.println("4" + isActivated);
+                        String userPassword = Encryption.encryptPassword(newPassword);
+                        // Create a Product Manager object
+                        ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
+                        // Update the Product Manager
+                        if (ProductManager.modify(userDetail, true, productManager.getProductManagerStatus())) {
+                            resetFields();
+
+                            // Disable the editing of fields
+                            txtName.setEnabled(false);
+                            txtEmail.setEnabled(false);
+                            txtAddress.setEnabled(false);
+                            chkUpdatePassword.setEnabled(false);
+                            lblControl.setEnabled(true);
+                            lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                            // Enable the editing of btnStatus
+                            btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                            btnStatus.setEnabled(true);
+
+                            // Change the icon from save icon to edit icon
+                            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+
+                            // Set the boolean variable to false.
+                            isEditing = false;
+                        }
+                    } else if (validated && !chkUpdatePassword.isSelected()) {System.out.println("5" + isActivated);
+                        // Get the password
+                        ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
+
+                        // Iterate through the User array
+                        for (String user : userArray) {
+                            // Split each line into an array
+                            String[] details = user.split(";");
+                            // Find the User id in the array list
+                            if (details[0].equalsIgnoreCase(userId)) {
+                                String userPassword = details[6];
+                                // Create a Product Manager object
+                                ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
+                                // Update the Product Manager
+                                if (ProductManager.modify(userDetail, false, productManager.getProductManagerStatus())) {
+                                    resetFields();
+
+                                    // Disable the editing of fields
+                                    txtName.setEnabled(false);
+                                    txtEmail.setEnabled(false);
+                                    txtAddress.setEnabled(false);
+                                    chkUpdatePassword.setEnabled(false);
+                                    lblControl.setEnabled(true);
+                                    lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                                    // Enable the editing of btnStatus
+                                    btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                                    btnStatus.setEnabled(true);
+
+                                    // Change the icon from save icon to edit icon
+                                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+
+                                    // Set the boolean variable to false.
+                                    isEditing = false;
+                                }
                             }
                         }
                     }
+                } catch (Exception e) {
+                    // Display the error message
+                    JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (Exception e) {
-                // Display the error message
-                JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_lblEditMouseClicked
@@ -761,6 +745,45 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
         char[] productManagerConfirmPassword = txtConfirmPassword.getPassword();
         validateConfirmPassword(productManagerNewPassword,productManagerConfirmPassword);
     }//GEN-LAST:event_txtConfirmPasswordFocusLost
+
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+            String productManagerStatus = ProductManager.ACTIVE;
+            System.out.println(productManagerStatus);
+            // Set new Product Manager status as active or inactive
+            switch (productManager.getProductManagerStatus()) {
+                case ProductManager.ACTIVE:
+                    productManagerStatus = productManager.INACTIVE;
+                    lblEdit.setEnabled(false);
+                    isActivated = false;
+                    break;
+            
+                case ProductManager.INACTIVE:
+                    productManagerStatus = productManager.ACTIVE;
+                    lblEdit.setEnabled(true);
+                    isActivated = true;
+                    break;
+            }
+
+            // Get the password
+            ArrayList<String> userArray = ReadObject.readArray(User.FILE_NAME);
+
+            // Iterate through the User array
+            for (String user : userArray) {
+                // Split each line into an array
+                String[] details = user.split(";");
+                // Find the User id in the array list
+                if (details[0].equalsIgnoreCase(productManager.getUserId())) {
+                    String userPassword = details[6];
+                    // Create a Product Manager object
+                    ProductManager modifiedProductManager = new ProductManager(productManager.getUserId(), productManager.getUserName(), productManager.getUserAddress(), productManager.getUserEmail(), productManager.getUserLoginName(), userPassword, productManagerStatus);
+                    // Update the Product Manager status
+                    if (ProductManager.modify(modifiedProductManager, false)) {
+                        productManager = modifiedProductManager;
+                        resetFields();
+                    }
+                }
+            }
+    }//GEN-LAST:event_btnStatusActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

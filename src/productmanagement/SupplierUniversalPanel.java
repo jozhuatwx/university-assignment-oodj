@@ -21,6 +21,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     
     // Create a variable to check the textbox is enabled or disabled 
     boolean isEditing = false;
+    
+    // Create a variable to check the supplierStatus is activated or deactivated
+    boolean isActivated;
 
     public SupplierUniversalPanel(Supplier supplier, int i) {
         initComponents();
@@ -75,10 +78,14 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         switch (supplier.getSupplierStatus()) {
             case Supplier.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                lblEdit.setEnabled(true);
+                isActivated = true;
                 break;
         
             case Supplier.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                lblEdit.setEnabled(false);
+                isActivated = false;
                 break;
         }
         
@@ -294,9 +301,9 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
         btnStatus.setMaximumSize(new java.awt.Dimension(30, 30));
         btnStatus.setMinimumSize(new java.awt.Dimension(30, 30));
         btnStatus.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnStatus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnStatusMouseClicked(evt);
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
             }
         });
 
@@ -422,94 +429,77 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if (!isEditing) {
-            // Enable editing of fields
-            txtName.setEnabled(true);
-            txtEmail.setEnabled(true);
-            txtContact.setEnabled(true);
-            txtAddress.setEnabled(true);
-            lblControl.setEnabled(false);
-            lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        if(isActivated){
+            if (!isEditing) {
+                // Enable editing of fields
+                txtName.setEnabled(true);
+                txtEmail.setEnabled(true);
+                txtContact.setEnabled(true);
+                txtAddress.setEnabled(true);
+                lblControl.setEnabled(false);
+                lblControl.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                // Disable editing of btnStatus
+                btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                btnStatus.setEnabled(false);
 
-            // Change the icon from edit icon to save icon
-            lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
+                // Change the icon from edit icon to save icon
+                lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Save.png")));
+                
+                // When the textbox is enabled, set the boolean variable to true.
+                isEditing = true;
+            } else {
+                boolean validated = true;
             
-            // When the textbox is enabled, set the boolean variable to true.
-            isEditing = true;
-        } else {
-            boolean validated = true;
-        
-            String supplierName = txtName.getText().trim();
-            String supplierAddress = txtAddress.getText().trim();
-            String supplierEmail = txtEmail.getText().trim();
-            String supplierContact = txtContact.getText().trim();
-            
-            // Validation
-            if (!validateName(supplierName)) {
-                validated = false;
-            }
+                String supplierName = txtName.getText().trim();
+                String supplierAddress = txtAddress.getText().trim();
+                String supplierEmail = txtEmail.getText().trim();
+                String supplierContact = txtContact.getText().trim();
+                
+                // Validation
+                if (!validateName(supplierName)) {
+                    validated = false;
+                }
 
-            if (!validateAddress(supplierAddress)) {
-                validated = false;
-            }
+                if (!validateAddress(supplierAddress)) {
+                    validated = false;
+                }
 
-            if (!validateEmail(supplierEmail)) {
-                validated = false;
-            }
+                if (!validateEmail(supplierEmail)) {
+                    validated = false;
+                }
 
-            if (!validateContact(supplierContact)) {
-                validated = false;
-            }
+                if (!validateContact(supplierContact)) {
+                    validated = false;
+                }
 
-            if (validated) {
-                // Update the Supplier if no error
-                Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, supplier.getSupplierStatus());
-                if (Supplier.modify(modifiedSupplier, supplier.getSupplierStatus())) {
-                    supplier = modifiedSupplier;
-                    resetFields();
-                    
-                    // Disable the editing of fields
-                    txtName.setEnabled(false);
-                    txtEmail.setEnabled(false);
-                    txtContact.setEnabled(false);
-                    txtAddress.setEnabled(false);
-                    lblControl.setEnabled(true);
-                    lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                    btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                if (validated) {
+                    // Update the Supplier if no error
+                    Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplierName, supplierAddress, supplierEmail, supplierContact, supplier.getSupplierStatus());
+                    if (Supplier.modify(modifiedSupplier, supplier.getSupplierStatus())) {
+                        supplier = modifiedSupplier;
+                        resetFields();
+                        
+                        // Disable the editing of fields
+                        txtName.setEnabled(false);
+                        txtEmail.setEnabled(false);
+                        txtContact.setEnabled(false);
+                        txtAddress.setEnabled(false);
+                        lblControl.setEnabled(true);
+                        lblControl.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        // Enable the editing of btn Status
+                        btnStatus.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                        btnStatus.setEnabled(true);
 
-                    // Change the icon from save icon to edit icon
-                    lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
-                    
-                    // When the textbox is enabled, set the boolean variable to true.
-                    isEditing = false;
+                        // Change the icon from save icon to edit icon
+                        lblEdit.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Edit.png")));
+                        
+                        // When the textbox is enabled, set the boolean variable to true.
+                        isEditing = false;
+                    }
                 }
             }
         }
     }//GEN-LAST:event_lblEditMouseClicked
-
-    private void btnStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnStatusMouseClicked
-        if (isEditing) {
-            String supplierStatus = Supplier.ACTIVE;
-            // Set new Supplier status as active or inactive
-            switch (supplier.getSupplierStatus()) {
-                case Supplier.ACTIVE:
-                    supplierStatus = Supplier.INACTIVE;
-                    break;
-            
-                case Supplier.INACTIVE:
-                    supplierStatus = Supplier.ACTIVE;
-                    break;
-            }
-            
-            // Update the Supplier status
-            Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), supplierStatus);
-            if (Supplier.modify(modifiedSupplier, supplier.getSupplierStatus())) {
-                supplier = modifiedSupplier;
-                resetFields();
-            }
-        }
-    }//GEN-LAST:event_btnStatusMouseClicked
 
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
         String supplierName = txtName.getText().trim();
@@ -590,6 +580,31 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
             txtAddress.setText("");
         }
     }//GEN-LAST:event_txtAddressFocusGained
+
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+            String supplierStatus = Supplier.ACTIVE;
+            // Set new Supplier status as active or inactive
+            switch (supplier.getSupplierStatus()) {
+                case Supplier.ACTIVE:
+                    supplierStatus = Supplier.INACTIVE;
+                    lblEdit.setEnabled(false);
+                    isActivated = false;
+                    break;
+            
+                case Supplier.INACTIVE:
+                    supplierStatus = Supplier.ACTIVE;
+                    lblEdit.setEnabled(true);
+                    isActivated = true;
+                    break;
+            }
+            
+            // Update the Supplier status
+            Supplier modifiedSupplier = new Supplier(supplier.getSupplierId(), supplier.getSupplierName(), supplier.getSupplierAddress(), supplier.getSupplierEmail(), supplier.getSupplierContact(), supplierStatus);
+            if (Supplier.modify(modifiedSupplier, supplier.getSupplierStatus())) {
+                supplier = modifiedSupplier;
+                resetFields();
+            }
+    }//GEN-LAST:event_btnStatusActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnStatus;
