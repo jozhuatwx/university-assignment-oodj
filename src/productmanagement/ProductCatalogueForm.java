@@ -32,8 +32,8 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
             lblTitleError.setText("Title cannot be empty");
             validated = false;
-        } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
-            lblTitleError.setText("Please enter a valid title");
+        } else if (catalogueTitle.contains(";")) {
+            lblTitleError.setText("Title cannot contain semi-colons");
             validated = false;
         }
 
@@ -342,6 +342,11 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
                 ftxStartDateUpdate(evt);
             }
         });
+        ftxStartDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftxStartDateFocusLost(evt);
+            }
+        });
         ftxStartDate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 ftxStartDateKeyReleased(evt);
@@ -370,6 +375,11 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
             }
             public void insertUpdate (javax.swing.event.DocumentEvent evt) {
                 ftxEndDateUpdate(evt);
+            }
+        });
+        ftxEndDate.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ftxEndDateFocusLost(evt);
             }
         });
         ftxEndDate.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -732,6 +742,17 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         String catalogueStartDateString = ftxStartDate.getText().trim();
         validateStartDate(catalogueStartDateString);
     }//GEN-LAST:event_ftxStartDateKeyReleased
+
+    private void ftxStartDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxStartDateFocusLost
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        validateStartDate(catalogueStartDateString);
+    }//GEN-LAST:event_ftxStartDateFocusLost
+
+    private void ftxEndDateFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ftxEndDateFocusLost
+        String catalogueStartDateString = ftxStartDate.getText().trim();
+        String catalogueEndDateString = ftxEndDate.getText().trim();
+        validateEndDate(catalogueStartDateString, catalogueEndDateString);
+    }//GEN-LAST:event_ftxEndDateFocusLost
 
     private void ftxStartDateUpdate(javax.swing.event.DocumentEvent evt) {
         String catalogueStartDateString = ftxStartDate.getText().trim();

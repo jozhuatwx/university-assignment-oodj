@@ -195,10 +195,20 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         switch (getCurrentPage().getPageStatus()) {
             case ProductCataloguePage.ACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                cmbNumOfItem.setEnabled(true);
+                cmbItem1.setEnabled(true);
+                cmbItem2.setEnabled(true);
+                cmbItem3.setEnabled(true);
+                cmbItem4.setEnabled(true);
                 break;
         
             case ProductCataloguePage.INACTIVE:
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                cmbNumOfItem.setEnabled(false);
+                cmbItem1.setEnabled(false);
+                cmbItem2.setEnabled(false);
+                cmbItem3.setEnabled(false);
+                cmbItem4.setEnabled(false);
                 break;
         }
     }
@@ -944,11 +954,21 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             case ProductCataloguePage.ACTIVE:
                 pageStatus = ProductCataloguePage.INACTIVE;
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-off.png")));
+                cmbNumOfItem.setEnabled(false);
+                cmbItem1.setEnabled(false);
+                cmbItem2.setEnabled(false);
+                cmbItem3.setEnabled(false);
+                cmbItem4.setEnabled(false);
                 break;
         
             case ProductCataloguePage.INACTIVE:
                 pageStatus = ProductCataloguePage.ACTIVE;
                 btnStatus.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/switch-on.png")));
+                cmbNumOfItem.setEnabled(true);
+                cmbItem1.setEnabled(true);
+                cmbItem2.setEnabled(true);
+                cmbItem3.setEnabled(true);
+                cmbItem4.setEnabled(true);
                 break;
         }
 

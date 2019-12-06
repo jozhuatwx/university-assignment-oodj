@@ -163,8 +163,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
         if (catalogueTitle.length() <= 0 || catalogueTitle.equalsIgnoreCase("Title")) {
             lblTitleError.setText("Cannot be empty");
             validated = false;
-        } else if (!catalogueTitle.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
-            lblTitleError.setText("Please enter a valid title");
+        } else if (catalogueTitle.contains(";")) {
+            lblTitleError.setText("Cannot contain semi-colons");
             validated = false;
         }
 
@@ -374,6 +374,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                 txtTitleFocusLost(evt);
             }
         });
+        txtTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTitleKeyReleased(evt);
+            }
+        });
 
         lblTitleError.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 11)); // NOI18N
         lblTitleError.setForeground(new java.awt.Color(255, 0, 0));
@@ -428,6 +433,11 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txaDescriptionFocusLost(evt);
+            }
+        });
+        txaDescription.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txaDescriptionKeyReleased(evt);
             }
         });
         scrDescription.setViewportView(txaDescription);
@@ -921,6 +931,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTitleFocusGained
 
     private void txtTitleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusLost
+        String catalogueTitle = txtTitle.getText().trim();
+        validateTitle(catalogueTitle);
+        
         if (txtTitle.getText().trim().equalsIgnoreCase("")) {
             txtTitle.setText("Title");
         }
@@ -933,6 +946,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txaDescriptionFocusGained
 
     private void txaDescriptionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txaDescriptionFocusLost
+        String catalogueDescription = txaDescription.getText().trim();
+        validateDescription(catalogueDescription);
+        
         if (txaDescription.getText().trim().equalsIgnoreCase("")) {
             txaDescription.setText("Description");
         }
@@ -982,6 +998,16 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             }
         
     }//GEN-LAST:event_btnStatusActionPerformed
+
+    private void txtTitleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTitleKeyReleased
+        String catalogueTitle = txtTitle.getText().trim();
+        validateTitle(catalogueTitle);
+    }//GEN-LAST:event_txtTitleKeyReleased
+
+    private void txaDescriptionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txaDescriptionKeyReleased
+        String catalogueDescription = txaDescription.getText().trim();
+        validateDescription(catalogueDescription);
+    }//GEN-LAST:event_txaDescriptionKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

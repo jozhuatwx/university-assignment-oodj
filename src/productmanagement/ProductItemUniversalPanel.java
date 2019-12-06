@@ -173,8 +173,8 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         if (itemName.length() <= 0 || itemName.equalsIgnoreCase("Name")) {
             lblNameError.setText("Cannot be empty");
             validated = false;
-        } else if (!itemName.matches("[a-zA-Z0-9!#$%&'*+/=?^_`{|}~ -]+")) {
-            lblNameError.setText("Please enter a valid name");
+        } else if (itemName.contains(";")) {
+            lblNameError.setText("Cannot contain semi-colons");
             validated = false;
         }
 
