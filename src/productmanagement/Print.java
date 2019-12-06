@@ -9,6 +9,7 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -16,11 +17,12 @@ import javax.swing.JPanel;
 
 public class Print {
   // Keeps all the Pages in the Catalogue information
-  public static ArrayList<JPanel> pages = new ArrayList<>();
+  public static ArrayList<ProductCataloguePage> pages = new ArrayList<>();
+  public static ArrayList<JPanel> printPages = new ArrayList<>();
 
   public static void printCatalogue(ProductCatalogue catalogue) {
     // Clear the array
-    pages.clear();
+    printPages.clear();
 
     // Get pages in Catalogue
     ArrayList<String> pageArray = ReadObject.readArray(ProductCataloguePage.FILE_NAME);
@@ -33,36 +35,38 @@ public class Print {
       ProductCataloguePage page = new ProductCataloguePage(details);
       // Find the Pages with the matching Product Catalogue Id and is active
       if (page.getPageCatalogueId().equalsIgnoreCase(catalogue.getCatalogueId()) && page.getPageStatus().equalsIgnoreCase(ProductCataloguePage.ACTIVE)) {
-        // Create a Panel object
-        JPanel panel = new JPanel();
-        panel.setBackground(new Color(255, 255, 255));
-        panel.setSize(new Dimension(420, 610));
-        panel.setLayout(new java.awt.BorderLayout());
-        
-        // Convert Page to JPanel and add it to the Pages array list
-        if (page.getPageNumber() > 1) {
-          ProductCatalogueTemplate template = new ProductCatalogueTemplate(catalogue, page);
-          template.setSize(template.getPreferredSize());
-          panel.add(template);
-          
-          // BufferedImage image = new BufferedImage(600, 850, BufferedImage.TYPE_INT_RGB);
-          // Graphics2D graphics2d = image.createGraphics();
-          // panel.paint(graphics2d);
-          pages.add(panel);
-        } else {
-          ProductCatalogueFirstPageTemplate template = new ProductCatalogueFirstPageTemplate(catalogue, page);
-          template.setSize(template.getPreferredSize());
-          panel.add(template);
-
-          // BufferedImage image = new BufferedImage(600, 850, BufferedImage.TYPE_INT_RGB);
-          // Graphics2D graphics2d = image.createGraphics();
-          // panel.paint(graphics2d);
-          pages.add(panel);
-        }
+        pages.add(page);
       }
     }
 
-    printCataloguePage(pages, catalogue);
+    // Sort the Pages
+    Collections.sort(pages, ProductCataloguePage.pageComparator);
+
+    for (int i = 0; i < pages.size(); i++) {
+      // Create a Panel object
+      JPanel panel = new JPanel();
+      panel.setBackground(new Color(255, 255, 255));
+      panel.setSize(new Dimension(420, 610));
+      panel.setLayout(new java.awt.BorderLayout());
+
+      // Set New Page Number
+      pages.get(i).setPageNumber(i + 1);
+      
+      // Convert Page to JPanel and add it to the Pages array list
+      if (i > 1) {
+        ProductCatalogueTemplate template = new ProductCatalogueTemplate(catalogue, pages.get(i));
+        template.setSize(template.getPreferredSize());
+        panel.add(template);
+        printPages.add(panel);
+      } else {
+        ProductCatalogueFirstPageTemplate template = new ProductCatalogueFirstPageTemplate(catalogue, pages.get(i));
+        template.setSize(template.getPreferredSize());
+        panel.add(template);
+        printPages.add(panel);
+      }
+    }
+
+    printCataloguePage(printPages, catalogue);
   }
 
   private static void printCataloguePage(ArrayList<JPanel> panels, ProductCatalogue catalogue) {
