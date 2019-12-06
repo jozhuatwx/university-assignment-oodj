@@ -985,7 +985,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
             // Update the Product Item information
             ProductItem modifiedItem = new ProductItem(item.getItemId(), item.getItemName(), item.getItemBrand(), item.getItemPrice(), item.getItemDescription(), item.getItemImagePath(), item.getItemSupplierId(), item.getItemCategoryId(), itemStatus);
-            if (ProductItem.modify(modifiedItem, itemQuantity, item.getItemStatus())) {
+            if (ProductItem.modify(modifiedItem, 0, item.getItemStatus())) {
                 item = modifiedItem;
                 resetFields();
                 resetCategory();
