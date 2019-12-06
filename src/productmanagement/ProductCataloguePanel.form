@@ -24,7 +24,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="pnlAddItem" pref="755" max="32767" attributes="0"/>
+                  <Component id="pnlAddItem" max="32767" attributes="0"/>
                   <Component id="scrCatalogueList" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -71,7 +71,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtSearch" max="32767" attributes="0"/>
+                      <Component id="txtSearch" pref="41" max="32767" attributes="0"/>
                       <Component id="btnAdd" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
