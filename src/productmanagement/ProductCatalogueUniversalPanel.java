@@ -137,7 +137,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
             // Create a Product Catalogue Page object with the details
             ProductCataloguePage pcp = new ProductCataloguePage(details);
             // Check if the Page is part of this catalogue
-            if (pcp.getPageCatalogueId().equalsIgnoreCase(catalogue.getCatalogueId())) {
+            if (pcp.getPageCatalogueId().equalsIgnoreCase(catalogue.getCatalogueId()) && pcp.getPageStatus().equalsIgnoreCase(ProductCataloguePage.ACTIVE)) {
                 numberOfPages++;
             }
         }
