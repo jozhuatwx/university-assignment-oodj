@@ -246,14 +246,17 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             lblItem2.setVisible(false);
             cmbItem2.setVisible(false);
             lblItem2Error.setVisible(false);
+            cmbItem2.setSelectedIndex(0);
         case 2:
             lblItem3.setVisible(false);
             cmbItem3.setVisible(false);
             lblItem3Error.setVisible(false);
+            cmbItem3.setSelectedIndex(0);
         default:
             lblItem4.setVisible(false);
             cmbItem4.setVisible(false);
             lblItem4Error.setVisible(false);
+            cmbItem4.setSelectedIndex(0);
             break;
         }
     }
