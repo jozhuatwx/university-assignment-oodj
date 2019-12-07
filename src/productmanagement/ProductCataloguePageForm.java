@@ -19,6 +19,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     // Keeps track of the Page Number
     private int pageNumber = 1;
 
+    // Keeps track of modification
+    private boolean modified = false;
+
     private ProductCataloguePage getCurrentPage() {
         return pages.get(pageNumber - 1);
     }
@@ -908,6 +911,14 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void lblPrintMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPrintMouseClicked
+        if (modified) {
+            // Ask to save the changes
+            int opt = JOptionPane.showConfirmDialog(null, "Would you like to save the updates? Note: Only saved pages are printed", "Save Changes", JOptionPane.YES_NO_OPTION);
+            
+            if (opt == 0) {
+                ProductCataloguePage.modify(pages);
+            }
+        }
         if (validateAllPages()) {
             Print.printCatalogue(catalogue);
         }
@@ -932,6 +943,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pages.add(newPageNumber - 1, page);
             resetPageNumbers();
             navigatePage(newPageNumber);
+            modified = true;
         }
     }//GEN-LAST:event_lblAddPagesMouseClicked
 
@@ -979,6 +991,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         int index = pageNumber - 1;
         // Edit the ArrayList
         pages.set(index, modifiedPage);
+        modified = true;
     }//GEN-LAST:event_btnStatusMouseClicked
 
 
@@ -1020,6 +1033,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Edit the ArrayList
             pages.set(index, modifiedPage);
             resetPreview();
+            modified = true;
         }
     };
 
@@ -1043,6 +1057,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pages.set(index, modifiedPage);
             resetPreview();
             validateItemStatus(itemId, lblItem1Error);
+            modified = true;
         }
     };
 
@@ -1066,6 +1081,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pages.set(index, modifiedPage);
             resetPreview();
             validateItemStatus(itemId, lblItem2Error);
+            modified = true;
         }
     };
 
@@ -1089,6 +1105,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pages.set(index, modifiedPage);
             resetPreview();
             validateItemStatus(itemId, lblItem3Error);
+            modified = true;
         }
     };
 
@@ -1112,6 +1129,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             pages.set(index, modifiedPage);
             resetPreview();
             validateItemStatus(itemId, lblItem4Error);
+            modified = true;
         }
     };
 
