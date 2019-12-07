@@ -44,9 +44,11 @@ public class ReadObject {
       // Store the first line into a temporary variable
       String temp = reader.readLine();
 
-      while (temp != null && !temp.isBlank()) {
-        // Add the temporary variable into the array list
-        data.add(temp);
+      while (temp != null) {
+        if (!temp.isBlank()) {
+          // Add the temporary variable into the array list
+          data.add(temp);
+        }
         // Read the next line into the temporary variable
         temp = reader.readLine();
       }
