@@ -14,10 +14,10 @@ public class WriteObject {
   public static boolean write(Object obj, String filename, boolean append) {
     // Writes onto the file based on the path and whether to append or overwrite it
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, append))) {
-      // Writes the String of the object and ends
-      writer.write(String.valueOf(obj));
       // Creates a new line in the file
       writer.newLine();
+      // Writes the String of the object and ends
+      writer.write(String.valueOf(obj));
       // Clears the resources in writer
       writer.close();
       return true;
