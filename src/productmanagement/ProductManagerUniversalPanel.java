@@ -598,9 +598,10 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
                             if (details[0].equalsIgnoreCase(userId)) {
                                 String userPassword = details[6];
                                 // Create a Product Manager object
-                                ProductManager userDetail = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
+                                ProductManager modifiedProductManager = new ProductManager(userId, userName, userAddress, userEmail, userLoginName, userPassword, ProductManager.ACTIVE);
                                 // Update the Product Manager
-                                if (ProductManager.modify(userDetail, false, productManager.getProductManagerStatus())) {
+                                if (ProductManager.modify(modifiedProductManager, false, productManager.getProductManagerStatus())) {
+                                    productManager = modifiedProductManager;
                                     resetFields();
 
                                     // Disable the editing of fields
