@@ -22,6 +22,7 @@ public class Print {
 
   public static void printCatalogue(ProductCatalogue catalogue) {
     // Clear the array
+    pages.clear();
     printPages.clear();
 
     // Get pages in Catalogue
