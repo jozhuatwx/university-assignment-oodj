@@ -46,20 +46,20 @@ public class LogPanel extends javax.swing.JPanel {
         // Remove all existing Logs
         pnlLogList.removeAll();
         
-        int i = 0;
+        int x = 0;
         // Get an array list of the Logs matching the keyword
         ArrayList<Log> logArray = Log.search(keyword);
-        for (; i < logArray.size(); i++) {
-            // Create a Universal Panel object with the Log object
-            LogUniversalPanel sup = new LogUniversalPanel(logArray.get(i), i + 1);
-            // Set the size of the Universal Panel object
-            sup.setPreferredSize(new Dimension(SupplierUniversalPanel.MAIN_WIDTH, SupplierUniversalPanel.MAIN_MIN_HEIGHT));
+        for (int i = logArray.size() - 1; i >= 0; i--, x++) {
+            // Create a Universal Panel object with the formatted log
+            LogUniversalPanel lup = new LogUniversalPanel(logArray.get(i), x + 1);
+            // Set the size of the Universal Panel
+            lup.setPreferredSize(new Dimension(LogUniversalPanel.MAIN_WIDTH, LogUniversalPanel.MAIN_HEIGHT));
             // Add the Panel into the list
-            pnlLogList.add(sup);
+            pnlLogList.add(lup);
         }
         // Fill remaining space with an empty box
-        if (i * LogUniversalPanel.MAIN_HEIGHT < 385) {
-            pnlLogList.add(Box.createRigidArea(new Dimension(0, 385 - (LogUniversalPanel.MAIN_HEIGHT * i))));
+        if (x * LogUniversalPanel.MAIN_HEIGHT < 385) {
+            pnlLogList.add(Box.createRigidArea(new Dimension(0, 385 - (LogUniversalPanel.MAIN_HEIGHT * x))));
         }
         pnlLogList.revalidate();
         pnlLogList.repaint();
