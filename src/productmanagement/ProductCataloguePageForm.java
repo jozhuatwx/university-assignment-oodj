@@ -894,11 +894,13 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCloseMouseEntered
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        // Close the form
-        int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to close? Your unsave information will be erased.", "Log Out", JOptionPane.YES_NO_OPTION);
-        
-        if (opt == 0) {
-            this.dispose();
+        if (modified) {
+            // Close the form
+            int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to close? Your unsave information will be erased.", "Log Out", JOptionPane.YES_NO_OPTION);
+            
+            if (opt == 0) {
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_lblCloseMouseClicked
 
