@@ -32,40 +32,52 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
     }
 
     private void resetBarchart() {
-        int rightBarHeight = 0, centerBarHeight = 0, leftBarHeight = 0;
         int selected = cmbTitle.getSelectedIndex();
+        // Clear previous information
+        lblRightItem.setText(" ");
+        lblRightItemUnit.setText(" ");
+        lblCenterItem.setText(" ");
+        lblCenterItemUnit.setText(" ");
+        lblLeftItem.setText(" ");
+        lblLeftItemUnit.setText(" ");
+        int firstUnits = 0, secondUnits = 0, thirdUnits = 0, rightBarHeight = 0, centerBarHeight = 0, leftBarHeight = 0;
 
         // Set the String format to add commas
         DecimalFormat unitFormat = new DecimalFormat("#,###");
-
 
         if (selected == 1) {
             // Top products
             // Get the top products
             String[][] topProducts = InventoryTransaction.topProductItems();
-            int firstUnits = Integer.valueOf(topProducts[0][3]);
-            int secondUnits = Integer.valueOf(topProducts[1][3]);
-            int thirdUnits = Integer.valueOf(topProducts[2][3]);
+            if (topProducts[0][3] != null) {
+                firstUnits = Integer.valueOf(topProducts[0][3]);
 
-            // Set the labels to display the top products only if it has more than 1 unit
-            if (firstUnits > 0) {
-                lblRightItem.setText(topProducts[0][1]);
-                lblRightItemUnit.setText(unitFormat.format(firstUnits) + " units");
+                // Set the labels to display the top products only if it has more than 1 unit
+                if (firstUnits > 0) {
+                    lblRightItem.setText(topProducts[0][1]);
+                    lblRightItemUnit.setText(unitFormat.format(firstUnits) + " units");
+                    rightBarHeight = 350;
 
-                if (secondUnits > 0) {
-                    lblCenterItem.setText(topProducts[1][1]);
-                    lblCenterItemUnit.setText(unitFormat.format(secondUnits)+ " units");
+                    if (topProducts[1][3] != null) {
+                        secondUnits = Integer.valueOf(topProducts[1][3]);
 
-                    if (thirdUnits > 0) {
-                        lblLeftItem.setText(topProducts[2][1]);
-                        lblLeftItemUnit.setText(unitFormat.format(thirdUnits) + " units");
+                        if (secondUnits > 0) {
+                            lblCenterItem.setText(topProducts[1][1]);
+                            lblCenterItemUnit.setText(unitFormat.format(secondUnits)+ " units");
+                            centerBarHeight = (int) Math.round((double) secondUnits / (double) firstUnits * 350);
+                        }
+
+                        if (topProducts[2][3] != null) {
+                            thirdUnits = Integer.valueOf(topProducts[2][3]);
+
+                            if (thirdUnits > 0) {
+                                lblLeftItem.setText(topProducts[2][1]);
+                                lblLeftItemUnit.setText(unitFormat.format(thirdUnits) + " units");
+                                leftBarHeight = (int) Math.round((double) thirdUnits / (double) firstUnits * 350);
+                            }
+                        }
                     }
                 }
-
-                // Set the bar chart height
-                rightBarHeight = 350;
-                centerBarHeight = (int) Math.round((double) secondUnits / (double) firstUnits * 350);
-                leftBarHeight = (int) Math.round((double) thirdUnits / (double) firstUnits * 350);
             }
         } else {
             // Monthly total sales
