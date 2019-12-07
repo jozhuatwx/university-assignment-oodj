@@ -52,8 +52,6 @@ public class WriteObject {
   }
 
   public static boolean saveImage(Path tempPath, String newPathString, String fileName) {
-    // newPathString = /productmanagement/img/productcatalogue/
-    // fileName = ID.png
     String relativePath = Paths.get(".").toAbsolutePath().toString() + "/src";
 
     try {
