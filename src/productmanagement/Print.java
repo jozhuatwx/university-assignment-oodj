@@ -53,7 +53,7 @@ public class Print {
       pages.get(i).setPageNumber(i + 1);
       
       // Convert Page to JPanel and add it to the Pages array list
-      if (i > 1) {
+      if (i >= 1) {
         ProductCatalogueTemplate template = new ProductCatalogueTemplate(catalogue, pages.get(i));
         template.setSize(template.getPreferredSize());
         panel.add(template);
