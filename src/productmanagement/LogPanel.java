@@ -83,12 +83,13 @@ public class LogPanel extends javax.swing.JPanel {
 
         pnlSearchItem.setBackground(new java.awt.Color(46, 52, 66));
         pnlSearchItem.setMaximumSize(new java.awt.Dimension(755, 32767));
+        pnlSearchItem.setPreferredSize(new java.awt.Dimension(755, 61));
 
         txtSearch.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 12)); // NOI18N
         txtSearch.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSearch.setText("Search");
         txtSearch.setBorder(null);
-        txtSearch.setPreferredSize(new java.awt.Dimension(407, 37));
+        txtSearch.setPreferredSize(new java.awt.Dimension(407, 40));
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSearchFocusGained(evt);
@@ -114,10 +115,10 @@ public class LogPanel extends javax.swing.JPanel {
         );
         pnlSearchItemLayout.setVerticalGroup(
             pnlSearchItemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlSearchItemLayout.createSequentialGroup()
+            .addGroup(pnlSearchItemLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(txtSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
         );
 
         scrLogList.setBackground(new java.awt.Color(46, 52, 66));
