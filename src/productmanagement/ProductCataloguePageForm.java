@@ -917,7 +917,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
                 main.isEditing = false;
                 this.dispose();
             }
-        } else if (opt == 2) {
+        } else if (opt == 1) {
             main.setVisible(true);
             main.isEditing = false;
             this.dispose();
