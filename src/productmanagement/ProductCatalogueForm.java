@@ -27,6 +27,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
     public ProductCatalogueForm(MainForm main, ProductCataloguePanel cataloguePanel) {
         initComponents();
         this.main = main;
+        this.cataloguePanel = cataloguePanel;
     }
 
     // Validation
