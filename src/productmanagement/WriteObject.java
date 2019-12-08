@@ -3,6 +3,8 @@ package productmanagement;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,7 +19,7 @@ public class WriteObject {
       // Creates a new line in the file
       writer.newLine();
       // Writes the String of the object and ends
-      writer.write(String.valueOf(obj));
+      writer.write(URLEncoder.encode(String.valueOf(obj), StandardCharsets.UTF_8));
       // Clears the resources in writer
       writer.close();
       return true;
