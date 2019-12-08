@@ -3,6 +3,8 @@ package productmanagement;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -47,7 +49,7 @@ public class ReadObject {
       while (temp != null) {
         if (!temp.isBlank()) {
           // Add the temporary variable into the array list
-          data.add(temp);
+          data.add(URLDecoder.decode(temp, StandardCharsets.UTF_8));
         }
         // Read the next line into the temporary variable
         temp = reader.readLine();
