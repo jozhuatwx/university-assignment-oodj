@@ -451,7 +451,7 @@ public class SupplierUniversalPanel extends javax.swing.JPanel {
                 // When the textbox is enabled, set the boolean variable to true.
                 isEditing = true;
                 main.isEditing = true;
-            } else if (main.isEditing) {
+            } else if (!isEditing && main.isEditing) {
                 JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 boolean validated = true;
