@@ -18,6 +18,8 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     public static final int PANEL_MIN_HEIGHT = 55;
     public static final int PANEL_WIDTH = 735;
 
+    MainForm main;
+
     // Product Manager information
     ProductManager productManager;
 
@@ -30,8 +32,9 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the itemStatus is activated or deactivated
     boolean isActivated;
 
-    public ProductManagerUniversalPanel(ProductManager productManager, int i) {
+    public ProductManagerUniversalPanel(MainForm main, ProductManager productManager, int i) {
         initComponents();
+        this.main = main;
         // Hide the panel
         hidePanel();
         // Set the Product Manager information
@@ -496,21 +499,18 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
     private void lblControlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblControlMouseClicked
         if (isClosed && !isEditing) {
             showPanel();
-
             // Change the icon from down to up
             lblControl.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-up.png")));
-
-        } else if (!isClosed && !isEditing){
+        } else if (!isClosed && !isEditing) {
             hidePanel();
-
             // Change the icon from up to down
             lblControl.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/Black-arrow-down.png")));
         }
     }//GEN-LAST:event_lblControlMouseClicked
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if(isActivated){
-            if (!isEditing) {
+        if (isActivated) {
+            if (!isEditing && !main.isEditing) {
                 // Enable editing of fields
                 txtName.setEnabled(true);
                 txtEmail.setEnabled(true);
@@ -526,6 +526,9 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
                 // When the textbox is enabled, set the boolean variable to true.
                 isEditing = true;
+                main.isEditing = true;
+            } else if (!isEditing && main.isEditing) {
+                JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 boolean validated = true;
                 String userId = productManager.getUserId();
@@ -585,6 +588,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
                             // Set the boolean variable to false.
                             isEditing = false;
+                            main.isEditing = false;
                         }
                     } else if (validated && !chkUpdatePassword.isSelected()) {
                         // Get the password
@@ -620,6 +624,7 @@ public class ProductManagerUniversalPanel extends javax.swing.JPanel {
 
                                     // Set the boolean variable to false.
                                     isEditing = false;
+                                    main.isEditing = false;
                                 }
                             }
                         }

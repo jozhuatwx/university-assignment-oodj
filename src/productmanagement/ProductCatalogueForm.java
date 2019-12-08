@@ -17,12 +17,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ProductCatalogueForm extends javax.swing.JFrame {
     int xMouse, yMouse;
+
+    MainForm main;
     
     // Keeps track of temporary image file path
     String imageFilePath = "/productmanagement/img/InsertImage.png" , latestImageTempPath;
 
-    public ProductCatalogueForm() {
+    public ProductCatalogueForm(MainForm main) {
         initComponents();
+        this.main = main;
     }
 
     // Validation
@@ -557,8 +560,15 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        // Close the form
-        this.dispose();
+        int opt = 0;
+        // Create a confirmation box
+        opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);
+        
+        if (opt == 0) {
+            main.setVisible(true);
+            main.isEditing = false;
+            this.dispose();
+        }
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void lblCloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseEntered
@@ -618,19 +628,26 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
             imageFilePath = path;
             lblImageError.setText(" ");
         } else if (result == JFileChooser.CANCEL_OPTION){
-            if(latestImageTempPath == null){
+            if (latestImageTempPath != null) {
+                lblImage.setIcon(resizeImage(latestImageTempPath));
+            } else {
                 lblImage.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/InsertImage.png")));
                 imageFilePath = "/productmanagement/img/InsertImage.png";
                 lblImageError.setText("Catalogue Image cannot be empty");
-            }else{
-                    lblImage.setIcon(resizeImage(latestImageTempPath));
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        // Close the form
-        this.dispose();
+        int opt = 0;
+        // Create a confirmation box
+        opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);
+        
+        if (opt == 0) {
+            main.setVisible(true);
+            main.isEditing = false;
+            this.dispose();
+        }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -682,7 +699,7 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.register(catalogue)) {
-                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm(catalogue);
+                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm(main, catalogue);
                     pcpf.setVisible(true);
                     this.dispose();
                 }
@@ -795,11 +812,13 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        /*
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ProductCatalogueForm().setVisible(true);
             }
         });
+        */
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

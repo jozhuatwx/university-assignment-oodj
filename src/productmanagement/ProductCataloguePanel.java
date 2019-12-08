@@ -4,11 +4,15 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ProductCataloguePanel extends javax.swing.JPanel {
+    MainForm main;
 
-    public ProductCataloguePanel() {
+    public ProductCataloguePanel(MainForm main) {
         initComponents();
+        this.main = main;
         // Hide the Add button for Administrator
         if (Administrator.isAdministrator()) {
             btnAdd.setVisible(false);
@@ -30,7 +34,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
             // Create a Product Catalogue object with the details
             ProductCatalogue catalogue = new ProductCatalogue(details);
             // Create a Universal Panel object with the Product Catalogue object
-            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(catalogue, i + 1);
+            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(main, catalogue, i + 1);
             // Set the size of the Universal Panel
             pcup.setPreferredSize(new Dimension(ProductCatalogueUniversalPanel.MAIN_WIDTH, ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -54,7 +58,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         // Iterate through the Product Catalogue array
         for (; i < catalogueArray.size(); i++) {
             // Create a Universal Panel object with the Product Catalogue object
-            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(catalogueArray.get(i), i + 1);
+            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(main, catalogueArray.get(i), i + 1);
             // Set the size of the Universal Panel
             pcup.setPreferredSize(new Dimension(ProductCatalogueUniversalPanel.MAIN_WIDTH, ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -176,8 +180,14 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
-        ProductCatalogueForm pcf= new ProductCatalogueForm();
-        pcf.setVisible(true);
+        if (!main.isEditing) {
+            ProductCatalogueForm pcf= new ProductCatalogueForm(main);
+            pcf.setVisible(true);
+            main.setVisible(false);
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddMouseClicked
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
@@ -186,14 +196,13 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
 
     private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
         search();
-        
         if (txtSearch.getText().trim().equalsIgnoreCase("")) {
             txtSearch.setText("Search");
         }
     }//GEN-LAST:event_txtSearchFocusLost
 
     private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
-        if(txtSearch.getText().trim().equalsIgnoreCase("Search")){
+        if (txtSearch.getText().trim().equalsIgnoreCase("Search")) {
             txtSearch.setText("");
         }
     }//GEN-LAST:event_txtSearchFocusGained

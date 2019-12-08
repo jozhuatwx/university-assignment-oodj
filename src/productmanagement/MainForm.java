@@ -2,26 +2,22 @@ package productmanagement;
 
 import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class MainForm extends javax.swing.JFrame {
-    public static boolean unsaved;
+    boolean isEditing = false;
     
     private int xMouse, yMouse;
 
     public MainForm() {
         initComponents();
         
-        resetTabs();
-        //Set the lblDashboard to white colour font and underlined. 
-        lblDashboard.setForeground(new Color(255, 255, 255));
-        pnlUnderline.setVisible(true);
-        
         // Open Dashboard Panel initially
         if (Administrator.isAdministrator()) {
             AdminDashboardPanel dp = new AdminDashboardPanel();
-            pnlContent.add(dp);
-            pnlContent.revalidate();
+            navigateTabs(dp, lblDashboard, pnlUnderline);
         } else if (ProductManager.isProductManager()) {
             lblProductManager.setVisible(false);
             lblLog.setVisible(false);
@@ -29,8 +25,7 @@ public class MainForm extends javax.swing.JFrame {
             pnlUnderline7.setVisible(false);
         
             ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
-            pnlContent.add(dp);
-            pnlContent.revalidate();
+            navigateTabs(dp, lblDashboard, pnlUnderline);
         } else {
             LoginForm lf = new LoginForm();
             lf.setVisible(true);
@@ -38,27 +33,47 @@ public class MainForm extends javax.swing.JFrame {
         }
     }
 
-    public void resetTabs(){
-        //Reset all the appearance of the tabs
-        pnlUnderline.setVisible(false);
-        pnlUnderline1.setVisible(false);
-        pnlUnderline2.setVisible(false);
-        pnlUnderline3.setVisible(false);
-        pnlUnderline4.setVisible(false);
-        pnlUnderline5.setVisible(false);
-        pnlUnderline6.setVisible(false);
-        pnlUnderline7.setVisible(false);
+    private void navigateTabs(JPanel panel, JLabel label, JPanel underline) {
+        int opt = 0;
+        if (isEditing) {
+            // Create a confirmation box
+            opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);
+        }
         
-        lblDashboard.setForeground(new Color(153,153,153));
-        lblProfile.setForeground(new Color(153,153,153));
-        lblCategory.setForeground(new Color(153,153,153));
-        lblItem.setForeground(new Color(153,153,153));
-        lblSupplier.setForeground(new Color(153,153,153));
-        lblCatalogue.setForeground(new Color(153,153,153));
-        lblProductManager.setForeground(new Color(153,153,153));
-        lblLog.setForeground(new Color(153,153,153));
-        
-    }    
+        if (opt == 0) {
+            // Remove all previous content
+            pnlContent.removeAll();
+            // Add the new panel
+            pnlContent.add(panel);
+            pnlContent.revalidate();
+            
+            // Reset all the appearance of the tabs
+            pnlUnderline.setVisible(false);
+            pnlUnderline1.setVisible(false);
+            pnlUnderline2.setVisible(false);
+            pnlUnderline3.setVisible(false);
+            pnlUnderline4.setVisible(false);
+            pnlUnderline5.setVisible(false);
+            pnlUnderline6.setVisible(false);
+            pnlUnderline7.setVisible(false);
+            
+            lblDashboard.setForeground(new Color(153,153,153));
+            lblProfile.setForeground(new Color(153,153,153));
+            lblCategory.setForeground(new Color(153,153,153));
+            lblItem.setForeground(new Color(153,153,153));
+            lblSupplier.setForeground(new Color(153,153,153));
+            lblCatalogue.setForeground(new Color(153,153,153));
+            lblProductManager.setForeground(new Color(153,153,153));
+            lblLog.setForeground(new Color(153,153,153));
+
+            // Set the label to white colour font and underlined. 
+            label.setForeground(new Color(255, 255, 255));
+            underline.setVisible(true);
+            
+            isEditing = false;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -518,15 +533,19 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCloseMouseEntered
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        int opt = 0;
         // Create a confirmation box
-        int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to leave? Your unsave information will be erased.","Leaving?", JOptionPane.YES_NO_OPTION);
+        if (isEditing) {
+            opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);
+        } else {
+            opt = JOptionPane.showConfirmDialog(null, "Terminate the program?", "Close", JOptionPane.YES_NO_OPTION);
+        }
         
         if (opt == 0) {
             // If yes, close the form
             User.logout();
             System.exit(0);
         }
-
     }//GEN-LAST:event_lblCloseMouseClicked
 
     private void pnlFrameBarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlFrameBarMousePressed
@@ -545,87 +564,48 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_pnlFrameBarMouseDragged
 
     private void lblProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProfileMouseClicked
-        pnlContent.removeAll();
-        ProfilePanel pp = new ProfilePanel();
-        pnlContent.add(pp);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblProfile to white colour font and underlined. 
-        lblProfile.setForeground(new Color(255, 255, 255));
-        pnlUnderline1.setVisible(true);
+        ProfilePanel pp = new ProfilePanel(this);
+        navigateTabs(pp, lblProfile, pnlUnderline1);
     }//GEN-LAST:event_lblProfileMouseClicked
 
     private void lblDashboardMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDashboardMouseClicked
-        pnlContent.removeAll();
-
         if (Administrator.isAdministrator()) {
             AdminDashboardPanel dp = new AdminDashboardPanel();
-            pnlContent.add(dp);
-            pnlContent.revalidate();
+            navigateTabs(dp, lblDashboard, pnlUnderline);
         } else if (ProductManager.isProductManager()) {
             ProductManagerDashboardPanel dp = new ProductManagerDashboardPanel();
-            pnlContent.add(dp);
-            pnlContent.revalidate();
+            navigateTabs(dp, lblDashboard, pnlUnderline);
         }
-        
-        resetTabs();
-        // Set the lblDashboard to white colour font and underlined. 
-        lblDashboard.setForeground(new Color(255, 255, 255));
-        pnlUnderline.setVisible(true);
     }//GEN-LAST:event_lblDashboardMouseClicked
 
     private void lblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCategoryMouseClicked
-        pnlContent.removeAll();
-        ProductCategoryPanel cp = new ProductCategoryPanel();
-        pnlContent.add(cp);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblCategory to white colour font and underlined. 
-        lblCategory.setForeground(new Color(255, 255, 255));
-        pnlUnderline2.setVisible(true);
+        ProductCategoryPanel cp = new ProductCategoryPanel(this);
+        navigateTabs(cp, lblCategory, pnlUnderline2);
     }//GEN-LAST:event_lblCategoryMouseClicked
 
     private void lblItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblItemMouseClicked
-        pnlContent.removeAll();
-        ProductItemPanel ip = new ProductItemPanel();
-        pnlContent.add(ip);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblItem to white colour font and underlined. 
-        lblItem.setForeground(new Color(255, 255, 255));
-        pnlUnderline3.setVisible(true);
+        ProductItemPanel ip = new ProductItemPanel(this);
+        navigateTabs(ip, lblItem, pnlUnderline3);
     }//GEN-LAST:event_lblItemMouseClicked
 
     private void lblSupplierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSupplierMouseClicked
-        pnlContent.removeAll();
-        SupplierPanel sp = new SupplierPanel();
-        pnlContent.add(sp);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblSupplier to white colour font and underlined. 
-        lblSupplier.setForeground(new Color(255, 255, 255));
-        pnlUnderline5.setVisible(true);
+        SupplierPanel sp = new SupplierPanel(this);
+        navigateTabs(sp, lblSupplier, pnlUnderline5);
     }//GEN-LAST:event_lblSupplierMouseClicked
 
     private void lblCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCatalogueMouseClicked
-        pnlContent.removeAll();
-        ProductCataloguePanel pcp = new ProductCataloguePanel();
-        pnlContent.add(pcp);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblCatalogue to white colour font and underlined. 
-        lblCatalogue.setForeground(new Color(255, 255, 255));
-        pnlUnderline4.setVisible(true);
+        ProductCataloguePanel pcp = new ProductCataloguePanel(this);
+        navigateTabs(pcp, lblCatalogue, pnlUnderline4);
     }//GEN-LAST:event_lblCatalogueMouseClicked
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+        int opt = 0;
         // Create a confirmation box
-        int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to log out? Your unsave information will be erased.","Log Out", JOptionPane.YES_NO_OPTION);
+        if (isEditing) {
+            opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);
+        } else {
+            opt = JOptionPane.showConfirmDialog(null, "Logout?", "Logout", JOptionPane.YES_NO_OPTION);
+        }
         
         if (opt == 0) {
             // If yes, close this form and open the LoginForm
@@ -637,27 +617,13 @@ public class MainForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseClicked
 
     private void lblLogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogMouseClicked
-        pnlContent.removeAll();
         LogPanel lp = new LogPanel();
-        pnlContent.add(lp);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblProfile to white colour font and underlined. 
-        lblLog.setForeground(new Color(255, 255, 255));
-        pnlUnderline7.setVisible(true);
+        navigateTabs(lp, lblLog, pnlUnderline7);
     }//GEN-LAST:event_lblLogMouseClicked
 
     private void lblProductManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblProductManagerMouseClicked
-        pnlContent.removeAll();
-        ProductManagerPanel pmp = new ProductManagerPanel();
-        pnlContent.add(pmp);
-        pnlContent.revalidate();
-        
-        resetTabs();
-        // Set the lblProfile to white colour font and underlined. 
-        lblProductManager.setForeground(new Color(255, 255, 255));
-        pnlUnderline6.setVisible(true);
+        ProductManagerPanel pmp = new ProductManagerPanel(this);
+        navigateTabs(pmp, lblProductManager, pnlUnderline6);
     }//GEN-LAST:event_lblProductManagerMouseClicked
 
     /**

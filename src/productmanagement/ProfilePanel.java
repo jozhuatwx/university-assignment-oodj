@@ -9,11 +9,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class ProfilePanel extends javax.swing.JPanel {
+    MainForm main;
     // Created a variable to check the panel is closed or opened
     boolean isClosed = false;
     
-    public ProfilePanel() {
+    public ProfilePanel(MainForm main) {
         initComponents();
+        this.main = main;
         resetFields();
         updatePasswordPanel();
     }
@@ -28,25 +30,23 @@ public class ProfilePanel extends javax.swing.JPanel {
             // Change the icon from arrow-down to arrow-up
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-up.png")));
             
-            //Clear the field
+            // Clear the field
             txtOldPassword.setText("");
             txtNewPassword.setText("");
             txtConfirmNewPassword.setText("");
             
-            //Clear the error label
+            // Clear the error label
             lblOldPasswordError.setText(" ");
             lblNewPasswordError.setText(" ");
             lblConfirmPasswordError.setText(" ");
-            
         } else {
-        // The panel is opened, then close the panel and set the boolean variable to true.
+            // The panel is opened, then close the panel and set the boolean variable to true.
             pnlUpdatePassword.setPreferredSize(new Dimension(290, 40));
             pnlUpdatePassword.revalidate();
             pnlUpdatePassword.repaint();
             isClosed = true;
             // Change the icon from arrow-up to arrow-down
             lblArrow.setIcon(new ImageIcon(getClass().getResource("/productmanagement/img/arrow-down.png")));
-            
         }
     }
 
@@ -61,7 +61,6 @@ public class ProfilePanel extends javax.swing.JPanel {
         lblNameError.setText(" ");
         lblAddressError.setText(" ");
         lblEmailError.setText(" ");
-        
     }
 
     // Validation
@@ -642,6 +641,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                         // Update the Administrator
                         if (Administrator.modify(userDetail, false)) {
                             resetFields();
+                            main.isEditing = false;
                         }
                     } else if (ProductManager.isProductManager()) {
                         // Create a Product Manager object
@@ -649,6 +649,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                         // Update the Product Manager
                         if (ProductManager.modify(userDetail, false)) {
                             resetFields();
+                            main.isEditing = false;
                         }
                     }
                 }
@@ -704,6 +705,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                                 // Update the Administrator
                                 if (Administrator.modify(userDetail, false)) {
                                     resetFields();
+                                    main.isEditing = false;
                                 }
                             } else if (ProductManager.isProductManager()) {
                                 // Create a Product Manager object
@@ -711,6 +713,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                                 // Update the Product Manager
                                 if (ProductManager.modify(userDetail, true)) {
                                     resetFields();
+                                    main.isEditing = false;
                                 }
                             }
                         } else {
@@ -737,13 +740,14 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
         String userName = txtName.getText().trim();
         validateName(userName);
+        main.isEditing = true;
     }//GEN-LAST:event_txtNameKeyReleased
 
     private void txtNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusLost
         String userName = txtName.getText().trim();
         validateName(userName);
         
-        if (txtName.getText().trim().equalsIgnoreCase("")) {
+        if (userName.equalsIgnoreCase("")) {
             txtName.setText("Name");
         }
     }//GEN-LAST:event_txtNameFocusLost
@@ -751,13 +755,14 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtAddressKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAddressKeyReleased
         String userAddress = txtAddress.getText().trim();
         validateAddress(userAddress);
+        main.isEditing = true;
     }//GEN-LAST:event_txtAddressKeyReleased
 
     private void txtAddressFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAddressFocusLost
         String userAddress = txtAddress.getText().trim();
         validateAddress(userAddress);
         
-        if (txtAddress.getText().trim().equalsIgnoreCase("")) {
+        if (userAddress.equalsIgnoreCase("")) {
             txtAddress.setText("Address");
         }
     }//GEN-LAST:event_txtAddressFocusLost
@@ -765,13 +770,14 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
         String userEmail = txtEmail.getText().trim();
         validateEmail(userEmail);
+        main.isEditing = true;
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
         String userEmail = txtEmail.getText().trim();
         validateEmail(userEmail);
         
-        if (txtEmail.getText().trim().equalsIgnoreCase("")) {
+        if (userEmail.equalsIgnoreCase("")) {
             txtEmail.setText("Email");
         }
     }//GEN-LAST:event_txtEmailFocusLost
@@ -779,36 +785,36 @@ public class ProfilePanel extends javax.swing.JPanel {
     private void txtOldPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldPasswordKeyReleased
         char[] userPassword = txtOldPassword.getPassword();
         validateOldPassword(userPassword);
+        main.isEditing = true;
     }//GEN-LAST:event_txtOldPasswordKeyReleased
 
     private void txtOldPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtOldPasswordFocusLost
         char[] userPassword = txtOldPassword.getPassword();
         validateOldPassword(userPassword);
-        
     }//GEN-LAST:event_txtOldPasswordFocusLost
 
     private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
         char[] userPassword = txtNewPassword.getPassword();
         validateNewPassword(userPassword);
+        main.isEditing = true;
     }//GEN-LAST:event_txtNewPasswordKeyReleased
 
     private void txtNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPasswordFocusLost
         char[] userPassword = txtNewPassword.getPassword();
         validateNewPassword(userPassword);
-        
     }//GEN-LAST:event_txtNewPasswordFocusLost
 
     private void txtConfirmNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmNewPasswordKeyReleased
         char[] userPassword = txtNewPassword.getPassword();
         char[] retypePassword = txtConfirmNewPassword.getPassword();
         validateConfirmNewPassword(userPassword, retypePassword);
+        main.isEditing = true;
     }//GEN-LAST:event_txtConfirmNewPasswordKeyReleased
 
     private void txtConfirmNewPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmNewPasswordFocusLost
         char[] userPassword = txtNewPassword.getPassword();
         char[] retypePassword = txtConfirmNewPassword.getPassword();
         validateConfirmNewPassword(userPassword, retypePassword);
-        
     }//GEN-LAST:event_txtConfirmNewPasswordFocusLost
 
     private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained

@@ -20,6 +20,8 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     public static final int PANEL_HEIGHT = 238;
     public static final int PANEL_WIDTH = 735;
 
+    MainForm main;
+
     // Product Item information
     ProductItem item;
     int itemQuantity;
@@ -36,8 +38,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the itemStatus is activated or deactivated
     boolean isActivated;
 
-    public ProductItemUniversalPanel(ProductItem item, int i) {
+    public ProductItemUniversalPanel(MainForm main, ProductItem item, int i) {
         initComponents();
+        this.main = main;
         // Set the Product Item information
         this.item = item;
         imageTempPath = item.getItemImagePath();
@@ -706,8 +709,8 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditMouseClicked
-        if(isActivated){
-            if (!isEditing) {
+        if (isActivated) {
+            if (!isEditing && !main.isEditing) {
                 // Enable editing of fields
                 txtName.setEnabled(true);
                 txtBrand.setEnabled(true);
@@ -726,6 +729,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
                 // When the textbox is enabled, set the boolean variable to true.
                 isEditing = true;
+                main.isEditing = true;
+            } else if (!isEditing && main.isEditing) {
+                JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
             } else {
                 boolean validated = true;
                 String itemName = txtName.getText().trim();
@@ -737,9 +743,9 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
                 String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
                 
-                //Remove the "RM" in the itemPrice, because we just want the price value
-                if(itemPriceString.startsWith("RM")){
-                    itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+                // Remove the "RM" in the itemPrice, because we just want the price value
+                if (itemPriceString.startsWith("RM")) {
+                    itemPriceString = itemPriceString.substring(2, itemPriceString.length()).trim();
                 }
 
                 try {
@@ -818,6 +824,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
                             // When the textbox is enabled, set the boolean variable to true.
                             isEditing = false;
+                            main.isEditing = false;
                         }
                     }
                 } catch (Exception e) {

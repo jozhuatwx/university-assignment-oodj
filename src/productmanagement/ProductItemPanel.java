@@ -18,12 +18,15 @@ public class ProductItemPanel extends javax.swing.JPanel {
     public static final int PANEL_MAX_HEIGHT = 633;
     public static final int PANEL_MIN_HEIGHT = 61;
     public static final int PANEL_WIDTH = 755;
+
+    MainForm main;
     
     // Keeps track of temporary image file path
     String imageTempPath = "/productmanagement/img/InsertImage.png", latestImageTempPath;
 
-    public ProductItemPanel() {
+    public ProductItemPanel(MainForm main) {
         initComponents();
+        this.main = main;
         // Hide the Panel
         hideAddPanel();
         resetCategory();
@@ -115,7 +118,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
             // Create an Item object with the details
             ProductItem item = new ProductItem(details);
             // Create a Universal Panel object with the Item object
-            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(item, i + 1);
+            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(main, item, i + 1);
             // Set the size of the Universal Panel
             iup.setPreferredSize(new Dimension(ProductItemUniversalPanel.MAIN_WIDTH, ProductItemUniversalPanel.MAIN_HEIGHT));
             // Add the panel into the list
@@ -178,7 +181,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
         ArrayList<ProductItem> itemArray = ProductItem.search(keyword);
         for (; i < itemArray.size(); i++) {
             // Create a Universal Panel object with the Product Item object
-            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(itemArray.get(i), i + 1);
+            ProductItemUniversalPanel iup = new ProductItemUniversalPanel(main, itemArray.get(i), i + 1);
             // Set the size of the Universal Panel object
             iup.setPreferredSize(new Dimension(ProductItemUniversalPanel.MAIN_WIDTH, ProductItemUniversalPanel.MAIN_HEIGHT));
             // Add the Panel into the list
@@ -850,11 +853,17 @@ public class ProductItemPanel extends javax.swing.JPanel {
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         hideAddPanel();
         resetFields();
+        main.isEditing = false;
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        showAddPanel();
-        resetFields();
+        if (!main.isEditing) {
+            showAddPanel();
+            resetFields();
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -869,9 +878,9 @@ public class ProductItemPanel extends javax.swing.JPanel {
         String itemSupplierId = String.valueOf(cmbSupplier.getSelectedItem()).substring(0, 9);
         String itemCategoryId = String.valueOf(cmbCategory.getSelectedItem()).substring(0, 10);
         
-        //Remove the "RM" in the itemPrice, because we just want the price value
-        if(itemPriceString.startsWith("RM")){
-            itemPriceString = itemPriceString.substring(2,itemPriceString.length());
+        // Remove the "RM" in the itemPrice, because we just want the price value
+        if (itemPriceString.startsWith("RM")) {
+            itemPriceString = itemPriceString.substring(2, itemPriceString.length()).trim();
         }
 
         try {
@@ -913,7 +922,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 int itemPrice = Integer.valueOf(itemPriceString);
                 int itemQuantity = Integer.valueOf(itemQuantityString);
 
-                // Generate item id
+                // Generate Item Id
                 String itemId = ProductItem.generateItemId();
 
                 // Copy image file to system
@@ -928,6 +937,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 if (ProductItem.register(item, itemQuantity)) {
                     resetFields();
                     repopulateItemList();
+                    main.isEditing = false;
                 }
             }
         } catch (Exception e) {

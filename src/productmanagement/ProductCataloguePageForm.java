@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class ProductCataloguePageForm extends javax.swing.JFrame {
+    MainForm main;
+
     // Keeps the Catalogue information
     private ProductCatalogue catalogue;
     // Keeps all the Pages in the Catalogue information
@@ -28,8 +30,9 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
     private int xMouse, yMouse;
 
-    public ProductCataloguePageForm(ProductCatalogue catalogue) {
+    public ProductCataloguePageForm(MainForm main, ProductCatalogue catalogue) {
         initComponents();
+        this.main = main;
         this.catalogue = catalogue;
         getPages();
 
@@ -897,13 +900,16 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCloseMouseEntered
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
+        int opt = 0;
         if (modified) {
-            // Close the form
-            int opt = JOptionPane.showConfirmDialog(null,"Are you sure want to close? Your unsave information will be erased.", "Log Out", JOptionPane.YES_NO_OPTION);
+            // Create a confirmation box
+            opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);            
+        }
             
-            if (opt == 0) {
-                this.dispose();
-            }
+        if (opt == 0) {
+            main.setVisible(true);
+            main.isEditing = false;
+            this.dispose();
         }
     }//GEN-LAST:event_lblCloseMouseClicked
 
@@ -911,6 +917,8 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
         if (ProductCataloguePage.modify(pages)) {
             // Display success message
             JOptionPane.showMessageDialog(new JFrame(), "Updated product catalogue pages in " + catalogue.getCatalogueId(), "Success", JOptionPane.INFORMATION_MESSAGE);
+            main.setVisible(true);
+            main.isEditing = false;
             this.dispose();
         }
     }//GEN-LAST:event_btnSubmitActionPerformed

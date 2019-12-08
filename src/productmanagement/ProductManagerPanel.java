@@ -14,8 +14,11 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     public static final int PANEL_MIN_HEIGHT = 61;
     public static final int PANEL_WIDTH = 755;
 
-    public ProductManagerPanel() {
+    MainForm main;
+
+    public ProductManagerPanel(MainForm main) {
         initComponents();
+        this.main = main;
         // Hide the Panel
         hideAddPanel();
         // Popualate the list with Product Managers
@@ -74,7 +77,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
                 // Create a Product Manager object with the details
                 ProductManager user = new ProductManager(details);
                 // Create a Universal Panel with the Project Manager object
-                ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(user, x + 1);
+                ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(main, user, x + 1);
                 // Set the size of the Universal Panel
                 pmup.setPreferredSize(new Dimension(ProductManagerUniversalPanel.MAIN_WIDTH, ProductManagerUniversalPanel.MAIN_MIN_HEIGHT));
                 // Add the panel into the list
@@ -102,7 +105,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
         ArrayList<ProductManager> userArray = ProductManager.searchProductManager(keyword);
         for (; i < userArray.size(); i++) {
             // Create a Universal Panel object with the Product Manager object
-            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(userArray.get(i), i + 1);
+            ProductManagerUniversalPanel pmup = new ProductManagerUniversalPanel(main, userArray.get(i), i + 1);
             // Set the size of the Universal Panel
             pmup.setPreferredSize(new Dimension(ProductManagerUniversalPanel.MAIN_WIDTH, ProductManagerUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -616,13 +619,19 @@ public class ProductManagerPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        showAddPanel();
-        resetFields();
+        if (!main.isEditing) {
+            showAddPanel();
+            resetFields();
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         hideAddPanel();
         resetFields();
+        main.isEditing = false;
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -669,6 +678,7 @@ public class ProductManagerPanel extends javax.swing.JPanel {
                 if (ProductManager.register(productManager)) {
                     resetFields();
                     repopulateProductManagerList();
+                    main.isEditing = false;
                 }
             } catch (Exception e) {
                 // Display the error message

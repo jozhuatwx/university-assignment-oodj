@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class ProductCategoryPanel extends javax.swing.JPanel {
     // Constant fields
@@ -11,8 +13,11 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     public static final int PANEL_MIN_HEIGHT = 61;
     public static final int PANEL_WIDTH = 755;
 
-    public ProductCategoryPanel() {
+    MainForm main;
+
+    public ProductCategoryPanel(MainForm main) {
         initComponents();
+        this.main = main;
         // Hide the Panel
         hideAddPanel();
         // Populate the list with Categories
@@ -59,7 +64,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
             // Create a Product Category object with the details
             ProductCategory category = new ProductCategory(details);
             // Create a Universal Panel object with the Category object
-            ProductCategoryUniversalPanel pcup = new ProductCategoryUniversalPanel(category, i + 1);
+            ProductCategoryUniversalPanel pcup = new ProductCategoryUniversalPanel(main, category, i + 1);
             // Set the size of the Universal Panel
             pcup.setPreferredSize(new Dimension(ProductCategoryUniversalPanel.MAIN_WIDTH, ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -84,7 +89,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
         ArrayList<ProductCategory> categoryArray = ProductCategory.search(keyword);
         for (; i < categoryArray.size(); i++) {
             // Create a Universal Panel object with the Prodect Category object
-            ProductCategoryUniversalPanel pcup = new ProductCategoryUniversalPanel(categoryArray.get(i), i + 1);
+            ProductCategoryUniversalPanel pcup = new ProductCategoryUniversalPanel(main, categoryArray.get(i), i + 1);
             // Set the size of the Universal Panel object
             pcup.setPreferredSize(new Dimension(ProductCategoryUniversalPanel.MAIN_WIDTH, ProductCategoryUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -405,13 +410,19 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        showAddPanel();
-        resetFields();
+        if (!main.isEditing) {
+            showAddPanel();
+            resetFields();
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         hideAddPanel();
         resetFields();
+        main.isEditing = false;
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -435,6 +446,7 @@ public class ProductCategoryPanel extends javax.swing.JPanel {
             if (ProductCategory.register(category)) {
                 resetFields();
                 repopulateCategoriesList();
+                main.isEditing = false;
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed

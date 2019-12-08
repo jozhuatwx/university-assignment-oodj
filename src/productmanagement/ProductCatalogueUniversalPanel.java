@@ -29,6 +29,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     public static final int PANEL_MIN_HEIGHT = 55;
     public static final int PANEL_WIDTH = 735;
 
+    MainForm main;
+
     // Product Catalogue information
     ProductCatalogue catalogue;
 
@@ -44,8 +46,9 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the catalogueStatus is activated or deactivated
     boolean isActivated;
     
-    public ProductCatalogueUniversalPanel(ProductCatalogue catalogue, int i) {
+    public ProductCatalogueUniversalPanel(MainForm main, ProductCatalogue catalogue, int i) {
         initComponents();
+        this.main = main;
         // Hide edit button and disable status button for Administrator
         if (Administrator.isAdministrator()) {
             pnlEditDropDownList.setVisible(false);
@@ -768,31 +771,35 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void lblEditCatalogueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditCatalogueMouseClicked
-        // Enable editing of fields
-        txtTitle.setEnabled(true);
-        ftxStartDate.setEnabled(true);
-        ftxEndDate.setEnabled(true);
-        scrDescription.setEnabled(true);
-        txaDescription.setEnabled(true);
-        lblImage.setEnabled(true);
-        lblControl.setEnabled(false);
-        // Disable editing of btnStatus
-        btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnStatus.setEnabled(false);
+        if (!main.isEditing) {
+            // Enable editing of fields
+            txtTitle.setEnabled(true);
+            ftxStartDate.setEnabled(true);
+            ftxEndDate.setEnabled(true);
+            scrDescription.setEnabled(true);
+            txaDescription.setEnabled(true);
+            lblImage.setEnabled(true);
+            lblControl.setEnabled(false);
+            // Disable editing of btnStatus
+            btnStatus.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btnStatus.setEnabled(false);
 
-        lblSaveIcon.setVisible(true);
-        lblEditIcon.setVisible(false);
-        lblEditCatalogue.setVisible(false);
-        lblEditPage.setVisible(false);
+            lblSaveIcon.setVisible(true);
+            lblEditIcon.setVisible(false);
+            lblEditCatalogue.setVisible(false);
+            lblEditPage.setVisible(false);
 
-        // When the textbox is enabled, set the boolean variable to true.
-        isEditing = true;
-          
+            // When the textbox is enabled, set the boolean variable to true.
+            isEditing = true;
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_lblEditCatalogueMouseClicked
 
     private void lblEditIconMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditIconMouseEntered
-        if(isActivated){
-            //Resize the size of the edit drop down list
+        if (isActivated) {
+            // Resize the size of the edit drop down list
             pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
             pnlEditDropDownList.revalidate();
             pnlEditDropDownList.repaint();
@@ -807,8 +814,8 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditIconMouseExited
 
     private void lblEditCatalogueMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditCatalogueMouseEntered
-        if(isActivated){
-            //Resize the size of the edit drop down list
+        if (isActivated) {
+            // Resize the size of the edit drop down list
             pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
             pnlEditDropDownList.revalidate();
             pnlEditDropDownList.repaint();
@@ -816,14 +823,14 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditCatalogueMouseEntered
 
     private void lblEditCatalogueMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditCatalogueMouseExited
-        //Resize the size of the edit drop down list
+        // Resize the size of the edit drop down list
         pnlEditDropDownList.setPreferredSize(new Dimension(78, 33));
         pnlEditDropDownList.revalidate();
         pnlEditDropDownList.repaint();
     }//GEN-LAST:event_lblEditCatalogueMouseExited
 
     private void lblEditPageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseEntered
-        if(isActivated){
+        if (isActivated) {
             //Resize the size of the edit drop down list
             pnlEditDropDownList.setPreferredSize(new Dimension(78, 90));
             pnlEditDropDownList.revalidate();
@@ -832,7 +839,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblEditPageMouseEntered
 
     private void lblEditPageMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseExited
-        //Resize the size of the edit drop down list
+        // Resize the size of the edit drop down list
         pnlEditDropDownList.setPreferredSize(new Dimension(78, 33));
         pnlEditDropDownList.revalidate();
         pnlEditDropDownList.repaint();
@@ -911,6 +918,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
                     
                     // When the textbox is enabled, set the boolean variable to true.
                     isEditing = false;
+                    main.isEditing = false;
                 }
             }
         } catch (Exception e) {
@@ -920,8 +928,14 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblSaveIconMouseClicked
 
     private void lblEditPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseClicked
-        ProductCataloguePageForm apcp = new ProductCataloguePageForm(catalogue);
-        apcp.setVisible(true);
+        if (!main.isEditing) {
+            ProductCataloguePageForm apcp = new ProductCataloguePageForm(main, catalogue);
+            apcp.setVisible(true);
+            main.setVisible(false);
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_lblEditPageMouseClicked
 
     private void txtTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTitleFocusGained

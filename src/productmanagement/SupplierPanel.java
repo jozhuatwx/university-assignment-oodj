@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class SupplierPanel extends javax.swing.JPanel {
     // Constant fields
@@ -11,8 +13,11 @@ public class SupplierPanel extends javax.swing.JPanel {
     public static final int PANEL_MIN_HEIGHT = 61;
     public static final int PANEL_WIDTH = 755;
 
-    public SupplierPanel() {
+    MainForm main;
+
+    public SupplierPanel(MainForm main) {
         initComponents();
+        this.main = main;
         // Hide the Panel
         hideAddPanel();
         // Hide the Add button for Product Manager
@@ -69,7 +74,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             // Create a Supplier object with the details
             Supplier supplier = new Supplier(details);
             // Create a Universal Panel object with the Supplier object
-            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplier, i + 1);
+            SupplierUniversalPanel sup = new SupplierUniversalPanel(main, supplier, i + 1);
             // Set the size of the Universal Panel
             sup.setPreferredSize(new Dimension(SupplierUniversalPanel.MAIN_WIDTH, SupplierUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -94,7 +99,7 @@ public class SupplierPanel extends javax.swing.JPanel {
         ArrayList<Supplier> supplierArray = Supplier.search(keyword);
         for (; i < supplierArray.size(); i++) {
             // Create a Universal Panel object with the Supplier object
-            SupplierUniversalPanel sup = new SupplierUniversalPanel(supplierArray.get(i), i + 1);
+            SupplierUniversalPanel sup = new SupplierUniversalPanel(main, supplierArray.get(i), i + 1);
             // Set the size of the Universal Panel object
             sup.setPreferredSize(new Dimension(SupplierUniversalPanel.MAIN_WIDTH, SupplierUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -522,13 +527,19 @@ public class SupplierPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        showAddPanel();
-        resetFields();
+        if (!main.isEditing) {
+            showAddPanel();
+            resetFields();
+            main.isEditing = true;
+        } else {
+            JOptionPane.showMessageDialog(new JFrame(), "You have unsaved work. Please save it first.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         hideAddPanel();
         resetFields();
+        main.isEditing = false;
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
@@ -562,6 +573,7 @@ public class SupplierPanel extends javax.swing.JPanel {
             if (Supplier.register(supplier)) {
                 resetFields();
                 repopulateSupplierList();
+                main.isEditing = false;
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
