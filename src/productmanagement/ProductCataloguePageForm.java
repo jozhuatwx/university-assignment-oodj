@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 
 public class ProductCataloguePageForm extends javax.swing.JFrame {
     MainForm main;
+    ProductCataloguePanel cataloguePanel;
 
     // Keeps the Catalogue information
     private ProductCatalogue catalogue;
@@ -30,9 +31,10 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
 
     private int xMouse, yMouse;
 
-    public ProductCataloguePageForm(MainForm main, ProductCatalogue catalogue) {
+    public ProductCataloguePageForm(MainForm main, ProductCataloguePanel cataloguePanel, ProductCatalogue catalogue) {
         initComponents();
         this.main = main;
+        this.cataloguePanel = cataloguePanel;
         this.catalogue = catalogue;
         getPages();
 
@@ -900,13 +902,22 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblCloseMouseEntered
 
     private void lblCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCloseMouseClicked
-        int opt = 0;
+        int opt = 1;
         if (modified) {
             // Create a confirmation box
-            opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Continue?", "Warning", JOptionPane.YES_NO_OPTION);            
+            opt = JOptionPane.showConfirmDialog(null, "You have unsaved work. Would you like to save it?", "Warning", JOptionPane.YES_NO_CANCEL_OPTION);            
         }
             
         if (opt == 0) {
+            if (ProductCataloguePage.modify(pages)) {
+                // Display success message
+                JOptionPane.showMessageDialog(new JFrame(), "Updated product catalogue pages in " + catalogue.getCatalogueId(), "Success", JOptionPane.INFORMATION_MESSAGE);
+                main.setVisible(true);
+                cataloguePanel.repopulateCatalogueList();
+                main.isEditing = false;
+                this.dispose();
+            }
+        } else if (opt == 2) {
             main.setVisible(true);
             main.isEditing = false;
             this.dispose();
@@ -918,6 +929,7 @@ public class ProductCataloguePageForm extends javax.swing.JFrame {
             // Display success message
             JOptionPane.showMessageDialog(new JFrame(), "Updated product catalogue pages in " + catalogue.getCatalogueId(), "Success", JOptionPane.INFORMATION_MESSAGE);
             main.setVisible(true);
+            cataloguePanel.repopulateCatalogueList();
             main.isEditing = false;
             this.dispose();
         }

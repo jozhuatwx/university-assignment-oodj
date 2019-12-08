@@ -19,11 +19,12 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
     int xMouse, yMouse;
 
     MainForm main;
+    ProductCataloguePanel cataloguePanel;
     
     // Keeps track of temporary image file path
     String imageFilePath = "/productmanagement/img/InsertImage.png" , latestImageTempPath;
 
-    public ProductCatalogueForm(MainForm main) {
+    public ProductCatalogueForm(MainForm main, ProductCataloguePanel cataloguePanel) {
         initComponents();
         this.main = main;
     }
@@ -699,8 +700,9 @@ public class ProductCatalogueForm extends javax.swing.JFrame {
 
                 ProductCatalogue catalogue = new ProductCatalogue(catalogueId, catalogueTitle, catalogueBannerPath, catalogueDescription, catalogueStartDate, catalogueEndDate, LocalDateTime.now(), User.myUser.getUserId(), ProductCatalogue.ACTIVE);
                 if (ProductCatalogue.register(catalogue)) {
-                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm(main, catalogue);
+                    ProductCataloguePageForm pcpf = new ProductCataloguePageForm(main, cataloguePanel, catalogue);
                     pcpf.setVisible(true);
+                    cataloguePanel.repopulateCatalogueList();
                     this.dispose();
                 }
             }

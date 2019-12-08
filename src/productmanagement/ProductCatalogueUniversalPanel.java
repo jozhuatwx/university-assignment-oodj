@@ -30,6 +30,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     public static final int PANEL_WIDTH = 735;
 
     MainForm main;
+    ProductCataloguePanel cataloguePanel;
 
     // Product Catalogue information
     ProductCatalogue catalogue;
@@ -46,9 +47,10 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
     // Create a variable to check the catalogueStatus is activated or deactivated
     boolean isActivated;
     
-    public ProductCatalogueUniversalPanel(MainForm main, ProductCatalogue catalogue, int i) {
+    public ProductCatalogueUniversalPanel(MainForm main, ProductCataloguePanel cataloguePanel, ProductCatalogue catalogue, int i) {
         initComponents();
         this.main = main;
+        this.cataloguePanel = cataloguePanel;
         // Hide edit button and disable status button for Administrator
         if (Administrator.isAdministrator()) {
             pnlEditDropDownList.setVisible(false);
@@ -929,7 +931,7 @@ public class ProductCatalogueUniversalPanel extends javax.swing.JPanel {
 
     private void lblEditPageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditPageMouseClicked
         if (!main.isEditing) {
-            ProductCataloguePageForm apcp = new ProductCataloguePageForm(main, catalogue);
+            ProductCataloguePageForm apcp = new ProductCataloguePageForm(main, cataloguePanel, catalogue);
             apcp.setVisible(true);
             main.setVisible(false);
             main.isEditing = true;

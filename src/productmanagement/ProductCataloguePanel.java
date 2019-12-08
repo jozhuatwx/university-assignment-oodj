@@ -21,7 +21,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         repopulateCatalogueList();
     }
 
-    private void repopulateCatalogueList() {
+    public void repopulateCatalogueList() {
         // Remove all existing Product Catalogues
         pnlCatalogueList.removeAll();
 
@@ -34,7 +34,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
             // Create a Product Catalogue object with the details
             ProductCatalogue catalogue = new ProductCatalogue(details);
             // Create a Universal Panel object with the Product Catalogue object
-            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(main, catalogue, i + 1);
+            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(main, this, catalogue, i + 1);
             // Set the size of the Universal Panel
             pcup.setPreferredSize(new Dimension(ProductCatalogueUniversalPanel.MAIN_WIDTH, ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -58,7 +58,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
         // Iterate through the Product Catalogue array
         for (; i < catalogueArray.size(); i++) {
             // Create a Universal Panel object with the Product Catalogue object
-            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(main, catalogueArray.get(i), i + 1);
+            ProductCatalogueUniversalPanel pcup = new ProductCatalogueUniversalPanel(main, this, catalogueArray.get(i), i + 1);
             // Set the size of the Universal Panel
             pcup.setPreferredSize(new Dimension(ProductCatalogueUniversalPanel.MAIN_WIDTH, ProductCatalogueUniversalPanel.MAIN_MIN_HEIGHT));
             // Add the Panel into the list
@@ -181,7 +181,7 @@ public class ProductCataloguePanel extends javax.swing.JPanel {
 
     private void btnAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseClicked
         if (!main.isEditing) {
-            ProductCatalogueForm pcf= new ProductCatalogueForm(main);
+            ProductCatalogueForm pcf= new ProductCatalogueForm(main, this);
             pcf.setVisible(true);
             main.setVisible(false);
             main.isEditing = true;
