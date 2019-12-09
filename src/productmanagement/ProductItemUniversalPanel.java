@@ -55,7 +55,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         // Fill the fields with Product Item information
         txtName.setText(item.getItemName());
         txtBrand.setText(item.getItemBrand());
-        txtSellingPrice.setText("RM" +String.valueOf(Math.round(item.getItemPrice())));
+        txtSellingPrice.setText("RM " + String.valueOf((double) Math.round(item.getItemPrice() * 100) / 100));
         txaDescription.setText(item.getItemDescription());
         lblImage.setIcon(resizeImage(Paths.get("").toAbsolutePath().toString() + "/src" + item.getItemImagePath()));
 
@@ -212,7 +212,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
                 lblSellingPriceError.setText("Cannot be empty");
                 validated = false;
             } else {
-                int itemPrice = Integer.valueOf(itemPriceString);
+                double itemPrice = Double.valueOf(itemPriceString);
                 if (itemPrice < 0) {
                     lblSellingPriceError.setText("Cannot be negative");
                     validated = false;
@@ -785,7 +785,7 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
 
                     if (validated) {
                         // Convert String to int
-                        int itemPrice = Integer.valueOf(itemPriceString);
+                        double itemPrice = Double.valueOf(itemPriceString);
                         int itemQuantity = Integer.valueOf(itemQuantityString) - this.itemQuantity;
 
                         // Generate item id

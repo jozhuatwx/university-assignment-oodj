@@ -238,7 +238,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
                 lblSellingPriceError.setText("Cannot be empty");
                 validated = false;
             } else {
-                int itemPrice = Integer.valueOf(itemPriceString);
+                double itemPrice = Double.valueOf(itemPriceString);
                 if (itemPrice < 0) {
                     lblSellingPriceError.setText("Cannot be negative");
                     validated = false;
@@ -920,7 +920,7 @@ public class ProductItemPanel extends javax.swing.JPanel {
             
             if (validated) {
                 // Convert String to int
-                int itemPrice = Integer.valueOf(itemPriceString);
+                double itemPrice = Double.valueOf(itemPriceString);
                 int itemQuantity = Integer.valueOf(itemQuantityString);
 
                 // Generate Item Id
