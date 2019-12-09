@@ -46,6 +46,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
         DecimalFormat unitFormat = new DecimalFormat("#,###");
 
         if (selected == 1) {
+            lblTopProducts.setText("Top Products");
             // Top products
             // Get the top products
             String[][] topProducts = InventoryTransaction.topProductItems();
@@ -80,6 +81,7 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
                 }
             }
         } else {
+            lblTopProducts.setText("Monthly Total Sales");
             // Monthly total sales
             double firstMonth = InventoryTransaction.totalRevenue(LocalDate.now().minusDays(LocalDate.now().getDayOfMonth()), LocalDate.now());
             double secondMonth = InventoryTransaction.totalRevenue(LocalDate.now().minusMonths(2).minusDays(LocalDate.now().getDayOfMonth()), LocalDate.now().minusMonths(1).minusDays(LocalDate.now().getDayOfMonth()));
