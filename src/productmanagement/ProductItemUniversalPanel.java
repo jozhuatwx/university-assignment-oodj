@@ -839,7 +839,8 @@ public class ProductItemUniversalPanel extends javax.swing.JPanel {
         if (isEditing) {
             // To let the user insert the image after pressed the label
             // Set the home directory of the filechooser to user
-            JFileChooser file = new JFileChooser("C:\\Users\\User\\Documents\\NetBeansProjects\\productmanagement\\src\\productmanagement\\img");
+            JFileChooser file = new JFileChooser();
+            file.setCurrentDirectory(new File(System.getProperty("user.home")));
             
             // Create a new file name extension which including .jpg and .png file
             FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg","png");
