@@ -703,7 +703,7 @@ public class ProfilePanel extends javax.swing.JPanel {
                                 // Create a Adminstrator object
                                 Administrator userDetail = new Administrator(userId, userName, userAddress, userEmail, userLoginName, userPassword);
                                 // Update the Administrator
-                                if (Administrator.modify(userDetail, false)) {
+                                if (Administrator.modify(userDetail, true)) {
                                     resetFields();
                                     main.isEditing = false;
                                 }
