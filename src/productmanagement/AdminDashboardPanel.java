@@ -86,13 +86,13 @@ public class AdminDashboardPanel extends javax.swing.JPanel {
             double thirdMonth = InventoryTransaction.totalRevenue(LocalDate.now().minusMonths(3).minusDays(LocalDate.now().getDayOfMonth()), LocalDate.now().minusMonths(2).minusDays(LocalDate.now().getDayOfMonth()));
 
             lblRightItem.setText(String.valueOf(LocalDate.now().getMonth()));
-            lblRightItemUnit.setText(String.valueOf(Math.round(firstMonth)));
+            lblRightItemUnit.setText(String.valueOf(unitFormat.format(Math.round(firstMonth))));
 
             lblCenterItem.setText(String.valueOf(LocalDate.now().minusMonths(1).getMonth()));
-            lblCenterItemUnit.setText(String.valueOf(Math.round(secondMonth)));
+            lblCenterItemUnit.setText(String.valueOf(unitFormat.format(Math.round(secondMonth))));
 
             lblLeftItem.setText(String.valueOf(LocalDate.now().minusMonths(2).getMonth()));
-            lblLeftItemUnit.setText(String.valueOf(Math.round(thirdMonth)));
+            lblLeftItemUnit.setText(String.valueOf(unitFormat.format(Math.round(thirdMonth))));
 
             double highest;
             if (firstMonth < secondMonth) {
